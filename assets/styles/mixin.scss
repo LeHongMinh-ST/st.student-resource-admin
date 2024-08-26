@@ -1,0 +1,11 @@
+@function rem($value) {
+  $base-font-size: 16px;
+
+  @if type-of($value) == 'number' and unit($value) == 'px' {
+    @return $value / $base-font-size * 1rem;
+  } @else if unit($value) == 'vh' {
+    @return $value;
+  } @else {
+    @error "The rem() function only accepts values in px or vh.";
+  }
+}
