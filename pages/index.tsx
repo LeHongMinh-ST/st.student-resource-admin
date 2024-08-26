@@ -1,4 +1,4 @@
-import { Welcome } from '../components/Welcome/Welcome';
+import { Welcome } from '@/components/Welcome/Welcome';
 
 export const getStaticProps = async () => ({
   props: {

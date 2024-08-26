@@ -24,6 +24,7 @@
   width: 100%;
   padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
   font-size: var(--mantine-font-size-sm);
+
   @include light;
 
   &:hover {
@@ -33,6 +34,7 @@
   &[data-active] {
     background-color: var(--mantine-color-white);
     color: var(--mantine-primary-color-filled);
+
     &:hover {
       @include hover-light;
     }
@@ -47,16 +49,18 @@
   margin-left: var(--mantine-spacing-xl);
   font-size: var(--mantine-font-size-sm);
   border-left: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
-  @include dark;
+
+  @include light;
 
   &:hover {
-    @include hover-dark;
+    @include hover-light;
   }
 
   &[data-active] {
-    @include hover-dark;
+    @include hover-light;
+
     &:hover {
-      @include hover-dark;
+      @include hover-light;
     }
   }
 }

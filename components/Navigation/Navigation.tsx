@@ -5,7 +5,7 @@ import sidebarNavigationAdmin from '@/constants/sidebarNavigation';
 import LinksGroup from '@/components/Navigation/Links/LinksGroup';
 import Logo from '@/components/Logo/Logo';
 import { SidebarNavigationLinkProp, User } from '@/types';
-import UserProfileButton from '@/components/UserProfileButton';
+import { UserProfileButton } from '@/components';
 import classes from '@/components/Navigation/navigation.module.scss';
 
 type NavigationProps = {
@@ -40,7 +40,7 @@ const Navigation: React.FC<NavigationProps> = ({ onClose, user }) => {
       <div className={classes.header}>
         <Flex justify="space-between" align="center" gap="sm">
           <Group justify="space-between" style={{ flex: tablet_match ? 'auto' : 1 }}>
-            <Logo text="STUDENT VNUA" href="/" className={classes.logo} style={{}} />
+            <Logo text="STUDENT VNUA" href="/" className={classes.logo} />
           </Group>
           {tablet_match && (
             <ActionIcon onClick={onClose} variant="transparent">

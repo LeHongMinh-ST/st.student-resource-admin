@@ -13,5 +13,6 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'import/extensions': 'off',
+    'css/no-global-function-names': 'off',
   },
 };

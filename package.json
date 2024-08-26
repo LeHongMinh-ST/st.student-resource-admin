@@ -14,15 +14,17 @@
     "jest": "jest",
     "jest:watch": "jest --watch",
     "prettier:check": "prettier --check \"**/*.{ts,tsx}\"",
-    "prettier:write": "prettier --write \"**/*.{ts,tsx}\"",
+    "prettier:write": "prettier --write \"**/*.{ts,tsx,scss,css,json}\"",
     "test": "npm run prettier:check && npm run lint && npm run typecheck && npm run jest",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,css,scss,md,json, html}": [
-      "npm run prettier:write"
+    "*.{js,jsx,ts,tsx,css,scss,md,html}": [
+      "npm run lint",
+      "npm run prettier:write",
+      "git add ."
     ]
   },
   "dependencies": {

@@ -8,23 +8,16 @@ import {
   Group,
   Menu,
   rem,
-  TextInput,
   Tooltip,
   useMantineColorScheme,
   useMantineTheme,
   Box,
 } from '@mantine/core';
-import {
-  IconCircleHalf2,
-  IconMoonStars,
-  IconPower,
-  IconSearch,
-  IconSunHigh,
-} from '@tabler/icons-react';
+import { IconPower } from '@tabler/icons-react';
 import { ReactNode } from 'react';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { UserProfileButton, Navigation } from '@/components';
-import classes from './main-layout.module.scss';
+import classes from '@/layouts/main-layout.module.scss';
 import { User } from '@/types';
 import Link from 'next/link';
 import router from 'next/router';
@@ -71,43 +64,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, className }) => {
                 </Tooltip>
               </Group>
               <Group>
-                {mobile_match && (
-                  <ActionIcon>
-                    <IconSearch size={20} />
-                  </ActionIcon>
-                )}
-                <Menu shadow="lg" width={200}>
-                  <Menu.Target>
-                    <Tooltip label="Chọn giao diện">
-                      <ActionIcon variant="light">
-                        {colorScheme === 'auto' ? (
-                          <IconCircleHalf2 size={20} />
-                        ) : colorScheme === 'dark' ? (
-                          <IconMoonStars size={20} />
-                        ) : (
-                          <IconSunHigh size={20} />
-                        )}
-                      </ActionIcon>
-                    </Tooltip>
-                  </Menu.Target>
-                  <Menu.Dropdown>
-                    <Menu.Label tt="uppercase" ta="center" fw={600}>
-                      Chọn giao diện
-                    </Menu.Label>
-                    <Menu.Item
-                      leftSection={<IconSunHigh size={16} />}
-                      onClick={() => setColorScheme('light')}
-                    >
-                      Sáng
-                    </Menu.Item>
-                    <Menu.Item
-                      leftSection={<IconMoonStars size={16} />}
-                      onClick={() => setColorScheme('dark')}
-                    >
-                      Tối
-                    </Menu.Item>
-                  </Menu.Dropdown>
-                </Menu>
                 <Menu shadow="lg" width={200}>
                   <Menu.Target>
                     <Tooltip label="User Account">
