@@ -1,11 +1,5 @@
-import { Welcome } from '@/components/Welcome/Welcome';
+import Dashboard from '@/features/dashboard';
 
-export const getStaticProps = async () => ({
-  props: {
-    layout: 'unloggedIn',
-  },
-});
+const HomePage = () => <Dashboard />;
 
-export default function HomePage() {
-  return <Welcome />;
-}
+export default HomePage;
