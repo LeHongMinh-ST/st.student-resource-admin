@@ -1,5 +1,6 @@
 import { ActionIcon, createTheme, Loader } from '@mantine/core';
 import { generateColors } from '@mantine/colors-generator';
+
 export const theme = createTheme({
   primaryColor: 'blue',
   focusRing: 'always',

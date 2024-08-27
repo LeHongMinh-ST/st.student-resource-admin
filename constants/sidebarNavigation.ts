@@ -1,5 +1,5 @@
-import { SidebarNavigationProps } from '@/types';
 import { IconBuilding, IconDashboard } from '@tabler/icons-react';
+import { SidebarNavigationProps } from '@/types';
 
 const sidebarNavigationAdmin: SidebarNavigationProps[] = [
   {

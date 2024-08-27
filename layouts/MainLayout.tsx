@@ -9,18 +9,17 @@ import {
   Menu,
   rem,
   Tooltip,
-  useMantineColorScheme,
   useMantineTheme,
   Box,
 } from '@mantine/core';
 import { IconPower } from '@tabler/icons-react';
 import { ReactNode } from 'react';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import Link from 'next/link';
+import router from 'next/router';
 import { UserProfileButton, Navigation } from '@/components';
 import classes from '@/layouts/main-layout.module.scss';
 import { User } from '@/types';
-import Link from 'next/link';
-import router from 'next/router';
 
 type MainLayoutProps = {
   className?: string;
@@ -31,8 +30,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, className }) => {
   const theme = useMantineTheme();
   const laptop_match = useMediaQuery('(min-width: 769px)');
   const tablet_match = useMediaQuery('(max-width: 768px)');
-  const mobile_match = useMediaQuery('(max-width: 425px)');
-  const { setColorScheme, colorScheme } = useMantineColorScheme();
+  // const mobile_match = useMediaQuery('(max-width: 425px)');
+  // const { setColorScheme, colorScheme } = useMantineColorScheme();
   const [isOpen, { toggle: onOpen }] = useDisclosure(laptop_match);
   const user: User = {} as User;
 
@@ -67,12 +66,12 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, className }) => {
                 <Menu shadow="lg" width={200}>
                   <Menu.Target>
                     <Tooltip label="User Account">
-                      <ActionIcon radius={'xl'} color={theme.primaryColor}>
+                      <ActionIcon radius="xl" color={theme.primaryColor}>
                         <Avatar
                           src={user?.thumbnail}
                           variant="filled"
                           size="md"
-                          radius={'xl'}
+                          radius="xl"
                           color={theme.primaryColor}
                         />
                       </ActionIcon>
@@ -108,7 +107,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, className }) => {
         <AppShell.Footer p="md">
           <Container fluid px="lg">
             <Group justify="space-between">
-              <UnstyledButton c="dimmed" fz="sm" component={Link} href={'/'} target="_blank">
+              <UnstyledButton c="dimmed" fz="sm" component={Link} href="/" target="_blank">
                 &copy;&nbsp;{new Date().getFullYear()}&nbsp;ST Team - Khoa công nghệ thông tin - Học
                 viện Nông nghiệp Việt Nam
               </UnstyledButton>
