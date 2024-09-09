@@ -20,6 +20,9 @@ const LoginPage = () => {
                   <Image src="/images/logo.png" alt="logo" className="loginWrap__logo" />
                   <Image src="/images/logoST.jpg" alt="logo" className="loginWrap__logo" />
                 </div>
+                <div className="loginWrap__subtitle">
+                  Khoa Công nghệ thông tin - Học viên Nông Nghiệp Việt Nam
+                </div>
                 <div className="loginWrap__title">
                   <h2>Hệ thống quản lý sinh viên trực tuyến</h2>
                 </div>
@@ -74,6 +77,16 @@ const LoginPageStyled = styled.div`
     .loginWrap__left {
       text-align: center;
       width: 450px;
+      .loginWrap__subtitle {
+        margin-top: 1rem;
+        font-size: 12px;
+        color: gray;
+      }
+      .loginWrap__title {
+        h2 {
+          margin-top: 0.25rem;
+        }
+      }
       .loginWrap__logos {
         display: flex;
         gap: 1rem;
