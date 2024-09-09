@@ -1,6 +1,11 @@
 import styled from '@emotion/styled';
-import { Container, Paper, Stack, Image, TextInput, Button } from '@mantine/core';
+import { Container, Paper, Stack, Image, TextInput, Button, Checkbox } from '@mantine/core';
 import { IconLock, IconLogin2, IconUser } from '@tabler/icons-react';
+import { useForm } from 'react-hook-form';
+import { redirect } from 'next/navigation';
+import { ERROR_MESSAGES } from '@/constants/errorMessages';
+import { LoginPrams, useAuthService } from '@/services/authService';
+import { useAuthStore } from '@/utils/recoil/auth/authState';
 import { Surface } from '@/components';
 
 const LoginPage = () => {
@@ -8,6 +13,42 @@ const LoginPage = () => {
   const iconLock = <IconLock width={18} />;
   const iconLogin2 = <IconLogin2 width={18} />;
 
+  const authService = useAuthService();
+  const authState = useAuthStore();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginPrams>({
+    defaultValues: {
+      username: '',
+      password: '',
+      isRemember: false,
+    },
+  });
+
+  const handleSubmitForm = async (data: LoginPrams) => {
+    if (!isSubmitting) {
+      try {
+        const res = await authService.login(data);
+
+        authState.setIsAuthentication(true);
+        authState.setExpiresIn(res?.data?.expires_in ?? 0);
+        authState.setAccessToken(res?.data?.access_token ?? '');
+        authState.setRefreshToken(res?.data?.refresh_token ?? '');
+
+        const profileRes = authService.getProfile();
+        authState.setAuthUser((profileRes as any)?.data ?? null);
+        authState.setIsRemember(data.isRemember);
+        authState.startRefreshTokenTimer();
+        redirect('/');
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
+
+  const submitLogin = handleSubmit(handleSubmitForm);
   return (
     <LoginPageStyled>
       <Container className="loginContainer">
@@ -42,15 +83,30 @@ const LoginPage = () => {
                     <h3>Đăng nhập hệ thống</h3>
                   </div>
                   <div className="loginWrap__form__main">
-                    <form className="loginForm">
-                      <TextInput size="md" label="Tài khoản/Email" leftSection={iconUser} />
+                    <form className="loginForm" onSubmit={submitLogin}>
+                      <TextInput
+                        size="md"
+                        label="Tài khoản/Email"
+                        leftSection={iconUser}
+                        {...register('username', {
+                          required: ERROR_MESSAGES.login.username.required,
+                        })}
+                        error={errors.username?.message}
+                      />
                       <TextInput
                         size="md"
                         label="Mật khẩu"
                         type="password"
                         leftSection={iconLock}
+                        {...register('password', {
+                          required: ERROR_MESSAGES.login.password.required,
+                        })}
+                        error={errors.password?.message}
                       />
-                      <Button leftSection={iconLogin2}>Đăng nhập</Button>
+                      <Checkbox label="Nhớ mật khẩu" {...register('isRemember')} />
+                      <Button type="submit" leftSection={iconLogin2}>
+                        Đăng nhập
+                      </Button>
                     </form>
                   </div>
                 </div>
@@ -116,7 +172,10 @@ const LoginPageStyled = styled.div`
     .loginWrap__right {
       width: 350px;
       input {
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      button {
+        margin-top: 1rem;
       }
     }
   }
