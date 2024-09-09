@@ -1,6 +1,6 @@
 export const ERROR_MESSAGES = {
   login: {
-    username: {
+    user_name: {
       required: 'Vui lòng nhập tài khoản hoặc email',
     },
     password: {

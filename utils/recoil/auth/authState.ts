@@ -1,6 +1,5 @@
 import nookies from 'nookies';
-import { useCallback } from 'react';
-import { atom, selector, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom, useRecoilState } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 import { RefreshTokenPrams, useAuthService } from '@/services/authService';
 import { User } from '@/types';
@@ -17,7 +16,7 @@ export type AuthState = {
 };
 
 export const authState = atom<AuthState>({
-  key: 'authState',
+  key: 'auth',
   default: {
     isAuthentication: false,
     authUser: null,
@@ -26,29 +25,6 @@ export const authState = atom<AuthState>({
     refreshTokenTimeout: 0,
   },
   effects_UNSTABLE: [persistAtom],
-});
-
-export const useAuth = () => useRecoilValue(authState);
-
-export const useSetAuth = () => {
-  const setState = useSetRecoilState(authState);
-  const setAuthState = useCallback(setState, [setState]);
-  return setAuthState;
-};
-
-const getIsAuthentication = selector({
-  key: 'getIsAuthentication',
-  get: ({ get }) => get(authState).isAuthentication,
-});
-
-const getAuthUser = selector({
-  get: ({ get }) => get(authState).authUser,
-  key: 'getAuthUser',
-});
-
-const getExpiresIn = selector({
-  key: 'getExpiresIn',
-  get: ({ get }) => get(authState).expiresIn,
 });
 
 export const useAuthStore = () => {
@@ -89,7 +65,7 @@ export const useAuthStore = () => {
     const refreshToken = cookies?.refreshToken;
     if (refreshToken) {
       const authService = useAuthService();
-      const partial = { refreshToken } as RefreshTokenPrams;
+      const partial = { refresh_token: refreshToken } as RefreshTokenPrams;
 
       try {
         const res: any = await authService.refreshToken(partial);
@@ -149,8 +125,3 @@ export const useAuthStore = () => {
     logout,
   };
 };
-
-// To use selectors:
-export const useIsAuthentication = () => useRecoilValue(getIsAuthentication);
-export const useAuthUser = () => useRecoilValue(getAuthUser);
-export const useExpiresIn = () => useRecoilValue(getExpiresIn);

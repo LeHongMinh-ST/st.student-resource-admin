@@ -2,10 +2,11 @@ import '@mantine/core/styles.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { MantineProvider } from '@mantine/core';
-import { Notifications } from '@mantine/notifications';
 import { RecoilRoot } from 'recoil';
+import { Notifications } from '@mantine/notifications';
 import { MainLayout } from '@/layouts';
 import '@/assets/styles/app.css';
+import '@mantine/notifications/styles.css';
 import { theme } from '../theme';
 
 export default function App({ Component, pageProps }: AppProps) {

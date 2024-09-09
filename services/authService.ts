@@ -1,21 +1,21 @@
 import axiosInstance from '@/utils/axios';
 
 export type LoginPrams = {
-  username: string;
+  user_name: string;
   password: string;
-  isRemember: boolean;
+  remember: boolean;
 };
 
 export type RefreshTokenPrams = {
-  refreshToken: string;
+  refresh_token: string;
 };
 
 export const useAuthService = () => {
-  const login = (params: LoginPrams) => axiosInstance.post('/login', params);
+  const login = (params: LoginPrams) => axiosInstance.post('/auth/login', params);
 
-  const refreshToken = (params: RefreshTokenPrams) => axiosInstance.post('/refresh', params);
+  const refreshToken = (params: RefreshTokenPrams) => axiosInstance.post('/auth/refresh', params);
 
-  const getProfile = () => axiosInstance.get('/profile');
+  const getProfile = () => axiosInstance.get('/auth/profile');
 
   return {
     login,

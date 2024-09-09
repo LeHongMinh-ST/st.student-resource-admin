@@ -3,14 +3,12 @@ import axios from 'axios';
 import HttpStatus from '@/enums/http-status.enum';
 
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_API_URL,
-  withCredentials: true,
+  baseURL: `${process.env.NEXT_PUBLIC_BASE_API_URL}/v1/admin`,
 });
 
 axiosInstance.interceptors.request.use(
   (config) => {
     const cookies = parseCookies(); // Retrieves cookies on the client side
-
     const accessToken = cookies?.accessToken;
 
     // If token is present, add it to request's Authorization Header
