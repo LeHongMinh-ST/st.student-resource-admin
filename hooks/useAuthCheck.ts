@@ -12,12 +12,14 @@ const useAuthCheck = () => {
   const authCheck = useCallback(
     (url: string) => {
       const path = url.split('?')[0];
-      if (!authState.isAuthentication && !publicPaths.includes(path)) {
+      if (!authState.isAuthentication) {
         setAuthorized(false);
-        router.push({
-          pathname: '/login',
-          query: { returnUrl: router.asPath },
-        });
+        if (!publicPaths.includes(path)) {
+          router.push({
+            pathname: '/login',
+            query: { returnUrl: router.asPath },
+          });
+        }
       } else {
         setAuthorized(true);
         if (publicPaths.includes(path)) {
