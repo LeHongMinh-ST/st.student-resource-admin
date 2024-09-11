@@ -1,13 +1,5 @@
 import { IconChevronRight } from '@tabler/icons-react';
-import {
-  Avatar,
-  Group,
-  Text,
-  UnstyledButton,
-  UnstyledButtonProps,
-  Flex,
-  Stack,
-} from '@mantine/core';
+import { Avatar, Group, Text, UnstyledButton, UnstyledButtonProps, Stack } from '@mantine/core';
 import { ReactNode } from 'react';
 import Link from 'next/link';
 import { User } from '@/types';
@@ -28,18 +20,16 @@ const UserProfileButton: React.FC<UserProfileButtonProps> = ({
   ...others
 }) => (
   <UnstyledButton href="/" component={Link} className={classes.user} {...others}>
-    <Flex align="center" gap={8}>
-      <Avatar variant="filled" radius="xl" size={hasEmail ? 'md' : 'sm'} src={user?.thumbnail} />
-      <Stack gap={0}>
-        <Group gap={4}>
-          <Text size="sm">{user?.last_name}</Text>
-          <Text size="sm">{user?.first_name}</Text>
-        </Group>
-        {hasEmail && <Text size="xs">{user?.email}</Text>}
-      </Stack>
+    <Avatar variant="filled" radius="xl" size={hasEmail ? 'md' : 'sm'} src={user?.thumbnail} />
+    <Stack gap={0}>
+      <Group gap={4}>
+        <Text size="sm">{user?.last_name}</Text>
+        <Text size="sm">{user?.first_name}</Text>
+      </Group>
+      {hasEmail && <Text size="xs">{user?.email}</Text>}
+    </Stack>
 
-      {icon && asAction && <IconChevronRight size="0.9rem" stroke={1.5} />}
-    </Flex>
+    {icon && asAction && <IconChevronRight size="0.9rem" stroke={1.5} />}
   </UnstyledButton>
 );
 

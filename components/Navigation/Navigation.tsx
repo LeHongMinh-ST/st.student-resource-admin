@@ -1,4 +1,4 @@
-import { ActionIcon, Box, Flex, Group, ScrollArea, Text } from '@mantine/core';
+import { ActionIcon, Box, Group, ScrollArea, Text } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconX } from '@tabler/icons-react';
 import sidebarNavigationAdmin from '@/constants/sidebarNavigation';
@@ -38,7 +38,7 @@ const Navigation: React.FC<NavigationProps> = ({ onClose, user }) => {
   return (
     <nav className={classes.navbar}>
       <div className={classes.header}>
-        <Flex justify="space-between" align="center" gap="sm">
+        <div>
           <Group justify="space-between" style={{ flex: tablet_match ? 'auto' : 1 }}>
             <Logo text="STUDENT VNUA" href="/" className={classes.logo} />
           </Group>
@@ -47,16 +47,16 @@ const Navigation: React.FC<NavigationProps> = ({ onClose, user }) => {
               <IconX color="white" />
             </ActionIcon>
           )}
-        </Flex>
+        </div>
       </div>
 
       <ScrollArea className={classes.links}>
         <div className={classes.linksInner}>{links}</div>
       </ScrollArea>
 
-      <Flex className={classes.footer}>
+      <div className={classes.footer}>
         <UserProfileButton user={user} hasEmail />
-      </Flex>
+      </div>
     </nav>
   );
 };

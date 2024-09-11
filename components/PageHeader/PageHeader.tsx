@@ -2,7 +2,6 @@ import {
   Anchor,
   Breadcrumbs,
   Divider,
-  Flex,
   Paper,
   PaperProps,
   Stack,
@@ -33,12 +32,8 @@ const PageHeader = (props: PageHeaderProps) => {
     <>
       <Surface shadow="sm" p={16} radius="md" component={Paper} {...others}>
         {hasGreetings ? (
-          <Flex
-            justify="space-between"
-            direction={{ base: 'column', sm: 'row' }}
-            gap={{ base: 'sm', sm: 4 }}
-          >
-            <Flex gap={16}>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
               {getHours >= 0 && getHours <= 6 ? (
                 <IconMoonStars size={40} color={theme.colors.blue[9]} />
               ) : getHours >= 7 && getHours <= 18 ? (
@@ -56,15 +51,10 @@ const PageHeader = (props: PageHeaderProps) => {
                 </Title>
                 <Text>Chúc bạn có một ngày làm việc hiệu quả, {props.user.first_name}</Text>
               </Stack>
-            </Flex>
-          </Flex>
+            </div>
+          </div>
         ) : withActions ? (
-          <Flex
-            align="center"
-            justify="space-between"
-            direction={{ base: 'column', sm: 'row' }}
-            gap={{ base: 12, sm: 4 }}
-          >
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Stack>
               <Title order={3}>{title}</Title>
               <Breadcrumbs separator="→">
@@ -76,7 +66,7 @@ const PageHeader = (props: PageHeaderProps) => {
               </Breadcrumbs>
             </Stack>
             {withActions}
-          </Flex>
+          </div>
         ) : (
           <Stack gap="sm">
             <Title order={3}>{title}</Title>
