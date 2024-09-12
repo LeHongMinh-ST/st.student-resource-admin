@@ -42,7 +42,7 @@ export const useAuthStore = () => {
 
   const setAccessToken = (accessToken: string, ctx = null) => {
     nookies.set(ctx, 'accessToken', accessToken, {
-      maxAge: 60,
+      maxAge: 60 * 60,
       path: '/',
     });
   };
@@ -74,7 +74,6 @@ export const useAuthStore = () => {
   const startRefreshTokenTimer = () => {
     const timeout = state.expiresIn * MILLISECOND; // Timeout in milliseconds
     const timer = setTimeout(() => handleRefresh(), timeout);
-
     // Update state with the new timeout ID
     setState((prevState: AuthState) => ({
       ...prevState,
