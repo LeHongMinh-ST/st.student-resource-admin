@@ -20,16 +20,18 @@ const UserProfileButton: React.FC<UserProfileButtonProps> = ({
   ...others
 }) => (
   <UnstyledButton href="/" component={Link} className={classes.user} {...others}>
-    <Avatar variant="filled" radius="xl" size={hasEmail ? 'md' : 'sm'} src={user?.thumbnail} />
-    <Stack gap={0}>
-      <Group gap={4}>
-        <Text size="sm">{user?.last_name}</Text>
-        <Text size="sm">{user?.first_name}</Text>
-      </Group>
-      {hasEmail && <Text size="xs">{user?.email}</Text>}
-    </Stack>
+    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+      <Avatar variant="filled" radius="xl" size={hasEmail ? 'md' : 'sm'} src={user?.thumbnail} />
+      <Stack gap={0}>
+        <Group gap={4}>
+          <Text size="sm">{user?.last_name}</Text>
+          <Text size="sm">{user?.first_name}</Text>
+        </Group>
+        {hasEmail && <Text size="xs">{user?.email}</Text>}
+      </Stack>
 
-    {icon && asAction && <IconChevronRight size="0.9rem" stroke={1.5} />}
+      {icon && asAction && <IconChevronRight size="0.9rem" stroke={1.5} />}
+    </div>
   </UnstyledButton>
 );
 

@@ -35,14 +35,15 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, className }) => {
   // const mobile_match = useMediaQuery('(max-width: 425px)');
   // const { setColorScheme, colorScheme } = useMantineColorScheme();
   const [isOpen, { toggle: onOpen }] = useDisclosure(laptop_match);
-  const user: User = {} as User;
-  const router = useRouter();
   const authState = useAuthStore();
+  const user: User = authState.authUser ?? ({} as User);
+  console.log(user);
+  const router = useRouter();
   const authorized = useAuthCheck();
 
   const handleLogout = () => {
     authState.logout();
-    router.push('/logout');
+    router.push('/login');
   };
 
   return (
@@ -76,7 +77,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, className }) => {
                 <Group>
                   <Menu shadow="lg" width={200}>
                     <Menu.Target>
-                      <Tooltip label="User Account">
+                      <Tooltip label="Tài khoản">
                         <ActionIcon radius="xl" color={theme.primaryColor}>
                           <Avatar
                             src={user?.thumbnail}
