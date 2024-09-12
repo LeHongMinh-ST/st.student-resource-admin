@@ -49,7 +49,10 @@ const PageHeader = (props: PageHeaderProps) => {
                       ? 'Chào buổi chiều!'
                       : 'Chào buổi tối!'}
                 </Title>
-                <Text>Chúc bạn có một ngày làm việc hiệu quả, {props.user.first_name}</Text>
+                <Text>
+                  Chúc bạn có một ngày làm việc hiệu quả, {props.user.last_name}{' '}
+                  {props.user.first_name}
+                </Text>
               </Stack>
             </div>
           </div>

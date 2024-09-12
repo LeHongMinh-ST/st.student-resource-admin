@@ -37,7 +37,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, className }) => {
   const [isOpen, { toggle: onOpen }] = useDisclosure(laptop_match);
   const authState = useAuthStore();
   const user: User = authState.authUser ?? ({} as User);
-  console.log(user);
   const router = useRouter();
   const authorized = useAuthCheck();
 
