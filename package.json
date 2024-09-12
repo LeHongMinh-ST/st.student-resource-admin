@@ -49,6 +49,8 @@
     "@tiptap/react": "^2.6.6",
     "@tiptap/starter-kit": "^2.6.6",
     "axios": "^1.7.5",
+    "clsx": "^2.1.1",
+    "mantine-datatable": "^7.12.4",
     "next": "14.2.4",
     "nookies": "^2.5.2",
     "react": "18.3.1",

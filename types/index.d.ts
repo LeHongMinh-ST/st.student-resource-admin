@@ -5,6 +5,26 @@ declare module '*.svg' {
   export default content;
 }
 
+type MetaResponse = {
+  current_page: number;
+  last_page: number;
+  per_page: number;
+  total: number;
+};
+
+type ResultResonse<T> = {
+  data: T;
+  meta?: MetaResponse;
+};
+
+type BaseParamsList = {
+  limit?: number;
+  page?: number;
+  q?: string;
+  order?: 'asc' | 'desc';
+  orderBy?: string;
+};
+
 type SidebarNavigationProps = {
   title: string;
   links: SidebarNavigationLinkProp[];
@@ -28,6 +48,7 @@ type User = {
   thumbnail?: string;
   department_id?: number | null;
   role?: RoleEnum;
+  status?: Status;
   created_at?: string;
   updated_at?: string;
 };

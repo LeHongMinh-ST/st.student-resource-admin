@@ -1,18 +1,19 @@
 import { useState, useEffect, useCallback } from 'react';
+import { parseCookies } from 'nookies';
 import { useRouter } from 'next/router';
-import { useAuthStore } from '@/utils/recoil/auth/authState';
 
 const publicPaths = ['/login'];
 
 const useAuthCheck = () => {
   const router = useRouter();
   const [authorized, setAuthorized] = useState<boolean>(false);
-  const authState = useAuthStore();
 
   const authCheck = useCallback(
     (url: string) => {
       const path = url.split('?')[0];
-      if (!authState.isAuthentication) {
+      const cookies = parseCookies(); // Retrieves cookies on the client side
+      const accessToken = cookies?.accessToken;
+      if (!accessToken) {
         setAuthorized(false);
         if (!publicPaths.includes(path)) {
           router.push({
@@ -27,7 +28,7 @@ const useAuthCheck = () => {
         }
       }
     },
-    [authState.isAuthentication, publicPaths, router]
+    [publicPaths, router]
   );
 
   useEffect(() => {

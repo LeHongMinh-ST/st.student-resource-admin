@@ -6,6 +6,7 @@ import { RecoilRoot } from 'recoil';
 import { Notifications } from '@mantine/notifications';
 import { MainLayout } from '@/layouts';
 import '@/assets/styles/app.css';
+import 'mantine-datatable/styles.layer.css';
 import '@mantine/notifications/styles.css';
 import { theme } from '../theme';
 

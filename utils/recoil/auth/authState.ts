@@ -8,7 +8,6 @@ const { persistAtom } = recoilPersist();
 const MILLISECOND = 1000;
 
 export type AuthState = {
-  isAuthentication: boolean;
   authUser: User | null;
   isRemember: boolean;
   expiresIn: number;
@@ -18,7 +17,6 @@ export type AuthState = {
 export const authState = atom<AuthState>({
   key: 'auth',
   default: {
-    isAuthentication: false,
     authUser: null,
     isRemember: false,
     expiresIn: 0,
@@ -29,10 +27,6 @@ export const authState = atom<AuthState>({
 
 export const useAuthStore = () => {
   const [state, setState] = useRecoilState(authState);
-
-  const setIsAuthentication = (isAuthentication: boolean) => {
-    setState((prevState) => ({ ...prevState, isAuthentication }));
-  };
 
   const setAuthUser = (user: User | null) => {
     setState((prevState) => ({ ...prevState, authUser: user }));
@@ -100,7 +94,6 @@ export const useAuthStore = () => {
 
   const logout = (ctx = null) => {
     setState({
-      isAuthentication: false,
       authUser: null,
       isRemember: false,
       expiresIn: 0,
@@ -113,7 +106,6 @@ export const useAuthStore = () => {
 
   return {
     ...state,
-    setIsAuthentication,
     setAuthUser,
     setIsRemember,
     setExpiresIn,

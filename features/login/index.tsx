@@ -1,5 +1,14 @@
 import styled from '@emotion/styled';
-import { Container, Paper, Stack, Image, TextInput, Button, Checkbox } from '@mantine/core';
+import {
+  Container,
+  Paper,
+  Stack,
+  Image,
+  TextInput,
+  Button,
+  Checkbox,
+  LoadingOverlay,
+} from '@mantine/core';
 import { IconAlertTriangle, IconLock, IconLogin2, IconUser } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
 import { notifications } from '@mantine/notifications';
@@ -36,10 +45,9 @@ const LoginPage = () => {
       try {
         const res = await authService.login(data);
 
-        authState.setIsAuthentication(true);
-        authState.setExpiresIn(res?.data?.expires_in ?? 0);
-        authState.setAccessToken(res?.data?.access_token ?? '');
-        authState.setRefreshToken(res?.data?.refresh_token ?? '');
+        authState.setExpiresIn(res.data.expires_in ?? 0);
+        authState.setAccessToken(res.data.access_token ?? '');
+        authState.setRefreshToken(res.data.refresh_token ?? '');
         authState.setIsRemember(data.remember);
 
         const profileRes = await authService.getProfile();
@@ -67,6 +75,7 @@ const LoginPage = () => {
   return (
     !authorized && (
       <LoginPageStyled>
+        <LoadingOverlay visible={isSubmitting} />
         <Container className="loginContainer">
           <Stack align="center" justify="center" gap="md" className="loginStack">
             <Surface shadow="sm" p={16} radius="md" component={Paper} className="loginSurface">

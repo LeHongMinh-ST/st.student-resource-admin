@@ -17,7 +17,7 @@ import { User } from '@/types';
 
 type PageHeaderProps = {
   title: string;
-  user: User;
+  user?: User;
   hasGreetings?: boolean;
   withActions?: ReactNode;
   breadcrumbItems?: any;
@@ -52,19 +52,19 @@ const PageHeader = (props: PageHeaderProps) => {
     <>
       <Surface shadow="sm" p={16} radius="md" component={Paper} {...others}>
         {hasGreetings ? (
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
               {GreetingIcon}
               <Stack gap={4}>
                 <Title order={3}>{greetingMessage}</Title>
                 <Text>
-                  Chúc bạn có một ngày làm việc hiệu quả, {user.last_name} {user.first_name}
+                  Chúc bạn có một ngày làm việc hiệu quả, {user?.last_name} {user?.first_name}
                 </Text>
               </Stack>
             </div>
           </div>
         ) : (
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Stack>
               <Title order={3}>{title}</Title>
               {BreadcrumbsComponent}

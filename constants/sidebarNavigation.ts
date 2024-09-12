@@ -57,7 +57,7 @@ const sidebarNavigationAdmin: SidebarNavigationProps[] = [
     links: [
       { label: 'Thông báo', icon: IconBellRinging2, link: '/notification' },
       { label: 'Cài đặt', icon: IconSettings, link: '/settings' },
-      { label: 'Người dùng', icon: IconUser, link: '/users' },
+      { label: 'Tài khoản', icon: IconUser, link: '/users' },
     ],
   },
 ];
