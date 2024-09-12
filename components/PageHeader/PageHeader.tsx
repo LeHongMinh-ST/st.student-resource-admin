@@ -24,34 +24,41 @@ type PageHeaderProps = {
 } & PaperProps;
 
 const PageHeader = (props: PageHeaderProps) => {
-  const { hasGreetings, withActions, breadcrumbItems, title, ...others } = props;
+  const { hasGreetings, user, withActions, breadcrumbItems, title, ...others } = props;
   const theme = useMantineTheme();
   const getHours = new Date().getHours();
+
+  const greetingMessage =
+    getHours < 12 ? 'Chào buổi sáng!' : getHours <= 18 ? 'Chào buổi chiều!' : 'Chào buổi tối!';
+
+  const GreetingIcon =
+    getHours >= 7 && getHours <= 18 ? (
+      <IconSunHigh size={40} color={theme.colors.yellow[5]} />
+    ) : (
+      <IconMoonStars size={40} color={theme.colors.blue[9]} />
+    );
+
+  const BreadcrumbsComponent = (
+    <Breadcrumbs separator="→">
+      {breadcrumbItems?.map((item: { title: string; href: string }, index: number) => (
+        <Anchor component={Link} href={item.href} key={index}>
+          {item.title}
+        </Anchor>
+      ))}
+    </Breadcrumbs>
+  );
 
   return (
     <>
       <Surface shadow="sm" p={16} radius="md" component={Paper} {...others}>
         {hasGreetings ? (
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              {getHours >= 0 && getHours <= 6 ? (
-                <IconMoonStars size={40} color={theme.colors.blue[9]} />
-              ) : getHours >= 7 && getHours <= 18 ? (
-                <IconSunHigh size={40} color={theme.colors.yellow[5]} />
-              ) : (
-                <IconMoonStars size={40} color={theme.colors.blue[9]} />
-              )}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              {GreetingIcon}
               <Stack gap={4}>
-                <Title order={3}>
-                  {getHours >= 0 && getHours < 12
-                    ? 'Chào buổi sáng!'
-                    : getHours >= 12 && getHours <= 18
-                      ? 'Chào buổi chiều!'
-                      : 'Chào buổi tối!'}
-                </Title>
+                <Title order={3}>{greetingMessage}</Title>
                 <Text>
-                  Chúc bạn có một ngày làm việc hiệu quả, {props.user.last_name}{' '}
-                  {props.user.first_name}
+                  Chúc bạn có một ngày làm việc hiệu quả, {user.last_name} {user.first_name}
                 </Text>
               </Stack>
             </div>
@@ -60,26 +67,14 @@ const PageHeader = (props: PageHeaderProps) => {
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Stack>
               <Title order={3}>{title}</Title>
-              <Breadcrumbs separator="→">
-                {breadcrumbItems.map((item: { title: string; href: string }, index: number) => (
-                  <Anchor component={Link} href={item.href} key={index}>
-                    {item.title}
-                  </Anchor>
-                ))}
-              </Breadcrumbs>
+              {BreadcrumbsComponent}
             </Stack>
             {withActions}
           </div>
         ) : (
           <Stack gap="sm">
             <Title order={3}>{title}</Title>
-            <Breadcrumbs separator="→">
-              {breadcrumbItems.map((item: { title: string; href: string }, index: number) => (
-                <Anchor component={Link} href={item.href} key={index}>
-                  {item.title}
-                </Anchor>
-              ))}
-            </Breadcrumbs>
+            {BreadcrumbsComponent}
           </Stack>
         )}
       </Surface>
