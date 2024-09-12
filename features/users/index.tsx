@@ -1,17 +1,7 @@
 'use client';
 
 import styled from '@emotion/styled';
-import {
-  Avatar,
-  Button,
-  Container,
-  Text,
-  Stack,
-  TextInput,
-  useMantineTheme,
-  Paper,
-  Menu,
-} from '@mantine/core';
+import { Button, Container, Text, Stack, TextInput, Paper, Menu } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -19,21 +9,22 @@ import { DataTableProps } from 'mantine-datatable';
 import { IconEdit, IconDotsVertical, IconPlus, IconSearch, IconTrash } from '@tabler/icons-react';
 import { dashboardRoute, userRoute } from '@/routes';
 import { UserListParams, useUserService } from '@/services/userService';
+import { useAuthStore } from '@/utils/recoil/auth/authState';
 import { MetaResponse, User } from '@/types';
-import { PageHeader, CommonDataTable } from '@/components';
+import { PageHeader, CommonDataTable, DeleteModal } from '@/components';
 import { defaultPage, defaultPramsList } from '@/constants/commons';
 import { RoleBadge } from '@/components/RoleBadge';
 import { formatDateString } from '@/utils/func/formatDateString';
-import DeleteModal from '@/components/Modals/DeleteModal/DeleteModal';
+import UserNameCellTable from './components/cell/UserNameCellTable';
 
 const UserPage = () => {
   const userService = useUserService();
-  const theme = useMantineTheme();
   const [users, setUsers] = useState<User[]>([]);
   const [meta, setMeta] = useState<MetaResponse>(defaultPage);
   const [userParams, setUserParams] = useState<UserListParams>({ ...defaultPramsList });
   const [isOpen, { open: onOpen, close: onClose }] = useDisclosure(false);
   const [selected, setSelected] = useState<User>();
+  const { authUser } = useAuthStore();
 
   useEffect(() => {
     handleGetListUser().then();
@@ -60,24 +51,7 @@ const UserPage = () => {
     {
       accessor: 'firstname',
       title: 'Tài khoản',
-      render: (user: User) => (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <Avatar
-            variant="filled"
-            radius="xl"
-            size="md"
-            src={user.thumbnail}
-            alt={`${user.last_name} ${user.first_name}`}
-            color={theme.primaryColor}
-          ></Avatar>
-          <Stack gap={0}>
-            <Text fz="sm" fw={600}>
-              {user.first_name} {user.last_name}
-            </Text>
-            <Text fz="xs">{user.email}</Text>
-          </Stack>
-        </div>
-      ),
+      render: (user: User) => <UserNameCellTable user={user} />,
       sortable: true,
       filter: (
         <TextInput
@@ -93,7 +67,7 @@ const UserPage = () => {
       ),
     },
     {
-      accessor: 'Role',
+      accessor: 'role',
       title: 'Vai trò',
       render: (user: User) => <RoleBadge role={user?.role} />,
     },
@@ -130,19 +104,21 @@ const UserPage = () => {
             >
               Chỉnh sửa
             </Menu.Item>
-            <Menu.Item
-              fw={600}
-              fz="sm"
-              color="red"
-              variant="filled"
-              leftSection={<IconTrash size={16} />}
-              onClick={() => {
-                setSelected(() => user);
-                onOpen();
-              }}
-            >
-              Xóa
-            </Menu.Item>
+            {user?.id !== authUser?.id && (
+              <Menu.Item
+                fw={600}
+                fz="sm"
+                color="red"
+                variant="filled"
+                leftSection={<IconTrash size={16} />}
+                onClick={() => {
+                  setSelected(() => user);
+                  onOpen();
+                }}
+              >
+                Xóa
+              </Menu.Item>
+            )}
           </Menu.Dropdown>
         </Menu>
       ),
@@ -160,10 +136,10 @@ const UserPage = () => {
       <Container fluid>
         <Stack gap="lg">
           <PageHeader
-            title="Danh sách - Tài khoản"
+            title="Tài khoản - Danh sách"
             breadcrumbItems={[
               { title: 'Bảng điều khiển', href: dashboardRoute.dashboard },
-              { title: 'Tài khoản', href: userRoute.list },
+              { title: 'Tài khoản', href: null },
             ]}
             withActions={
               <Button component={Link} href={userRoute.create} leftSection={<IconPlus size={18} />}>

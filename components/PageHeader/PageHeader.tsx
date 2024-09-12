@@ -10,7 +10,7 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { ReactNode } from 'react';
-import { IconMoonStars, IconSunHigh } from '@tabler/icons-react';
+import { IconChevronRight, IconMoonStars, IconSunHigh } from '@tabler/icons-react';
 import Link from 'next/link';
 import { Surface } from '@/components';
 import { User } from '@/types';
@@ -39,12 +39,16 @@ const PageHeader = (props: PageHeaderProps) => {
     );
 
   const BreadcrumbsComponent = (
-    <Breadcrumbs separator="→">
-      {breadcrumbItems?.map((item: { title: string; href: string }, index: number) => (
-        <Anchor component={Link} href={item.href} key={index}>
-          {item.title}
-        </Anchor>
-      ))}
+    <Breadcrumbs separator={<IconChevronRight size={16} />}>
+      {breadcrumbItems?.map((item: { title: string; href: string | null }, index: number) =>
+        item?.href ? (
+          <Anchor component={Link} href={item?.href ?? ''} key={index}>
+            {item.title}
+          </Anchor>
+        ) : (
+          <Text>{item.title}</Text>
+        )
+      )}
     </Breadcrumbs>
   );
 

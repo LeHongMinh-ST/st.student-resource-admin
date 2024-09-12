@@ -25,6 +25,11 @@ type BaseParamsList = {
   orderBy?: string;
 };
 
+type SelectList<T> = {
+  value: T;
+  label: string;
+};
+
 type SidebarNavigationProps = {
   title: string;
   links: SidebarNavigationLinkProp[];
@@ -47,7 +52,7 @@ type User = {
   code?: string | null;
   thumbnail?: string;
   department_id?: number | null;
-  role?: RoleEnum;
+  role: RoleEnum;
   status?: Status;
   created_at?: string;
   updated_at?: string;

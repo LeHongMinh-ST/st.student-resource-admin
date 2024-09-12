@@ -5,8 +5,8 @@ type CommonDataTableProps<T> = {
   columns: DataTableProps<T>['columns'];
   records: T[];
   meta: MetaResponse;
-  onPageChange?: () => {};
-  onRecordsPerPageChange?: () => {};
+  onPageChange: (page: number) => void;
+  onRecordsPerPageChange: (perPage: number) => void;
   noRecordsText?: string;
 };
 
@@ -20,11 +20,11 @@ export default function CommonDataTable<T>({
 }: CommonDataTableProps<T>) {
   return (
     <DataTable
-      minHeight={200}
+      minHeight={400}
       verticalSpacing="xs"
       striped
       highlightOnHover
-      columns={columns}
+      columns={columns ?? []}
       records={records}
       recordsPerPageOptions={[5, 10, 20, 50]}
       totalRecords={meta.total}
@@ -32,8 +32,8 @@ export default function CommonDataTable<T>({
       recordsPerPage={meta.per_page}
       noRecordsText={noRecordsText}
       recordsPerPageLabel=""
-      onPageChange={onPageChange}
-      onRecordsPerPageChange={onRecordsPerPageChange}
+      onPageChange={(page) => onPageChange(page)}
+      onRecordsPerPageChange={(perPage) => onRecordsPerPageChange(perPage)}
     />
   );
 }

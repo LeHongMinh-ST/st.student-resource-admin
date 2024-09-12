@@ -26,7 +26,7 @@ axiosInstance.interceptors.response.use(
     if (error.response) {
       const status = error?.response.status;
 
-      if (status === HttpStatus.HTTP_UNAUTHORIZED || status === HttpStatus.HTTP_FORBIDDEN) {
+      if (status === HttpStatus.HTTP_UNAUTHORIZED) {
         // Remove access and refresh tokens when unauthorized or forbidden
         if (typeof window !== 'undefined' && window.location.pathname !== '/login') {
           destroyCookie(null, 'accessToken', { path: '/' });

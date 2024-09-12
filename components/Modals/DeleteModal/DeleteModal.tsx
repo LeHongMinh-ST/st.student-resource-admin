@@ -2,6 +2,7 @@ import { Modal, Stack, SimpleGrid, Button, Text } from '@mantine/core';
 import { IconAlertCircle, IconAlertTriangle, IconCheck } from '@tabler/icons-react';
 import { notifications } from '@mantine/notifications';
 import { useState } from 'react';
+import HttpStatus from '@/enums/http-status.enum';
 
 type DeleteModalProps = {
   entityName: string;
@@ -26,14 +27,24 @@ export default function DeleteModal({ entityName, isOpen, onClose, onDelete }: D
           autoClose: 5000,
         });
       }
-    } catch (e) {
-      notifications.show({
-        title: 'Thất bại!',
-        message: 'Có lỗi xảy ra! vui lòng thử lại sau.',
-        icon: <IconAlertTriangle />,
-        color: 'red',
-        autoClose: 5000,
-      });
+    } catch (e: any) {
+      if (e?.status === HttpStatus.HTTP_FORBIDDEN) {
+        notifications.show({
+          title: 'Thất bại!',
+          message: 'Bạn không có quyền thực hiện chức năng này!',
+          icon: <IconAlertTriangle />,
+          color: 'red',
+          autoClose: 5000,
+        });
+      } else {
+        notifications.show({
+          title: 'Thất bại!',
+          message: 'Có lỗi xảy ra! vui lòng thử lại sau.',
+          icon: <IconAlertTriangle />,
+          color: 'red',
+          autoClose: 5000,
+        });
+      }
     }
     setFetching(false);
   };

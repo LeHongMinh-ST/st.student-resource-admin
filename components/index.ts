@@ -6,3 +6,4 @@ export { PageHeader } from '@/components/PageHeader';
 export { StatusBadge } from '@/components/StatusBadge';
 export { RoleBadge } from '@/components/RoleBadge';
 export { CommonDataTable } from '@/components/CommonDataTable';
+export { DeleteModal } from '@/components/Modals';
