@@ -152,7 +152,7 @@ const UserPage = () => {
   return (
     <UserPageStyled>
       <DeleteModal
-        entityName="Tài Khoản"
+        entityName="tài khoản"
         onDelete={handleDelete}
         isOpen={isOpen}
         onClose={onClose}

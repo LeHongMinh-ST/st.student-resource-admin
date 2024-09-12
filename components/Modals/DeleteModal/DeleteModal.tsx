@@ -1,5 +1,5 @@
 import { Modal, Stack, SimpleGrid, Button, Text } from '@mantine/core';
-import { IconAlertTriangle, IconCheck } from '@tabler/icons-react';
+import { IconAlertCircle, IconAlertTriangle, IconCheck } from '@tabler/icons-react';
 import { notifications } from '@mantine/notifications';
 import { useState } from 'react';
 
@@ -41,9 +41,17 @@ export default function DeleteModal({ entityName, isOpen, onClose, onDelete }: D
   return (
     <Modal opened={isOpen} onClose={onClose} title={`Xóa ${entityName}`} centered>
       <Stack>
-        <Text fw={600}>Bạn có chăc chắn muốn xóa {entityName}?</Text>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <IconAlertCircle color="red" size={32} />
+          <div>
+            <Text fw={600}>Bạn có chăc chắn muốn xóa bản ghi này?</Text>
+            <Text fw={300} size="sm">
+              Dữ liệu sau khi xóa không thể phục hồi!
+            </Text>
+          </div>
+        </div>
         <SimpleGrid cols={{ base: 1, sm: 2 }}>
-          <Button loading={fetching} onClick={onSubmit} variant="filled">
+          <Button loading={fetching} onClick={onSubmit} variant="filled" color="red">
             Xóa
           </Button>
           <Button disabled={fetching} onClick={onClose} variant="outline">
