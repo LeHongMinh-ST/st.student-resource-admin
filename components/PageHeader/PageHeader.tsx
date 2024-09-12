@@ -63,19 +63,14 @@ const PageHeader = (props: PageHeaderProps) => {
               </Stack>
             </div>
           </div>
-        ) : withActions ? (
+        ) : (
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Stack>
               <Title order={3}>{title}</Title>
               {BreadcrumbsComponent}
             </Stack>
-            {withActions}
+            {withActions && <div>{withActions}</div>}
           </div>
-        ) : (
-          <Stack gap="sm">
-            <Title order={3}>{title}</Title>
-            {BreadcrumbsComponent}
-          </Stack>
         )}
       </Surface>
       <Divider />
