@@ -1,4 +1,5 @@
 import { Badge } from '@mantine/core';
+import { IconUser, IconUserStar, IconUserCog } from '@tabler/icons-react';
 import { roleLabels } from '@/constants/labels';
 import Role from '@/enums/role.enum';
 
@@ -21,10 +22,30 @@ const RoleBadge: React.FC<RoleBadgeProps> = ({ role }) => {
     }
   };
 
+  const getIcon = (role: Role | undefined) => {
+    if (!role) return <IconUser size={14} />;
+    switch (role) {
+      case Role.Admin:
+        return <IconUserStar size={14} />;
+      case Role.Office:
+        return <IconUserCog size={14} />;
+      case Role.Teacher:
+        return <IconUser size={14} />;
+      default:
+        return <IconUser size={14} />;
+    }
+  };
+
   const badgeProps = getBadgeProps(role);
 
   return (
-    <Badge color={badgeProps.color} variant="filled" size="sm" radius="sm">
+    <Badge
+      leftSection={getIcon(role)}
+      color={badgeProps.color}
+      variant="filled"
+      size="md"
+      radius="sm"
+    >
       {badgeProps.label}
     </Badge>
   );
