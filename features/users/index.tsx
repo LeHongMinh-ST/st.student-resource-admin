@@ -77,7 +77,7 @@ const UserPage = () => {
       title: 'Ngày tạo',
       sortable: true,
       render: (user: User) => (
-        <Text fz="sm">{formatDateString(user?.created_at, 'HH:MM dd/MM/yyyy')}</Text>
+        <Text fz="sm">{formatDateString(user?.created_at, 'HH:MM dd/mm/yyyy')}</Text>
       ),
     },
     {
