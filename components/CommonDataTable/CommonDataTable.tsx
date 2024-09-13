@@ -1,5 +1,6 @@
 import { DataTable, DataTableProps } from 'mantine-datatable';
 import { MetaResponse } from '@/types';
+import EmptyTable from './EmptyTable';
 
 type CommonDataTableProps<T> = {
   columns: DataTableProps<T>['columns'];
@@ -34,6 +35,7 @@ export default function CommonDataTable<T>({
       recordsPerPageLabel=""
       onPageChange={(page) => onPageChange(page)}
       onRecordsPerPageChange={(perPage) => onRecordsPerPageChange(perPage)}
+      emptyState={<EmptyTable />}
     />
   );
 }
