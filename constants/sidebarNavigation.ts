@@ -15,9 +15,10 @@ import {
   IconSettings,
   IconBellRinging2,
   IconUser,
+  IconMessageQuestion,
 } from '@tabler/icons-react';
 import { SidebarNavigationProps } from '@/types';
-import { dashboardRoute, userRoute } from '@/routes';
+import { dashboardRoute, studentRoute, userRoute } from '@/routes';
 
 const sidebarNavigationAdmin: SidebarNavigationProps[] = [
   {
@@ -32,11 +33,12 @@ const sidebarNavigationAdmin: SidebarNavigationProps[] = [
   {
     title: 'Sinh viên',
     links: [
-      { label: 'Thông tin sinh viên', icon: IconUsers, link: '/students' },
-      { label: 'Tốt nghiệp', icon: IconUserStar, link: '/students-graduation' },
+      { label: 'Khóa sinh viên', icon: IconUsers, link: studentRoute.listCourse },
+      { label: 'Đợt tốt nghiệp', icon: IconUserStar, link: '/students-graduation' },
       { label: 'Cảnh báo', icon: IconAlertTriangle, link: '/students-absent' },
       { label: 'Buộc thôi học', icon: IconBan, link: '/students-leave' },
-      { label: 'Phản ánh sinh viên', icon: IconUserEdit, link: '/students-request' },
+      { label: 'Xác nhận thông tin', icon: IconUserEdit, link: '/students-request' },
+      { label: 'Phản ánh', icon: IconMessageQuestion, link: '/students-report' },
     ],
   },
   {

@@ -41,6 +41,14 @@ type SidebarNavigationLinkProp = {
   link: string;
 };
 
+type AdmissionYear = {
+  admission_year: string;
+  school_year: string;
+  student_count: number | string;
+  created_at?: string;
+  updated_at?: string;
+};
+
 type User = {
   id?: number;
   user_name?: string;

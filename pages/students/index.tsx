@@ -1,3 +1,3 @@
-import UserPage from '@/features/users';
+import StudentPage from '@/features/students';
 
-export default UserPage;
+export default StudentPage;
