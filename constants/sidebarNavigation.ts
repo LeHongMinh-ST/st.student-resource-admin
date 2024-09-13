@@ -17,12 +17,13 @@ import {
   IconUser,
 } from '@tabler/icons-react';
 import { SidebarNavigationProps } from '@/types';
+import { dashboardRoute, userRoute } from '@/routes';
 
 const sidebarNavigationAdmin: SidebarNavigationProps[] = [
   {
     title: 'Quản lý chung',
     links: [
-      { label: 'Bảng điều khiển', icon: IconDashboard, link: '/' },
+      { label: 'Bảng điều khiển', icon: IconDashboard, link: dashboardRoute.dashboard },
       { label: 'Bộ môn', icon: IconBuilding, link: '/departments' },
       { label: 'Ngành học', icon: IconBookmark, link: '/majors' },
       { label: 'Lớp học', icon: IconBook, link: '/classes' },
@@ -55,9 +56,9 @@ const sidebarNavigationAdmin: SidebarNavigationProps[] = [
   {
     title: 'Hệ thống',
     links: [
+      { label: 'Tài khoản', icon: IconUser, link: userRoute.list },
       { label: 'Thông báo', icon: IconBellRinging2, link: '/notification' },
       { label: 'Cài đặt', icon: IconSettings, link: '/settings' },
-      { label: 'Tài khoản', icon: IconUser, link: '/users' },
     ],
   },
 ];
