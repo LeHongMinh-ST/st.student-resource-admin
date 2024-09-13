@@ -10,5 +10,5 @@ export const statusLabels: Record<Status, string> = {
 export const roleLabels: Record<Role, string> = {
   [Role.Admin]: 'Quản trị viên',
   [Role.Teacher]: 'Giảng viên',
-  [Role.Officer]: 'Cán bộ khoa',
+  [Role.Office]: 'Cán bộ khoa',
 };

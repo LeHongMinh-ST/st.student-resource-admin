@@ -12,8 +12,8 @@ const RoleBadge: React.FC<RoleBadgeProps> = ({ role }) => {
     switch (role) {
       case Role.Admin:
         return { color: 'green.8', label: roleLabels.admin };
-      case Role.Officer:
-        return { color: 'gray', label: roleLabels.officer };
+      case Role.Office:
+        return { color: 'gray', label: roleLabels.office };
       case Role.Teacher:
         return { color: 'blue', label: roleLabels.teacher };
       default:

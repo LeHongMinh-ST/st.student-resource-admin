@@ -1,12 +1,12 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { Button, Container, Text, Stack, TextInput, Paper, Menu } from '@mantine/core';
+import { Button, Container, Text, Stack, Paper, Menu } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { DataTableProps } from 'mantine-datatable';
-import { IconEdit, IconDotsVertical, IconPlus, IconSearch, IconTrash } from '@tabler/icons-react';
+import { IconEdit, IconDotsVertical, IconPlus, IconTrash } from '@tabler/icons-react';
 import { dashboardRoute, userRoute } from '@/routes';
 import { UserListParams, useUserService } from '@/services/userService';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
@@ -16,6 +16,9 @@ import { defaultPage, defaultPramsList } from '@/constants/commons';
 import { RoleBadge } from '@/components/RoleBadge';
 import { formatDateString } from '@/utils/func/formatDateString';
 import UserNameCellTable from './components/cell/UserNameCellTable';
+import SearchFilter from './components/filters/SearchFilter';
+import { RoleEnum } from '@/enums';
+import RoleFilter from './components/filters/RoleFilter';
 
 const UserPage = () => {
   const userService = useUserService();
@@ -52,24 +55,22 @@ const UserPage = () => {
       accessor: 'firstname',
       title: 'Tài khoản',
       render: (user: User) => <UserNameCellTable user={user} />,
-      sortable: true,
       filter: (
-        <TextInput
-          label="Tìm kiếm"
-          description="Hiển thị tài khoản với tên hoặc email"
-          placeholder="tìm kiếm tài khoản..."
-          leftSection={<IconSearch size={16} />}
-          value={userParams.q}
-          onChange={(e) => {
-            setUserParams({ ...userParams, q: e.target.value });
-          }}
-        />
+        <SearchFilter<UserListParams> setParams={setUserParams} searchTermValue={userParams.q} />
       ),
+      filtering: !!userParams.q,
     },
     {
       accessor: 'role',
       title: 'Vai trò',
       render: (user: User) => <RoleBadge role={user?.role} />,
+      filter: (
+        <RoleFilter
+          value={userParams.role}
+          onChange={(value) => setUserParams({ ...userParams, role: value as RoleEnum })}
+        />
+      ),
+      filtering: !!userParams.role,
     },
     {
       accessor: 'created_at',

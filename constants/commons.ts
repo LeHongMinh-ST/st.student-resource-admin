@@ -17,6 +17,6 @@ export const defaultPramsList: BaseParamsList = {
 
 export const RoleSelectList: SelectList<Role>[] = [
   { value: RoleEnum.Admin, label: roleLabels.admin },
-  { value: RoleEnum.Officer, label: roleLabels.officer },
+  { value: RoleEnum.Office, label: roleLabels.office },
   { value: RoleEnum.Teacher, label: roleLabels.teacher },
 ];

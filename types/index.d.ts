@@ -1,4 +1,4 @@
-import { RoleEnum } from '@/enums';
+import Role from '@/enums/role.enum';
 
 declare module '*.svg' {
   const content: React.FC<React.SVGProps<SVGElement>>;
@@ -52,7 +52,7 @@ type User = {
   code?: string | null;
   thumbnail?: string;
   department_id?: number | null;
-  role: RoleEnum;
+  role: Role;
   status?: Status;
   created_at?: string;
   updated_at?: string;
