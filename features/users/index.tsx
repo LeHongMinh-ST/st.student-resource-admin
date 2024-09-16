@@ -42,7 +42,7 @@ const UserPage = () => {
 
   useEffect(() => {
     handleGetListUser();
-  }, [handleGetListUser]);
+  }, [userParams]);
 
   const handleDelete = useCallback(async () => {
     if (selected) {
