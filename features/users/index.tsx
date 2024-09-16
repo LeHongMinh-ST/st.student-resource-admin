@@ -28,16 +28,19 @@ const UserPage = () => {
   const [userParams, setUserParams] = useState<UserListParams>({ ...defaultPramsList });
   const [isOpen, { open: onOpen, close: onClose }] = useDisclosure(false);
   const [selected, setSelected] = useState<User | null>(null);
+  const [isFetching, setIsFetching] = useState<boolean>(false);
   const { authUser } = useAuthStore();
 
   const handleGetListUser = useCallback(async () => {
     try {
+      setIsFetching(true);
       const res = await userService.getList(userParams);
       setUsers(res.data.data);
       setMeta(res.data?.meta ?? defaultPage);
     } catch (error) {
       console.error('Error fetching users:', error);
     }
+    setIsFetching(false);
   }, [userParams, userService]);
 
   useEffect(() => {
@@ -125,6 +128,7 @@ const UserPage = () => {
               meta={meta}
               columns={columns}
               records={users}
+              fetching={isFetching}
               onPageChange={(page: number) =>
                 setUserParams((params) => ({ ...params, current_page: page }))
               }

@@ -9,6 +9,7 @@ type CommonDataTableProps<T> = {
   onPageChange: (page: number) => void;
   onRecordsPerPageChange: (perPage: number) => void;
   noRecordsText?: string;
+  fetching?: boolean;
 };
 
 export default function CommonDataTable<T>({
@@ -18,6 +19,7 @@ export default function CommonDataTable<T>({
   onPageChange,
   onRecordsPerPageChange,
   noRecordsText = 'Không có dữ liệu',
+  fetching = false,
 }: CommonDataTableProps<T>) {
   return (
     <DataTable
@@ -25,6 +27,9 @@ export default function CommonDataTable<T>({
       verticalSpacing="xs"
       striped
       highlightOnHover
+      loaderType="bars"
+      loaderBackgroundBlur={1}
+      fetching={fetching}
       columns={columns ?? []}
       records={records}
       recordsPerPageOptions={[5, 10, 20, 50]}
