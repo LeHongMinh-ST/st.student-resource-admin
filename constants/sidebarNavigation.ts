@@ -33,7 +33,7 @@ const sidebarNavigationAdmin: SidebarNavigationProps[] = [
   {
     title: 'Sinh viên',
     links: [
-      { label: 'Khóa sinh viên', icon: IconUsers, link: studentRoute.listCourse },
+      { label: 'Danh sách sinh viên', icon: IconUsers, link: studentRoute.listCourse },
       { label: 'Đợt tốt nghiệp', icon: IconSchool, link: '/students-graduation' },
       { label: 'Cảnh báo', icon: IconAlertTriangle, link: '/students-absent' },
       { label: 'Buộc thôi học', icon: IconBan, link: '/students-leave' },

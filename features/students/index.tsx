@@ -1,28 +1,38 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Container, Stack, Paper, Card, Text, Group } from '@mantine/core';
-import { IconBook2, IconUser } from '@tabler/icons-react';
+import { Container, Stack, Paper, Group } from '@mantine/core';
+import { IconLogout } from '@tabler/icons-react';
 import styled from '@emotion/styled';
 import { dashboardRoute } from '@/routes';
 import { PageHeader } from '@/components';
 import { useStudentService } from '@/services/studentService';
 import { AdmissionYear } from '@/types';
-import EmptyTable from '@/components/CommonDataTable/EmptyTable';
+import AdmissionYearItem from './components/AdmissionYearItem';
+import AdmissionYearList from './components/AdmissionYearList';
+import StudentAdmission from './components/StudentAdmission';
 
 const StudentPage = () => {
   const { getListAdmission } = useStudentService();
-  const [admissionYear, setAdmissionYear] = useState<AdmissionYear[]>([]);
+  const [admissionYears, setAdmissionYears] = useState<AdmissionYear[]>([]);
+  const [admissionYearSelected, setAdmissionYearSelected] = useState<AdmissionYear | null>(null);
+  const [admissionYearFetching, setAdmissionYearFetching] = useState<boolean>(false);
 
   const handleGetAdmissionYear = useCallback(async () => {
     try {
+      setAdmissionYearFetching(true);
       const res = await getListAdmission();
-      setAdmissionYear(res.data.data);
+      setAdmissionYears(res.data.data);
     } catch (error) {
       console.log('Failed to get admission year: ', error);
     }
+    setAdmissionYearFetching(false);
   }, []);
 
   useEffect(() => {
     handleGetAdmissionYear();
+  }, []);
+
+  const handleSelectAdmissionYear = useCallback((admissionYear: AdmissionYear) => {
+    setAdmissionYearSelected(admissionYear);
   }, []);
 
   return (
@@ -30,39 +40,35 @@ const StudentPage = () => {
       <Container fluid>
         <Stack gap="lg">
           <PageHeader
-            title="Sinh viên - Danh sách khóa học"
+            title="Sinh viên - Danh sách"
             breadcrumbItems={[
               { title: 'Bảng điều khiển', href: dashboardRoute.dashboard },
-              { title: 'Danh sách khóa sinh viên', href: null },
+              { title: 'Danh sách sinh viên', href: null },
             ]}
+            withActions={
+              admissionYearSelected && (
+                <Group>
+                  <AdmissionYearItem admissionYear={admissionYearSelected} />
+                  <IconLogout
+                    style={{ cursor: 'pointer' }}
+                    size={24}
+                    onClick={() => setAdmissionYearSelected(null)}
+                  />
+                </Group>
+              )
+            }
           />
 
           <Paper p="md" shadow="md" radius="md">
-            {admissionYear.length > 0 &&
-              admissionYear.map((item) => (
-                <Card mt={10} className="admission-year-item">
-                  <Group align="center" justify="space-between">
-                    <Group align="center" mt="md" mb="xs">
-                      <IconBook2 size={48} />
-                      <div>
-                        <Text fw={500} size="xl">
-                          Khóa {item.admission_year}
-                        </Text>
-                        <Text fw={500} size="md" color="gray.6">
-                          Năm học: {item.school_year}
-                        </Text>
-                      </div>
-                    </Group>
-                    <Group align="center" mt="md" mb="xs">
-                      <IconUser size={24} />
-                      <Text fw={500} size="lg">
-                        Sinh viên: {item.student_count ? item.student_count : 0}
-                      </Text>
-                    </Group>
-                  </Group>
-                </Card>
-              ))}
-            {admissionYear.length === 0 && <EmptyTable />}
+            {admissionYearSelected ? (
+              <StudentAdmission admissionYear={admissionYearSelected} />
+            ) : (
+              <AdmissionYearList
+                admissionYears={admissionYears}
+                onSelect={handleSelectAdmissionYear}
+                fetching={admissionYearFetching}
+              />
+            )}
           </Paper>
         </Stack>
       </Container>
