@@ -7,6 +7,7 @@ import { Notifications } from '@mantine/notifications';
 import { MainLayout } from '@/layouts';
 import '@/assets/styles/app.css';
 import 'mantine-datatable/styles.layer.css';
+import '@mantine/dropzone/styles.css';
 import '@mantine/notifications/styles.css';
 import { theme } from '../theme';
 

@@ -35,7 +35,7 @@ const StudentAdmission: FC<StudentAdmissionProps> = ({ admissionYear }) => {
       <Suspense fallback={<LoadingOverlay visible />}>
         <Tabs.Panel value="list">{activeTab === 'list' && <StudentListTabContent />}</Tabs.Panel>
         <Tabs.Panel value="import">
-          {activeTab === 'import' && <StudentImportTabContent />}
+          {activeTab === 'import' && <StudentImportTabContent admissionYear={admissionYear} />}
         </Tabs.Panel>
       </Suspense>
     </Tabs>
