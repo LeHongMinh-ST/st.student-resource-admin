@@ -57,6 +57,7 @@ type ExcelFileImport = {
   total_record: number;
   process_record: number;
   file_errors_count: number;
+  status: StatusFileImport;
   user?: User;
   created_at?: string;
   updated_at?: string;

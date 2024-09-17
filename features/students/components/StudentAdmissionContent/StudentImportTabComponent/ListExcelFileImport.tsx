@@ -2,7 +2,7 @@ import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { DataTableProps } from 'mantine-datatable';
 import { Paper, Text } from '@mantine/core';
 import { AdmissionYear, ExcelFileImport, MetaResponse } from '@/types';
-import { CommonDataTable } from '@/components';
+import { CommonDataTable, StatusFileImportBadge } from '@/components';
 import { defaultPage, defaultPramsList } from '@/constants/commons';
 import { useStudentService } from '@/services/studentService';
 import { formatDateString } from '@/utils/func/formatDateString';
@@ -54,7 +54,7 @@ const ListExcelFileImport: FC<ListExcelFileImportProps> = ({
       },
       {
         accessor: 'process_record',
-        title: 'Bản ghi đã xử lý',
+        title: 'Bản ghi xử lý thành công',
         textAlign: 'center',
         render: (excelFileImport: ExcelFileImport) => (
           <Text fz="sm">{excelFileImport.process_record}</Text>
@@ -64,6 +64,13 @@ const ListExcelFileImport: FC<ListExcelFileImportProps> = ({
         accessor: 'file_errors_count',
         title: 'Bản ghi lỗi',
         textAlign: 'center',
+      },
+      {
+        accessor: 'status',
+        title: 'Trạng thái',
+        render: (excelFileImport: ExcelFileImport) => (
+          <StatusFileImportBadge status={excelFileImport.status} />
+        ),
       },
       {
         accessor: 'user_name',

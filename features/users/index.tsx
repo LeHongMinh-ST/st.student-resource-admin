@@ -13,7 +13,7 @@ import { useAuthStore } from '@/utils/recoil/auth/authState';
 import { MetaResponse, User } from '@/types';
 import { PageHeader, CommonDataTable, DeleteModal } from '@/components';
 import { defaultPage, defaultPramsList } from '@/constants/commons';
-import { RoleBadge } from '@/components/RoleBadge';
+import { RoleBadge } from '../../components/Badge/RoleBadge';
 import { formatDateString } from '@/utils/func/formatDateString';
 import UserNameCellTable from './components/cell/UserNameCellTable';
 import SearchFilter from './components/filters/SearchFilter';
