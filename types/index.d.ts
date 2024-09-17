@@ -37,14 +37,27 @@ type SidebarNavigationProps = {
 
 type SidebarNavigationLinkProp = {
   label: string;
-  icon: ReactNode;
+  icon: ReactuuNode;
   link: string;
 };
 
 type AdmissionYear = {
+  id?: number;
   admission_year: string;
   school_year: string;
   student_count: number | string;
+  created_at?: string;
+  updated_at?: string;
+};
+
+type ExcelFileImport = {
+  id?: number;
+  name: string;
+  type: ExcelFileImportType;
+  total_record: number;
+  process_record: number;
+  file_errors_count: number;
+  user?: User;
   created_at?: string;
   updated_at?: string;
 };
