@@ -8,7 +8,7 @@ import { defaultPage, defaultPramsList } from '@/constants/commons';
 import { AdmissionYear, MetaResponse, Student } from '@/types';
 import { GetListStudentParams, useStudentService } from '@/services/studentService';
 import { HttpStatusEnum } from '@/enums';
-import { CommonDataTable } from '@/components';
+import { CommonDataTable, StatusStudentBadge } from '@/components';
 import StudentNameCellTable from './StudentListTabComponent/Cells/StudentNameCellTable';
 import { formatDateString } from '@/utils/func/formatDateString';
 
@@ -82,6 +82,7 @@ const StudentListTabContent: FC<StudentListTabContentProps> = ({ admissionYear }
       {
         accessor: 'status',
         title: 'Trạng thái',
+        render: (student) => <StatusStudentBadge status={student.status} />,
       },
       {
         accessor: 'created_at',

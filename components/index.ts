@@ -8,3 +8,4 @@ export { RoleBadge } from '@/components/Badge/RoleBadge';
 export { CommonDataTable } from '@/components/CommonDataTable';
 export { DeleteModal } from '@/components/Modals';
 export { StatusFileImportBadge } from '@/components/Badge/StatusFileImportBadge';
+export { StatusStudentBadge } from '@/components/Badge/StatusStudentBadge';
