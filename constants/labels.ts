@@ -1,4 +1,5 @@
 import {
+  ClassType,
   FamilyRelationship,
   Gender,
   RoleEnum,
@@ -68,4 +69,9 @@ export const socialPolicyObjectLabels: Record<SocialPolicyObject, string> = {
   [SocialPolicyObject.EspeciallyDifficult]: 'Đối tượng đặc biệt khó khăn',
   [SocialPolicyObject.EthnicMinorityPeopleInTheHighlands]: 'Dân tộc thiểu số ở vùng cao',
   [SocialPolicyObject.DisabledPerson]: 'Người khuyết tật',
+};
+
+export const classTypeLabels: Record<ClassType, string> = {
+  [ClassType.Basic]: 'Cơ bản',
+  [ClassType.Major]: 'Chuyên ngành',
 };

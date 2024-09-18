@@ -9,3 +9,4 @@ export { default as FamilyRelationship } from '@/enums/familyRelationship.enum';
 export { default as Gender } from '@/enums/gender.enum';
 export { default as TrainingType } from '@/enums/trainingType.enum';
 export { default as SocialPolicyObject } from '@/enums/socialPolicyObject.enum';
+export { default as ClassType } from '@/enums/classType.enum';

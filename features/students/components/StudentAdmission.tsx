@@ -22,7 +22,7 @@ const StudentAdmission: FC<StudentAdmissionProps> = ({ admissionYear }) => {
       <Tabs.List>
         <Tabs.Tab value="list" leftSection={<IconUserSearch style={iconStyle} />}>
           <Text fw={500} size="xl">
-            Tra cứu thông tin
+            Danh sách sinh viên
           </Text>
         </Tabs.Tab>
         <Tabs.Tab value="import" leftSection={<IconDatabaseImport style={iconStyle} />}>
@@ -33,7 +33,9 @@ const StudentAdmission: FC<StudentAdmissionProps> = ({ admissionYear }) => {
       </Tabs.List>
 
       <Suspense fallback={<LoadingOverlay visible />}>
-        <Tabs.Panel value="list">{activeTab === 'list' && <StudentListTabContent />}</Tabs.Panel>
+        <Tabs.Panel value="list">
+          {activeTab === 'list' && <StudentListTabContent admissionYear={admissionYear} />}
+        </Tabs.Panel>
         <Tabs.Panel value="import">
           {activeTab === 'import' && <StudentImportTabContent admissionYear={admissionYear} />}
         </Tabs.Panel>

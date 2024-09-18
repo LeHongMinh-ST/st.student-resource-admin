@@ -87,6 +87,18 @@ type Faculty = {
   code: string;
 };
 
+type GeneralClass = {
+  id?: number;
+  name: string;
+  code: string;
+  faculty?: Faculty;
+  teacher?: User;
+  type: string;
+  status: Status;
+  created_at?: string;
+  updated_at?: string;
+};
+
 type Student = {
   id?: number;
   last_name: string;
@@ -99,7 +111,8 @@ type Student = {
   status: StudentStatus;
   info: StudentInfo;
   family: Family[];
-  info: StudentInfo;
+  info?: StudentInfo;
+  currentClass: GeneralClass;
   school_year: string;
   created_at?: string;
   updated_at?: string;

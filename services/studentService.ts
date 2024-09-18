@@ -6,7 +6,7 @@ import { StudentStatus } from '@/enums';
 export type AdmissionYearListParams = {} & BaseParamsList;
 export type StudentFileImportListParams = {} & BaseParamsList;
 export type GetListStudentParams = {
-  admission_year_id: number;
+  admission_year_id?: number;
   status?: StudentStatus;
 } & BaseParamsList;
 
@@ -24,7 +24,7 @@ export const useStudentService = () => {
 
   const getListStudent = (
     params: GetListStudentParams = {} as GetListStudentParams
-  ): Promise<AxiosResponse<ResultResonse<Student>, any>> =>
+  ): Promise<AxiosResponse<ResultResonse<Student[]>, any>> =>
     axiosInstance.get('/students', { params });
 
   const importStudent = (data: FormData): Promise<AxiosResponse<void, any>> =>
