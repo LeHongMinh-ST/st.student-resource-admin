@@ -1,3 +1,4 @@
+import { StudentStatus } from '@/enums';
 import Role from '@/enums/role.enum';
 
 declare module '*.svg' {
@@ -80,4 +81,52 @@ type User = {
   updated_at?: string;
 };
 
-type Student = {};
+type Faculty = {
+  id?: number;
+  name: string;
+  code: string;
+};
+
+type Student = {
+  id?: number;
+  last_name: string;
+  first_name: string;
+  email: string;
+  code: string;
+  admission_year?: AdmissionYear;
+  faculty?: Faculty;
+  role: StudentRole;
+  status: StudentStatus;
+  info: StudentInfo;
+  family: Family[];
+  info: StudentInfo;
+  school_year: string;
+  created_at?: string;
+  updated_at?: string;
+};
+
+type Family = {
+  relationship: FamilyRelationship;
+  full_name: string;
+  job: string;
+  phone: string;
+};
+
+type StudentInfo = {
+  note: string;
+  person_email: string;
+  gender: Gender;
+  permanent_residence: string;
+  dob: string;
+  pob: string;
+  countryside: string;
+  address: string;
+  training_type: TrainingType;
+  phone: string;
+  nationality: string;
+  citizen_identification: string;
+  ethnic: string;
+  religion: string;
+  thumbnail: string;
+  social_policy_object: SocialPolicyObject;
+};

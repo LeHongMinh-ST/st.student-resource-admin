@@ -1,10 +1,10 @@
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { DataTableProps } from 'mantine-datatable';
 import { Paper, Text } from '@mantine/core';
-import { AdmissionYear, ExcelFileImport, MetaResponse } from '@/types';
 import { CommonDataTable, StatusFileImportBadge } from '@/components';
+import { AdmissionYear, ExcelFileImport, MetaResponse } from '@/types';
 import { defaultPage, defaultPramsList } from '@/constants/commons';
-import { useStudentService } from '@/services/studentService';
+import { StudentFileImportListParams, useStudentService } from '@/services/studentService';
 import { formatDateString } from '@/utils/func/formatDateString';
 
 type ListExcelFileImportProps = {
@@ -19,7 +19,9 @@ const ListExcelFileImport: FC<ListExcelFileImportProps> = ({
   const [excelFileImports, setExcelFileImports] = useState<ExcelFileImport[]>([]);
   const [meta, setMeta] = useState<MetaResponse>(defaultPage);
   const [isFetching, setIsFetching] = useState<boolean>(false);
-  const [excelFileImportsParams, setExcelFileImportPrams] = useState({ ...defaultPramsList });
+  const [excelFileImportsParams, setExcelFileImportPrams] = useState<StudentFileImportListParams>({
+    ...defaultPramsList,
+  });
   const studentService = useStudentService();
 
   const handleGetListExcelFileImport = useCallback(async () => {
@@ -103,10 +105,16 @@ const ListExcelFileImport: FC<ListExcelFileImportProps> = ({
           records={excelFileImports}
           fetching={isFetching}
           onPageChange={(page: number) =>
-            setExcelFileImportPrams((params) => ({ ...params, current_page: page }))
+            setExcelFileImportPrams((params: StudentFileImportListParams) => ({
+              ...params,
+              current_page: page,
+            }))
           }
           onRecordsPerPageChange={(perPage: number) =>
-            setExcelFileImportPrams((params) => ({ ...params, limit: perPage }))
+            setExcelFileImportPrams((params: StudentFileImportListParams) => ({
+              ...params,
+              limit: perPage,
+            }))
           }
         />
       </Paper>
