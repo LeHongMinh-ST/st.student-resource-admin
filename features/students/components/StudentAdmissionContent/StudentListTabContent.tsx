@@ -7,10 +7,11 @@ import { IconAlertTriangle } from '@tabler/icons-react';
 import { defaultPage, defaultPramsList } from '@/constants/commons';
 import { AdmissionYear, MetaResponse, Student } from '@/types';
 import { GetListStudentParams, useStudentService } from '@/services/studentService';
-import { HttpStatusEnum } from '@/enums';
+import { HttpStatusEnum, StudentStatus } from '@/enums';
 import { CommonDataTable, StatusStudentBadge } from '@/components';
 import StudentNameCellTable from './StudentListTabComponent/Cells/StudentNameCellTable';
 import { formatDateString } from '@/utils/func/formatDateString';
+import StudentStatusFilter from './StudentListTabComponent/Filters/StudentStatusFilter';
 
 type StudentListTabContentProps = {
   admissionYear: AdmissionYear;
@@ -83,6 +84,16 @@ const StudentListTabContent: FC<StudentListTabContentProps> = ({ admissionYear }
         accessor: 'status',
         title: 'Trạng thái',
         render: (student) => <StatusStudentBadge status={student.status} />,
+
+        filter: (
+          <StudentStatusFilter
+            value={getListStudentParams?.status}
+            onChange={(value) =>
+              setGetListStudentParams({ ...getListStudentParams, status: value as StudentStatus })
+            }
+          />
+        ),
+        filtering: !!getListStudentParams.status,
       },
       {
         accessor: 'created_at',
@@ -93,7 +104,7 @@ const StudentListTabContent: FC<StudentListTabContentProps> = ({ admissionYear }
         ),
       },
     ],
-    []
+    [getListStudentParams.status, setGetListStudentParams]
   );
   return (
     <StudentImportTabContentStyled>

@@ -15,11 +15,11 @@ import { PageHeader, CommonDataTable, DeleteModal } from '@/components';
 import { defaultPage, defaultPramsList } from '@/constants/commons';
 import { RoleBadge } from '../../components/Badge/RoleBadge';
 import { formatDateString } from '@/utils/func/formatDateString';
-import UserNameCellTable from './components/cell/UserNameCellTable';
-import SearchFilter from './components/filters/SearchFilter';
+import UserNameCellTable from './components/Cells/UserNameCellTable';
+import SearchFilter from './components/Filters/SearchFilter';
 import { RoleEnum } from '@/enums';
-import RoleFilter from './components/filters/RoleFilter';
-import UserActionMenu from './components/cell/UserActionMenu';
+import RoleFilter from './components/Filters/RoleFilter';
+import UserActionMenu from './components/Cells/UserActionMenu';
 
 const UserPage = () => {
   const userService = useUserService();

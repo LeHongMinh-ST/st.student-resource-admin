@@ -13,7 +13,6 @@ type StudentAdmissionProps = {
 };
 
 const StudentAdmission: FC<StudentAdmissionProps> = ({ admissionYear }) => {
-  console.log(admissionYear);
   const [activeTab, setActiveTab] = useState<string | null>('list');
   const iconStyle = { width: rem(24), height: rem(24) };
 
