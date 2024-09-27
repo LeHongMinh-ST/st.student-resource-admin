@@ -40,15 +40,15 @@ export const useAuthStore = () => {
     setState((prevState) => ({ ...prevState, expiresIn }));
   };
 
-  const setAccessToken = (accessToken: string, ctx = null) => {
-    nookies.set(ctx, 'accessToken', accessToken, {
+  const setAccessToken = (accessTokenAdmin: string, ctx = null) => {
+    nookies.set(ctx, 'accessTokenAdmin', accessTokenAdmin, {
       maxAge: 60 * 60,
       path: '/',
     });
   };
 
-  const setRefreshToken = (refreshToken: string, ctx = null) => {
-    nookies.set(ctx, 'refreshToken', refreshToken, {
+  const setRefreshToken = (refreshTokenAdmin: string, ctx = null) => {
+    nookies.set(ctx, 'refreshTokenAdmin', refreshTokenAdmin, {
       maxAge: 30 * 24 * 60 * 60, // 30 days
       path: '/',
     });
@@ -56,10 +56,10 @@ export const useAuthStore = () => {
 
   const handleRefresh = async (ctx = null) => {
     const cookies = nookies.get(ctx);
-    const refreshToken = cookies?.refreshToken;
-    if (refreshToken) {
+    const refreshTokenAdmin = cookies?.refreshTokenAdmin;
+    if (refreshTokenAdmin) {
       const authService = useAuthService();
-      const partial = { refresh_token: refreshToken } as RefreshTokenPrams;
+      const partial = { refresh_token: refreshTokenAdmin } as RefreshTokenPrams;
 
       try {
         const res: any = await authService.refreshToken(partial);
@@ -98,8 +98,8 @@ export const useAuthStore = () => {
       expiresIn: 0,
       refreshTokenTimeout: 0,
     });
-    nookies.destroy(ctx, 'accessToken');
-    nookies.destroy(ctx, 'refreshToken');
+    nookies.destroy(ctx, 'accessTokenAdmin');
+    nookies.destroy(ctx, 'refreshTokenAdmin');
     stopRefreshTokenTimer();
   };
 
