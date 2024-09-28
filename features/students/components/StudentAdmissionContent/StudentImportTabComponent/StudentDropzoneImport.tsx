@@ -2,8 +2,17 @@ import { Button, Text } from '@mantine/core';
 import { Dropzone, MS_EXCEL_MIME_TYPE } from '@mantine/dropzone';
 import { FC, useRef, useCallback } from 'react';
 import { modals } from '@mantine/modals';
-import { IconCloudUpload, IconFileSpreadsheet, IconUpload, IconX } from '@tabler/icons-react';
+import {
+  IconAlertTriangle,
+  IconCloudUpload,
+  IconDownload,
+  IconFileSpreadsheet,
+  IconUpload,
+  IconX,
+} from '@tabler/icons-react';
 import styled from '@emotion/styled';
+import { notifications } from '@mantine/notifications';
+import { useStudentService } from '@/services/studentService';
 
 type StudentDropzoneImportProps = {
   onFileUpload: (file: File | null) => void;
@@ -20,6 +29,8 @@ const StudentDropzoneImport: FC<StudentDropzoneImportProps> = ({
 }) => {
   const openRef = useRef<() => void>(() => {});
 
+  const { downloadTemplateImportStudentAdmission } = useStudentService();
+
   const openModalConfirmImport = useCallback(() => {
     modals.openConfirmModal({
       title: <Text size="lg">Nhập dữ liệu sinh viên ?</Text>,
@@ -34,9 +45,42 @@ const StudentDropzoneImport: FC<StudentDropzoneImportProps> = ({
     });
   }, [fileValue, onUpload]);
 
+  const handleDownloadTemplateFileImport = async (): Promise<void> => {
+    try {
+      const res = await downloadTemplateImportStudentAdmission();
+      const url: string = window.URL.createObjectURL(new Blob([(res as any)?.data]));
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'template-student-import.xlsx');
+      document.body.appendChild(link);
+      link.click();
+
+      // Clean up after download
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      notifications.show({
+        title: 'Lỗi!',
+        message: 'Có lỗi xảy ra vui lòng thử lại sau!',
+        icon: <IconAlertTriangle />,
+        color: 'red',
+        autoClose: 5000,
+      });
+    }
+  };
+
   return (
     <StudentDropzoneImportStyled>
       <div className="header-import">
+        <div className="header-import-action">
+          <Button
+            leftSection={<IconDownload size={18} />}
+            onClick={handleDownloadTemplateFileImport}
+          >
+            Tải xuống tệp mẫu
+          </Button>
+        </div>
         <Dropzone
           openRef={openRef}
           multiple={false}
@@ -93,6 +137,10 @@ const StudentDropzoneImportStyled = styled.div`
   .header-import {
     margin-top: 20px;
     text-align: center;
+    &-action {
+      text-align: left;
+      margin: 16px 8px;
+    }
 
     .drop-zone {
       display: flex;
@@ -104,11 +152,13 @@ const StudentDropzoneImportStyled = styled.div`
       align-items: center;
       flex-direction: column;
       margin: 16px 8px;
+
       &-file {
         display: flex;
         align-items: center;
         gap: 8px;
       }
+
       &-title {
         font-size: 18px;
         font-weight: 500;
@@ -117,6 +167,7 @@ const StudentDropzoneImportStyled = styled.div`
         align-items: center;
         gap: 8px;
       }
+
       &-inner {
         display: flex;
         justify-content: center;

@@ -117,7 +117,7 @@ const StudentListTabContent: FC<StudentListTabContentProps> = ({ admissionYear }
           onPageChange={(page: number) =>
             setGetListStudentParams((params: GetListStudentParams) => ({
               ...params,
-              current_page: page,
+              page,
             }))
           }
           onRecordsPerPageChange={(perPage: number) =>

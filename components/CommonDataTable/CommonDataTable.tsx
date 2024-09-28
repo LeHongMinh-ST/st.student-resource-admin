@@ -38,7 +38,9 @@ export default function CommonDataTable<T>({
       recordsPerPage={meta.per_page}
       noRecordsText={noRecordsText}
       recordsPerPageLabel=""
-      onPageChange={(page) => onPageChange(page)}
+      onPageChange={(page) => {
+        onPageChange(page);
+      }}
       onRecordsPerPageChange={(perPage) => onRecordsPerPageChange(perPage)}
       emptyState={<EmptyTable />}
     />

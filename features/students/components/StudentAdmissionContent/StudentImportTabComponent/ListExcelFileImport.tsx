@@ -40,7 +40,7 @@ const ListExcelFileImport: FC<ListExcelFileImportProps> = ({
   }, [admissionYear, excelFileImportsParams]);
 
   useEffect(() => {
-    handleGetListExcelFileImport();
+    handleGetListExcelFileImport().then();
   }, [admissionYear, excelFileImportsParams, isReloadList]);
 
   const columns: DataTableProps<ExcelFileImport>['columns'] = useMemo(

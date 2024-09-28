@@ -21,7 +21,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,css,scss,md,html}": [
+    "*.{js,jsx,ts,tsx,css,scss,html}": [
       "npm run lint",
       "npm run prettier:write",
       "git add ."

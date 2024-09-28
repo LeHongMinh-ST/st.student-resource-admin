@@ -1,7 +1,7 @@
 import { AdmissionYear } from '@/types';
 import AdmissionYearCard from './AdmissionYearCard';
 import EmptyTable from '@/components/CommonDataTable/EmptyTable';
-import AdmissionYearCardSkeleton from './skeletons/AdmissionYearCardSkeleton';
+import AdmissionYearCardSkeleton from '@/features/students/components/Skeletons/AdmissionYearCardSkeleton';
 
 interface AdmissionYearListProps {
   admissionYears: AdmissionYear[];

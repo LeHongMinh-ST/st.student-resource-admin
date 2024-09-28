@@ -1,14 +1,5 @@
 import styled from '@emotion/styled';
-import {
-  Container,
-  Paper,
-  Stack,
-  Image,
-  TextInput,
-  Button,
-  Checkbox,
-  LoadingOverlay,
-} from '@mantine/core';
+import { Container, Paper, Stack, Image, TextInput, Button, LoadingOverlay } from '@mantine/core';
 import { IconAlertTriangle, IconLock, IconLogin2, IconUser } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
 import { notifications } from '@mantine/notifications';
@@ -128,7 +119,7 @@ const LoginPage = () => {
                           })}
                           error={errors.password?.message}
                         />
-                        <Checkbox label="Nhớ mật khẩu" {...register('remember')} />
+                        {/*<Checkbox label="Nhớ mật khẩu" {...register('remember')} />*/}
                         <Button type="submit" leftSection={iconLogin2}>
                           Đăng nhập
                         </Button>
@@ -149,6 +140,7 @@ const LoginPageStyled = styled.div`
   .loginStack {
     height: 100vh;
   }
+
   .loginWrap {
     display: flex;
     gap: 1rem;
@@ -156,50 +148,62 @@ const LoginPageStyled = styled.div`
     flex-wrap: wrap;
     width: 900px;
     justify-content: space-evenly;
+
     .loginWrap__left {
       text-align: center;
       width: 450px;
+
       .loginWrap__subtitle {
         margin-top: 1rem;
         font-size: 12px;
         color: gray;
       }
+
       .loginWrap__title {
         h2 {
           margin-top: 0.25rem;
         }
       }
+
       .loginWrap__logos {
         display: flex;
         gap: 1rem;
         justify-content: center;
         align-items: center;
+
         .loginWrap__logo {
           width: 64px;
         }
       }
+
       .loginWrap__image {
         width: 100%;
       }
+
       .loginWrap__footer {
         margin-bottom: 30px;
+
         .loginWrap__footer__line {
           margin: 10px auto 20px auto;
           background: #e5e5e5;
           width: 50px;
           height: 1px;
         }
+
         .loginWrap__footer__text {
           font-size: 12px;
           color: gray;
         }
       }
     }
+
     .loginWrap__right {
       width: 350px;
+
       input {
         margin-bottom: 0.5rem;
       }
+
       button {
         margin-top: 1rem;
       }
