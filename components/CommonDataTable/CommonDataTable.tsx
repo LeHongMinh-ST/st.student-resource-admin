@@ -33,9 +33,9 @@ export default function CommonDataTable<T>({
       columns={columns ?? []}
       records={records}
       recordsPerPageOptions={[5, 10, 20, 50]}
-      totalRecords={meta.total}
-      page={meta.current_page}
-      recordsPerPage={meta.per_page}
+      totalRecords={meta?.total}
+      page={meta?.current_page}
+      recordsPerPage={meta?.per_page}
       noRecordsText={noRecordsText}
       recordsPerPageLabel=""
       onPageChange={(page) => {

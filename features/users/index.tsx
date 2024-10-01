@@ -4,15 +4,16 @@ import styled from '@emotion/styled';
 import { Button, Container, Text, Stack, Paper } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import Link from 'next/link';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { DataTableProps } from 'mantine-datatable';
 import { IconPlus } from '@tabler/icons-react';
+import useSWR from 'swr';
 import { dashboardRoute, userRoute } from '@/routes';
 import { UserListParams, useUserService } from '@/services/userService';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
-import { MetaResponse, User } from '@/types';
+import { ResultResonse, User } from '@/types';
 import { PageHeader, CommonDataTable, DeleteModal } from '@/components';
-import { defaultPage, defaultPramsList } from '@/constants/commons';
+import { defaultPramsList } from '@/constants/commons';
 import { RoleBadge } from '../../components/Badge/RoleBadge';
 import { formatDateString } from '@/utils/func/formatDateString';
 import UserNameCellTable from './components/Cells/UserNameCellTable';
@@ -23,29 +24,20 @@ import UserActionMenu from './components/Cells/UserActionMenu';
 
 const UserPage = () => {
   const userService = useUserService();
-  const [users, setUsers] = useState<User[]>([]);
-  const [meta, setMeta] = useState<MetaResponse>(defaultPage);
   const [userParams, setUserParams] = useState<UserListParams>({ ...defaultPramsList });
   const [isOpen, { open: onOpen, close: onClose }] = useDisclosure(false);
   const [selected, setSelected] = useState<User | null>(null);
-  const [isFetching, setIsFetching] = useState<boolean>(false);
   const { authUser } = useAuthStore();
-
-  const handleGetListUser = useCallback(async () => {
-    try {
-      setIsFetching(true);
-      const res = await userService.getList(userParams);
-      setUsers(res.data.data);
-      setMeta(res.data?.meta ?? defaultPage);
-    } catch (error) {
-      console.error('Error fetching users:', error);
-    }
-    setIsFetching(false);
-  }, [userParams, userService]);
-
-  useEffect(() => {
-    handleGetListUser();
-  }, [userParams]);
+  const handleGetListUser = () =>
+    userService
+      .getList(userParams)
+      .then((res) => res.data)
+      .catch(() => console.error('Error fetching users:', error));
+  const {
+    data: dataUser,
+    error,
+    isLoading: isLoadingGetListUser,
+  } = useSWR<ResultResonse<User>>(['getListUser', userParams], handleGetListUser);
 
   const handleDelete = useCallback(async () => {
     if (selected) {
@@ -125,10 +117,10 @@ const UserPage = () => {
           />
           <Paper p="md" shadow="md" radius="md">
             <CommonDataTable
-              meta={meta}
+              meta={dataUser?.meta}
               columns={columns}
-              records={users}
-              fetching={isFetching}
+              records={dataUser?.data}
+              fetching={isLoadingGetListUser}
               onPageChange={(page: number) =>
                 setUserParams((params) => ({ ...params, current_page: page }))
               }
