@@ -4,8 +4,8 @@ import EmptyTable from './EmptyTable';
 
 type CommonDataTableProps<T> = {
   columns: DataTableProps<T>['columns'];
-  records: T[];
-  meta: MetaResponse;
+  records?: T[];
+  meta?: MetaResponse;
   onPageChange: (page: number) => void;
   onRecordsPerPageChange: (perPage: number) => void;
   noRecordsText?: string;
@@ -31,7 +31,7 @@ export default function CommonDataTable<T>({
       loaderBackgroundBlur={1}
       fetching={fetching}
       columns={columns ?? []}
-      records={records}
+      records={records ?? []}
       recordsPerPageOptions={[5, 10, 20, 50]}
       totalRecords={meta?.total}
       page={meta?.current_page}

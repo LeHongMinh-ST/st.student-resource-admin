@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from 'react';
+import { FC, useState } from 'react';
 import { DataTableProps } from 'mantine-datatable';
 import { Paper, Text } from '@mantine/core';
 import useSWR from 'swr';
@@ -32,58 +32,55 @@ const ListExcelFileImport: FC<ListExcelFileImportProps> = ({
     handleGetListExcelFileImport
   );
 
-  const columns: DataTableProps<ExcelFileImport>['columns'] = useMemo(
-    () => [
-      {
-        accessor: 'name',
-        title: 'Tên tệp',
-      },
-      {
-        accessor: 'total_record',
-        title: 'Tổng số bản ghi',
-        textAlign: 'center',
-      },
-      {
-        accessor: 'process_record',
-        title: 'Bản ghi xử lý thành công',
-        textAlign: 'center',
-        render: (excelFileImport: ExcelFileImport) => (
-          <Text fz="sm">{excelFileImport.process_record}</Text>
-        ),
-      },
-      {
-        accessor: 'file_errors_count',
-        title: 'Bản ghi lỗi',
-        textAlign: 'center',
-      },
-      {
-        accessor: 'status',
-        title: 'Trạng thái',
-        render: (excelFileImport: ExcelFileImport) => (
-          <StatusFileImportBadge status={excelFileImport.status} />
-        ),
-      },
-      {
-        accessor: 'user_name',
-        title: 'Người tạo',
+  const columns: DataTableProps<ExcelFileImport>['columns'] = [
+    {
+      accessor: 'name',
+      title: 'Tên tệp',
+    },
+    {
+      accessor: 'total_record',
+      title: 'Tổng số bản ghi',
+      textAlign: 'center',
+    },
+    {
+      accessor: 'process_record',
+      title: 'Bản ghi xử lý thành công',
+      textAlign: 'center',
+      render: (excelFileImport: ExcelFileImport) => (
+        <Text fz="sm">{excelFileImport.process_record}</Text>
+      ),
+    },
+    {
+      accessor: 'file_errors_count',
+      title: 'Bản ghi lỗi',
+      textAlign: 'center',
+    },
+    {
+      accessor: 'status',
+      title: 'Trạng thái',
+      render: (excelFileImport: ExcelFileImport) => (
+        <StatusFileImportBadge status={excelFileImport.status} />
+      ),
+    },
+    {
+      accessor: 'user_name',
+      title: 'Người tạo',
 
-        render: (excelFileImport: ExcelFileImport) => (
-          <Text fz="sm">
-            {excelFileImport?.user?.last_name} {excelFileImport?.user?.first_name}
-          </Text>
-        ),
-      },
-      {
-        accessor: 'created_at',
-        title: 'Ngày tạo',
-        sortable: true,
-        render: (excelFileImport: ExcelFileImport) => (
-          <Text fz="sm">{formatDateString(excelFileImport?.created_at, 'HH:MM dd/mm/yyyy')}</Text>
-        ),
-      },
-    ],
-    []
-  );
+      render: (excelFileImport: ExcelFileImport) => (
+        <Text fz="sm">
+          {excelFileImport?.user?.last_name} {excelFileImport?.user?.first_name}
+        </Text>
+      ),
+    },
+    {
+      accessor: 'created_at',
+      title: 'Ngày tạo',
+      sortable: true,
+      render: (excelFileImport: ExcelFileImport) => (
+        <Text fz="sm">{formatDateString(excelFileImport?.created_at, 'HH:MM dd/mm/yyyy')}</Text>
+      ),
+    },
+  ];
 
   return (
     <div className="excel-file-imports">
