@@ -1,9 +1,10 @@
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { DataTableProps } from 'mantine-datatable';
 import { Paper, Text } from '@mantine/core';
+import useSWR from 'swr';
 import { CommonDataTable, StatusFileImportBadge } from '@/components';
-import { AdmissionYear, ExcelFileImport, MetaResponse } from '@/types';
-import { defaultPage, defaultPramsList } from '@/constants/commons';
+import { AdmissionYear, ExcelFileImport, ResultResonse } from '@/types';
+import { defaultPramsList } from '@/constants/commons';
 import { StudentFileImportListParams, useStudentService } from '@/services/studentService';
 import { formatDateString } from '@/utils/func/formatDateString';
 
@@ -16,32 +17,19 @@ const ListExcelFileImport: FC<ListExcelFileImportProps> = ({
   admissionYear,
   isReloadList = false,
 }) => {
-  const [excelFileImports, setExcelFileImports] = useState<ExcelFileImport[]>([]);
-  const [meta, setMeta] = useState<MetaResponse>(defaultPage);
-  const [isFetching, setIsFetching] = useState<boolean>(false);
   const [excelFileImportsParams, setExcelFileImportPrams] = useState<StudentFileImportListParams>({
     ...defaultPramsList,
   });
   const studentService = useStudentService();
 
-  const handleGetListExcelFileImport = useCallback(async () => {
-    try {
-      setIsFetching(true);
-      const res = await studentService.getStudentFileImportListAdmission(
-        admissionYear.id ?? 0,
-        excelFileImportsParams
-      );
-      setExcelFileImports(res.data.data);
-      setMeta(res.data?.meta ?? defaultPage);
-    } catch (error) {
-      console.log(error);
-    }
-    setIsFetching(false);
-  }, [admissionYear, excelFileImportsParams]);
-
-  useEffect(() => {
-    handleGetListExcelFileImport().then();
-  }, [admissionYear, excelFileImportsParams, isReloadList]);
+  const handleGetListExcelFileImport = () =>
+    studentService
+      .getStudentFileImportListAdmission(admissionYear.id ?? 0, excelFileImportsParams)
+      .then((res) => res.data);
+  const { data, isLoading } = useSWR<ResultResonse<ExcelFileImport>>(
+    ['getListExcelFileImports', admissionYear, excelFileImportsParams, isReloadList],
+    handleGetListExcelFileImport
+  );
 
   const columns: DataTableProps<ExcelFileImport>['columns'] = useMemo(
     () => [
@@ -100,10 +88,10 @@ const ListExcelFileImport: FC<ListExcelFileImportProps> = ({
     <div className="excel-file-imports">
       <Paper p="md" shadow="md" radius="md">
         <CommonDataTable
-          meta={meta}
+          meta={data?.meta}
           columns={columns}
-          records={excelFileImports}
-          fetching={isFetching}
+          records={data?.data}
+          fetching={isLoading}
           onPageChange={(page: number) =>
             setExcelFileImportPrams((params: StudentFileImportListParams) => ({
               ...params,

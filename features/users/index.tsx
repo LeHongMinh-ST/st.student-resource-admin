@@ -50,7 +50,7 @@ const UserPage = () => {
         console.error('Error deleting user:', error);
       }
     }
-  }, [selected, userService, handleGetListUser]);
+  }, [selected, userService]);
 
   const columns: DataTableProps<User>['columns'] = useMemo(
     () => [
