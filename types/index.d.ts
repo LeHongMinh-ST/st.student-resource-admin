@@ -109,7 +109,6 @@ type Student = {
   faculty?: Faculty;
   role: StudentRole;
   status: StudentStatus;
-  info: StudentInfo;
   family: Family[];
   info?: StudentInfo;
   currentClass: GeneralClass;
