@@ -34,12 +34,10 @@ const UserPage = () => {
       .then((res) => res.data)
       .catch(() => console.error('Error fetching users:', error));
 
-  const {
-    data,
-    error,
-    isLoading: isLoadingGetListUser,
-    mutate,
-  } = useSWR<ResultResonse<User[]>>(['getListUser', userParams], handleGetListUser);
+  const { data, error, isLoading, mutate } = useSWR<ResultResonse<User[]>>(
+    [userParams],
+    handleGetListUser
+  );
 
   const handleDelete = useCallback(async () => {
     if (selected) {
@@ -122,7 +120,7 @@ const UserPage = () => {
               meta={data?.meta}
               columns={columns}
               records={data?.data}
-              fetching={isLoadingGetListUser}
+              fetching={isLoading}
               onPageChange={(page: number) =>
                 setUserParams((params) => ({ ...params, current_page: page }))
               }
