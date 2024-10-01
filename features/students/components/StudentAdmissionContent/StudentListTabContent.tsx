@@ -5,6 +5,7 @@ import { notifications } from '@mantine/notifications';
 import { DataTableProps } from 'mantine-datatable';
 import { IconAlertTriangle } from '@tabler/icons-react';
 import useSWR from 'swr';
+import { useRouter } from 'next/router';
 import { defaultPramsList } from '@/constants/commons';
 import { AdmissionYear, ResultResonse, Student } from '@/types';
 import { GetListStudentParams, useStudentService } from '@/services/studentService';
@@ -13,6 +14,7 @@ import { CommonDataTable, StatusStudentBadge } from '@/components';
 import StudentNameCellTable from './StudentListTabComponent/Cells/StudentNameCellTable';
 import { formatDateString } from '@/utils/func/formatDateString';
 import StudentStatusFilter from './StudentListTabComponent/Filters/StudentStatusFilter';
+import { studentRoute } from '@/routes';
 
 type StudentListTabContentProps = {
   admissionYear: AdmissionYear;
@@ -23,6 +25,9 @@ const StudentListTabContent: FC<StudentListTabContentProps> = ({ admissionYear }
     admission_year_id: admissionYear?.id,
     ...defaultPramsList,
   } as GetListStudentParams);
+
+  const { push } = useRouter();
+
   const { getListStudent } = useStudentService();
   const handleGetListStudent = () =>
     getListStudent(getListStudentParams)
@@ -117,6 +122,7 @@ const StudentListTabContent: FC<StudentListTabContentProps> = ({ admissionYear }
               limit: perPage,
             }))
           }
+          onRowClick={({ record }) => push(studentRoute.show(record?.id))}
         />
       </Paper>
     </StudentImportTabContentStyled>

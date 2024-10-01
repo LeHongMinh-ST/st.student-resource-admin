@@ -16,9 +16,10 @@ import {
 import { notifications } from '@mantine/notifications';
 import { IconAlertTriangle, IconCheck, IconDeviceFloppy, IconLogout } from '@tabler/icons-react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import useSWR from 'swr';
 import { dashboardRoute, userRoute } from '@/routes';
 import { useUserService } from '@/services/userService';
 import { User } from '@/types';
@@ -44,22 +45,20 @@ const UserUpdatePage = () => {
       role: Role.Admin,
     },
   });
-  const [isFetching, setIsFetching] = useState<boolean>(true);
 
   const { updateUser, getUser } = useUserService();
   const { query } = useRouter();
   const { id } = query;
 
+  const handleGetUser = () => getUser(Number(id)).then((res) => res.data);
+
+  const { data, isLoading } = useSWR([id], handleGetUser);
+
   useEffect(() => {
-    if (id) {
-      setIsFetching(true);
-      getUser(Number(id))
-        .then((res) => {
-          reset(res.data.data);
-        })
-        .finally(() => setIsFetching(false));
+    if (data) {
+      reset(data.data);
     }
-  }, [id, reset]);
+  }, [data]);
 
   const onSubmit = async (data: User) => {
     if (!isSubmitting) {
@@ -99,7 +98,7 @@ const UserUpdatePage = () => {
     <UserUpdatePageStyled>
       <Container fluid>
         <Stack gap="lg">
-          <Skeleton visible={isFetching}>
+          <Skeleton visible={isLoading}>
             <PageHeader
               title={`Tài khoản - Chỉnh sửa - #${id}`}
               breadcrumbItems={[
@@ -126,7 +125,7 @@ const UserUpdatePage = () => {
                     <Fieldset legend="Thông tin tài khoản">
                       <Stack>
                         <SimpleGrid cols={{ base: 1, md: 2 }}>
-                          <Skeleton visible={isFetching}>
+                          <Skeleton visible={isLoading}>
                             <TextInput
                               withAsterisk
                               label="Họ đệm"
@@ -137,7 +136,7 @@ const UserUpdatePage = () => {
                               error={errors.last_name?.message}
                             />
                           </Skeleton>
-                          <Skeleton visible={isFetching}>
+                          <Skeleton visible={isLoading}>
                             <TextInput
                               withAsterisk
                               label="Tên"
@@ -149,7 +148,7 @@ const UserUpdatePage = () => {
                             />
                           </Skeleton>
                         </SimpleGrid>
-                        <Skeleton visible={isFetching}>
+                        <Skeleton visible={isLoading}>
                           <TextInput
                             withAsterisk
                             type="email"
@@ -161,7 +160,7 @@ const UserUpdatePage = () => {
                             error={errors.email?.message}
                           />
                         </Skeleton>
-                        <Skeleton visible={isFetching}>
+                        <Skeleton visible={isLoading}>
                           <TextInput
                             withAsterisk
                             label="Tên đăng nhập"
@@ -172,7 +171,7 @@ const UserUpdatePage = () => {
                             error={errors.user_name?.message}
                           />
                         </Skeleton>
-                        <Skeleton visible={isFetching}>
+                        <Skeleton visible={isLoading}>
                           <TextInput
                             label="Số điện thoại"
                             placeholder="Số điện thoại"
@@ -190,7 +189,7 @@ const UserUpdatePage = () => {
                   <Stack justify="space-between" gap={16} h="100%">
                     <Fieldset legend="Vai trò">
                       <Stack>
-                        <Skeleton visible={isFetching}>
+                        <Skeleton visible={isLoading}>
                           <Select
                             withAsterisk
                             label="Vai trò người dùng"
@@ -207,7 +206,7 @@ const UserUpdatePage = () => {
                           />
                         </Skeleton>
                         {getValues('role') === Role.Teacher && (
-                          <Skeleton visible={isFetching}>
+                          <Skeleton visible={isLoading}>
                             <TextInput
                               withAsterisk
                               label="Mã giảng viên"
@@ -226,7 +225,7 @@ const UserUpdatePage = () => {
               </Grid.Col>
             </Grid>
             <Surface mt="lg">
-              <Skeleton width="5%" visible={isFetching}>
+              <Skeleton width="5%" visible={isLoading}>
                 <Button
                   loading={isSubmitting}
                   onClick={handleSubmit(onSubmit)}

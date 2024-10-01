@@ -27,6 +27,10 @@ export const useStudentService = () => {
   ): Promise<AxiosResponse<ResultResonse<Student[]>, any>> =>
     axiosInstance.get('/students', { params });
 
+  const getStudentById = (
+    id: string | number | undefined
+  ): Promise<AxiosResponse<ResultResonse<Student>, any>> => axiosInstance.get(`/students/${id}`);
+
   const downloadTemplateImportStudentAdmission = (): Promise<
     AxiosResponse<ResultResonse<any>, any>
   > => axiosInstance.get('students/import-course/download-template', { responseType: 'blob' });
@@ -39,6 +43,7 @@ export const useStudentService = () => {
     });
 
   return {
+    getStudentById,
     getListAdmission,
     getListStudent,
     getStudentFileImportListAdmission,
