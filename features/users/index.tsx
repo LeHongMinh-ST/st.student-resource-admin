@@ -35,11 +35,11 @@ const UserPage = () => {
       .catch(() => console.error('Error fetching users:', error));
 
   const {
-    data: dataUser,
+    data,
     error,
     isLoading: isLoadingGetListUser,
     mutate,
-  } = useSWR<ResultResonse<User>>(['getListUser', userParams], handleGetListUser);
+  } = useSWR<ResultResonse<User[]>>(['getListUser', userParams], handleGetListUser);
 
   const handleDelete = useCallback(async () => {
     if (selected) {
@@ -119,9 +119,9 @@ const UserPage = () => {
           />
           <Paper p="md" shadow="md" radius="md">
             <CommonDataTable
-              meta={dataUser?.meta}
+              meta={data?.meta}
               columns={columns}
-              records={dataUser?.data}
+              records={data?.data}
               fetching={isLoadingGetListUser}
               onPageChange={(page: number) =>
                 setUserParams((params) => ({ ...params, current_page: page }))

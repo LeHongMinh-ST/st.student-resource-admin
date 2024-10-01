@@ -20,14 +20,15 @@ const ListExcelFileImport: FC<ListExcelFileImportProps> = ({
   const [excelFileImportsParams, setExcelFileImportPrams] = useState<StudentFileImportListParams>({
     ...defaultPramsList,
   });
-  const studentService = useStudentService();
+  const { getStudentFileImportListAdmission } = useStudentService();
 
   const handleGetListExcelFileImport = () =>
-    studentService
-      .getStudentFileImportListAdmission(admissionYear.id ?? 0, excelFileImportsParams)
-      .then((res) => res.data);
-  const { data, isLoading } = useSWR<ResultResonse<ExcelFileImport>>(
-    ['getListExcelFileImports', admissionYear, excelFileImportsParams, isReloadList],
+    getStudentFileImportListAdmission(admissionYear.id ?? 0, excelFileImportsParams).then(
+      (res) => res.data
+    );
+
+  const { data, isLoading } = useSWR<ResultResonse<ExcelFileImport[]>>(
+    [admissionYear, excelFileImportsParams, isReloadList],
     handleGetListExcelFileImport
   );
 

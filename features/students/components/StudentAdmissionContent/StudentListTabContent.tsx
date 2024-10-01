@@ -47,7 +47,7 @@ const StudentListTabContent: FC<StudentListTabContentProps> = ({ admissionYear }
         }
       });
 
-  const { data, isLoading } = useSWR<ResultResonse<Student>>(
+  const { data, isLoading } = useSWR<ResultResonse<Student[]>>(
     ['getListStudent', getListStudentParams],
     handleGetListStudent
   );
