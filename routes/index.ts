@@ -12,4 +12,5 @@ export const userRoute = {
 
 export const studentRoute = {
   listCourse: `${ADMIN_PREFIX}/students`,
+  show: (id: string | number | undefined) => (id ? `${ADMIN_PREFIX}/students/${id}` : ''),
 };

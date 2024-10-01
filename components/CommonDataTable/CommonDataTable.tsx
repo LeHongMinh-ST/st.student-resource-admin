@@ -10,6 +10,7 @@ type CommonDataTableProps<T> = {
   onRecordsPerPageChange: (perPage: number) => void;
   noRecordsText?: string;
   fetching?: boolean;
+  onRowClick?: ({ record, index, event }) => void;
 };
 
 export default function CommonDataTable<T>({
@@ -20,6 +21,7 @@ export default function CommonDataTable<T>({
   onRecordsPerPageChange,
   noRecordsText = 'Không có dữ liệu',
   fetching = false,
+  onRowClick,
 }: CommonDataTableProps<T>) {
   return (
     <DataTable
@@ -41,6 +43,7 @@ export default function CommonDataTable<T>({
       onPageChange={(page) => {
         onPageChange(page);
       }}
+      onRowClick={onRowClick}
       onRecordsPerPageChange={(perPage) => onRecordsPerPageChange(perPage)}
       emptyState={<EmptyTable />}
     />
