@@ -33,17 +33,19 @@ const UserPage = () => {
       .getList(userParams)
       .then((res) => res.data)
       .catch(() => console.error('Error fetching users:', error));
+
   const {
     data: dataUser,
     error,
     isLoading: isLoadingGetListUser,
+    mutate,
   } = useSWR<ResultResonse<User>>(['getListUser', userParams], handleGetListUser);
 
   const handleDelete = useCallback(async () => {
     if (selected) {
       try {
         await userService.deleteUser(selected?.id ?? '');
-        handleGetListUser();
+        await mutate();
       } catch (error) {
         console.error('Error deleting user:', error);
       }

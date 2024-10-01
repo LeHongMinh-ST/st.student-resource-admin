@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a19e1239-6d18-4fbf-8d8a-01a0fa85d8c4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/CommonDataTable/CommonDataTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/CommonDataTable/CommonDataTable.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/features/users/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/users/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +69,7 @@
       <workItem from="1727427855839" duration="136000" />
       <workItem from="1727495404640" duration="825000" />
       <workItem from="1727496509047" duration="3817000" />
-      <workItem from="1727747859809" duration="3444000" />
+      <workItem from="1727747859809" duration="3556000" />
     </task>
     <servers />
   </component>
