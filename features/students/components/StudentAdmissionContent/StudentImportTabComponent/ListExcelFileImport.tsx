@@ -1,12 +1,15 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { DataTableProps } from 'mantine-datatable';
 import { Paper, Text } from '@mantine/core';
 import useSWR from 'swr';
+import Pusher from 'pusher-js';
 import { CommonDataTable, StatusFileImportBadge } from '@/components';
 import { AdmissionYear, ExcelFileImport, ResultResonse } from '@/types';
 import { defaultPramsList } from '@/constants/commons';
 import { StudentFileImportListParams, useStudentService } from '@/services/studentService';
 import { formatDateString } from '@/utils/func/formatDateString';
+// import pusherConfig from "@/utils/pusher";
+import { useAuthStore } from '@/utils/recoil/auth/authState';
 
 type ListExcelFileImportProps = {
   admissionYear: AdmissionYear;
@@ -27,10 +30,22 @@ const ListExcelFileImport: FC<ListExcelFileImportProps> = ({
       (res) => res.data
     );
 
-  const { data, isLoading } = useSWR<ResultResonse<ExcelFileImport[]>>(
+  const { data, isLoading, mutate } = useSWR<ResultResonse<ExcelFileImport[]>>(
     [admissionYear, excelFileImportsParams, isReloadList],
     handleGetListExcelFileImport
   );
+  const auth = useAuthStore();
+
+  useEffect(() => {
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY ?? '', {
+      cluster: 'ap1',
+    });
+
+    const channel = pusher.subscribe(`import-student-course-channel.${auth.authUser?.id}`);
+    channel.bind('import-student-course-event', () => {
+      mutate().then();
+    });
+  }, []);
 
   const columns: DataTableProps<ExcelFileImport>['columns'] = [
     {
@@ -59,7 +74,12 @@ const ListExcelFileImport: FC<ListExcelFileImportProps> = ({
       accessor: 'status',
       title: 'Trạng thái',
       render: (excelFileImport: ExcelFileImport) => (
-        <StatusFileImportBadge status={excelFileImport.status} />
+        <StatusFileImportBadge
+          status={excelFileImport.status}
+          total_record={excelFileImport.total_record}
+          error_record={excelFileImport.file_errors_count}
+          handle_record={excelFileImport.process_record}
+        />
       ),
     },
     {

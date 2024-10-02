@@ -1,13 +1,21 @@
-import React from 'react';
-import { Badge } from '@mantine/core';
+import React, { useMemo } from 'react';
+import { Progress } from '@mantine/core';
 import { statusFileImportLabels } from '@/constants/labels';
 import { StatusFileImport } from '@/enums';
 
 interface StatusFileImportBadgeProp {
   status: StatusFileImport;
+  total_record: number;
+  error_record: number;
+  handle_record: number;
 }
 
-const StatusFileImportBadge: React.FC<StatusFileImportBadgeProp> = ({ status }) => {
+const StatusFileImportBadge: React.FC<StatusFileImportBadgeProp> = ({
+  status,
+  total_record,
+  error_record,
+  handle_record,
+}) => {
   const getBadgeProps = (status: StatusFileImport) => {
     switch (status) {
       case StatusFileImport.Completed:
@@ -21,12 +29,27 @@ const StatusFileImportBadge: React.FC<StatusFileImportBadgeProp> = ({ status }) 
     }
   };
 
+  const process = useMemo(
+    () => 100 * ((error_record + handle_record) / total_record),
+    [total_record, handle_record, error_record]
+  );
+
   const badgeProps = getBadgeProps(status);
 
   return (
-    <Badge color={badgeProps.color} variant="filled" size="sm" radius="sm">
-      {badgeProps.label}
-    </Badge>
+    <Progress.Root size="xl">
+      <Progress.Section
+        value={process}
+        color={badgeProps.color}
+        animated={process < 100}
+        transitionDuration={200}
+      >
+        <Progress.Label color={status === StatusFileImport.Completed ? 'white' : 'black'}>
+          {' '}
+          {badgeProps.label}
+        </Progress.Label>
+      </Progress.Section>
+    </Progress.Root>
   );
 };
 

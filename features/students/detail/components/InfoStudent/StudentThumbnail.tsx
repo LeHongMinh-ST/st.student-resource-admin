@@ -8,11 +8,11 @@ type StudentThumbnailProp = {
   student?: Student;
 };
 
-const StudentThumbnail: FC<StudentThumbnailProp> = ({ className, student }) => (
+const StudentThumbnail: FC<StudentThumbnailProp> = ({ className }) => (
   <StudentThumbnailStyled className={className}>
     <Paper p="md" shadow="md" radius="md">
       <div className="student-thumbnail">
-        <img src={student?.info?.thumbnail} alt={student?.code} />
+        {/*<img src={student?.info?.thumbnail} alt={student?.code} />*/}
       </div>
     </Paper>
   </StudentThumbnailStyled>
