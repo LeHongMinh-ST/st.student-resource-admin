@@ -38,12 +38,7 @@ const StatusFileImportBadge: React.FC<StatusFileImportBadgeProp> = ({
 
   return (
     <Progress.Root size="xl">
-      <Progress.Section
-        value={process}
-        color={badgeProps.color}
-        animated={process < 100}
-        transitionDuration={200}
-      >
+      <Progress.Section value={process} color={badgeProps.color} animated={process < 100}>
         <Progress.Label color={status === StatusFileImport.Completed ? 'white' : 'black'}>
           {' '}
           {badgeProps.label}

@@ -32,10 +32,10 @@ const UserPage = () => {
     userService
       .getList(userParams)
       .then((res) => res.data)
-      .catch(() => console.error('Error fetching users:', error));
+      .catch((error) => error);
 
-  const { data, error, isLoading, mutate } = useSWR<ResultResonse<User[]>>(
-    [userParams],
+  const { data, isLoading, mutate } = useSWR<ResultResonse<User[]>>(
+    ['getList', userParams],
     handleGetListUser
   );
 

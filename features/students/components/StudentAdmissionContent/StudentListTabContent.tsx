@@ -51,6 +51,7 @@ const StudentListTabContent: FC<StudentListTabContentProps> = ({ admissionYear }
             autoClose: 5000,
           });
         }
+        return error;
       });
 
   const { data, isLoading } = useSWR<ResultResonse<Student[]>>(

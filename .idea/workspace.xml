@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a19e1239-6d18-4fbf-8d8a-01a0fa85d8c4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/Badge/StatusFileImportBadge/StatusFileImportBadge.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Badge/StatusFileImportBadge/StatusFileImportBadge.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/CommonDataTable/CommonDataTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/CommonDataTable/CommonDataTable.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentImportTabComponent/ListExcelFileImport.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentImportTabComponent/ListExcelFileImport.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/pusher/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/pusher/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentListTabContent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentListTabContent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/users/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/users/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +53,7 @@
     "node.js.selected.package.stylelint": "/var/www/st.student-resource-admin/node_modules/stylelint",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "yarn",
-    "prettierjs.PrettierConfiguration.Package": "/var/www/st.student-resource-admin/node_modules/prettier",
+    "prettierjs.PrettierConfiguration.Package": "/opt/homebrew/var/www/st-team/st.student-resource-admin/node_modules/prettier",
     "settings.editor.selected.configurable": "preferences.sourceCode.TypeScript",
     "ts.external.directory.path": "/opt/homebrew/var/www/st-team/st.student-resource-admin/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
