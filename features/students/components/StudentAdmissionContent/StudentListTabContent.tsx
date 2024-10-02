@@ -15,6 +15,7 @@ import StudentNameCellTable from './StudentListTabComponent/Cells/StudentNameCel
 import { formatDateString } from '@/utils/func/formatDateString';
 import StudentStatusFilter from './StudentListTabComponent/Filters/StudentStatusFilter';
 import { studentRoute } from '@/routes';
+import SearchFilter from '@/features/students/components/StudentAdmissionContent/StudentListTabComponent/Filters/SearchFilter';
 
 type StudentListTabContentProps = {
   admissionYear: AdmissionYear;
@@ -63,6 +64,13 @@ const StudentListTabContent: FC<StudentListTabContentProps> = ({ admissionYear }
       title: 'Sinh viên',
       render: (student) => <StudentNameCellTable student={student} />,
       sortable: true,
+      filter: (
+        <SearchFilter<GetListStudentParams>
+          setParams={setGetListStudentParams}
+          searchTermValue={getListStudentParams.q}
+        />
+      ),
+      filtering: !!getListStudentParams.q,
     },
     {
       accessor: 'code',
