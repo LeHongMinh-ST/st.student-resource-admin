@@ -27,4 +27,12 @@ export const ERROR_MESSAGES = {
       required: 'Vui lòng nhập mã giảng viên',
     },
   },
+  department: {
+    code: {
+      required: 'Vui lòng nhập mã bộ môn',
+    },
+    name: {
+      required: 'Vui lòng nhập tên bộ môn',
+    },
+  },
 };
