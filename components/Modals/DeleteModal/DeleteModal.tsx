@@ -39,7 +39,7 @@ export default function DeleteModal({ entityName, isOpen, onClose, onDelete }: D
       } else {
         notifications.show({
           title: 'Thất bại!',
-          message: 'Có lỗi xảy ra! vui lòng thử lại sau.',
+          message: e?.response?.data?.message || 'Có lỗi xảy ra! vui lòng thử lại sau.',
           icon: <IconAlertTriangle />,
           color: 'red',
           autoClose: 5000,

@@ -142,3 +142,14 @@ type StudentInfo = {
   thumbnail: string;
   social_policy_object: SocialPolicyObject;
 };
+
+type Department = {
+  id?: number;
+  name: string;
+  code: string;
+  status: Status;
+  created_at?: string;
+  updated_at?: string;
+  faculty_id?: number;
+  faculty?: Faculty;
+};
