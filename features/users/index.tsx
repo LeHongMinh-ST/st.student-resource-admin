@@ -41,12 +41,9 @@ const UserPage = () => {
 
   const handleDelete = useCallback(async () => {
     if (selected) {
-      try {
-        await userService.deleteUser(selected?.id ?? '');
-        await mutate();
-      } catch (error) {
-        console.error('Error deleting user:', error);
-      }
+      await userService.deleteUser(selected?.id ?? '');
+      await mutate();
+      onClose();
     }
   }, [selected, userService]);
 
