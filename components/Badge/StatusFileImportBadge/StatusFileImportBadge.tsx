@@ -4,7 +4,7 @@ import { statusFileImportLabels } from '@/constants/labels';
 import { StatusFileImport } from '@/enums';
 
 interface StatusFileImportBadgeProp {
-  status: StatusFileImport;
+  status?: StatusFileImport;
   total_record: number;
   error_record: number;
   handle_record: number;
@@ -25,7 +25,7 @@ const StatusFileImportBadge: React.FC<StatusFileImportBadgeProp> = ({
       case StatusFileImport.Pending:
         return { color: 'gray', label: statusFileImportLabels.pending };
       default:
-        return { color: 'green.8', label: statusFileImportLabels.completed };
+        return { color: 'gray', label: statusFileImportLabels.pending };
     }
   };
 
@@ -36,7 +36,7 @@ const StatusFileImportBadge: React.FC<StatusFileImportBadgeProp> = ({
     return 100 * ((error_record + handle_record) / total_record);
   }, [total_record, handle_record, error_record]);
 
-  const badgeProps = getBadgeProps(status);
+  const badgeProps = getBadgeProps(status ?? StatusFileImport.Pending);
 
   return (
     <Progress.Root size="xl">
