@@ -1,4 +1,14 @@
-import { StudentStatus } from '@/enums';
+import {
+  ExcelFileImportType,
+  FamilyRelationship,
+  Gender,
+  SocialPolicyObject,
+  StatusEnum,
+  StatusFileImport,
+  StudentRole,
+  StudentStatus,
+  TrainingType,
+} from '@/enums';
 import Role from '@/enums/role.enum';
 
 declare module '*.svg' {
@@ -58,7 +68,7 @@ type ExcelFileImport = {
   total_record: number;
   process_record: number;
   file_errors_count: number;
-  status: StatusFileImport;
+  status?: StatusFileImport;
   user?: User;
   created_at?: string;
   updated_at?: string;
@@ -76,7 +86,7 @@ type User = {
   thumbnail?: string;
   department_id?: number | null;
   role: Role;
-  status?: Status;
+  status?: StatusEnum;
   created_at?: string;
   updated_at?: string;
 };
@@ -147,7 +157,7 @@ type Department = {
   id?: number;
   name: string;
   code: string;
-  status: Status;
+  status: StatusEnum;
   created_at?: string;
   updated_at?: string;
   faculty_id?: number;

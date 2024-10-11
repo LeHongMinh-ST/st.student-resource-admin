@@ -42,6 +42,9 @@ export const useStudentService = () => {
       },
     });
 
+  const downloadImportErrorRecord = (id?: number): Promise<AxiosResponse<any, any>> =>
+    axiosInstance.get(`students/import-course/${id}/download-error`, { responseType: 'blob' });
+
   return {
     getStudentById,
     getListAdmission,
@@ -49,5 +52,6 @@ export const useStudentService = () => {
     getStudentFileImportListAdmission,
     importStudent,
     downloadTemplateImportStudentAdmission,
+    downloadImportErrorRecord,
   };
 };

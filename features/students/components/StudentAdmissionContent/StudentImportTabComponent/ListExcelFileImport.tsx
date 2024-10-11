@@ -7,9 +7,8 @@ import { CommonDataTable, StatusFileImportBadge } from '@/components';
 import { AdmissionYear, ExcelFileImport, ResultResonse } from '@/types';
 import { defaultPramsList } from '@/constants/commons';
 import { StudentFileImportListParams, useStudentService } from '@/services/studentService';
-import { formatDateString } from '@/utils/func/formatDateString';
-// import pusherConfig from "@/utils/pusher";
 import { useAuthStore } from '@/utils/recoil/auth/authState';
+import ExcelFileImportActionMenu from '@/features/students/components/StudentAdmissionContent/StudentImportTabComponent/Cells/ExcelFileImportActionMenu';
 
 type ListExcelFileImportProps = {
   admissionYear: AdmissionYear;
@@ -75,7 +74,7 @@ const ListExcelFileImport: FC<ListExcelFileImportProps> = ({
       title: 'Trạng thái',
       render: (excelFileImport: ExcelFileImport) => (
         <StatusFileImportBadge
-          status={excelFileImport.status}
+          status={excelFileImport?.status}
           total_record={excelFileImport.total_record}
           error_record={excelFileImport.file_errors_count}
           handle_record={excelFileImport.process_record}
@@ -93,11 +92,11 @@ const ListExcelFileImport: FC<ListExcelFileImportProps> = ({
       ),
     },
     {
-      accessor: 'created_at',
-      title: 'Ngày tạo',
-      sortable: true,
-      render: (excelFileImport: ExcelFileImport) => (
-        <Text fz="sm">{formatDateString(excelFileImport?.created_at, 'HH:MM dd/mm/yyyy')}</Text>
+      accessor: 'id',
+      title: 'Hành động',
+      width: 100,
+      render: (excelFileImport: ExcelFileImpor) => (
+        <ExcelFileImportActionMenu excelFileImport={excelFileImport} />
       ),
     },
   ];

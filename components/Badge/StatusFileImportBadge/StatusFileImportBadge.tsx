@@ -29,10 +29,12 @@ const StatusFileImportBadge: React.FC<StatusFileImportBadgeProp> = ({
     }
   };
 
-  const process = useMemo(
-    () => 100 * ((error_record + handle_record) / total_record),
-    [total_record, handle_record, error_record]
-  );
+  const process = useMemo(() => {
+    if (status === StatusFileImport.Completed) {
+      return 100;
+    }
+    return 100 * ((error_record + handle_record) / total_record);
+  }, [total_record, handle_record, error_record]);
 
   const badgeProps = getBadgeProps(status);
 
