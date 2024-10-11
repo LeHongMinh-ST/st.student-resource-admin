@@ -1,4 +1,4 @@
-import { FieldValues, UseFormSetError } from 'react-hook-form';
+import { UseFormSetError } from 'react-hook-form';
 
 /**
  * Sets form errors dynamically based on the errors object received from the server.
@@ -6,7 +6,7 @@ import { FieldValues, UseFormSetError } from 'react-hook-form';
  * @param errors - The errors object from the server response (e.g., e.response?.data?.errors)
  * @param setError - The `setError` function from react-hook-form
  */
-export const setFormErrors = (errors: any, setError: UseFormSetError<FieldValues>) => {
+export const setFormErrors = (errors: any, setError: UseFormSetError<any>) => {
   Object.keys(errors).forEach((field) => {
     setError(field, {
       type: 'manual',

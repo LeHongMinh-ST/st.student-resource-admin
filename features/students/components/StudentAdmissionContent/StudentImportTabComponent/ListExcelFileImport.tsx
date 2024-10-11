@@ -95,7 +95,7 @@ const ListExcelFileImport: FC<ListExcelFileImportProps> = ({
       accessor: 'id',
       title: 'Hành động',
       width: 100,
-      render: (excelFileImport: ExcelFileImpor) => (
+      render: (excelFileImport: ExcelFileImport) => (
         <ExcelFileImportActionMenu excelFileImport={excelFileImport} />
       ),
     },
