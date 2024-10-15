@@ -1,4 +1,5 @@
 import { TextInput } from '@mantine/core';
+import { ChangeEvent } from 'react';
 import { IconSearch } from '@tabler/icons-react';
 import { useSearchFilter } from '@/hooks/useSearchFilter';
 
@@ -20,7 +21,7 @@ const SearchFilter = <T extends Record<string, any>>({
       placeholder="vd: Admin, Giáo viên..."
       leftSection={<IconSearch size={16} />}
       value={searchTerm}
-      onChange={handleInputSearchChange}
+      onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputSearchChange(e.target.value)}
     />
   );
 };
