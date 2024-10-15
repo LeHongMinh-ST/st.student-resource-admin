@@ -14,8 +14,8 @@ import { useAuthStore } from '@/utils/recoil/auth/authState';
 import { CommonDataTable, DeleteModal, PageHeader } from '@/components';
 import { dashboardRoute, departmentRoute } from '@/routes';
 import StatusBadge from '../../components/Badge/StatusBadge/StatusBadge';
-import SearchFilter from '@/features/departments/components/Filters/SearchFilter';
 import StatusFilter from '@/features/departments/components/Filters/StatusFilter';
+import SearchFilter from '@/components/Filters/SearchFilter';
 import StatusEnum from '@/enums/status.enum';
 
 const DepartmentPage = () => {
@@ -48,8 +48,15 @@ const DepartmentPage = () => {
         render: (department: Department) => <span>{department.code}</span>,
         sorting: true,
         filter: (
-          <SearchFilter<DepartmentListParams>
-            setParams={setDepartmentParams}
+          <SearchFilter
+            label="Tìm kiếm'"
+            placeholder="vd: Mã bộ môn, ..."
+            setParams={(value) => {
+              setDepartmentParams({
+                ...departmentParams,
+                q: value,
+              });
+            }}
             searchTermValue={departmentParams.q}
           />
         ),

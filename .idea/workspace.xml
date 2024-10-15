@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a19e1239-6d18-4fbf-8d8a-01a0fa85d8c4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentListTabComponent/Filters/SearchFilter.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentListTabContent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentListTabContent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/users/components/Filters/SearchFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Filters/SearchFilter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/users/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/users/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/departments/components/Filters/SearchFilter.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/departments/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/departments/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +126,7 @@
       <workItem from="1728525744713" duration="246000" />
       <workItem from="1728615447634" duration="9592000" />
       <workItem from="1728640520268" duration="7531000" />
-      <workItem from="1728958448297" duration="2916000" />
+      <workItem from="1728958448297" duration="5522000" />
     </task>
     <servers />
   </component>
