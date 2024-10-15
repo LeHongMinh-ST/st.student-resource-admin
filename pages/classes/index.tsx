@@ -1,3 +1,3 @@
-import UserPage from '@/features/users';
+import ClassPage from '@/features/classes';
 
-export default UserPage;
+export default ClassPage;

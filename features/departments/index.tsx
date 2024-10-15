@@ -1,22 +1,22 @@
+import styled from '@emotion/styled';
+import { Button, Container, Paper, Stack, Text } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import { IconPlus } from '@tabler/icons-react';
+import { DataTableProps } from 'mantine-datatable';
+import Link from 'next/link';
 import { useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
-import { DataTableProps } from 'mantine-datatable';
-import { useDisclosure } from '@mantine/hooks';
-import styled from '@emotion/styled';
-import Link from 'next/link';
-import { Button, Container, Paper, Stack } from '@mantine/core';
-import { IconPlus } from '@tabler/icons-react';
-import { Department, ResultResonse } from '@/types';
-import { DepartmentListParams, useDepartmentService } from '@/services/departmentService';
-import { defaultPramsList } from '@/constants/commons';
-import DepartmentActionMenu from '@/features/departments/components/Cells/DepartmentActionMenu';
-import { useAuthStore } from '@/utils/recoil/auth/authState';
-import { CommonDataTable, DeleteModal, PageHeader } from '@/components';
-import { dashboardRoute, departmentRoute } from '@/routes';
-import StatusBadge from '../../components/Badge/StatusBadge/StatusBadge';
-import StatusFilter from '@/features/departments/components/Filters/StatusFilter';
+import { CommonDataTable, DeleteModal, PageHeader, StatusBadge } from '@/components';
 import SearchFilter from '@/components/Filters/SearchFilter';
+import { defaultPramsList } from '@/constants/commons';
 import StatusEnum from '@/enums/status.enum';
+import DepartmentActionMenu from '@/features/departments/components/Cells/DepartmentActionMenu';
+import StatusFilter from '@/features/departments/components/Filters/StatusFilter';
+import { dashboardRoute, departmentRoute } from '@/routes';
+import { DepartmentListParams, useDepartmentService } from '@/services/departmentService';
+import { Department, ResultResonse } from '@/types';
+import { formatDateString } from '@/utils/func/formatDateString';
+import { useAuthStore } from '@/utils/recoil/auth/authState';
 
 const DepartmentPage = () => {
   const departmentService = useDepartmentService();
@@ -50,7 +50,7 @@ const DepartmentPage = () => {
         filter: (
           <SearchFilter
             label="Tìm kiếm'"
-            placeholder="vd: Mã bộ môn, ..."
+            placeholder="vd: Mã bộ môn, tên bộ môn..."
             setParams={(value) => {
               setDepartmentParams({
                 ...departmentParams,
@@ -83,6 +83,14 @@ const DepartmentPage = () => {
         render: (department: Department) => <StatusBadge status={department.status} />,
         sorting: true,
         filtering: !!departmentParams.status,
+      },
+      {
+        accessor: 'created_at',
+        title: 'Ngày tạo',
+        sortable: true,
+        render: (department: Department) => (
+          <Text fz="sm">{formatDateString(department?.created_at, 'HH:MM dd/mm/yyyy')}</Text>
+        ),
       },
       {
         accessor: 'id',

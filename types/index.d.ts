@@ -10,6 +10,7 @@ import {
   TrainingType,
 } from '@/enums';
 import Role from '@/enums/role.enum';
+import ClassType from '@/enums/classType.enum';
 
 declare module '*.svg' {
   const content: React.FC<React.SVGProps<SVGElement>>;
@@ -87,6 +88,7 @@ type User = {
   department_id?: number | null;
   role: Role;
   status?: StatusEnum;
+  faculty_id?: number | null;
   created_at?: string;
   updated_at?: string;
 };
@@ -161,5 +163,20 @@ type Department = {
   created_at?: string;
   updated_at?: string;
   faculty_id?: number;
+  faculty?: Faculty;
+};
+
+type Class = {
+  id?: number;
+  name: string;
+  code: string;
+  status: StatusEnum;
+  type: ClassType;
+  created_at?: string;
+  updated_at?: string;
+  faculty_id?: number;
+  major_id?: number;
+  teacher_id?: number;
+  teacher?: User;
   faculty?: Faculty;
 };
