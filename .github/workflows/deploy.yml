@@ -29,8 +29,8 @@ jobs:
         run: |
           ssh -p $SSH_PORT $SSH_USER@$SSH_HOST "
           cd $NEXT_APP_PATH &&
-          git reset --hard origin/main &&
           git fetch origin main &&
+          git reset --hard origin/main &&
           git pull origin main &&
           npm install &&
           npm run build &&
