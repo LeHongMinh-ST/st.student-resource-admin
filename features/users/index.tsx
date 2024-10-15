@@ -17,10 +17,10 @@ import { defaultPramsList } from '@/constants/commons';
 import { RoleBadge } from '../../components/Badge/RoleBadge';
 import { formatDateString } from '@/utils/func/formatDateString';
 import UserNameCellTable from './components/Cells/UserNameCellTable';
-import SearchFilter from './components/Filters/SearchFilter';
 import { RoleEnum } from '@/enums';
 import RoleFilter from './components/Filters/RoleFilter';
 import UserActionMenu from './components/Cells/UserActionMenu';
+import SearchFilter from '@/components/Filters/SearchFilter';
 
 const UserPage = () => {
   const userService = useUserService();
@@ -54,7 +54,9 @@ const UserPage = () => {
         title: 'Tài khoản',
         render: (user: User) => <UserNameCellTable user={user} />,
         filter: (
-          <SearchFilter<UserListParams>
+          <SearchFilter
+            label="Tìm kiếm'"
+            placeholder="vd: Admin, Giáo viên..."
             setParams={(value) => {
               setUserParams({
                 ...userParams,

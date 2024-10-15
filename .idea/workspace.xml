@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="a19e1239-6d18-4fbf-8d8a-01a0fa85d8c4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/users/components/Filters/SearchFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/users/components/Filters/SearchFilter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentListTabComponent/Filters/SearchFilter.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentListTabContent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentListTabContent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/users/components/Filters/SearchFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Filters/SearchFilter.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/features/users/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/users/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hooks/useSearchFilter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useSearchFilter.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +69,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/var/www/st.student-resource-admin/features/students/components/StudentAdmissionContent/StudentListTabComponent/Filters&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/var/www/st.student-resource-admin/components/Filters&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
@@ -86,6 +87,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/components/Filters" />
       <recent name="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentListTabComponent/Filters" />
     </key>
   </component>
@@ -126,7 +128,7 @@
       <workItem from="1728525744713" duration="246000" />
       <workItem from="1728615447634" duration="9592000" />
       <workItem from="1728640520268" duration="7531000" />
-      <workItem from="1728958448297" duration="2451000" />
+      <workItem from="1728958448297" duration="2916000" />
     </task>
     <servers />
   </component>

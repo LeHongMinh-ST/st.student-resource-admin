@@ -15,7 +15,7 @@ import StudentNameCellTable from './StudentListTabComponent/Cells/StudentNameCel
 import { formatDateString } from '@/utils/func/formatDateString';
 import StudentStatusFilter from './StudentListTabComponent/Filters/StudentStatusFilter';
 import { studentRoute } from '@/routes';
-import SearchFilter from '@/features/students/components/StudentAdmissionContent/StudentListTabComponent/Filters/SearchFilter';
+import SearchFilter from '@/components/Filters/SearchFilter';
 
 type StudentListTabContentProps = {
   admissionYear: AdmissionYear;
@@ -66,8 +66,15 @@ const StudentListTabContent: FC<StudentListTabContentProps> = ({ admissionYear }
       render: (student) => <StudentNameCellTable student={student} />,
       sortable: true,
       filter: (
-        <SearchFilter<GetListStudentParams>
-          setParams={setGetListStudentParams}
+        <SearchFilter
+          label="Tìm kiếm"
+          placeholder="vd: Nguyễn Văn A,..."
+          setParams={(value) => {
+            setGetListStudentParams({
+              ...getListStudentParams,
+              q: value,
+            });
+          }}
           searchTermValue={getListStudentParams.q}
         />
       ),
