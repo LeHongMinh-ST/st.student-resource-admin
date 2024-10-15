@@ -1,4 +1,4 @@
-name: CI/CD Pipeline Laravel
+name: CI/CD Pipeline
 
 on:
   push:
@@ -6,6 +6,18 @@ on:
       - main
 
 jobs:
+  lint-commit-msg:
+    runs-on: [ ubuntu-latest ]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install deps
+        run: npm install
+      - name: Lint commit message
+        run: npx commitlint --last --verbose
   test:
     runs-on: ubuntu-latest
     steps:
@@ -25,7 +37,9 @@ jobs:
         run: npm test
 
   deploy:
-    needs: test
+    needs:
+      - test
+      - lint-commit-msg
     runs-on: ubuntu-latest
 
     steps:
