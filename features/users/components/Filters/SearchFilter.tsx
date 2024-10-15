@@ -3,16 +3,13 @@ import { ChangeEvent } from 'react';
 import { IconSearch } from '@tabler/icons-react';
 import { useSearchFilter } from '@/hooks/useSearchFilter';
 
-interface SearchFilterProps<T> {
-  setParams: (params: T) => void;
+interface SearchFilterProps {
+  setParams: (value: string) => void;
   searchTermValue?: string;
 }
 
-const SearchFilter = <T extends Record<string, any>>({
-  setParams,
-  searchTermValue,
-}: SearchFilterProps<T>) => {
-  const { searchTerm, handleInputSearchChange } = useSearchFilter<T>(setParams, searchTermValue);
+const SearchFilter = ({ setParams, searchTermValue }: SearchFilterProps) => {
+  const { searchTerm, handleInputSearchChange } = useSearchFilter(setParams, searchTermValue);
 
   return (
     <TextInput

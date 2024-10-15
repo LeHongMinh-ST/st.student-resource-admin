@@ -1,9 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 
-export const useSearchFilter = <T extends Record<string, any>>(
-  setParams: (params: T) => void,
-  searchTermValue?: string
-) => {
+export const useSearchFilter = (setParams: (params: string) => void, searchTermValue?: string) => {
   const [searchTerm, setSearchTerm] = useState<string>(searchTermValue ?? '');
   const typingTimeoutRef = useRef<number | NodeJS.Timeout | null>(null);
 
@@ -14,7 +11,7 @@ export const useSearchFilter = <T extends Record<string, any>>(
       }
 
       typingTimeoutRef.current = setTimeout(() => {
-        setParams((prevParams: T) => ({ ...prevParams, q: value }));
+        setParams(value);
       }, 300); // 300ms debounce
     },
     [setParams]

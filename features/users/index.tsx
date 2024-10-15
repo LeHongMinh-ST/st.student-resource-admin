@@ -54,7 +54,15 @@ const UserPage = () => {
         title: 'Tài khoản',
         render: (user: User) => <UserNameCellTable user={user} />,
         filter: (
-          <SearchFilter<UserListParams> setParams={setUserParams} searchTermValue={userParams.q} />
+          <SearchFilter<UserListParams>
+            setParams={(value) => {
+              setUserParams({
+                ...userParams,
+                q: value,
+              });
+            }}
+            searchTermValue={userParams.q}
+          />
         ),
         filtering: !!userParams.q,
       },
