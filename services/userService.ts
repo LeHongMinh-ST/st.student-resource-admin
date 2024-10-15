@@ -7,6 +7,7 @@ import Role from '@/enums/role.enum';
 export type UserListParams = {
   status?: Status;
   role?: Role;
+  facultyId?: number;
 } & BaseParamsList;
 
 export const useUserService = () => {

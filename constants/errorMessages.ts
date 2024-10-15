@@ -35,4 +35,15 @@ export const ERROR_MESSAGES = {
       required: 'Vui lòng nhập tên bộ môn',
     },
   },
+  class: {
+    code: {
+      required: 'Vui lòng nhập mã lớp',
+    },
+    name: {
+      required: 'Vui lòng nhập tên lớp',
+    },
+    teacher_id: {
+      required: 'Vui lòng chọn giảng viên chủ nhiệm',
+    },
+  },
 };

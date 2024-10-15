@@ -72,6 +72,7 @@ export const socialPolicyObjectLabels: Record<SocialPolicyObject, string> = {
 };
 
 export const classTypeLabels: Record<ClassType, string> = {
-  [ClassType.Basic]: 'Cơ bản',
+  [ClassType.Basic]: 'Thường',
   [ClassType.Major]: 'Chuyên ngành',
+  [ClassType.Subject]: 'Môn học',
 };

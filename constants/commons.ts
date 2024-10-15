@@ -1,8 +1,8 @@
-import { BaseParamsList, MetaResponse, SelectList } from '@/types';
-import { roleLabels, studentStatusLabels, statusLabels } from './labels';
-import { RoleEnum, StudentStatus } from '@/enums';
-import Status from '@/enums/status.enum';
+import { ClassType, RoleEnum, StudentStatus } from '@/enums';
 import Role from '@/enums/role.enum';
+import Status from '@/enums/status.enum';
+import { BaseParamsList, MetaResponse, SelectList } from '@/types';
+import { classTypeLabels, roleLabels, statusLabels, studentStatusLabels } from './labels';
 
 export const defaultPage: MetaResponse = {
   current_page: 1,
@@ -20,6 +20,12 @@ export const RoleSelectList: SelectList<Role>[] = [
   { value: RoleEnum.Admin, label: roleLabels.admin },
   { value: RoleEnum.Office, label: roleLabels.office },
   { value: RoleEnum.Teacher, label: roleLabels.teacher },
+];
+
+export const ClassTypeSelectList: SelectList<ClassType>[] = [
+  { value: ClassType.Basic, label: classTypeLabels.basic },
+  { value: ClassType.Major, label: classTypeLabels.major },
+  { value: ClassType.Subject, label: classTypeLabels.subject },
 ];
 
 export const StudentStatusSelectList: SelectList<StudentStatus>[] = [
