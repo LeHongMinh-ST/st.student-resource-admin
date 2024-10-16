@@ -48,7 +48,16 @@ const ClassPage = () => {
       {
         accessor: 'code',
         title: 'Mã lớp',
-        render: (generalClass: Class) => <Text>{generalClass.code}</Text>,
+        render: (generalClass: Class) => (
+          <Text
+            style={{ cursor: 'pointer' }}
+            fw={500}
+            c="blue"
+            onClick={() => push(classRoute.show(generalClass.id))}
+          >
+            {generalClass.code}
+          </Text>
+        ),
         sorting: true,
         filter: (
           <SearchFilter
@@ -153,7 +162,6 @@ const ClassPage = () => {
               onRecordsPerPageChange={(perPage: number) =>
                 setClassParams((params) => ({ ...params, limit: perPage }))
               }
-              onRowClick={({ record }) => push(classRoute.show(record?.id))}
             />
           </Paper>
         </Stack>
