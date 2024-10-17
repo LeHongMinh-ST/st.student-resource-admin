@@ -130,7 +130,6 @@ const ClassCreatePage = () => {
               </Button>
             }
           />
-
           <Paper p="md" shadow="md" radius="md">
             <Grid gutter={{ base: 'lg', lg: 'xl' }}>
               <Grid.Col span={{ base: 12, md: 8 }}>
