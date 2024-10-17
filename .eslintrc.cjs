@@ -3,6 +3,7 @@ module.exports = {
   plugins: ['react-hooks'],
   parserOptions: {
     project: './tsconfig.json',
+    extraFileExtensions: [".css", ".scss"]
   },
   rules: {
     'react/react-in-jsx-scope': 'off',
