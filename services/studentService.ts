@@ -27,6 +27,10 @@ export const useStudentService = () => {
   ): Promise<AxiosResponse<ResultResonse<Student[]>, any>> =>
     axiosInstance.get('/students', { params });
 
+  const getTotalStudent = (
+    params: GetListStudentParams = {} as GetListStudentParams
+  ): Promise<AxiosResponse<any>> => axiosInstance.get('/students/total', { params });
+
   const getStudentById = (
     id: string | number | undefined
   ): Promise<AxiosResponse<ResultResonse<Student>, any>> => axiosInstance.get(`/students/${id}`);
@@ -53,5 +57,6 @@ export const useStudentService = () => {
     importStudent,
     downloadTemplateImportStudentAdmission,
     downloadImportErrorRecord,
+    getTotalStudent,
   };
 };
