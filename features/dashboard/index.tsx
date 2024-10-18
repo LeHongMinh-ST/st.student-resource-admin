@@ -1,4 +1,4 @@
-import { Container, Paper, Stack } from '@mantine/core';
+import { Container, Stack } from '@mantine/core';
 import { PageHeader } from '@/components';
 import { User } from '@/types';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
@@ -13,14 +13,12 @@ const Dashboard = () => {
     <Container fluid>
       <Stack gap="lg">
         <PageHeader user={user} title="Welcome!" hasGreetings />
-      </Stack>
-      <Paper p="md" shadow="md" radius="md" className="mt-2">
         {user?.role === Role.Admin ? (
           <DashboardAdmin user={user} />
         ) : (
           <DashboardTeacher user={user} />
         )}
-      </Paper>
+      </Stack>
     </Container>
   );
 };

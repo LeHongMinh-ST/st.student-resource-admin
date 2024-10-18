@@ -5,14 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a19e1239-6d18-4fbf-8d8a-01a0fa85d8c4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/features/dashboard/DashboardAdmin.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/features/dashboard/DashboardTeacher.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.cjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/dashboard/components/CardList.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/dashboard/components/StatsCard.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/empty2.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/empty3.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/empty_card1.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Navigation/Navigation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Navigation/Navigation.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/constants/sidebarNavigation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/sidebarNavigation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/dashboard/DashboardAdmin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/dashboard/DashboardAdmin.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/features/dashboard/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/dashboard/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/majors/index.tsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +72,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/var/www/st.student-resource-admin/components/Filters&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/opt/homebrew/var/www/st-team/st.student-resource-admin/public/images&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
@@ -84,14 +84,15 @@
     &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;npm.dev.executor&quot;: &quot;Run&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/var/www/st.student-resource-admin/node_modules/prettier&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/opt/homebrew/var/www/st-team/st.student-resource-admin/node_modules/prettier&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;settings.nodejs&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/var/www/st.student-resource-admin/node_modules/typescript/lib&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/opt/homebrew/var/www/st-team/st.student-resource-admin/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/images" />
       <recent name="$PROJECT_DIR$/components/Filters" />
       <recent name="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentListTabComponent/Filters" />
     </key>
