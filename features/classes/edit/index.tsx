@@ -2,15 +2,15 @@
 
 import styled from '@emotion/styled';
 import {
-  Container,
-  Stack,
   Button,
-  Paper,
+  Container,
   Fieldset,
   Grid,
+  Paper,
   Select,
-  TextInput,
   Skeleton,
+  Stack,
+  TextInput,
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { IconAlertTriangle, IconCheck, IconDeviceFloppy, IconLogout } from '@tabler/icons-react';
@@ -19,7 +19,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
-import { dashboardRoute, classRoute } from '@/routes';
+import { classRoute, dashboardRoute } from '@/routes';
 import { useClassService } from '@/services/classService';
 import { Class, ResultResonse, User } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
@@ -49,10 +49,9 @@ const ClassUpdatePage = () => {
   });
 
   const { updateClass, getClass } = useClassService();
-  const { query } = useRouter();
+  const { query, push } = useRouter();
   const { id } = query;
   const { authUser } = useAuthStore();
-
   const handleGetClass = () => getClass(Number(id)).then((res) => res.data);
 
   const { getList } = useUserService();
@@ -82,7 +81,13 @@ const ClassUpdatePage = () => {
     value: `${item.id}`,
   }));
 
-  const { data, isLoading } = useSWR([id], handleGetClass);
+  const { data, error, isLoading } = useSWR([id], handleGetClass);
+
+  if (error) {
+    if (error.status === HttpStatus.HTTP_NOT_FOUND) {
+      push('/404').then();
+    }
+  }
 
   useEffect(() => {
     if (data) {

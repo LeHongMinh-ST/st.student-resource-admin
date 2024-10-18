@@ -13,6 +13,7 @@ import { HttpStatusEnum } from '@/enums';
 import { PageHeader } from '@/components';
 import { GetListStudentParams, useStudentService } from '@/services/studentService';
 import { classTypeLabels } from '@/constants/labels';
+import HttpStatus from '@/enums/http-status.enum';
 
 const StudentListByClass = lazy(
   () => import('@/features/classes/components/StudentListByClassComponent/StudentListByClass')
@@ -20,14 +21,16 @@ const StudentListByClass = lazy(
 
 const ClassDetailPage = () => {
   const { getClassById } = useClassService();
-  const { query } = useRouter();
+  const { query, push } = useRouter();
   const { id } = query;
 
   const handleGetClassById = () =>
     getClassById(Number(id))
       .then((res) => res.data)
       .catch((error) => {
-        if (error?.status === HttpStatusEnum.HTTP_FORBIDDEN) {
+        if (error.status === HttpStatus.HTTP_NOT_FOUND) {
+          push('/404').then();
+        } else if (error?.status === HttpStatusEnum.HTTP_FORBIDDEN) {
           notifications.show({
             title: 'Cảnh báo!',
             message: 'Bạn không có quyền truy cập!',
