@@ -12,12 +12,14 @@ type StudentAdmissionProps = {
   admissionYear: AdmissionYear;
 };
 
+type StudentAdminTab = 'list' | 'import';
+
 const StudentAdmission: FC<StudentAdmissionProps> = ({ admissionYear }) => {
-  const [activeTab, setActiveTab] = useState<string | null>('list');
+  const [activeTab, setActiveTab] = useState<StudentAdminTab | null>('list');
   const iconStyle = { width: rem(24), height: rem(24) };
 
   return (
-    <Tabs value={activeTab} onChange={setActiveTab}>
+    <Tabs value={activeTab} onChange={(value: StudentAdminTab) => setActiveTab(value)}>
       <Tabs.List>
         <Tabs.Tab value="list" leftSection={<IconUserSearch style={iconStyle} />}>
           <Text fw={500} size="xl">

@@ -1,14 +1,30 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
-import { Button, Container, Grid, Paper, Skeleton, Stack } from '@mantine/core';
+import { lazy, Suspense, useState } from 'react';
+import {
+  Button,
+  Container,
+  Grid,
+  LoadingOverlay,
+  Paper,
+  rem,
+  Skeleton,
+  Stack,
+  Tabs,
+  Text,
+} from '@mantine/core';
 import Link from 'next/link';
-import { IconLogout } from '@tabler/icons-react';
+import { IconInfoCircle, IconLogout, IconBook, IconBackpack } from '@tabler/icons-react';
 import { PageHeader } from '@/components';
 import { dashboardRoute, studentRoute } from '@/routes';
 import { useStudentService } from '@/services/studentService';
 import StudentThumbnail from '@/features/students/detail/components/InfoStudent/StudentThumbnail';
 import { ResultResonse, Student } from '@/types';
+
+const GeneralInfoStudent = lazy(() => import('./components/InfoStudent/GeneralInfoStudent'));
+
+type ActiveTabType = 'general' | 'class' | 'learning_outcome';
 
 const StudentDetailPage = () => {
   const { getStudentById } = useStudentService();
@@ -16,6 +32,8 @@ const StudentDetailPage = () => {
   const { id } = query;
   const handleGetStudentById = () => getStudentById(Number(id)).then((res) => res.data);
   const { data, isLoading } = useSWR<ResultResonse<Student>>([id], handleGetStudentById);
+  const [activeTab, setActiveTab] = useState<ActiveTabType | null>('general');
+  const iconStyle = { width: rem(24), height: rem(24) };
 
   return (
     <StudentDetailPageStyled>
@@ -46,7 +64,40 @@ const StudentDetailPage = () => {
             </Grid.Col>
             <Grid.Col span={{ base: 12, sm: 8, md: 8, lg: 9 }}>
               <Paper p="md" shadow="md" radius="md">
-                3
+                <Tabs value={activeTab} onChange={(value: ActiveTabType) => setActiveTab(value)}>
+                  <Tabs.List>
+                    <Tabs.Tab value="general" leftSection={<IconInfoCircle style={iconStyle} />}>
+                      <Text fw={500} size="md">
+                        Thông tin chung
+                      </Text>
+                    </Tabs.Tab>
+                    <Tabs.Tab value="class" leftSection={<IconBook style={iconStyle} />}>
+                      <Text fw={500} size="md">
+                        Lớp học
+                      </Text>
+                    </Tabs.Tab>
+                    <Tabs.Tab
+                      value="learning_outcome"
+                      leftSection={<IconBackpack style={iconStyle} />}
+                    >
+                      <Text fw={500} size="md">
+                        Điểm
+                      </Text>
+                    </Tabs.Tab>
+                  </Tabs.List>
+
+                  <Suspense fallback={<LoadingOverlay visible />}>
+                    <Tabs.Panel value="general">
+                      {activeTab === 'general' && <GeneralInfoStudent />}
+                    </Tabs.Panel>
+                    <Tabs.Panel value="class">
+                      {activeTab === 'class' && <GeneralInfoStudent />}
+                    </Tabs.Panel>
+                    <Tabs.Panel value="learning_outcome">
+                      {activeTab === 'learning_outcome' && <GeneralInfoStudent />}
+                    </Tabs.Panel>
+                  </Suspense>
+                </Tabs>
               </Paper>
             </Grid.Col>
           </Grid>
