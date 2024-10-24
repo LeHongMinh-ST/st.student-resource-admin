@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { FC } from 'react';
-import { Paper } from '@mantine/core';
+import { Box, Paper, Text } from '@mantine/core';
 import { Student } from '@/types';
 
 type StudentThumbnailProp = {
@@ -14,12 +14,29 @@ const StudentThumbnail: FC<StudentThumbnailProp> = ({ className, student }) => (
       <div className="student-thumbnail">
         <img src={student?.info?.thumbnail} alt={student?.code} />
       </div>
+      <div className="student-info">
+        <Box mt={10}>
+          <Text className="mt-2" fw={700} size="xl">
+            {student?.last_name} {student?.first_name}
+          </Text>
+        </Box>
+      </div>
     </Paper>
   </StudentThumbnailStyled>
 );
 
 const StudentThumbnailStyled = styled.div`
   .student-thumbnail {
+    display: flex;
+    justify-content: center;
+
+    img {
+      width: 200px;
+      height: auto;
+    }
+  }
+  .student-info {
+    text-align: center;
   }
 `;
 

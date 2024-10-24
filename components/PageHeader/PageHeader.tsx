@@ -68,7 +68,15 @@ const PageHeader = (props: PageHeaderProps) => {
             </div>
           </div>
         ) : (
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '15px',
+            }}
+          >
             <Stack>
               <Title order={3}>{title}</Title>
               {BreadcrumbsComponent}

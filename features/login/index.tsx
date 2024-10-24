@@ -66,7 +66,7 @@ const LoginPage = () => {
   return (
     !authorized && (
       <LoginPageStyled>
-        <LoadingOverlay visible={isSubmitting} />
+        <LoadingOverlay visible={isSubmitting} zIndex={1000} overlayProps={{ blur: 2 }} />
         <Container className="loginContainer">
           <Stack align="center" justify="center" gap="md" className="loginStack">
             <Surface shadow="sm" p={16} radius="md" component={Paper} className="loginSurface">
