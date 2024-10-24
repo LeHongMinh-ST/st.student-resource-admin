@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import { FC } from 'react';
+import { IconId, IconMail, IconUserStar } from '@tabler/icons-react';
 import { Box, Paper, Text } from '@mantine/core';
 import { Student } from '@/types';
+import { StatusStudentBadge } from '@/components';
 
 type StudentThumbnailProp = {
   className?: string;
@@ -21,6 +23,24 @@ const StudentThumbnail: FC<StudentThumbnailProp> = ({ className, student }) => (
           </Text>
         </Box>
       </div>
+      <div className="student-info-list">
+        <div className="student-info-item">
+          <IconId />
+          <Text className="mt-2" fw={500} size="md">
+            {student?.code}
+          </Text>
+        </div>
+        <div className="student-info-item">
+          <IconMail />
+          <Text className="mt-2" fw={500} size="md">
+            {student?.email}
+          </Text>
+        </div>
+        <div className="student-info-item">
+          <IconUserStar />
+          <StatusStudentBadge status={student?.status} />
+        </div>
+      </div>
     </Paper>
   </StudentThumbnailStyled>
 );
@@ -35,8 +55,19 @@ const StudentThumbnailStyled = styled.div`
       height: auto;
     }
   }
+
   .student-info {
     text-align: center;
+  }
+
+  .student-info-list {
+    padding: 10px 20px;
+    .student-info-item {
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
   }
 `;
 

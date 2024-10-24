@@ -4,11 +4,12 @@ import { studentStatusLabels } from '@/constants/labels';
 import { StudentStatus } from '@/enums';
 
 interface StatusStudentBadgeProps {
-  status: StudentStatus;
+  status: StudentStatus | null;
 }
 
 const StatusStudentBadge: React.FC<StatusStudentBadgeProps> = ({ status }) => {
-  const getBadgeProps = (status: StudentStatus) => {
+  const getBadgeProps = (status: StudentStatus | null) => {
+    if (!status) return { color: 'gray', label: 'Unknown' };
     switch (status) {
       case StudentStatus.CurrentlyStudying:
         return { color: 'green', label: studentStatusLabels[StudentStatus.CurrentlyStudying] };
