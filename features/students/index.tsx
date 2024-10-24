@@ -9,11 +9,16 @@ import { AdmissionYear } from '@/types';
 import AdmissionYearItem from './components/AdmissionYearItem';
 import AdmissionYearList from './components/AdmissionYearList';
 import StudentAdmission from './components/StudentAdmission';
+import {
+  useAdmissionYearProps,
+  useSetAdmissionYearProps,
+} from '@/utils/recoil/student/AdmissionYearState';
 
 const StudentPage = () => {
   const { getListAdmission } = useStudentService();
+  const admissionYearSelected = useAdmissionYearProps();
+  const setAdmissionYearSelected = useSetAdmissionYearProps();
   const [admissionYears, setAdmissionYears] = useState<AdmissionYear[]>([]);
-  const [admissionYearSelected, setAdmissionYearSelected] = useState<AdmissionYear | null>(null);
   const [admissionYearFetching, setAdmissionYearFetching] = useState<boolean>(false);
 
   const handleGetAdmissionYear = useCallback(async () => {
@@ -61,7 +66,7 @@ const StudentPage = () => {
 
           <Paper p="md" shadow="md" radius="md">
             {admissionYearSelected ? (
-              <StudentAdmission admissionYear={admissionYearSelected} />
+              <StudentAdmission />
             ) : (
               <AdmissionYearList
                 admissionYears={admissionYears}

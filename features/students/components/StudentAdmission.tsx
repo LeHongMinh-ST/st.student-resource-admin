@@ -1,20 +1,19 @@
 import { FC, lazy, Suspense, useState } from 'react';
 import { rem, Text, Tabs, LoadingOverlay } from '@mantine/core';
 import { IconDatabaseImport, IconUserSearch } from '@tabler/icons-react';
-import { AdmissionYear } from '@/types';
+import { useAdmissionYearProps } from '@/utils/recoil/student/AdmissionYearState';
 
 const StudentListTabContent = lazy(() => import('./StudentAdmissionContent/StudentListTabContent'));
 const StudentImportTabContent = lazy(
   () => import('./StudentAdmissionContent/StudentImportTabContent')
 );
 
-type StudentAdmissionProps = {
-  admissionYear: AdmissionYear;
-};
+type StudentAdmissionProps = {};
 
 type StudentAdminTab = 'list' | 'import';
 
-const StudentAdmission: FC<StudentAdmissionProps> = ({ admissionYear }) => {
+const StudentAdmission: FC<StudentAdmissionProps> = () => {
+  const admissionYear = useAdmissionYearProps();
   const [activeTab, setActiveTab] = useState<StudentAdminTab | null>('list');
   const iconStyle = { width: rem(24), height: rem(24) };
 

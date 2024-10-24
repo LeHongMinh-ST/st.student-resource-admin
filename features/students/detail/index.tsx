@@ -14,7 +14,6 @@ import {
   Tabs,
   Text,
 } from '@mantine/core';
-import Link from 'next/link';
 import { IconInfoCircle, IconLogout, IconBook, IconBackpack } from '@tabler/icons-react';
 import { PageHeader } from '@/components';
 import { dashboardRoute, studentRoute } from '@/routes';
@@ -23,12 +22,13 @@ import StudentThumbnail from '@/features/students/detail/components/InfoStudent/
 import { ResultResonse, Student } from '@/types';
 
 const GeneralInfoStudent = lazy(() => import('./components/InfoStudent/GeneralInfoStudent'));
+const ClassStudent = lazy(() => import('./components/InfoStudent/ClassStudent'));
 
 type ActiveTabType = 'general' | 'class' | 'learning_outcome';
 
 const StudentDetailPage = () => {
   const { getStudentById } = useStudentService();
-  const { query } = useRouter();
+  const { query, back } = useRouter();
   const { id } = query;
   const handleGetStudentById = () => getStudentById(Number(id)).then((res) => res.data);
   const { data, isLoading } = useSWR<ResultResonse<Student>>([id], handleGetStudentById);
@@ -48,11 +48,7 @@ const StudentDetailPage = () => {
                 { title: 'Thông tin', href: null },
               ]}
               withActions={
-                <Button
-                  component={Link}
-                  href={studentRoute.listCourse}
-                  leftSection={<IconLogout size={18} />}
-                >
+                <Button onClick={() => back()} leftSection={<IconLogout size={18} />}>
                   Quay lại
                 </Button>
               }
@@ -91,7 +87,7 @@ const StudentDetailPage = () => {
                       {activeTab === 'general' && <GeneralInfoStudent />}
                     </Tabs.Panel>
                     <Tabs.Panel value="class">
-                      {activeTab === 'class' && <GeneralInfoStudent />}
+                      {activeTab === 'class' && <ClassStudent />}
                     </Tabs.Panel>
                     <Tabs.Panel value="learning_outcome">
                       {activeTab === 'learning_outcome' && <GeneralInfoStudent />}
