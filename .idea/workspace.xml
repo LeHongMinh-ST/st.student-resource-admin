@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a19e1239-6d18-4fbf-8d8a-01a0fa85d8c4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Badge/StatusStudentBadge/StatusStudentBadge.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Badge/StatusStudentBadge/StatusStudentBadge.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/features/students/detail/components/InfoStudent/StudentThumbnail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/detail/components/InfoStudent/StudentThumbnail.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -146,7 +144,7 @@
       <workItem from="1728972338707" duration="675000" />
       <workItem from="1729134772548" duration="3857000" />
       <workItem from="1729669774990" duration="9000" />
-      <workItem from="1729744508654" duration="11085000" />
+      <workItem from="1729744508654" duration="11273000" />
     </task>
     <servers />
   </component>
@@ -166,7 +164,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: add pusher" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="feat: add detail student" />
+    <MESSAGE value="feat: add detail student" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add detail student" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
