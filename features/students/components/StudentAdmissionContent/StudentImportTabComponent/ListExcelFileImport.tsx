@@ -11,7 +11,7 @@ import { useAuthStore } from '@/utils/recoil/auth/authState';
 import ExcelFileImportActionMenu from '@/features/students/components/StudentAdmissionContent/StudentImportTabComponent/Cells/ExcelFileImportActionMenu';
 
 type ListExcelFileImportProps = {
-  admissionYear: AdmissionYear;
+  admissionYear: AdmissionYear | null;
   isReloadList?: boolean;
 };
 
@@ -25,7 +25,7 @@ const ListExcelFileImport: FC<ListExcelFileImportProps> = ({
   const { getStudentFileImportListAdmission } = useStudentService();
 
   const handleGetListExcelFileImport = () =>
-    getStudentFileImportListAdmission(admissionYear.id ?? 0, excelFileImportsParams).then(
+    getStudentFileImportListAdmission(admissionYear?.id ?? 0, excelFileImportsParams).then(
       (res) => res.data
     );
 

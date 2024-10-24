@@ -60,7 +60,7 @@ const StudentDetailPage = () => {
             </Grid.Col>
             <Grid.Col span={{ base: 12, sm: 8, md: 8, lg: 9 }}>
               <Paper p="md" shadow="md" radius="md">
-                <Tabs value={activeTab} onChange={(value: ActiveTabType) => setActiveTab(value)}>
+                <Tabs value={activeTab} onChange={(value) => setActiveTab(value as ActiveTabType)}>
                   <Tabs.List>
                     <Tabs.Tab value="general" leftSection={<IconInfoCircle style={iconStyle} />}>
                       <Text fw={500} size="md">

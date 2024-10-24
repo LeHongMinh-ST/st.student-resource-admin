@@ -18,7 +18,7 @@ import { studentRoute } from '@/routes';
 import SearchFilter from '@/components/Filters/SearchFilter';
 
 type StudentListTabContentProps = {
-  admissionYear: AdmissionYear;
+  admissionYear: AdmissionYear | null;
 };
 
 const StudentListTabContent: FC<StudentListTabContentProps> = ({ admissionYear }) => {

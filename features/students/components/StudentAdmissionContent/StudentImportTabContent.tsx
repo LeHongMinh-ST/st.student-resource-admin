@@ -7,7 +7,7 @@ import StudentDropzoneImport from './StudentImportTabComponent/StudentDropzoneIm
 import { useStudentService } from '@/services/studentService';
 
 type StudentImportTabContentProps = {
-  admissionYear: AdmissionYear;
+  admissionYear: AdmissionYear | null;
 };
 
 const StudentImportTabContent: FC<StudentImportTabContentProps> = ({ admissionYear }) => {

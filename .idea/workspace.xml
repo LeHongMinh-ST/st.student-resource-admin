@@ -5,13 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a19e1239-6d18-4fbf-8d8a-01a0fa85d8c4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/features/students/detail/components/InfoStudent/ClassStudent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/recoil/student/AdmissionYearState.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/students/components/AdmissionYearList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/components/AdmissionYearList.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/features/students/components/StudentAdmission.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/components/StudentAdmission.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentImportTabComponent/ListExcelFileImport.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentImportTabComponent/ListExcelFileImport.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentImportTabContent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentImportTabContent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentListTabContent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentListTabContent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/features/students/detail/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/detail/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/students/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +149,7 @@
       <workItem from="1728972338707" duration="675000" />
       <workItem from="1729134772548" duration="3857000" />
       <workItem from="1729669774990" duration="9000" />
-      <workItem from="1729744508654" duration="3929000" />
+      <workItem from="1729744508654" duration="4891000" />
     </task>
     <servers />
   </component>
