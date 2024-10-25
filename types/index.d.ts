@@ -116,6 +116,7 @@ type Student = {
   id?: number;
   last_name: string;
   first_name: string;
+  full_name?: string;
   email: string;
   code: string;
   admission_year?: AdmissionYear;
@@ -179,4 +180,8 @@ type Class = {
   teacher_id?: number;
   teacher?: User;
   faculty?: Faculty;
+  officer?: {
+    student_president?: Student;
+    student_secretary?: Student;
+  };
 };

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { Button, Container, Divider, Grid, Paper, Skeleton, Stack, Text } from '@mantine/core';
+import { Box, Button, Container, Divider, Grid, Paper, Skeleton, Stack, Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
-import { IconAlertTriangle, IconLogout } from '@tabler/icons-react';
+import { IconAlertTriangle, IconLogout, IconEdit } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { lazy, useState } from 'react';
@@ -21,7 +21,7 @@ const StudentListByClass = lazy(
 
 const ClassDetailPage = () => {
   const { getClassById } = useClassService();
-  const { query, push } = useRouter();
+  const { query, push, back } = useRouter();
   const { id } = query;
 
   const handleGetClassById = () =>
@@ -91,7 +91,7 @@ const ClassDetailPage = () => {
         <Stack>
           <Skeleton visible={isLoading}>
             <PageHeader
-              title={`Lớp - Thông tin lớp - ${data?.data?.code ?? ''}`}
+              title={`Lớp ${data?.data?.type ? classTypeLabels[data.data.type] : 'Chưa cập nhật'} - ${data?.data?.name ?? ''} - ${data?.data?.code ?? ''}`}
               breadcrumbItems={[
                 { title: 'Bảng điều khiển', href: dashboardRoute.dashboard },
                 { title: 'Danh sách lớp', href: classRoute.list },
@@ -100,13 +100,18 @@ const ClassDetailPage = () => {
               withActions={
                 <div className="flex">
                   <Stack gap={4}>
-                    <Button
-                      component={Link as any}
-                      href={classRoute.list}
-                      leftSection={<IconLogout size={18} />}
-                    >
-                      Quay lại
-                    </Button>
+                    <Box style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <Button
+                        component={Link as any}
+                        href={classRoute.update(data?.data?.id)}
+                        leftSection={<IconEdit size={18} />}
+                      >
+                        Chỉnh sửa
+                      </Button>
+                      <Button onClick={() => back()} leftSection={<IconLogout size={18} />}>
+                        Quay lại
+                      </Button>
+                    </Box>
                   </Stack>
                 </div>
               }
@@ -119,10 +124,15 @@ const ClassDetailPage = () => {
                   <Grid.Col span={3}>
                     <Stack gap={4} ta="left">
                       <Text size="md" fw={400}>
-                        Mã lớp:
+                        {data?.data?.type &&
+                        classTypeLabels[data.data.type] === classTypeLabels.major
+                          ? 'Giáo viên môn học:'
+                          : 'Giáo viên chủ nhiệm:'}
                       </Text>
                       <Text size="lg" fw={500}>
-                        {data?.data?.code ?? ''}
+                        {data?.data?.teacher?.first_name
+                          ? `${data?.data?.teacher?.first_name} ${data?.data?.teacher?.last_name}`
+                          : 'Chưa cập nhật'}
                       </Text>
                     </Stack>
                   </Grid.Col>
@@ -137,10 +147,10 @@ const ClassDetailPage = () => {
                     <Stack gap={4} ta="left">
                       <ClassDetailContainerInfo>
                         <Text size="md" fw={400}>
-                          Tên lớp:
+                          Lớp truưởng:
                         </Text>
                         <Text size="lg" fw={500}>
-                          {data?.data?.name ?? 'Chưa cập nhật'}
+                          {data?.data?.officer?.student_president?.full_name ?? 'Chưa có'}
                         </Text>
                       </ClassDetailContainerInfo>
                     </Stack>
@@ -156,29 +166,17 @@ const ClassDetailPage = () => {
                     <Stack gap={4} ta="left">
                       <ClassDetailContainerInfo>
                         <Text size="md" fw={400}>
-                          Loại lớp:
+                          Bí thư:
                         </Text>
                         <Text size="lg" fw={500}>
-                          {data?.data?.type ? classTypeLabels[data.data.type] : 'Chưa cập nhật'}
+                          {data?.data?.officer?.student_secretary?.full_name ?? 'Chưa có'}
                         </Text>
                       </ClassDetailContainerInfo>
                     </Stack>
                   </Grid.Col>
                   <Grid.Col span={3}>
                     <Stack gap={4} ta="left">
-                      <ClassDetailContainerInfo>
-                        <Text size="md" fw={400}>
-                          {data?.data?.type &&
-                          classTypeLabels[data.data.type] === classTypeLabels.major
-                            ? 'Giáo viên môn học:'
-                            : 'Giáo viên chủ nhiệm:'}
-                        </Text>
-                        <Text size="lg" fw={500}>
-                          {data?.data?.teacher?.first_name
-                            ? `${data?.data?.teacher?.first_name} ${data?.data?.teacher?.last_name}`
-                            : 'Chưa cập nhật'}
-                        </Text>
-                      </ClassDetailContainerInfo>
+                      <ClassDetailContainerInfo></ClassDetailContainerInfo>
                     </Stack>
                   </Grid.Col>
                 </Grid>

@@ -14,7 +14,6 @@ import {
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { IconAlertTriangle, IconCheck, IconDeviceFloppy, IconLogout } from '@tabler/icons-react';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
@@ -49,7 +48,7 @@ const ClassUpdatePage = () => {
   });
 
   const { updateClass, getClass } = useClassService();
-  const { query, push } = useRouter();
+  const { query, push, back } = useRouter();
   const { id } = query;
   const { authUser } = useAuthStore();
   const handleGetClass = () => getClass(Number(id)).then((res) => res.data);
@@ -146,11 +145,7 @@ const ClassUpdatePage = () => {
                 { title: 'Chỉnh sửa', href: null },
               ]}
               withActions={
-                <Button
-                  component={Link}
-                  href={classRoute.list}
-                  leftSection={<IconLogout size={18} />}
-                >
+                <Button onClick={() => back()} leftSection={<IconLogout size={18} />}>
                   Quay lại
                 </Button>
               }
