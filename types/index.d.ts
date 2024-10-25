@@ -106,7 +106,8 @@ type GeneralClass = {
   faculty?: Faculty;
   teacher?: User;
   type: string;
-  status: Status;
+  status: StatusEnum;
+  student_role: StudentRole;
   created_at?: string;
   updated_at?: string;
 };
@@ -119,7 +120,6 @@ type Student = {
   code: string;
   admission_year?: AdmissionYear;
   faculty?: Faculty;
-  role: StudentRole;
   status: StudentStatus;
   family: Family[];
   info?: StudentInfo;
