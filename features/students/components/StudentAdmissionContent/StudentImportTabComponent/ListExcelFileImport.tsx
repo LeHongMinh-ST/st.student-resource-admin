@@ -112,7 +112,7 @@ const ListExcelFileImport: FC<ListExcelFileImportProps> = ({
           onPageChange={(page: number) =>
             setExcelFileImportPrams((params: StudentFileImportListParams) => ({
               ...params,
-              current_page: page,
+              page,
             }))
           }
           onRecordsPerPageChange={(perPage: number) =>

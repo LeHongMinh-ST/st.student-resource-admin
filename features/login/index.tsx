@@ -4,6 +4,7 @@ import { IconAlertTriangle, IconLock, IconLogin2, IconUser } from '@tabler/icons
 import { useForm } from 'react-hook-form';
 import { notifications } from '@mantine/notifications';
 import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 import { ERROR_MESSAGES } from '@/constants/errorMessages';
 import { LoginPrams, useAuthService } from '@/services/authService';
 import { Surface } from '@/components';
@@ -15,6 +16,7 @@ const LoginPage = () => {
   const iconLock = <IconLock width={18} />;
   const iconLogin2 = <IconLogin2 width={18} />;
   const { push } = useRouter();
+  const searchParams = useSearchParams();
 
   const authorized = useAuthCheck();
   const authService = useAuthService();
@@ -46,7 +48,8 @@ const LoginPage = () => {
         if (data.remember) {
           authState.startRefreshTokenTimer();
         }
-        push('/');
+        const returnUrl = searchParams.get('returnUrl') ?? '/';
+        push(returnUrl);
       } catch (e) {
         authState.setExpiresIn(0);
         authState.setAccessToken('');
