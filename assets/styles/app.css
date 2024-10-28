@@ -10,3 +10,7 @@ body {
 .mantine-Dropzone-root {
   outline: none !important;
 }
+
+button {
+  outline: none !important;
+}
