@@ -55,17 +55,17 @@ const DashboardAdmin: React.FC<DashboardAdminProp> = (props) => {
         </SimpleGrid>
       </Box>
       <Grid gutter={{ base: 'md', sm: 'md', md: 'xl' }}>
-        <Grid.Col span={{ base: 12, md: 4 }}>
+        <Grid.Col span={{ base: 12, md: 4, sm: 6 }}>
           <CardList title="Yêu cầu duyệt thông tin" titleIcon={IconUserEdit} />
         </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 4 }}>
+        <Grid.Col span={{ base: 12, md: 4, sm: 6 }}>
           <CardList
             title="Phản ánh sinh viên"
             titleIcon={IconMessageQuestion}
             emptyImage="/images/empty3.svg"
           />
         </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 4 }}>
+        <Grid.Col span={{ base: 12, md: 4, sm: 12 }}>
           <CardList title="Thông báo" titleIcon={IconMessage} emptyImage="/images/empty2.svg" />
         </Grid.Col>
       </Grid>

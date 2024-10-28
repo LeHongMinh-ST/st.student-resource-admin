@@ -87,7 +87,7 @@ const StudentDetailPage = () => {
                       {activeTab === 'general' && <GeneralInfoStudent />}
                     </Tabs.Panel>
                     <Tabs.Panel value="class">
-                      {activeTab === 'class' && <ClassStudent />}
+                      {activeTab === 'class' && <ClassStudent studentId={data?.data?.id} />}
                     </Tabs.Panel>
                     <Tabs.Panel value="learning_outcome">
                       {activeTab === 'learning_outcome' && <GeneralInfoStudent />}
