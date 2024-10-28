@@ -3,7 +3,7 @@ module.exports = {
   plugins: ['react-hooks'],
   parserOptions: {
     project: './tsconfig.json',
-    extraFileExtensions: [".css", ".scss"]
+    extraFileExtensions: ['.css', '.scss'],
   },
   rules: {
     'react/react-in-jsx-scope': 'off',
@@ -12,5 +12,5 @@ module.exports = {
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'off',
   },
-  ignorePatterns: ['node_modules/*', 'dist/*', 'public/*'],
+  ignorePatterns: ['node_modules/*', 'dist/*', 'public/*', '**/*.css'],
 };

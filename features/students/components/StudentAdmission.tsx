@@ -18,7 +18,11 @@ const StudentAdmission: FC<StudentAdmissionProps> = () => {
   const iconStyle = { width: rem(24), height: rem(24) };
 
   return (
-    <Tabs value={activeTab} onChange={(value) => setActiveTab(value as StudentAdminTab)}>
+    <Tabs
+      value={activeTab}
+      variant="outline"
+      onChange={(value) => setActiveTab(value as StudentAdminTab)}
+    >
       <Tabs.List>
         <Tabs.Tab value="list" leftSection={<IconUserSearch style={iconStyle} />}>
           <Text fw={500} size="xl">
