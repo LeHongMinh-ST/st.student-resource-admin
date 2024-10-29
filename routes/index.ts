@@ -23,6 +23,13 @@ export const classRoute = {
   update: (id: string | number | undefined) => (id ? `${ADMIN_PREFIX}/classes/${id}/edit` : ''),
 };
 
+export const graduationRoute = {
+  list: `${ADMIN_PREFIX}/students-graduation`,
+  create: `${ADMIN_PREFIX}/students-graduation/create`,
+  show: (id: string | number | undefined) =>
+    id ? `${ADMIN_PREFIX}/students-graduation/${id}` : '',
+};
+
 export const studentRoute = {
   listCourse: `${ADMIN_PREFIX}/students`,
   show: (id: string | number | undefined) => (id ? `${ADMIN_PREFIX}/students/${id}` : ''),

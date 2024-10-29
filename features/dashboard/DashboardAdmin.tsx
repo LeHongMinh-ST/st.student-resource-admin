@@ -19,6 +19,7 @@ type DashboardAdminProp = {
 
 const DashboardAdmin: React.FC<DashboardAdminProp> = (props) => {
   const { user } = props;
+  // eslint-disable-next-line no-console
   console.log(user);
   return (
     <>
@@ -72,5 +73,4 @@ const DashboardAdmin: React.FC<DashboardAdminProp> = (props) => {
     </>
   );
 };
-
 export default DashboardAdmin;

@@ -46,4 +46,18 @@ export const ERROR_MESSAGES = {
       required: 'Vui lòng chọn giảng viên chủ nhiệm',
     },
   },
+  graduation: {
+    name: {
+      required: 'Vui lòng nhập tiêu đề',
+    },
+    certification: {
+      required: 'Vui lòng nhập số quyết định tốt nghiệp',
+    },
+    certification_date: {
+      required: 'Vui lòng nhập ngày quyết định tốt nghiệp',
+    },
+    school_year_id: {
+      required: 'Vui lòng chọn năm học',
+    },
+  },
 };
