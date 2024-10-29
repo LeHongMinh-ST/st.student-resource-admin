@@ -125,6 +125,7 @@ type Student = {
   family: Family[];
   info?: StudentInfo;
   currentClass: GeneralClass;
+  graduate?: StudentGraduation;
   school_year: string;
   created_at?: string;
   updated_at?: string;
@@ -184,4 +185,37 @@ type Class = {
     student_president?: Student;
     student_secretary?: Student;
   };
+};
+
+type Graduation = {
+  id?: number;
+  name: string;
+  certification: string;
+  certification_date: string;
+  faculty_id?: number;
+  faculty?: Faculty;
+  school_year_id: number;
+  school_year?: schoolYear;
+  student_count?: number;
+  created_at?: string;
+  updated_at?: string;
+};
+
+type StudentGraduation = {
+  id?: number;
+  student_id: number;
+  graduation_id: number;
+  gpa: number;
+  rank: string;
+  email: string;
+  created_at?: string;
+  updated_at?: string;
+};
+
+type schoolYear = {
+  id?: number;
+  start_year: string;
+  end_year: string;
+  created_at?: string;
+  updated_at?: string;
 };

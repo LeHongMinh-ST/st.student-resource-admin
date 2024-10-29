@@ -27,6 +27,7 @@ const StudentPage = () => {
       const res = await getListAdmission();
       setAdmissionYears(res.data.data);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log('Failed to get admission year: ', error);
     }
     setAdmissionYearFetching(false);
