@@ -33,7 +33,6 @@ const GraduationPage = () => {
       .then((res) => res.data)
       .catch((error) => error);
 
-  // @ts-ignore
   const { data, isLoading, mutate } = useSWR<ResultResonse<Graduation[]>>(
     [graduationParams],
     handleGetListGraduation

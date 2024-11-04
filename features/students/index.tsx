@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
 import { Container, Stack, Paper, Group } from '@mantine/core';
+import useSWR from 'swr';
 import { IconLogout } from '@tabler/icons-react';
 import styled from '@emotion/styled';
 import { dashboardRoute } from '@/routes';
@@ -18,28 +18,20 @@ const StudentPage = () => {
   const { getListAdmission } = useStudentService();
   const admissionYearSelected = useAdmissionYearProps();
   const setAdmissionYearSelected = useSetAdmissionYearProps();
-  const [admissionYears, setAdmissionYears] = useState<AdmissionYear[]>([]);
-  const [admissionYearFetching, setAdmissionYearFetching] = useState<boolean>(false);
 
-  const handleGetAdmissionYear = useCallback(async () => {
-    try {
-      setAdmissionYearFetching(true);
-      const res = await getListAdmission();
-      setAdmissionYears(res.data.data);
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log('Failed to get admission year: ', error);
-    }
-    setAdmissionYearFetching(false);
-  }, []);
+  const handleGetAdmissionYear = () =>
+    getListAdmission()
+      .then((res) => res?.data?.data)
+      .catch((error) => error);
 
-  useEffect(() => {
-    handleGetAdmissionYear();
-  }, []);
+  const { data, isLoading, error } = useSWR<AdmissionYear[]>(
+    'getListAdmission',
+    handleGetAdmissionYear
+  );
 
-  const handleSelectAdmissionYear = useCallback((admissionYear: AdmissionYear) => {
-    setAdmissionYearSelected(admissionYear);
-  }, []);
+  if (error) {
+    console.log('Failed to fetch admission year: ', error);
+  }
 
   return (
     <StudentPageStyled>
@@ -70,9 +62,9 @@ const StudentPage = () => {
               <StudentAdmission />
             ) : (
               <AdmissionYearList
-                admissionYears={admissionYears}
-                onSelect={handleSelectAdmissionYear}
-                fetching={admissionYearFetching}
+                admissionYears={data || []}
+                onSelect={(admissionYear: AdmissionYear) => setAdmissionYearSelected(admissionYear)}
+                fetching={isLoading}
               />
             )}
           </Paper>
