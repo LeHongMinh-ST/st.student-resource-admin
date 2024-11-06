@@ -34,7 +34,6 @@ const DepartmentPage = () => {
       .then((res) => res.data)
       .catch((error) => error);
 
-  // @ts-ignore
   const { data, isLoading, mutate } = useSWR<ResultResonse<Department[]>>(
     [departmentParams],
     handleGetListDepartment

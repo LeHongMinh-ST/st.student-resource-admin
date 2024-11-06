@@ -27,7 +27,7 @@ export const sidebarNavigationAdmin: SidebarNavigationProps[] = [
     links: [
       { label: 'Bảng điều khiển', icon: IconDashboard, link: dashboardRoute.dashboard },
       { label: 'Bộ môn', icon: IconBuilding, link: '/departments' },
-      // { label: 'Ngành học', icon: IconBookmark, link: '/majors' },
+      { label: 'Ngành học', icon: IconBookmark, link: '/majors' },
       { label: 'Lớp học', icon: IconBook, link: '/classes' },
     ],
   },

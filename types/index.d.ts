@@ -219,3 +219,13 @@ type schoolYear = {
   created_at?: string;
   updated_at?: string;
 };
+
+type Major = {
+  id?: number;
+  code: string;
+  name: string;
+  status: StatusEnum;
+  description?: string;
+  created_at?: string;
+  updated_at?: string;
+};
