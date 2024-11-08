@@ -1,3 +1,5 @@
+'use client';
+
 import { DataTableProps } from 'mantine-datatable';
 import styled from '@emotion/styled';
 import { useCallback, useMemo, useState } from 'react';
@@ -45,13 +47,13 @@ const MajorPage = () => {
     () => [
       {
         accessor: 'code',
-        title: 'Mã bộ môn',
+        title: 'Mã chuyên ngành',
         render: (major: Major) => <span>{major.code}</span>,
         sorting: true,
       },
       {
         accessor: 'name',
-        title: 'Tên bộ môn',
+        title: 'Tên chuyên ngành',
         render: (major: Major) => <span>{major.name}</span>,
         sorting: true,
         filtering: true,
@@ -92,10 +94,10 @@ const MajorPage = () => {
       <Container fluid>
         <Stack gap="lg">
           <PageHeader
-            title="chuyen nganh - Danh sách"
+            title="Chuyên ngành - Danh sách"
             breadcrumbItems={[
               { title: 'Bảng điều khiển', href: dashboardRoute.dashboard },
-              { title: 'Chuyên nganh', href: null },
+              { title: 'Chuyên ngành', href: null },
             ]}
             withActions={
               <Button

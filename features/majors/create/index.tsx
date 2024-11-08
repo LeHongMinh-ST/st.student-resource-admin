@@ -1,23 +1,22 @@
 'use client';
 
-import styled from '@emotion/styled';
-import { Button, Container, Fieldset, Grid, Paper, Select, Stack, TextInput } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
-import { IconAlertTriangle, IconCheck, IconDeviceFloppy, IconLogout } from '@tabler/icons-react';
+import { IconAlertTriangle, IconCheck, IconLogout, IconDeviceFloppy } from '@tabler/icons-react';
+import { Container, Stack, Button, Paper, Grid, Fieldset, TextInput, Select } from '@mantine/core';
 import Link from 'next/link';
+import { notifications } from '@mantine/notifications';
 import { useRouter } from 'next/router';
+import styled from '@emotion/styled';
 import { useForm } from 'react-hook-form';
-import { dashboardRoute, departmentRoute } from '@/routes';
-import { Department } from '@/types';
-import { setFormErrors } from '@/utils/func/formError';
+import Status from '@/enums/status.enum';
+import { dashboardRoute, majorRoute } from '@/routes';
+import { useMajorService } from '@/services/majorService';
+import { Major } from '@/types';
+import HttpStatus from '@/enums/http-status.enum';
 import { PageHeader, Surface } from '@/components';
 import { StatusList } from '@/constants/commons';
 import { ERROR_MESSAGES } from '@/constants/errorMessages';
-import HttpStatus from '@/enums/http-status.enum';
-import { useDepartmentService } from '@/services/departmentService';
-import Status from '@/enums/status.enum';
 
-const DepartmentCreatePage = () => {
+const MajorCreatePage = () => {
   const {
     register,
     trigger,
@@ -26,28 +25,29 @@ const DepartmentCreatePage = () => {
     setValue,
     formState: { errors, isSubmitting },
     setError,
-  } = useForm<Department>({
+  } = useForm<Major>({
     defaultValues: {
       status: Status.Enable,
     },
   });
 
-  const { createDepartment } = useDepartmentService();
+  const { createMajor } = useMajorService();
+
   const { push } = useRouter();
 
-  const onSubmit = async (data: Department) => {
+  const onSubmit = async (data: Major) => {
     if (!isSubmitting) {
       try {
-        const res = await createDepartment(data);
+        const res = await createMajor(data);
         if (res) {
           notifications.show({
             title: 'Thành công!',
-            message: 'Tạo mới bộ môn thành công',
+            message: 'Tạo mới chuyên ngành thành công',
             icon: <IconCheck />,
             color: 'green.8',
             autoClose: 5000,
           });
-          push(departmentRoute.update(res.data.data.id));
+          push(majorRoute.update(res.data.data.id));
         }
       } catch (e: any) {
         if (e?.status === HttpStatus.HTTP_UNPROCESSABLE_ENTITY) {
@@ -72,20 +72,20 @@ const DepartmentCreatePage = () => {
   };
 
   return (
-    <DepartmentCreatePageStyled>
+    <MajorCreatePageStyled>
       <Container fluid>
         <Stack gap="lg">
           <PageHeader
-            title="Bộ môn - Tạo mới"
+            title="Chuyên ngành - Tạo mới"
             breadcrumbItems={[
               { title: 'Bảng điều khiển', href: dashboardRoute.dashboard },
-              { title: 'Bộ môn', href: departmentRoute.list },
+              { title: 'Chuyên ngành', href: majorRoute.list },
               { title: 'Tạo mới', href: null },
             ]}
             withActions={
               <Button
                 component={Link}
-                href={departmentRoute.list}
+                href={majorRoute.list}
                 leftSection={<IconLogout size={18} />}
               >
                 Quay lại
@@ -102,19 +102,19 @@ const DepartmentCreatePage = () => {
                       <Stack>
                         <TextInput
                           withAsterisk
-                          label="Mã bộ môn"
-                          placeholder="Mã bộ môn"
+                          label="Mã chuyên ngành"
+                          placeholder="Mã chuyên ngành"
                           {...register('code', {
-                            required: ERROR_MESSAGES.department.code.required,
+                            required: ERROR_MESSAGES.major.code.required,
                           })}
                           error={errors.code?.message}
                         />
                         <TextInput
                           withAsterisk
-                          label="Tên bộ môn"
-                          placeholder="Tên bộ môn"
+                          label="Tên chuyên ngành"
+                          placeholder="Tên chuyên ngành"
                           {...register('name', {
-                            required: ERROR_MESSAGES.department.name.required,
+                            required: ERROR_MESSAGES.major.name.required,
                           })}
                           error={errors.name?.message}
                         />
@@ -160,10 +160,10 @@ const DepartmentCreatePage = () => {
           </Paper>
         </Stack>
       </Container>
-    </DepartmentCreatePageStyled>
+    </MajorCreatePageStyled>
   );
 };
 
-const DepartmentCreatePageStyled = styled.div``;
+const MajorCreatePageStyled = styled.div``;
 
-export default DepartmentCreatePage;
+export default MajorCreatePage;
