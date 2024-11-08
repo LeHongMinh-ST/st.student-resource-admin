@@ -25,7 +25,7 @@ const MajorPage = () => {
   const handleGetListMajor = () =>
     majorService
       .getList()
-      .then((res) => res)
+      .then((res) => res.data)
       .catch((err) => err);
 
   const { data, isLoading, mutate } = useSWR<ResultResonse<Major[]>>(
