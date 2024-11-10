@@ -16,6 +16,13 @@ export const departmentRoute = {
   update: (id: string | number | undefined) => (id ? `${ADMIN_PREFIX}/departments/${id}/edit` : ''),
 };
 
+export const trainingIndustryRoute = {
+  list: `${ADMIN_PREFIX}/training-industries`,
+  create: `${ADMIN_PREFIX}/training-industries/create`,
+  update: (id: string | number | undefined) =>
+    id ? `${ADMIN_PREFIX}/training-industries/${id}/edit` : '',
+};
+
 export const surveyPeriodRoute = {
   list: `${ADMIN_PREFIX}/survey-periods`,
   create: `${ADMIN_PREFIX}/survey-periods/create`,

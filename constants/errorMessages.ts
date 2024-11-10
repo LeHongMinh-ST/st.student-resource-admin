@@ -35,6 +35,14 @@ export const ERROR_MESSAGES = {
       required: 'Vui lòng nhập tên bộ môn',
     },
   },
+  trainingIndustry: {
+    code: {
+      required: 'Vui lòng nhập mã ngành đào tạo',
+    },
+    name: {
+      required: 'Vui lòng nhập ngành đào tạo',
+    },
+  },
   major: {
     code: {
       required: 'Vui lòng nhập mã chuyên ngành',
