@@ -168,6 +168,17 @@ type Department = {
   faculty?: Faculty;
 };
 
+type TrainingIndustry = {
+  id?: number;
+  name: string;
+  code: string;
+  status: StatusEnum;
+  created_at?: string;
+  updated_at?: string;
+  faculty_id?: number;
+  faculty?: Faculty;
+};
+
 type Class = {
   id?: number;
   name: string;

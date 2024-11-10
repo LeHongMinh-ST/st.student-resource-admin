@@ -1,3 +1,3 @@
-import MajorCreatePage from '@/features/majors/create';
+import TrainingIndustryCreatePage from '@/features/trainingIndustries/create';
 
-export default MajorCreatePage;
+export default TrainingIndustryCreatePage;

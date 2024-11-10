@@ -1,3 +1,3 @@
-import MajorUpdatePage from '@/features/majors/edit';
+import TrainingIndustryUpdatePage from '@/features/trainingIndustries/edit';
 
-export default MajorUpdatePage;
+export default TrainingIndustryUpdatePage;
