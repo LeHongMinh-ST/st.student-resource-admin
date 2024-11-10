@@ -42,7 +42,7 @@ const TrainingIndustryCreatePage = () => {
         if (res) {
           notifications.show({
             title: 'Thành công!',
-            message: 'Tạo mới bộ môn thành công',
+            message: 'Tạo mới ngành đào tạo thành công',
             icon: <IconCheck />,
             color: 'green.8',
             autoClose: 5000,
@@ -76,10 +76,10 @@ const TrainingIndustryCreatePage = () => {
       <Container fluid>
         <Stack gap="lg">
           <PageHeader
-            title="Bộ môn - Tạo mới"
+            title="Ngành đào tạo - Tạo mới"
             breadcrumbItems={[
               { title: 'Bảng điều khiển', href: dashboardRoute.dashboard },
-              { title: 'Bộ môn', href: trainingIndustryRoute.list },
+              { title: 'Ngành đào tạo', href: trainingIndustryRoute.list },
               { title: 'Tạo mới', href: null },
             ]}
             withActions={
@@ -102,8 +102,8 @@ const TrainingIndustryCreatePage = () => {
                       <Stack>
                         <TextInput
                           withAsterisk
-                          label="Mã bộ môn"
-                          placeholder="Mã bộ môn"
+                          label="Mã ngành đào tạo"
+                          placeholder="Mã ngành đào tạo"
                           {...register('code', {
                             required: ERROR_MESSAGES.trainingIndustry.code.required,
                           })}
@@ -111,8 +111,8 @@ const TrainingIndustryCreatePage = () => {
                         />
                         <TextInput
                           withAsterisk
-                          label="Tên bộ môn"
-                          placeholder="Tên bộ môn"
+                          label="Tên ngành đào tạo"
+                          placeholder="Tên ngành đào tạo"
                           {...register('name', {
                             required: ERROR_MESSAGES.trainingIndustry.name.required,
                           })}

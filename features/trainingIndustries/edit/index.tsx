@@ -66,7 +66,7 @@ const TrainingIndustryUpdatePage = () => {
         if (res) {
           notifications.show({
             title: 'Thành công!',
-            message: 'Cập nhật bộ môn thành công',
+            message: 'Cập nhật ngành đào tạo thành công',
             icon: <IconCheck />,
             color: 'green.8',
             autoClose: 5000,
@@ -100,10 +100,10 @@ const TrainingIndustryUpdatePage = () => {
         <Stack gap="lg">
           <Skeleton visible={isLoading}>
             <PageHeader
-              title={`Bộ môn - Chỉnh sửa - #${id}`}
+              title={`Ngành đào tạo - Chỉnh sửa - #${id}`}
               breadcrumbItems={[
                 { title: 'Bảng điều khiển', href: dashboardRoute.dashboard },
-                { title: 'Bộ môn', href: trainingIndustryRoute.list },
+                { title: 'Ngành đào tạo', href: trainingIndustryRoute.list },
                 { title: 'Chỉnh sửa', href: null },
               ]}
               withActions={
@@ -122,12 +122,12 @@ const TrainingIndustryUpdatePage = () => {
               <Grid.Col span={{ base: 12, md: 8 }}>
                 <Surface component={Paper} p="md" shadow="md" radius="md" h="100%">
                   <Stack gap={32}>
-                    <Fieldset legend="Thông tin bộ môn">
+                    <Fieldset legend="Thông tin ngành đào tạo">
                       <Stack>
                         <Skeleton visible={isLoading}>
                           <TextInput
                             withAsterisk
-                            label="Mã bộ môn"
+                            label="Mã ngành đào tạo"
                             disabled
                             {...register('code')}
                           />
@@ -135,8 +135,8 @@ const TrainingIndustryUpdatePage = () => {
                         <Skeleton visible={isLoading}>
                           <TextInput
                             withAsterisk
-                            label="Tên bộ môn"
-                            placeholder="Tên bộ môn"
+                            label="Tên ngành đào tạo"
+                            placeholder="Tên ngành đào tạo"
                             {...register('name', {
                               required: ERROR_MESSAGES.trainingIndustry.name.required,
                             })}

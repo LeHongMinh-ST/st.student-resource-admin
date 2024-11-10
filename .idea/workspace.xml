@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a19e1239-6d18-4fbf-8d8a-01a0fa85d8c4" name="Changes" comment="feat: add detail student">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/constants/errorMessages.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/errorMessages.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/training-industries/[id]/edit/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/training-industries/[id]/edit/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/training-industries/create/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/training-industries/create/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/training-industries/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/training-industries/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/index.d.ts" afterDir="false" />
-    </list>
+    <list default="true" id="a19e1239-6d18-4fbf-8d8a-01a0fa85d8c4" name="Changes" comment="feat: add detail student" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -160,7 +152,7 @@
       <workItem from="1731119734837" duration="17158000" />
       <workItem from="1731209039896" duration="4545000" />
       <workItem from="1731236454650" duration="953000" />
-      <workItem from="1731245305795" duration="6574000" />
+      <workItem from="1731245305795" duration="6879000" />
     </task>
     <servers />
   </component>
