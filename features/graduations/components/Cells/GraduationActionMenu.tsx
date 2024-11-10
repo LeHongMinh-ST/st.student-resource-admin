@@ -1,5 +1,5 @@
 import { Button, Menu } from '@mantine/core';
-import { IconDotsVertical, IconEye, IconTrash } from '@tabler/icons-react';
+import { IconDotsVertical, IconEdit, IconEye, IconTrash } from '@tabler/icons-react';
 import Link from 'next/link';
 import React from 'react';
 import { graduationRoute } from '@/routes';
@@ -42,6 +42,17 @@ const GraduationActionMenu: React.FC<GraduationActionMenuProps> = ({
         </Menu.Item>
         {authUser?.role === Role.Admin && (
           <>
+            <Menu.Item
+              fw={600}
+              fz="sm"
+              color="blue"
+              variant="filled"
+              component={Link}
+              leftSection={<IconEdit size={16} />}
+              href={graduationRoute.update(generalGraduation?.id)}
+            >
+              Chỉnh sửa
+            </Menu.Item>
             <Menu.Item
               fw={600}
               fz="sm"

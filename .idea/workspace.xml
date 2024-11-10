@@ -4,9 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a19e1239-6d18-4fbf-8d8a-01a0fa85d8c4" name="Changes" comment="">
+    <list default="true" id="a19e1239-6d18-4fbf-8d8a-01a0fa85d8c4" name="Changes" comment="feat: add detail student">
+      <change afterPath="$PROJECT_DIR$/features/graduations/edit/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/survey-periods/components/Cells/SurveyPeriodActionMenu.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/survey-periods/components/Filters/StatusFilter.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/survey-periods/create/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/survey-periods/edit/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/survey-periods/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/survey-periods/[id]/edit/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/survey-periods/create/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/survey-periods/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/surveyPeriodService.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/dashboard/DashboardAdmin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/dashboard/DashboardAdmin.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Badge/StatusBadge/StatusBadge.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Badge/StatusBadge/StatusBadge.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants/errorMessages.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/errorMessages.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants/labels.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/labels.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants/sidebarNavigation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/sidebarNavigation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/graduations/components/Cells/GraduationActionMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/graduations/components/Cells/GraduationActionMenu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/graduations/create/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/graduations/create/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/graduations/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/graduations/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/students-graduation/[id]/edit/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/students-graduation/[id]/edit/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +58,10 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="feat_update_logic_graduation_and_page_survey_period" />
+                    <option name="lastUsedInstant" value="1731249827" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="feat_create_ui_department" />
                     <option name="lastUsedInstant" value="1728121462" />
                   </RecentBranch>
@@ -52,7 +78,7 @@
       </RecentBranches>
     </option>
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/bin/php" />
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/opt/homebrew/Cellar/php/8.3.9/bin/php" />
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 5
@@ -65,8 +91,8 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/var/www/st.student-resource-admin/features/students/detail/components/InfoStudent&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat__update__logic__graduation__and__page__survey__period&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/chiendam/Dev/Projects/st.student-resource-admin/pages/students-graduation&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
@@ -78,18 +104,19 @@
     &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;npm.dev.executor&quot;: &quot;Run&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/var/www/st.student-resource-admin/node_modules/prettier&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/chiendam/Dev/Projects/st.student-resource-admin/node_modules/prettier&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/var/www/st.student-resource-admin/node_modules/typescript/lib&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/chiendam/Dev/Projects/st.student-resource-admin/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/features/students/detail/components/InfoStudent" />
-      <recent name="$PROJECT_DIR$/public/images" />
-      <recent name="$PROJECT_DIR$/components/Filters" />
-      <recent name="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentListTabComponent/Filters" />
+      <recent name="$PROJECT_DIR$/pages/students-graduation" />
+      <recent name="$PROJECT_DIR$/features/graduations" />
+      <recent name="$PROJECT_DIR$/enums" />
+      <recent name="$PROJECT_DIR$/features/survey-periods/components/Cells" />
+      <recent name="$PROJECT_DIR$/services" />
     </key>
   </component>
   <component name="RunManager">
@@ -107,8 +134,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PS-242.23339.16" />
-        <option value="bundled-php-predefined-a98d8de5180a-90914f2295cb-com.jetbrains.php.sharedIndexes-PS-242.23339.16" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PS-241.19416.23" />
+        <option value="bundled-php-predefined-ba97393d7c68-48a1a656d44e-com.jetbrains.php.sharedIndexes-PS-241.19416.23" />
       </set>
     </attachedChunks>
   </component>
@@ -147,6 +174,10 @@
       <workItem from="1729669774990" duration="9000" />
       <workItem from="1729744508654" duration="22066000" />
       <workItem from="1730082105102" duration="6857000" />
+      <workItem from="1731119734837" duration="17158000" />
+      <workItem from="1731209039896" duration="4545000" />
+      <workItem from="1731236454650" duration="953000" />
+      <workItem from="1731245305795" duration="4743000" />
     </task>
     <servers />
   </component>

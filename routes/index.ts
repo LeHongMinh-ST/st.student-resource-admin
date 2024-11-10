@@ -16,6 +16,13 @@ export const departmentRoute = {
   update: (id: string | number | undefined) => (id ? `${ADMIN_PREFIX}/departments/${id}/edit` : ''),
 };
 
+export const surveyPeriodRoute = {
+  list: `${ADMIN_PREFIX}/survey-periods`,
+  create: `${ADMIN_PREFIX}/survey-periods/create`,
+  update: (id: string | number | undefined) =>
+    id ? `${ADMIN_PREFIX}/survey-periods/${id}/edit` : '',
+};
+
 export const majorRoute = {
   list: `${ADMIN_PREFIX}/training-industries`,
   create: `${ADMIN_PREFIX}/training-industries/create`,
@@ -35,6 +42,8 @@ export const graduationRoute = {
   create: `${ADMIN_PREFIX}/students-graduation/create`,
   show: (id: string | number | undefined) =>
     id ? `${ADMIN_PREFIX}/students-graduation/${id}` : '',
+  update: (id: string | number | undefined) =>
+    id ? `${ADMIN_PREFIX}/students-graduation/${id}/edit` : '',
 };
 
 export const studentRoute = {
