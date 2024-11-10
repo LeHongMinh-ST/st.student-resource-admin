@@ -27,7 +27,7 @@ export const sidebarNavigationAdmin: SidebarNavigationProps[] = [
     links: [
       { label: 'Bảng điều khiển', icon: IconDashboard, link: dashboardRoute.dashboard },
       { label: 'Bộ môn', icon: IconBuilding, link: '/departments' },
-      { label: 'Ngành học', icon: IconBookmark, link: '/majors' },
+      { label: 'Ngành đào tạo', icon: IconBookmark, link: '/training-industries' },
       { label: 'Lớp học', icon: IconBook, link: '/classes' },
     ],
   },
@@ -45,7 +45,7 @@ export const sidebarNavigationAdmin: SidebarNavigationProps[] = [
   {
     title: 'Khảo sát',
     links: [
-      { label: 'Khảo sát viêc làm', icon: IconListDetails, link: '/form-job' },
+      { label: 'Khảo sát viêc làm', icon: IconListDetails, link: '/survey-periods' },
       { label: 'Đánh giá rèn luyện', icon: IconListNumbers, link: '/form-point' },
     ],
   },

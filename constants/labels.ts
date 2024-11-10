@@ -17,6 +17,14 @@ export const statusLabels: Record<StatusEnum, string> = {
   [StatusEnum.Draft]: 'Nháp',
 };
 
+export const statusSurveyPeriodLabels: {
+  [StatusEnum.Enable]: string;
+  [StatusEnum.Disable]: string;
+} = {
+  [StatusEnum.Enable]: 'Hoạt động',
+  [StatusEnum.Disable]: 'Huỷ',
+};
+
 export const statusFileImportLabels: Record<StatusFileImport, string> = {
   [StatusFileImport.Completed]: 'Đã xử lý',
   [StatusFileImport.Processing]: 'Đang xử lý',

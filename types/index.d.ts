@@ -194,8 +194,7 @@ type Graduation = {
   certification_date: string;
   faculty_id?: number;
   faculty?: Faculty;
-  school_year_id: number;
-  school_year?: schoolYear;
+  year: any;
   student_count?: number;
   created_at?: string;
   updated_at?: string;
@@ -226,6 +225,23 @@ type Major = {
   name: string;
   status: StatusEnum;
   description?: string;
+  created_at?: string;
+  updated_at?: string;
+};
+
+type SurveyPeriod = {
+  id?: number;
+  title: string;
+  description: string;
+  status: StatusEnum;
+  year: string;
+  type: string;
+  start_date: string;
+  end_date: string;
+  faculty_id?: number;
+  graduation_ceremony_ids?: number[];
+  created_by?: User;
+  updated_by?: User;
   created_at?: string;
   updated_at?: string;
 };

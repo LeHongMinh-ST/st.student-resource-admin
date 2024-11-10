@@ -70,11 +70,9 @@ const GraduationPage = () => {
         ),
       },
       {
-        accessor: 'school_year',
-        title: 'Năm học',
-        render: (generalGraduation: Graduation) => (
-          <Text>{`${generalGraduation.school_year?.start_year}-${generalGraduation.school_year?.end_year}`}</Text>
-        ),
+        accessor: 'year',
+        title: 'Năm tốt nghiệp',
+        render: (generalGraduation: Graduation) => <Text>{`${generalGraduation.year}`}</Text>,
         sorting: true,
         filtering: true,
       },

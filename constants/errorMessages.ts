@@ -64,8 +64,25 @@ export const ERROR_MESSAGES = {
     certification_date: {
       required: 'Vui lòng nhập ngày quyết định tốt nghiệp',
     },
-    school_year_id: {
+    year: {
       required: 'Vui lòng chọn năm học',
+    },
+  },
+  surveyPeriod: {
+    title: {
+      required: 'Vui lòng nhập tiêu đề',
+    },
+    year: {
+      required: 'Vui lòng nhập năm khảo sát',
+    },
+    start_date: {
+      required: 'Vui lòng nhập thời gian bắt đầu khảo sát',
+    },
+    end_date: {
+      required: 'Vui lòng nhập thời gian kết thúc khảo sát',
+    },
+    graduation_ceremony_ids: {
+      required: 'Vui lòng chọn đợt tốt nghiệp muốn khảo sát',
     },
   },
 };

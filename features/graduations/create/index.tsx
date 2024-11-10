@@ -7,26 +7,23 @@ import {
   Fieldset,
   Grid,
   Paper,
-  Select,
   SimpleGrid,
   Stack,
   TextInput,
 } from '@mantine/core';
-import { DatePickerInput } from '@mantine/dates';
+import dayjs from 'dayjs';
+import { DatePickerInput, YearPickerInput } from '@mantine/dates';
 import { notifications } from '@mantine/notifications';
 import { IconAlertTriangle, IconCheck, IconDeviceFloppy, IconLogout } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Controller, useForm } from 'react-hook-form';
-import useSWR from 'swr';
 import { PageHeader, Surface } from '@/components';
-import { defaultPramsList } from '@/constants/commons';
 import { ERROR_MESSAGES } from '@/constants/errorMessages';
 import HttpStatus from '@/enums/http-status.enum';
 import { dashboardRoute, graduationRoute } from '@/routes';
 import { useGraduationService } from '@/services/graduationService';
-import { SchoolYearListParams, useSchoolYearService } from '@/services/schoolYearService';
-import { Graduation, ResultResonse, schoolYear } from '@/types';
+import { Graduation } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
 import '@mantine/dates/styles.css';
 
@@ -42,31 +39,14 @@ const GraduationCreatePage = () => {
   });
 
   const { createGraduation } = useGraduationService();
-  const { getList } = useSchoolYearService();
 
-  // @ts-ignore
-  const schoolYearListParams: SchoolYearListParams = { ...defaultPramsList };
-
-  const handleGetListUser = () =>
-    getList(schoolYearListParams)
-      .then((res) => res.data)
-      .catch((error) => error);
-
-  const { data: dataSchoolYear } = useSWR<ResultResonse<schoolYear[]>>(
-    ['getList', schoolYearListParams],
-    handleGetListUser
-  );
   const { push } = useRouter();
-
-  const dataOptionSchoolYear = dataSchoolYear?.data?.map((item: schoolYear) => ({
-    label: `${item.start_year} - ${item.end_year}`,
-    value: `${item.id}`,
-  }));
 
   const onSubmit = async (data: Graduation) => {
     if (!isSubmitting) {
       try {
-        data.school_year_id = parseInt(data.school_year_id.toString(), 10);
+        data.year = Number(dayjs(data.year).format('YYYY'));
+        data.certification_date = dayjs(data.certification_date).format('YYYY-MM-DD');
         const res = await createGraduation(data);
         if (res) {
           notifications.show({
@@ -140,19 +120,20 @@ const GraduationCreatePage = () => {
                             error={errors.name?.message}
                           />
                           <Controller
-                            name="school_year_id"
+                            name="year"
                             control={control}
-                            rules={{ required: ERROR_MESSAGES.graduation.school_year_id.required }}
+                            rules={{ required: ERROR_MESSAGES.graduation.year.required }}
                             render={({ field }) => (
-                              <Select
-                                label="Năm học"
+                              <YearPickerInput
                                 withAsterisk
-                                placeholder="Chọn năm học"
-                                data={dataOptionSchoolYear}
-                                {...field}
-                                value={field.value?.toString() || ''}
-                                allowDeselect={false}
-                                error={errors.school_year_id?.message}
+                                label="Năm tốt nghiệp"
+                                placeholder="Năm tốt nghiệp"
+                                value={field.value ? new Date(field.value) : null}
+                                onChange={(date) => field.onChange(date)}
+                                onBlur={field.onBlur}
+                                name={field.name}
+                                ref={field.ref}
+                                error={errors.certification_date?.message}
                               />
                             )}
                           />

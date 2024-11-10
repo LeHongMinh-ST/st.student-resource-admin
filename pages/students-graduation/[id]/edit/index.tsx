@@ -1,3 +1,3 @@
-import ClassUpdatePage from '@/features/classes/edit';
+import GraduationUpdatePage from '@/features/graduations/edit';
 
-export default ClassUpdatePage;
+export default GraduationUpdatePage;

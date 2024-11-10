@@ -1,14 +1,16 @@
 import React from 'react';
 import { Badge } from '@mantine/core';
 import Status from '@/enums/status.enum';
-import { statusLabels } from '@/constants/labels';
+import { statusLabels as statusLabelsDefault } from '@/constants/labels';
 
 interface StatusBadgeProps {
   status: Status;
+  statusLabels?: { [key: string]: string };
 }
 
-const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
+const StatusBadge: React.FC<StatusBadgeProps> = ({ status, statusLabels }) => {
   const getBadgeProps = (status: Status) => {
+    statusLabels = statusLabels || statusLabelsDefault;
     switch (status) {
       case Status.Enable:
         return { color: 'green.8', label: statusLabels.enable };
