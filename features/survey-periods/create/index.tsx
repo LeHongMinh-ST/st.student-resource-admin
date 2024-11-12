@@ -35,10 +35,9 @@ const SurveyPeriodCreatePage = () => {
   const {
     control,
     register,
-    trigger,
     handleSubmit,
-    getValues,
     setValue,
+    watch,
     formState: { errors, isSubmitting },
     setError,
   } = useForm<SurveyPeriod>({
@@ -53,22 +52,24 @@ const SurveyPeriodCreatePage = () => {
 
   const { push } = useRouter();
 
-  const userParams = {
+  const graduationParams = {
     ...defaultPramsList,
+    limit: 100,
     facultyId: authUser?.faculty_id ?? undefined,
+    is_graduation_doesnt_have_survey_period: 1,
   };
 
-  const handleGetListUser = () =>
-    getList(userParams)
+  const handleGetListGraduation = () =>
+    getList(graduationParams)
       .then((res) => res.data)
       .catch((error) => error);
 
   const { data: dataGraduation } = useSWR<ResultResonse<Graduation[]>>(
-    ['getList', userParams],
-    handleGetListUser
+    ['getList', graduationParams],
+    handleGetListGraduation
   );
 
-  const dataOptionUser = dataGraduation?.data?.map((item: Graduation) => ({
+  const dataOptionGraduation = dataGraduation?.data?.map((item: Graduation) => ({
     label: `${item.name}`,
     value: `${item.id}`,
   }));
@@ -82,7 +83,7 @@ const SurveyPeriodCreatePage = () => {
         if (res) {
           notifications.show({
             title: 'Thành công!',
-            message: 'Tạo mới đợt tốt nghiệp thành công',
+            message: 'Tạo mới đợt khảo sát việc làm thành công',
             icon: <IconCheck />,
             color: 'green.8',
             autoClose: 5000,
@@ -111,6 +112,8 @@ const SurveyPeriodCreatePage = () => {
     }
   };
 
+  const [startDate, endDate] = watch(['start_date', 'end_date']);
+
   function formatDateToICT(date: any) {
     // Chuyển đổi sang múi giờ ICT
     const utcOffset = 7 * 60; // ICT là UTC+7
@@ -130,10 +133,10 @@ const SurveyPeriodCreatePage = () => {
       <Container fluid>
         <Stack gap="lg">
           <PageHeader
-            title="Đợt tốt nghiệp - Tạo mới"
+            title="Đợt khảo sát việc làm - Tạo mới"
             breadcrumbItems={[
               { title: 'Bảng điều khiển', href: dashboardRoute.dashboard },
-              { title: 'Đợt tốt nghiệp', href: surveyPeriodRoute.list },
+              { title: 'đợt khảo sát việc làm', href: surveyPeriodRoute.list },
               { title: 'Tạo mới', href: null },
             ]}
             withActions={
@@ -157,7 +160,7 @@ const SurveyPeriodCreatePage = () => {
                         <TextInput
                           withAsterisk
                           label="Tiêu đề"
-                          placeholder="Tiêu đề đợt tốt nghiệp"
+                          placeholder="Tiêu đề đợt khảo sát việc làm"
                           {...register('title', {
                             required: ERROR_MESSAGES.surveyPeriod.title.required,
                           })}
@@ -185,16 +188,11 @@ const SurveyPeriodCreatePage = () => {
                                 placeholder="HH:mm DD/MM/YYYY"
                                 value={field.value ? new Date(field.value) : null}
                                 onChange={(date) => {
-                                  const oldValue = getValues('start_date');
                                   field.onChange(date);
-                                  // @ts-ignore
-                                  if (date.getTime() !== new Date(oldValue).getTime()) {
-                                    // @ts-ignore
-                                    setValue('end_date', null);
-                                    trigger('end_date');
-                                  }
                                 }}
                                 onBlur={field.onBlur}
+                                minDate={new Date()}
+                                maxDate={endDate ? new Date(endDate) : undefined}
                                 name={field.name}
                                 ref={field.ref}
                                 valueFormat="HH:mm DD/MM/YYYY"
@@ -217,17 +215,12 @@ const SurveyPeriodCreatePage = () => {
                                 value={field.value ? new Date(field.value) : null}
                                 onChange={(date) => {
                                   field.onChange(date);
-                                  trigger('end_date');
                                 }}
                                 onBlur={field.onBlur}
                                 name={field.name}
                                 ref={field.ref}
                                 valueFormat="HH:mm DD/MM/YYYY"
-                                minDate={
-                                  getValues('start_date')
-                                    ? new Date(getValues('start_date'))
-                                    : undefined
-                                }
+                                minDate={startDate ? new Date(startDate) : undefined}
                                 error={errors.end_date?.message}
                               />
                             )}
@@ -243,14 +236,21 @@ const SurveyPeriodCreatePage = () => {
                             }}
                             render={({ field }) => (
                               <MultiSelect
-                                label="Đợt tốt nghiệp"
-                                placeholder="Chọn đợt tốt nghiệp"
-                                data={dataOptionUser}
+                                label="đợt khảo sát việc làm"
+                                placeholder="Chọn đợt khảo sát việc làm"
+                                data={
+                                  dataOptionGraduation?.length
+                                    ? dataOptionGraduation
+                                    : [
+                                        {
+                                          label: 'Không có dữ liệu',
+                                          value: '0',
+                                          disabled: true,
+                                        },
+                                      ]
+                                }
                                 searchable
                                 clearable
-                                onFocus={() => {
-                                  trigger('start_date');
-                                }}
                                 onChange={(value) => {
                                   field.onChange(value);
                                   // @ts-ignore

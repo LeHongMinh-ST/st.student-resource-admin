@@ -1,3 +1,3 @@
-import DepartmentUpdatePage from '@/features/departments/edit';
+import SurveyPeriodUpdatePage from '@/features/survey-periods/edit';
 
-export default DepartmentUpdatePage;
+export default SurveyPeriodUpdatePage;
