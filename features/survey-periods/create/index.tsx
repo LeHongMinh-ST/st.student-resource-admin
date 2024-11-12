@@ -18,6 +18,7 @@ import { useRouter } from 'next/router';
 import { Controller, useForm } from 'react-hook-form';
 import { DateTimePicker } from '@mantine/dates';
 import useSWR from 'swr';
+import dayjs from 'dayjs';
 import { dashboardRoute, surveyPeriodRoute } from '@/routes';
 import { Graduation, ResultResonse, SurveyPeriod } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
@@ -77,8 +78,8 @@ const SurveyPeriodCreatePage = () => {
   const onSubmit = async (data: SurveyPeriod) => {
     if (!isSubmitting) {
       try {
-        data.start_date = formatDateToICT(data.start_date);
-        data.end_date = formatDateToICT(data.end_date);
+        data.start_date = dayjs(data.start_date).format('YYYY-MM-DD HH:mm');
+        data.end_date = dayjs(data.end_date).format('YYYY-MM-DD HH:mm');
         const res = await createSurveyPeriod(data);
         if (res) {
           notifications.show({
@@ -88,7 +89,7 @@ const SurveyPeriodCreatePage = () => {
             color: 'green.8',
             autoClose: 5000,
           });
-          push(surveyPeriodRoute.update(res.data.data.id));
+          push(surveyPeriodRoute.list);
         }
       } catch (e: any) {
         if (e?.status === HttpStatus.HTTP_UNPROCESSABLE_ENTITY) {
@@ -113,20 +114,6 @@ const SurveyPeriodCreatePage = () => {
   };
 
   const [startDate, endDate] = watch(['start_date', 'end_date']);
-
-  function formatDateToICT(date: any) {
-    // Chuyển đổi sang múi giờ ICT
-    const utcOffset = 7 * 60; // ICT là UTC+7
-    const localDate = new Date(date.getTime() + utcOffset * 60 * 1000);
-
-    const year = localDate.getFullYear();
-    const month = String(localDate.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
-    const day = String(localDate.getDate()).padStart(2, '0');
-    const hours = String(localDate.getHours()).padStart(2, '0');
-    const minutes = String(localDate.getMinutes()).padStart(2, '0');
-
-    return `${year}-${month}-${day} ${hours}:${minutes}`;
-  }
 
   return (
     <SurveyPeriodCreatePageStyled>
@@ -236,8 +223,8 @@ const SurveyPeriodCreatePage = () => {
                             }}
                             render={({ field }) => (
                               <MultiSelect
-                                label="đợt khảo sát việc làm"
-                                placeholder="Chọn đợt khảo sát việc làm"
+                                label="Các đợt xét tốt nghiệp"
+                                placeholder="Chọn đợt xét tốt nghiệp"
                                 data={
                                   dataOptionGraduation?.length
                                     ? dataOptionGraduation

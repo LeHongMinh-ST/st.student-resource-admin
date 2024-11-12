@@ -19,6 +19,7 @@ import SurveyPeriodActionMenu from '@/features/survey-periods/components/Cells/S
 import StatusFilter from '@/features/survey-periods/components/Filters/StatusFilter';
 import { statusSurveyPeriodLabels } from '@/constants/labels';
 import ComfirmModal from '@/components/Modals/ComfirmModel/ComfirmModal';
+import { encryptedString } from '@/utils/func/hasCode';
 
 const SurveyPeriodPage = () => {
   const surveyPeriodService = useSurveyPeriodService();
@@ -43,6 +44,13 @@ const SurveyPeriodPage = () => {
     [surveyPeriodParams],
     handleGetListSurveyPeriod
   );
+
+  const handCopyLinkFormJob = async (surveyPeriod: SurveyPeriod) => {
+    const idEncrypted = encryptedString(surveyPeriod.id?.toString() ?? '');
+    await navigator.clipboard.writeText(
+      `${window.location.protocol}//${window.location.host}/khao-sat-viec-lam-sinh-vien/${idEncrypted}`
+    );
+  };
 
   const columns: DataTableProps<SurveyPeriod>['columns'] = useMemo(
     () => [
@@ -122,6 +130,7 @@ const SurveyPeriodPage = () => {
         width: 100,
         render: (surveyPeriod: SurveyPeriod) => (
           <SurveyPeriodActionMenu
+            onCopySurveyLink={handCopyLinkFormJob}
             surveyPeriod={surveyPeriod}
             onOpen={onOpen}
             setSelected={setSelected}

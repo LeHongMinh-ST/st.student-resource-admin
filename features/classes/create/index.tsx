@@ -135,7 +135,7 @@ const ClassCreatePage = () => {
               <Grid.Col span={{ base: 12, md: 8 }}>
                 <Surface component={Paper} p="md" shadow="md" radius="md" h="100%">
                   <Stack gap={32}>
-                    <Fieldset legend="Thông tin tài khoản">
+                    <Fieldset legend="Thông tin lớp học">
                       <Stack>
                         <TextInput
                           withAsterisk
@@ -180,7 +180,7 @@ const ClassCreatePage = () => {
               <Grid.Col span={{ base: 12, md: 4 }} h="100%">
                 <Surface component={Paper} p="md" shadow="md" radius="md" h="100%">
                   <Stack justify="space-between" gap={16} h="100%">
-                    <Fieldset legend="Vai trò">
+                    <Fieldset legend="Thông tin chung">
                       <Stack>
                         <Select
                           withAsterisk
