@@ -69,6 +69,8 @@ const SurveyPeriodUpdatePage = () => {
     }
   }, [data]);
 
+  const { push } = useRouter();
+
   const onSubmit = async (dataUpdate: SurveyPeriod) => {
     if (!isSubmitting) {
       try {
@@ -97,6 +99,7 @@ const SurveyPeriodUpdatePage = () => {
             color: 'green.8',
             autoClose: 5000,
           });
+          push(surveyPeriodRoute.list);
         }
       } catch (e: any) {
         if (e?.status === HttpStatus.HTTP_UNPROCESSABLE_ENTITY) {
@@ -139,7 +142,7 @@ const SurveyPeriodUpdatePage = () => {
   );
 
   const dataOptionGraduation = [
-    ...(data?.data.status === Status.Disable ? [] : dataGraduation?.data || []),
+    ...(dataGraduation?.data || []),
     ...(data?.data.graduation_ceremonies || []),
   ].map((item: Graduation) => ({
     label: `${item.name}`,
@@ -270,8 +273,8 @@ const SurveyPeriodUpdatePage = () => {
                                 <MultiSelect
                                   disabled={getValues('status') === Status.Disable}
                                   value={field.value?.map(String)}
-                                  label="đợt khảo sát việc làm"
-                                  placeholder="Chọn đợt khảo sát việc làm"
+                                  label="Các đợt xét tốt nghiệp"
+                                  placeholder="Chọn đợt tốt nghiệp"
                                   data={
                                     dataOptionGraduation.length
                                       ? dataOptionGraduation

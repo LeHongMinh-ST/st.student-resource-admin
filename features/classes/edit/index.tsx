@@ -204,7 +204,7 @@ const ClassUpdatePage = () => {
               <Grid.Col span={{ base: 12, md: 4 }} h="100%">
                 <Surface component={Paper} p="md" shadow="md" radius="md" h="100%">
                   <Stack justify="space-between" gap={16} h="100%">
-                    <Fieldset legend="Vai trò">
+                    <Fieldset legend="Thông tin chung">
                       <Stack>
                         <Skeleton visible={isLoading}>
                           <Select
