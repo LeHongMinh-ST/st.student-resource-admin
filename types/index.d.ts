@@ -25,6 +25,7 @@ type MetaResponse = {
 };
 
 type ResultResonse<T> = {
+  graduation_ceremony_ids: any;
   data: T;
   meta?: MetaResponse;
 };
@@ -247,9 +248,10 @@ type SurveyPeriod = {
   status: StatusEnum;
   year: string;
   type: string;
-  start_date: string;
-  end_date: string;
+  start_date?: string;
+  end_date?: string;
   faculty_id?: number;
+  graduation_ceremonies?: Graduation[];
   graduation_ceremony_ids?: number[];
   created_by?: User;
   updated_by?: User;

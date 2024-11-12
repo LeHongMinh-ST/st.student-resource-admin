@@ -137,29 +137,25 @@ const GraduationUpdatePage = () => {
                           name="year"
                           control={control}
                           rules={{ required: ERROR_MESSAGES.graduation.year.required }}
-                          render={({ field }) => {
-                            console.log(field.value, new Date(field.value, 0, 1));
-
-                            return (
-                              <YearPickerInput
-                                withAsterisk
-                                label="Năm tốt nghiệp"
-                                placeholder="Năm tốt nghiệp"
-                                value={
-                                  field.value
-                                    ? isDate(field.value)
-                                      ? new Date(field.value)
-                                      : new Date(field.value, 0, 1)
-                                    : null
-                                }
-                                onChange={(date) => field.onChange(date)}
-                                onBlur={field.onBlur}
-                                name={field.name}
-                                ref={field.ref}
-                                error={errors.certification_date?.message}
-                              />
-                            );
-                          }}
+                          render={({ field }) => (
+                            <YearPickerInput
+                              withAsterisk
+                              label="Năm tốt nghiệp"
+                              placeholder="Năm tốt nghiệp"
+                              value={
+                                field.value
+                                  ? isDate(field.value)
+                                    ? new Date(field.value)
+                                    : new Date(field.value, 0, 1)
+                                  : null
+                              }
+                              onChange={(date) => field.onChange(date)}
+                              onBlur={field.onBlur}
+                              name={field.name}
+                              ref={field.ref}
+                              error={errors.certification_date?.message}
+                            />
+                          )}
                         />
                       </SimpleGrid>
                       <SimpleGrid cols={{ base: 1, md: 2 }}>

@@ -18,6 +18,7 @@ import { useSurveyPeriodService, SurveyPeriodListParams } from '@/services/surve
 import SurveyPeriodActionMenu from '@/features/survey-periods/components/Cells/SurveyPeriodActionMenu';
 import StatusFilter from '@/features/survey-periods/components/Filters/StatusFilter';
 import { statusSurveyPeriodLabels } from '@/constants/labels';
+import ComfirmModal from '@/components/Modals/ComfirmModel/ComfirmModal';
 
 const SurveyPeriodPage = () => {
   const surveyPeriodService = useSurveyPeriodService();
@@ -27,6 +28,9 @@ const SurveyPeriodPage = () => {
 
   const { authUser } = useAuthStore();
   const [isOpen, { open: onOpen, close: onClose }] = useDisclosure(false);
+  const [isOpenPopupComfirm, { open: onOpenPopupComfirm, close: onClosePopupComfirm }] =
+    useDisclosure(false);
+
   const [selected, setSelected] = useState<SurveyPeriod | null>(null);
 
   const handleGetListSurveyPeriod = () =>
@@ -121,6 +125,7 @@ const SurveyPeriodPage = () => {
             surveyPeriod={surveyPeriod}
             onOpen={onOpen}
             setSelected={setSelected}
+            onOpenPopupComfirm={onOpenPopupComfirm}
           />
         ),
       },
@@ -136,6 +141,16 @@ const SurveyPeriodPage = () => {
     }
   }, [selected, surveyPeriodService]);
 
+  const handleSendMail = useCallback(async () => {
+    if (selected) {
+      await surveyPeriodService.sendMailSurveyPeriod(selected?.id ?? '', {
+        is_all_mail_student: true,
+      });
+      await mutate();
+      onClosePopupComfirm();
+    }
+  }, [selected, surveyPeriodService]);
+
   return (
     <SurveyPeriodPageStyled>
       <DeleteModal
@@ -143,6 +158,12 @@ const SurveyPeriodPage = () => {
         onDelete={handleDelete}
         isOpen={isOpen}
         onClose={onClose}
+      />
+      <ComfirmModal
+        entityName="phiếu khảo sát"
+        onComfirm={handleSendMail}
+        isOpen={isOpenPopupComfirm}
+        onClose={onClosePopupComfirm}
       />
       <Container fluid>
         <Stack gap="lg">

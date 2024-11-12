@@ -27,12 +27,21 @@ export const useSurveyPeriodService = () => {
   const updateSurveyPeriod = (
     surveyPeriod: SurveyPeriod
   ): Promise<AxiosResponse<ResultResonse<SurveyPeriod>, any>> =>
-    axiosInstance.put(`/survey-periods/${surveyPeriod.id}`, surveyPeriod);
+    axiosInstance.patch(`/survey-periods/${surveyPeriod.id}`, surveyPeriod);
 
   const deleteSurveyPeriod = (
     id: number | string
   ): Promise<AxiosResponse<ResultResonse<null>, any>> =>
     axiosInstance.delete(`/survey-periods/${id}`);
+
+  const sendMailSurveyPeriod = (
+    id: number | string,
+    options?: {
+      is_all_mail_student?: boolean;
+      list_student_mail?: string[];
+    }
+  ): Promise<AxiosResponse<ResultResonse<null>, any>> =>
+    axiosInstance.post(`/survey-periods/${id}/send-mail`, options);
 
   return {
     getList,
@@ -40,5 +49,6 @@ export const useSurveyPeriodService = () => {
     createSurveyPeriod,
     updateSurveyPeriod,
     deleteSurveyPeriod,
+    sendMailSurveyPeriod,
   };
 };

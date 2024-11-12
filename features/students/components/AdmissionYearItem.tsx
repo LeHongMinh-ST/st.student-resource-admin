@@ -14,7 +14,7 @@ const AdmissionYearItem = ({ admissionYear }: AdmissionYearItemProps) => (
         Khóa {admissionYear.admission_year}
       </Text>
       <Text fw={500} size="md" color="gray.6">
-        Năm học: {admissionYear.school_year}
+        Năm học: {admissionYear.school_year ? admissionYear.school_year : 'Chưa cập nhật'}
       </Text>
     </div>
   </Group>
