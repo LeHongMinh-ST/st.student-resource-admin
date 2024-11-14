@@ -48,9 +48,31 @@ const SurveyPeriodPage = () => {
     // const idEncrypted = encryptedString(surveyPeriod.id?.toString() ?? '');
     // `${window.location.protocol}//${window.location.host}/khao-sat-viec-lam-sinh-vien/${idEncrypted}`
 
-    await navigator.clipboard.writeText(
-      `${window.location.protocol}//st-dse.vnua.edu.vn:6897/form-job-survey/${surveyPeriod.id?.toString() ?? ''}`
+    copyTextToClipboard(
+      `${process.env.NEXT_PUBLIC_BASE_STUDENT_URL}/form-job-survey/${surveyPeriod.id?.toString() ?? ''}`
     );
+  };
+
+  const copyTextToClipboard = (text: string) => {
+    if (!navigator.clipboard) {
+      fallbackCopyTextToClipboard(text);
+      return;
+    }
+    await navigator.clipboard.writeText(text);
+  };
+
+  const fallbackCopyTextToClipboard = (text: string) => {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand('copy');
+    } catch (err) {
+      console.error(err);
+    }
+    document.body.removeChild(textArea);
   };
 
   const columns: DataTableProps<SurveyPeriod>['columns'] = useMemo(
