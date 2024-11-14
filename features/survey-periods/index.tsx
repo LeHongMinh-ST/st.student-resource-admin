@@ -58,7 +58,7 @@ const SurveyPeriodPage = () => {
       fallbackCopyTextToClipboard(text);
       return;
     }
-    await navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(text);
   };
 
   const fallbackCopyTextToClipboard = (text: string) => {
