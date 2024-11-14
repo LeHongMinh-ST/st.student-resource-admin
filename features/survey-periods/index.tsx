@@ -19,7 +19,6 @@ import SurveyPeriodActionMenu from '@/features/survey-periods/components/Cells/S
 import StatusFilter from '@/features/survey-periods/components/Filters/StatusFilter';
 import { statusSurveyPeriodLabels } from '@/constants/labels';
 import ComfirmModal from '@/components/Modals/ComfirmModel/ComfirmModal';
-import { encryptedString } from '@/utils/func/hasCode';
 
 const SurveyPeriodPage = () => {
   const surveyPeriodService = useSurveyPeriodService();
@@ -46,9 +45,11 @@ const SurveyPeriodPage = () => {
   );
 
   const handCopyLinkFormJob = async (surveyPeriod: SurveyPeriod) => {
-    const idEncrypted = encryptedString(surveyPeriod.id?.toString() ?? '');
+    // const idEncrypted = encryptedString(surveyPeriod.id?.toString() ?? '');
+    // `${window.location.protocol}//${window.location.host}/khao-sat-viec-lam-sinh-vien/${idEncrypted}`
+
     await navigator.clipboard.writeText(
-      `${window.location.protocol}//${window.location.host}/khao-sat-viec-lam-sinh-vien/${idEncrypted}`
+      `${window.location.protocol}//st-dse.vnua.edu.vn:6897/form-job-survey/${surveyPeriod.id?.toString() ?? ''}`
     );
   };
 
