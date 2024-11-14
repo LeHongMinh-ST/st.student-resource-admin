@@ -1,16 +1,7 @@
 import { Button, Menu } from '@mantine/core';
-import {
-  IconEdit,
-  IconDotsVertical,
-  IconTrash,
-  IconMail,
-  IconCopy,
-  IconCheck,
-  IconAlertTriangle,
-} from '@tabler/icons-react';
+import { IconEdit, IconDotsVertical, IconTrash, IconMail, IconCopy } from '@tabler/icons-react';
 import Link from 'next/link';
 import dayjs from 'dayjs';
-import { notifications } from '@mantine/notifications';
 import { surveyPeriodRoute } from '@/routes';
 import { SurveyPeriod } from '@/types';
 import Status from '@/enums/status.enum';
@@ -48,24 +39,7 @@ const SurveyPeriodActionMenu: React.FC<SurveyPeriodActionMenuProps> = ({
             variant="filled"
             leftSection={<IconCopy size={16} />}
             onClick={() => {
-              try {
-                onCopySurveyLink(surveyPeriod);
-                notifications.show({
-                  title: 'Thành công!',
-                  message: 'Cập nhật đợt khảo sát việc làm thành công',
-                  icon: <IconCheck />,
-                  color: 'green.8',
-                  autoClose: 3000,
-                });
-              } catch (error) {
-                notifications.show({
-                  title: 'Thất bại!',
-                  message: 'Có lỗi xảy ra! Vui lòng thử lại sau',
-                  icon: <IconAlertTriangle />,
-                  color: 'red',
-                  autoClose: 5000,
-                });
-              }
+              onCopySurveyLink(surveyPeriod);
             }}
           >
             Sao chép đường dẫn phiếu khảo sát

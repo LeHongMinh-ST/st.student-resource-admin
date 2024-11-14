@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
 import { Button, Container, Paper, Stack, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconPlus } from '@tabler/icons-react';
+import { IconAlertTriangle, IconCheck, IconPlus } from '@tabler/icons-react';
 import { DataTableProps } from 'mantine-datatable';
 import Link from 'next/link';
 import { useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
+import { notifications } from '@mantine/notifications';
 import { CommonDataTable, DeleteModal, PageHeader, StatusBadge } from '@/components';
 import SearchFilter from '@/components/Filters/SearchFilter';
 import { defaultPramsList } from '@/constants/commons';
@@ -44,13 +45,75 @@ const SurveyPeriodPage = () => {
     handleGetListSurveyPeriod
   );
 
-  const handCopyLinkFormJob = async (surveyPeriod: SurveyPeriod) => {
-    // const idEncrypted = encryptedString(surveyPeriod.id?.toString() ?? '');
-    // `${window.location.protocol}//${window.location.host}/khao-sat-viec-lam-sinh-vien/${idEncrypted}`
+  const copyTextToClipboard = (surveyPeriod: SurveyPeriod) => {
+    const link = `${window.location.protocol}//${process.env.NEXT_PUBLIC_BASE_API_URL}/form-job-survey/${surveyPeriod.id?.toString() ?? ''}`;
+    if (!navigator.clipboard) {
+      fallbackCopyTextToClipboard(link);
+      return;
+    }
+    navigator.clipboard
+      .writeText(link)
+      .then(() => {
+        notifications.show({
+          title: 'Thành công!',
+          message: 'Sao chép đường dẫn phiếu khảo sát thành công',
+          // eslint-disable-next-line react/jsx-no-undef
+          icon: <IconCheck />,
+          color: 'green.8',
+          autoClose: 3000,
+        });
+      })
+      .catch((err) => {
+        console.error('Failed to copy!', err);
+        notifications.show({
+          title: 'Thất bại!',
+          message: 'Có lỗi xảy ra! Vui lòng thử lại sau',
+          // eslint-disable-next-line react/jsx-no-undef
+          icon: <IconAlertTriangle />,
+          color: 'red',
+          autoClose: 5000,
+        });
+      });
+  };
 
-    await navigator.clipboard.writeText(
-      `${window.location.protocol}//st-dse.vnua.edu.vn:6897/form-job-survey/${surveyPeriod.id?.toString() ?? ''}`
-    );
+  const fallbackCopyTextToClipboard = (text: string) => {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      const successful = document.execCommand('copy');
+      if (successful) {
+        notifications.show({
+          title: 'Thành công!',
+          message: 'Sao chép đường dẫn phiếu khảo sát thành công',
+          // eslint-disable-next-line react/jsx-no-undef
+          icon: <IconCheck />,
+          color: 'green.8',
+          autoClose: 3000,
+        });
+      } else {
+        notifications.show({
+          title: 'Thất bại!',
+          message: 'Có lỗi xảy ra! Vui lòng thử lại sau',
+          // eslint-disable-next-line react/jsx-no-undef
+          icon: <IconAlertTriangle />,
+          color: 'red',
+          autoClose: 5000,
+        });
+      }
+    } catch (err) {
+      notifications.show({
+        title: 'Thất bại!',
+        message: 'Có lỗi xảy ra! Vui lòng thử lại sau',
+        // eslint-disable-next-line react/jsx-no-undef
+        icon: <IconAlertTriangle />,
+        color: 'red',
+        autoClose: 5000,
+      });
+    }
+    document.body.removeChild(textArea);
   };
 
   const columns: DataTableProps<SurveyPeriod>['columns'] = useMemo(
@@ -131,7 +194,7 @@ const SurveyPeriodPage = () => {
         width: 100,
         render: (surveyPeriod: SurveyPeriod) => (
           <SurveyPeriodActionMenu
-            onCopySurveyLink={handCopyLinkFormJob}
+            onCopySurveyLink={copyTextToClipboard}
             surveyPeriod={surveyPeriod}
             onOpen={onOpen}
             setSelected={setSelected}
