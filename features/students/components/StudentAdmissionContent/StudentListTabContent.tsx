@@ -85,6 +85,11 @@ const StudentListTabContent: FC<StudentListTabContentProps> = ({ admissionYear }
       title: 'Mã sinh viên',
     },
     {
+      accessor: 'dob',
+      title: 'Ngày sinh',
+      render: (student) => <Text>{formatDateString(student?.info?.dob, 'dd/mm/yyyy')}</Text>,
+    },
+    {
       accessor: 'currentClass.name',
       title: 'Lớp',
       render: (student) => (
