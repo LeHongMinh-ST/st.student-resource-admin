@@ -81,7 +81,7 @@ const SurveyPeriodActionMenu: React.FC<SurveyPeriodActionMenuProps> = ({
         leftSection={<IconEye size={16} />}
         href={surveyPeriodRoute.show(surveyPeriod?.id)}
       >
-        Xem chi tiết
+        Xem thông tin sinh viên
       </Menu.Item>
       {surveyPeriod?.status !== Status.Disable &&
         dayjs().isBefore(dayjs(surveyPeriod?.end_date)) && (
