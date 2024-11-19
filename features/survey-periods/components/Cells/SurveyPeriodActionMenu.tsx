@@ -7,6 +7,7 @@ import {
   IconCopy,
   IconCheck,
   IconAlertTriangle,
+  IconEye,
 } from '@tabler/icons-react';
 import Link from 'next/link';
 import dayjs from 'dayjs';
@@ -71,6 +72,17 @@ const SurveyPeriodActionMenu: React.FC<SurveyPeriodActionMenuProps> = ({
             Sao chép đường dẫn phiếu khảo sát
           </Menu.Item>
         )}
+      <Menu.Item
+        fw={600}
+        fz="sm"
+        color="blue"
+        variant="filled"
+        component={Link}
+        leftSection={<IconEye size={16} />}
+        href={surveyPeriodRoute.show(surveyPeriod?.id)}
+      >
+        Xem thông tin sinh viên
+      </Menu.Item>
       {surveyPeriod?.status !== Status.Disable &&
         dayjs().isBefore(dayjs(surveyPeriod?.end_date)) && (
           <Menu.Item

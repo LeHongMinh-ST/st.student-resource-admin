@@ -2,12 +2,15 @@ import { AxiosResponse } from 'axios';
 import axiosInstance from '@/utils/axios';
 import { AdmissionYear, BaseParamsList, ExcelFileImport, ResultResonse, Student } from '@/types';
 import { StudentStatus } from '@/enums';
+import StudentStatusSurveyPeriod from '@/enums/studentStatus.enum';
 
 export type AdmissionYearListParams = {} & BaseParamsList;
 export type StudentFileImportListParams = {} & BaseParamsList;
 export type GetListStudentParams = {
-  admission_year_id?: number;
   status?: StudentStatus;
+} & BaseParamsList;
+export type GetListStudentBySurveyParams = {
+  status_survey?: StudentStatusSurveyPeriod;
 } & BaseParamsList;
 
 export const useStudentService = () => {
@@ -26,6 +29,12 @@ export const useStudentService = () => {
     params: GetListStudentParams = {} as GetListStudentParams
   ): Promise<AxiosResponse<ResultResonse<Student[]>, any>> =>
     axiosInstance.get('/students', { params });
+
+  const getListStudentBySurveyPeriod = (
+    surveyPeriodId: number,
+    params: GetListStudentBySurveyParams = {} as GetListStudentParams
+  ): Promise<AxiosResponse<ResultResonse<Student[]>, any>> =>
+    axiosInstance.get(`/students/survey-period/${surveyPeriodId}`, { params });
 
   const getTotalStudent = (
     params: GetListStudentParams = {} as GetListStudentParams
@@ -58,5 +67,6 @@ export const useStudentService = () => {
     downloadTemplateImportStudentAdmission,
     downloadImportErrorRecord,
     getTotalStudent,
+    getListStudentBySurveyPeriod,
   };
 };
