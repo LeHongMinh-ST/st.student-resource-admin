@@ -120,16 +120,61 @@ type Student = {
   full_name?: string;
   email: string;
   code: string;
+  current_employment_response?: FormJobSurvey;
   admission_year?: AdmissionYear;
   faculty?: Faculty;
   status: StudentStatus;
   family: Family[];
   info?: StudentInfo;
   currentClass: GeneralClass;
+  current_survey_period?: StudentSurveyPeriod;
   graduate?: StudentGraduation;
   school_year: string;
   created_at?: string;
   updated_at?: string;
+};
+
+export type IOptionCheckbox = {
+  value: string[];
+  content_other?: string;
+};
+
+export type FormJobSurvey = {
+  id?: number;
+  survey_period_id: number;
+  student_id?: number;
+  email?: string;
+  full_name: string;
+  dob?: string;
+  gender?: number;
+  code_student: string;
+  identification_card_number?: string;
+  identification_card_number_update?: string;
+  identification_issuance_place?: string;
+  identification_issuance_date?: string;
+  training_industry_id: string;
+  course: string;
+  phone_number?: string;
+  employment_status: string;
+
+  // optional
+  recruit_partner_name?: string;
+  recruit_partner_address?: string;
+  recruit_partner_date?: string;
+  recruit_partner_position?: string;
+  work_area?: number | string;
+  city_work_id?: number | string;
+  employed_since?: number | string;
+  trained_field?: number | string;
+  professional_qualification_field?: number | string;
+  level_knowledge_acquired?: number | string;
+  starting_salary?: string;
+  average_income?: number | string;
+  job_search_method?: IOptionCheckbox;
+  recruitment_type?: IOptionCheckbox;
+  soft_skills_required?: IOptionCheckbox;
+  must_attended_courses?: IOptionCheckbox;
+  solutions_get_job: IOptionCheckbox;
 };
 
 type Family = {
@@ -256,5 +301,13 @@ type SurveyPeriod = {
   created_by?: User;
   updated_by?: User;
   created_at?: string;
+  updated_at?: string;
+};
+
+type StudentSurveyPeriod = {
+  student_id?: number;
+  survey_period_id?: number;
+  email_survey_send?: string;
+  number_mail_send?: number;
   updated_at?: string;
 };

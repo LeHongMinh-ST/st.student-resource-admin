@@ -26,6 +26,7 @@ export const trainingIndustryRoute = {
 export const surveyPeriodRoute = {
   list: `${ADMIN_PREFIX}/survey-periods`,
   create: `${ADMIN_PREFIX}/survey-periods/create`,
+  show: (id: string | number | undefined) => (id ? `${ADMIN_PREFIX}/survey-periods/${id}` : ''),
   update: (id: string | number | undefined) =>
     id ? `${ADMIN_PREFIX}/survey-periods/${id}/edit` : '',
 };
