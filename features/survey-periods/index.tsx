@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import { Button, Container, Paper, Stack, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconPlus } from '@tabler/icons-react';
 import { DataTableProps } from 'mantine-datatable';
 import Link from 'next/link';
 import { useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
+import { IconPlus } from '@tabler/icons-react';
 import { CommonDataTable, DeleteModal, PageHeader, StatusBadge } from '@/components';
 import SearchFilter from '@/components/Filters/SearchFilter';
 import { defaultPramsList } from '@/constants/commons';
