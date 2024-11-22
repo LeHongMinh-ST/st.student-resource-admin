@@ -13,14 +13,15 @@ import {
   GetListStudentParams,
   useStudentService,
 } from '@/services/studentService';
-import { HttpStatusEnum, StudentStatus } from '@/enums';
+import { HttpStatusEnum } from '@/enums';
 import { CommonDataTable } from '@/components';
 import SearchFilter from '@/components/Filters/SearchFilter';
 import StudentNameCellTable from '@/features/students/components/StudentAdmissionContent/StudentListTabComponent/Cells/StudentNameCellTable';
-import StudentStatusFilter from '@/features/students/components/StudentAdmissionContent/StudentListTabComponent/Filters/StudentStatusFilter';
 import StatusSurveyBadge from '@/components/Badge/StatusSurveyBadge/StatusSurveyBagde';
 import ListStudentServeyActionMenu from '../Cells/ListStudentSurveyActionMenu';
 import SurveyResponseModal from '../SurveyResponse/SurveyResponseModal';
+import StatusSurveyFilter from '../Filters/StatusSurveyFilter';
+import StatusSurvey from '@/enums/statusSurvey.enum';
 
 type StudentListByServeyPeriodProps = {
   surveyPeriodId: number;
@@ -102,7 +103,7 @@ const StudentListByServeyPeriod: FC<StudentListByServeyPeriodProps> = ({ surveyP
     {
       accessor: 'currentClass.email',
       title: 'Email',
-      render: (student) => <Text>{student.current_survey_period?.email_survey_send}</Text>,
+      render: (student) => <Text>{student.info?.person_email ?? 'Chưa cập nhật'}</Text>,
     },
     {
       accessor: 'currentClass.number_mail_send',
@@ -115,12 +116,12 @@ const StudentListByServeyPeriod: FC<StudentListByServeyPeriodProps> = ({ surveyP
       render: (student) => <StatusSurveyBadge student={student} />,
 
       filter: (
-        <StudentStatusFilter
+        <StatusSurveyFilter
           value={getListStudentParams?.status_survey}
           onChange={(value) =>
             setGetListStudentParams({
               ...getListStudentParams,
-              status_survey: value as StudentStatus,
+              status_survey: value as StatusSurvey,
             })
           }
         />

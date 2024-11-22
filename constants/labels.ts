@@ -9,6 +9,7 @@ import {
   StudentStatus,
 } from '@/enums';
 import SocialPolicyObject from '@/enums/socialPolicyObject.enum';
+import StatusSurvey from '@/enums/statusSurvey.enum';
 import TrainingType from '@/enums/trainingType.enum';
 
 export const statusLabels: Record<StatusEnum, string> = {
@@ -23,6 +24,11 @@ export const statusSurveyPeriodLabels: {
 } = {
   [StatusEnum.Enable]: 'Hoạt động',
   [StatusEnum.Disable]: 'Huỷ',
+};
+
+export const statusSurveyLabels: Record<StatusSurvey, string> = {
+  [StatusSurvey.Response]: 'Đã khảo sát',
+  [StatusSurvey.Unresponse]: 'Chưa khảo sát',
 };
 
 export const statusFileImportLabels: Record<StatusFileImport, string> = {
