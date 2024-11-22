@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Button, Container, Divider, Grid, Paper, Skeleton, Stack, Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
-import { IconAlertTriangle, IconLogout } from '@tabler/icons-react';
+import { IconAlertTriangle, IconDownload, IconLogout } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
@@ -13,6 +13,7 @@ import { PageHeader } from '@/components';
 import HttpStatus from '@/enums/http-status.enum';
 import { formatDateString } from '@/utils/func/formatDateString';
 import StudentListByServeyPeriod from '@/features/survey-periods/components/StudentListBySurveyPeriodComponent/StudentListByServeyPeriod';
+import { useReportSurveyService } from '@/services/ReportSurveyService';
 
 const SurveyPeriodDetailPage = () => {
   const { getSurveyPeriod } = useSurveyPeriodService();
@@ -45,6 +46,34 @@ const SurveyPeriodDetailPage = () => {
         return error;
       });
 
+  const { downloadReportTemplate03 } = useReportSurveyService();
+
+  const handleDownloadTemplateFileImport = async (): Promise<void> => {
+    try {
+      const res = await downloadReportTemplate03({
+        survey_id: Number(id),
+      });
+      const url: string = window.URL.createObjectURL(new Blob([(res as any)?.data]));
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'mau_03_danh_sach_sinh_vien_phan_hoi.xlsx');
+      document.body.appendChild(link);
+      link.click();
+
+      // Clean up after download
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      notifications.show({
+        title: 'Lỗi!',
+        message: 'Có lỗi xảy ra vui lòng thử lại sau!',
+        icon: <IconAlertTriangle />,
+        color: 'red',
+        autoClose: 5000,
+      });
+    }
+  };
   const { data, isLoading } = useSWR<ResultResonse<SurveyPeriod>>(id, handleGetSurveyPeriodById);
 
   return (
@@ -60,14 +89,20 @@ const SurveyPeriodDetailPage = () => {
                 { title: 'Thông tin', href: null },
               ]}
               withActions={
-                <div className="flex">
-                  <Stack gap={4}>
+                <div className="">
+                  <Stack>
                     <Button
                       component={Link as any}
                       href={surveyPeriodRoute.list}
                       leftSection={<IconLogout size={18} />}
                     >
                       Quay lại
+                    </Button>
+                    <Button
+                      onClick={handleDownloadTemplateFileImport}
+                      leftSection={<IconDownload size={18} />}
+                    >
+                      Dowload file báo cáo mẫu 03
                     </Button>
                   </Stack>
                 </div>
