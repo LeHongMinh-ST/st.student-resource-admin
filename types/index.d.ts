@@ -153,6 +153,7 @@ export type FormJobSurvey = {
   identification_issuance_place?: string;
   identification_issuance_date?: string;
   training_industry_id: string;
+  training_industry?: TrainingIndustry;
   course: string;
   phone_number?: string;
   employment_status: string;
@@ -164,6 +165,7 @@ export type FormJobSurvey = {
   recruit_partner_position?: string;
   work_area?: number | string;
   city_work_id?: number | string;
+  city_work?: City;
   employed_since?: number | string;
   trained_field?: number | string;
   professional_qualification_field?: number | string;
@@ -175,6 +177,12 @@ export type FormJobSurvey = {
   soft_skills_required?: IOptionCheckbox;
   must_attended_courses?: IOptionCheckbox;
   solutions_get_job: IOptionCheckbox;
+};
+
+type City = {
+  id: number;
+  name: string;
+  code: string;
 };
 
 type Family = {
@@ -290,6 +298,8 @@ type SurveyPeriod = {
   id?: number;
   title: string;
   description: string;
+  total_student_responses?: number;
+  total_student?: number;
   status: StatusEnum;
   year: string;
   type: string;

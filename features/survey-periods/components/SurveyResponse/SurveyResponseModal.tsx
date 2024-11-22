@@ -4,6 +4,8 @@ import { DatePickerInput } from '@mantine/dates';
 import { IconCalendar } from '@tabler/icons-react';
 import { FormJobSurvey } from '@/types';
 import { ANSWER_EMPLOYMENT_STATUS, LIST_OPTION_QUESTION_FORM } from '@/constants/form';
+import { genderLabels } from '@/constants/labels';
+import { Gender } from '@/enums';
 
 type SurveyResponseModalProps = {
   formJobResponse: FormJobSurvey;
@@ -102,7 +104,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
               </Text>
               <TextInput
                 variant="unstyled"
-                defaultValue={formJobResponse?.gender ?? ''}
+                defaultValue={genderLabels[formJobResponse?.gender as unknown as Gender] ?? ''}
                 placeholder="vd: Đào Đức Anh"
               />
             </Card>
@@ -181,7 +183,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
               </Text>
               <TextInput
                 variant="unstyled"
-                defaultValue={`K${formJobResponse?.training_industry_id ?? ''}`}
+                defaultValue={formJobResponse?.training_industry?.name ?? ''}
               />
             </Card>
             <Card shadow="sm" padding="lg" mb="lg">
@@ -236,7 +238,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                     Địa chỉ đơn vị thuộc Tỉnh/Thành phố <span className="required">*</span>
                   </Text>
                   <TextInput
-                    defaultValue={formJobResponse?.city_work_id ?? ''}
+                    defaultValue={formJobResponse?.city_work?.name ?? ''}
                     placeholder="Chọn tỉnh/Thành phố"
                   />
                 </Card>

@@ -126,10 +126,33 @@ const SurveyPeriodDetailPage = () => {
                       <Text size="md" fw={400}>
                         Thời gian khảo sát:
                       </Text>
-                      <Text size="lg">
+                      <Text size="lg" fw={500}>
                         Thời gian khảo sát từ ngày{' '}
                         <b>{formatDateString(data?.data?.start_date, 'dd/mm/yyyy')}</b> đến ngày{' '}
                         <b>{formatDateString(data?.data?.end_date, 'dd/mm/yyyy')}</b>
+                      </Text>
+                    </Stack>
+                  </Grid.Col>
+                  <Grid.Col span={6} style={{ borderLeft: '1px solid #ccc', paddingLeft: 20 }}>
+                    <Stack gap={3} ta="left">
+                      <Text size="md" fw={400}>
+                        Tổng số sinh viên phản hồi/ Tổng số sinh viên:
+                      </Text>
+                      <Text size="lg" fw={500}>
+                        {data?.data?.total_student_responses ?? ''} / {data?.data?.total_student}
+                      </Text>
+                    </Stack>
+                    <Stack gap={3} ta="left" mt={20}>
+                      <Text size="md" fw={400}>
+                        Tỷ lệ sinh viên phản hồi:
+                      </Text>
+                      <Text size="lg" fw={500}>
+                        {(
+                          (Number(data?.data?.total_student_responses) /
+                            Number(data?.data?.total_student ?? 1)) *
+                          100
+                        ).toFixed(2)}
+                        %
                       </Text>
                     </Stack>
                   </Grid.Col>

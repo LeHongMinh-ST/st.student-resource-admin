@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import axiosInstance from '@/utils/axios';
 import { AdmissionYear, BaseParamsList, ExcelFileImport, ResultResonse, Student } from '@/types';
 import { StudentStatus } from '@/enums';
-import StudentStatusSurveyPeriod from '@/enums/studentStatus.enum';
+import StatusSurvey from '@/enums/statusSurvey.enum';
 
 export type AdmissionYearListParams = {} & BaseParamsList;
 export type StudentFileImportListParams = {} & BaseParamsList;
@@ -10,7 +10,7 @@ export type GetListStudentParams = {
   status?: StudentStatus;
 } & BaseParamsList;
 export type GetListStudentBySurveyParams = {
-  status_survey?: StudentStatusSurveyPeriod;
+  status_survey?: StatusSurvey;
 } & BaseParamsList;
 
 export const useStudentService = () => {

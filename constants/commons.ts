@@ -6,9 +6,11 @@ import {
   classTypeLabels,
   roleLabels,
   statusLabels,
+  statusSurveyLabels,
   statusSurveyPeriodLabels,
   studentStatusLabels,
 } from './labels';
+import StatusSurvey from '@/enums/statusSurvey.enum';
 
 export const defaultPage: MetaResponse = {
   current_page: 1,
@@ -46,6 +48,11 @@ export const StudentStatusSelectList: SelectList<StudentStatus>[] = [
 export const StatusList: SelectList<Status>[] = [
   { value: Status.Enable, label: statusLabels.enable },
   { value: Status.Disable, label: statusLabels.disable },
+];
+
+export const StatusSurveyList: SelectList<StatusSurvey>[] = [
+  { value: StatusSurvey.Response, label: statusSurveyLabels.response },
+  { value: StatusSurvey.Unresponse, label: statusSurveyLabels.unresponse },
 ];
 
 export const StatusListActive: SelectList<Status>[] = [

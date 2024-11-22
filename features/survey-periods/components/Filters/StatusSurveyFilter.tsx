@@ -1,11 +1,11 @@
 import React from 'react';
 import { Select } from '@mantine/core';
-import { StatusList } from '@/constants/commons';
-import StudentStatus from '@/enums/studentStatusSurvey.enum';
+import { StatusSurveyList } from '@/constants/commons';
+import StatusSurvey from '@/enums/statusSurvey.enum';
 
 interface StatusFilterProps {
-  value?: StudentStatus | null;
-  onChange: (value: StudentStatus | null) => void;
+  value?: StatusSurvey | null;
+  onChange: (value: StatusSurvey | null) => void;
 }
 
 const StatusSurveyFilter: React.FC<StatusFilterProps> = ({ value, onChange }) => (
@@ -13,9 +13,9 @@ const StatusSurveyFilter: React.FC<StatusFilterProps> = ({ value, onChange }) =>
     label="Trạng thái"
     clearable
     placeholder="Chọn trạng thái"
-    data={StatusList}
+    data={StatusSurveyList}
     value={value}
-    onChange={(selectedValue) => onChange(selectedValue as StudentStatus)}
+    onChange={(selectedValue) => onChange(selectedValue as StatusSurvey)}
   />
 );
 
