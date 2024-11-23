@@ -106,7 +106,7 @@ const SurveyPeriodPage = () => {
       },
       {
         accessor: 'start_date',
-        title: 'Thời gian bắt đầu khảo sát',
+        title: 'Bắt đầu',
         render: (surveyPeriod: SurveyPeriod) => (
           <span>{formatDateString(surveyPeriod.start_date, 'HH:MM dd/mm/yyyy')}</span>
         ),
@@ -114,8 +114,8 @@ const SurveyPeriodPage = () => {
         filtering: true,
       },
       {
-        accessor: 'start_date',
-        title: 'Thời gian kết thúc khảo sát',
+        accessor: 'end_date',
+        title: 'Kết thúc',
         render: (surveyPeriod: SurveyPeriod) => (
           <span>{formatDateString(surveyPeriod.end_date, 'HH:MM dd/mm/yyyy')}</span>
         ),
@@ -141,7 +141,7 @@ const SurveyPeriodPage = () => {
       },
       {
         accessor: 'report_rate',
-        title: 'SL sinh viên phản hồi/SL sinh viên',
+        title: 'Phản hồi',
         render: (surveyPeriod: SurveyPeriod) => (
           <Text style={{ textAlign: 'center' }}>
             {surveyPeriod?.total_student_responses ?? ''} / {surveyPeriod?.total_student}
