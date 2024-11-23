@@ -140,6 +140,17 @@ const SurveyPeriodPage = () => {
         filtering: !!surveyPeriodParams.status,
       },
       {
+        accessor: 'report_rate',
+        title: 'SL sinh viên phản hồi/SL sinh viên',
+        render: (surveyPeriod: SurveyPeriod) => (
+          <Text style={{ textAlign: 'center' }}>
+            {surveyPeriod?.total_student_responses ?? ''} / {surveyPeriod?.total_student}
+          </Text>
+        ),
+        sorting: true,
+        filtering: true,
+      },
+      {
         accessor: 'created_at',
         title: 'Ngày tạo',
         sortable: true,
