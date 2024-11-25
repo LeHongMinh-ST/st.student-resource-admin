@@ -1,7 +1,17 @@
 import styled from '@emotion/styled';
-import { Button, Container, Divider, Grid, Paper, Skeleton, Stack, Text } from '@mantine/core';
+import {
+  Button,
+  Container,
+  Divider,
+  Grid,
+  Menu,
+  Paper,
+  Skeleton,
+  Stack,
+  Text,
+} from '@mantine/core';
 import { notifications } from '@mantine/notifications';
-import { IconAlertTriangle, IconDownload, IconLogout } from '@tabler/icons-react';
+import { IconAlertTriangle, IconDotsVertical, IconDownload, IconLogout } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
@@ -46,7 +56,7 @@ const SurveyPeriodDetailPage = () => {
         return error;
       });
 
-  const { downloadReportTemplate03 } = useReportSurveyService();
+  const { downloadReportTemplate03, downloadReportTemplate01 } = useReportSurveyService();
 
   const handleDownloadTemplateFileImport = async (): Promise<void> => {
     try {
@@ -58,6 +68,33 @@ const SurveyPeriodDetailPage = () => {
       const link = document.createElement('a');
       link.href = url;
       link.setAttribute('download', 'mau_03_danh_sach_sinh_vien_phan_hoi.xlsx');
+      document.body.appendChild(link);
+      link.click();
+
+      // Clean up after download
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      notifications.show({
+        title: 'Lỗi!',
+        message: 'Có lỗi xảy ra vui lòng thử lại sau!',
+        icon: <IconAlertTriangle />,
+        color: 'red',
+        autoClose: 5000,
+      });
+    }
+  };
+
+  const handleDownloadTemplateOneFileImport = async (): Promise<void> => {
+    try {
+      const res = await downloadReportTemplate01({
+        survey_id: Number(id),
+      });
+      const url: string = window.URL.createObjectURL(new Blob([(res as any)?.data]));
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'mau_01_danh_sach_sinh_vien_phan_hoi.xlsx');
       document.body.appendChild(link);
       link.click();
 
@@ -98,12 +135,48 @@ const SurveyPeriodDetailPage = () => {
                     >
                       Quay lại
                     </Button>
-                    <Button
+                    <Menu withArrow width={150} shadow="md">
+                      <Menu.Target>
+                        <div style={{ cursor: 'pointer', display: 'flex' }}>
+                          <Button variant="filled" size="sx">
+                            Dowload file báo cáo
+                            <IconDotsVertical color="white" size={18} />
+                          </Button>
+                        </div>
+                      </Menu.Target>
+                      <Menu.Dropdown>
+                        <Menu.Item
+                          fw={600}
+                          fz="sm"
+                          color="blue"
+                          variant="filled"
+                          // component={Link}
+                          leftSection={<IconDownload size={18} />}
+                          onClick={handleDownloadTemplateOneFileImport}
+                          // href={studentRoute.show(student?.id)}
+                        >
+                          Báo cáo mẫu 01
+                        </Menu.Item>
+                        <Menu.Item
+                          fw={600}
+                          fz="sm"
+                          color="blue"
+                          variant="filled"
+                          // component={Link}
+                          leftSection={<IconDownload size={18} />}
+                          onClick={handleDownloadTemplateFileImport}
+                          // href={studentRoute.show(student?.id)}
+                        >
+                          Báo cáo mẫu 03
+                        </Menu.Item>
+                      </Menu.Dropdown>
+                    </Menu>
+                    {/* <Button
                       onClick={handleDownloadTemplateFileImport}
                       leftSection={<IconDownload size={18} />}
                     >
                       Dowload file báo cáo mẫu 03
-                    </Button>
+                    </Button> */}
                   </Stack>
                 </div>
               }
