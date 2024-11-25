@@ -21,6 +21,14 @@ export const useReportSurveyService = () => {
       responseType: 'blob',
     });
 
+  const downloadReportTemplate01 = (
+    params: DownloadFileExcelTemplateImportParams
+  ): Promise<AxiosResponse<ResultResonse<any>, any>> =>
+    axiosInstance.get('/reports/employment-survey-template-one', {
+      params,
+      responseType: 'blob',
+    });
+
   // const getListFileImportByEntityId = (
   //   params: GetListFileExcelImportByEntityIdParams
   // ): Promise<AxiosResponse<ResultResonse<ExcelFileImport[]>, any>> =>
@@ -38,5 +46,6 @@ export const useReportSurveyService = () => {
 
   return {
     downloadReportTemplate03,
+    downloadReportTemplate01,
   };
 };
