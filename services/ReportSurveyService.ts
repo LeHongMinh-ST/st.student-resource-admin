@@ -29,23 +29,17 @@ export const useReportSurveyService = () => {
       responseType: 'blob',
     });
 
-  // const getListFileImportByEntityId = (
-  //   params: GetListFileExcelImportByEntityIdParams
-  // ): Promise<AxiosResponse<ResultResponse<ExcelFileImport[]>, any>> =>
-  //   axiosInstance.get(`/excel-import-files`, { params });
-
-  // const downloadImportErrorRecord = (id?: number): Promise<AxiosResponse<any, any>> =>
-  //   axiosInstance.get(`/excel-import-files/${id}/download-error`, { responseType: 'blob' });
-
-  // const importFile = (data: FormData): Promise<AxiosResponse<void, any>> =>
-  //   axiosInstance.post('/excel-import-files/import', data, {
-  //     headers: {
-  //       'Content-Type': 'multipart/form-data',
-  //     },
-  //   });
+  const downloadReportTemplate02 = (
+    params: DownloadFileExcelTemplateImportParams
+  ): Promise<AxiosResponse<ResultResponse<any>, any>> =>
+    axiosInstance.get('/reports/employment-survey-template-two', {
+      params,
+      responseType: 'blob',
+    });
 
   return {
     downloadReportTemplate03,
     downloadReportTemplate01,
+    downloadReportTemplate02,
   };
 };
