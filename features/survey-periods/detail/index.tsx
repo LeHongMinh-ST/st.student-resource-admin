@@ -56,7 +56,8 @@ const SurveyPeriodDetailPage = () => {
         return error;
       });
 
-  const { downloadReportTemplate03, downloadReportTemplate01 } = useReportSurveyService();
+  const { downloadReportTemplate03, downloadReportTemplate01, downloadReportTemplate02 } =
+    useReportSurveyService();
 
   const handleDownloadTemplateFileImport = async (): Promise<void> => {
     try {
@@ -111,6 +112,34 @@ const SurveyPeriodDetailPage = () => {
       });
     }
   };
+
+  const handleDownloadTemplateTwoFileImport = async (): Promise<void> => {
+    try {
+      const res = await downloadReportTemplate02({
+        survey_id: Number(id),
+      });
+      const url: string = window.URL.createObjectURL(new Blob([(res as any)?.data]));
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'mau_02_danh_sach_sinh_vien_tot_nghiep.xlsx');
+      document.body.appendChild(link);
+      link.click();
+
+      // Clean up after download
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      notifications.show({
+        title: 'Lỗi!',
+        message: 'Có lỗi xảy ra vui lòng thử lại sau!',
+        icon: <IconAlertTriangle />,
+        color: 'red',
+        autoClose: 5000,
+      });
+    }
+  };
+
   const { data, isLoading } = useSWR<ResultResponse<SurveyPeriod>>(id, handleGetSurveyPeriodById);
 
   return (
@@ -153,7 +182,6 @@ const SurveyPeriodDetailPage = () => {
                           // component={Link}
                           leftSection={<IconDownload size={18} />}
                           onClick={handleDownloadTemplateOneFileImport}
-                          // href={studentRoute.show(student?.id)}
                         >
                           Báo cáo mẫu 01
                         </Menu.Item>
@@ -164,8 +192,18 @@ const SurveyPeriodDetailPage = () => {
                           variant="filled"
                           // component={Link}
                           leftSection={<IconDownload size={18} />}
+                          onClick={handleDownloadTemplateTwoFileImport}
+                        >
+                          Báo cáo mẫu 02
+                        </Menu.Item>
+                        <Menu.Item
+                          fw={600}
+                          fz="sm"
+                          color="blue"
+                          variant="filled"
+                          // component={Link}
+                          leftSection={<IconDownload size={18} />}
                           onClick={handleDownloadTemplateFileImport}
-                          // href={studentRoute.show(student?.id)}
                         >
                           Báo cáo mẫu 03
                         </Menu.Item>
