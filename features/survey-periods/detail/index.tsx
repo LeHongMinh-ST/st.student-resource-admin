@@ -15,7 +15,7 @@ import { IconAlertTriangle, IconDotsVertical, IconDownload, IconLogout } from '@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
-import { SurveyPeriod, ResultResonse } from '@/types';
+import { SurveyPeriod, ResultResponse } from '@/types';
 import { useSurveyPeriodService } from '@/services/surveyPeriodService';
 import { surveyPeriodRoute, dashboardRoute } from '@/routes';
 import { HttpStatusEnum } from '@/enums';
@@ -111,7 +111,7 @@ const SurveyPeriodDetailPage = () => {
       });
     }
   };
-  const { data, isLoading } = useSWR<ResultResonse<SurveyPeriod>>(id, handleGetSurveyPeriodById);
+  const { data, isLoading } = useSWR<ResultResponse<SurveyPeriod>>(id, handleGetSurveyPeriodById);
 
   return (
     <SurveyPeriodDetailPageStyled>

@@ -11,7 +11,7 @@ import { CommonDataTable, DeleteModal, PageHeader } from '@/components';
 import { defaultPramsList } from '@/constants/commons';
 import { graduationRoute, dashboardRoute } from '@/routes';
 import { GraduationListParams, useGraduationService } from '@/services/graduationService';
-import { Graduation, ResultResonse } from '@/types';
+import { Graduation, ResultResponse } from '@/types';
 import { formatDateString } from '@/utils/func/formatDateString';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import GraduationActionMenu from './components/Cells/GraduationActionMenu';
@@ -33,7 +33,7 @@ const GraduationPage = () => {
       .then((res) => res.data)
       .catch((error) => error);
 
-  const { data, isLoading, mutate } = useSWR<ResultResonse<Graduation[]>>(
+  const { data, isLoading, mutate } = useSWR<ResultResponse<Graduation[]>>(
     [graduationParams],
     handleGetListGraduation
   );

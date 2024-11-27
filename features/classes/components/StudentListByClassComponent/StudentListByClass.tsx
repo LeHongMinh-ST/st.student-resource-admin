@@ -7,7 +7,7 @@ import { IconAlertTriangle } from '@tabler/icons-react';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import { defaultPramsList } from '@/constants/commons';
-import { ResultResonse, Student } from '@/types';
+import { ResultResponse, Student } from '@/types';
 import { GetListStudentParams, useStudentService } from '@/services/studentService';
 import { HttpStatusEnum, StudentStatus } from '@/enums';
 import { CommonDataTable, StatusStudentBadge } from '@/components';
@@ -53,7 +53,7 @@ const StudentListByClass: FC<StudentListByClassProps> = ({ classId }) => {
         return error;
       });
 
-  const { data, isLoading } = useSWR<ResultResonse<Student[]>>(
+  const { data, isLoading } = useSWR<ResultResponse<Student[]>>(
     ['getListStudent', getListStudentParams],
     handleGetListStudent
   );

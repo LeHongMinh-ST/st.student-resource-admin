@@ -7,7 +7,7 @@ import { IconAlertTriangle } from '@tabler/icons-react';
 import useSWR from 'swr';
 import { useDisclosure } from '@mantine/hooks';
 import { defaultPramsList } from '@/constants/commons';
-import { FormJobSurvey, ResultResonse, Student } from '@/types';
+import { FormJobSurvey, ResultResponse, Student } from '@/types';
 import {
   GetListStudentBySurveyParams,
   GetListStudentParams,
@@ -59,7 +59,7 @@ const StudentListByServeyPeriod: FC<StudentListByServeyPeriodProps> = ({ surveyP
         return error;
       });
 
-  const { data, isLoading } = useSWR<ResultResonse<Student[]>>(
+  const { data, isLoading } = useSWR<ResultResponse<Student[]>>(
     ['getListStudent', getListStudentParams],
     handleGetListStudent
   );

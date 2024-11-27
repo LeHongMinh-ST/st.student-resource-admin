@@ -2,6 +2,7 @@ import { Group, Paper, PaperProps, Stack, Text } from '@mantine/core';
 // import { IconArrowDownRight, IconArrowUpRight } from '@tabler/icons-react';
 import styled from '@emotion/styled';
 import { Surface } from '@/components';
+import StatsCardSekeleton from './StatsCardSekeleton';
 
 type StatsCardProps = {
   title: string;
@@ -9,37 +10,34 @@ type StatsCardProps = {
   // difference: number;
   icon?: any;
   description?: string;
+  isLoading?: boolean;
 } & PaperProps;
 
-const StatsCard = ({ title, value, icon: Icon, description }: StatsCardProps) => (
+const StatsCard = ({ title, value, icon: Icon, description, isLoading }: StatsCardProps) => (
   <StatsCardStyled>
-    <Surface component={Paper} p="md" shadow="md" radius="md" h="100%">
-      <Group justify="space-between" align="start">
-        <Stack>
-          <Text size="xs" c="dimmed" className="title">
-            {title}
-          </Text>
-          <Group align="flex-end" gap="xs">
-            <Text className="value">{value}</Text>
-            {/*<Text c={difference > 0 ? 'teal' : 'red'} fz="sm" fw={500} className="diff">*/}
-            {/*  <span>{difference}%</span>*/}
-            {/*  {difference > 0 ? (*/}
-            {/*    <IconArrowUpRight size="1rem" stroke={1.5} />*/}
-            {/*  ) : (*/}
-            {/*    <IconArrowDownRight size="1rem" stroke={1.5} />*/}
-            {/*  )}*/}
-            {/*</Text>*/}
-          </Group>
-        </Stack>
-        {Icon && <Icon size={40} className="icon" />}
-      </Group>
+    {isLoading ? (
+      <StatsCardSekeleton />
+    ) : (
+      <Surface component={Paper} p="md" shadow="md" radius="md" h="100%">
+        <Group justify="space-between" align="start">
+          <Stack>
+            <Text size="xs" c="dimmed" className="title">
+              {title}
+            </Text>
+            <Group align="flex-end" gap="xs">
+              <Text className="value">{value}</Text>
+            </Group>
+          </Stack>
+          {Icon && <Icon size={40} className="icon" />}
+        </Group>
 
-      {description && (
-        <Text fz="xs" c="dimmed" mt={7}>
-          {description}
-        </Text>
-      )}
-    </Surface>
+        {description && (
+          <Text fz="xs" c="dimmed" mt={7}>
+            {description}
+          </Text>
+        )}
+      </Surface>
+    )}
   </StatsCardStyled>
 );
 

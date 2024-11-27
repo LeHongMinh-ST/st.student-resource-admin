@@ -24,7 +24,7 @@ type MetaResponse = {
   total: number;
 };
 
-type ResultResonse<T> = {
+type ResultResponse<T> = {
   graduation_ceremony_ids: any;
   data: T;
   meta?: MetaResponse;

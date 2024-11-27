@@ -4,7 +4,7 @@ import { Paper, Text } from '@mantine/core';
 import useSWR from 'swr';
 import Pusher from 'pusher-js';
 import { CommonDataTable, StatusFileImportBadge } from '@/components';
-import { AdmissionYear, ExcelFileImport, ResultResonse } from '@/types';
+import { AdmissionYear, ExcelFileImport, ResultResponse } from '@/types';
 import { defaultPramsList } from '@/constants/commons';
 import { StudentFileImportListParams, useStudentService } from '@/services/studentService';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
@@ -29,7 +29,7 @@ const ListExcelFileImport: FC<ListExcelFileImportProps> = ({
       (res) => res.data
     );
 
-  const { data, isLoading, mutate } = useSWR<ResultResonse<ExcelFileImport[]>>(
+  const { data, isLoading, mutate } = useSWR<ResultResponse<ExcelFileImport[]>>(
     [admissionYear, excelFileImportsParams, isReloadList],
     handleGetListExcelFileImport
   );

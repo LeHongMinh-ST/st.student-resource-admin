@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import axiosInstance from '@/utils/axios';
-import { BaseParamsList, ExcelFileImport, ResultResonse } from '@/types';
+import { BaseParamsList, ExcelFileImport, ResultResponse } from '@/types';
 import { ExcelFileImportType } from '@/enums';
 
 export type GetListFileExcelImportByEntityIdParams = {
@@ -15,7 +15,7 @@ export type DownloadFileExcelTemplateImportParams = {
 export const useExcelImportFileService = () => {
   const downloadTemplateFileImport = (
     params: DownloadFileExcelTemplateImportParams
-  ): Promise<AxiosResponse<ResultResonse<any>, any>> =>
+  ): Promise<AxiosResponse<ResultResponse<any>, any>> =>
     axiosInstance.get('/excel-import-files/download-template', {
       params,
       responseType: 'blob',
@@ -23,7 +23,7 @@ export const useExcelImportFileService = () => {
 
   const getListFileImportByEntityId = (
     params: GetListFileExcelImportByEntityIdParams
-  ): Promise<AxiosResponse<ResultResonse<ExcelFileImport[]>, any>> =>
+  ): Promise<AxiosResponse<ResultResponse<ExcelFileImport[]>, any>> =>
     axiosInstance.get(`/excel-import-files`, { params });
 
   const downloadImportErrorRecord = (id?: number): Promise<AxiosResponse<any, any>> =>

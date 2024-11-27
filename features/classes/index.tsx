@@ -16,7 +16,7 @@ import TeacherNameCellTable from '@/features/classes/components/Cells/TeacherNam
 import StatusFilter from '@/features/departments/components/Filters/StatusFilter';
 import { classRoute, dashboardRoute } from '@/routes';
 import { ClassListParams, useClassService } from '@/services/classService';
-import { Class, ResultResonse } from '@/types';
+import { Class, ResultResponse } from '@/types';
 import { formatDateString } from '@/utils/func/formatDateString';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 
@@ -38,7 +38,7 @@ const ClassPage = () => {
       .catch((error) => error);
 
   // @ts-ignore
-  const { data, isLoading, mutate } = useSWR<ResultResonse<Class[]>>(
+  const { data, isLoading, mutate } = useSWR<ResultResponse<Class[]>>(
     [classParams],
     handleGetListClass
   );

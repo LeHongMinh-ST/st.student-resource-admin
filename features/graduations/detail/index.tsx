@@ -5,7 +5,7 @@ import { IconAlertTriangle, IconLogout } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
-import { Graduation, ResultResonse } from '@/types';
+import { Graduation, ResultResponse } from '@/types';
 import { useGraduationService } from '@/services/graduationService';
 import { graduationRoute, dashboardRoute } from '@/routes';
 import { HttpStatusEnum } from '@/enums';
@@ -45,7 +45,7 @@ const GraduationDetailPage = () => {
         return error;
       });
 
-  const { data, isLoading } = useSWR<ResultResonse<Graduation>>(id, handleGetGraduationById);
+  const { data, isLoading } = useSWR<ResultResponse<Graduation>>(id, handleGetGraduationById);
 
   return (
     <GraduationDetailPageStyled>

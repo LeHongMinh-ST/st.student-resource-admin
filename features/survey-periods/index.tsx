@@ -11,7 +11,7 @@ import SearchFilter from '@/components/Filters/SearchFilter';
 import { defaultPramsList } from '@/constants/commons';
 import StatusEnum from '@/enums/status.enum';
 import { dashboardRoute, surveyPeriodRoute } from '@/routes';
-import { SurveyPeriod, ResultResonse } from '@/types';
+import { SurveyPeriod, ResultResponse } from '@/types';
 import { formatDateString } from '@/utils/func/formatDateString';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import { useSurveyPeriodService, SurveyPeriodListParams } from '@/services/surveyPeriodService';
@@ -39,7 +39,7 @@ const SurveyPeriodPage = () => {
       .then((res) => res.data)
       .catch((error) => error);
 
-  const { data, isLoading, mutate } = useSWR<ResultResonse<SurveyPeriod[]>>(
+  const { data, isLoading, mutate } = useSWR<ResultResponse<SurveyPeriod[]>>(
     [surveyPeriodParams],
     handleGetListSurveyPeriod
   );

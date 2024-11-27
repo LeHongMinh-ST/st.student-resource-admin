@@ -19,7 +19,7 @@ import { PageHeader } from '@/components';
 import { dashboardRoute, studentRoute } from '@/routes';
 import { useStudentService } from '@/services/studentService';
 import StudentThumbnail from '@/features/students/detail/components/InfoStudent/StudentThumbnail';
-import { ResultResonse, Student } from '@/types';
+import { ResultResponse, Student } from '@/types';
 
 const GeneralInfoStudent = lazy(() => import('./components/InfoStudent/GeneralInfoStudent'));
 const ClassStudent = lazy(() => import('./components/InfoStudent/ClassStudent'));
@@ -31,7 +31,7 @@ const StudentDetailPage = () => {
   const { query, back } = useRouter();
   const { id } = query;
   const handleGetStudentById = () => getStudentById(Number(id)).then((res) => res.data);
-  const { data, isLoading } = useSWR<ResultResonse<Student>>([id], handleGetStudentById);
+  const { data, isLoading } = useSWR<ResultResponse<Student>>([id], handleGetStudentById);
   const [activeTab, setActiveTab] = useState<ActiveTabType | null>('general');
   const iconStyle = { width: rem(24), height: rem(24) };
 

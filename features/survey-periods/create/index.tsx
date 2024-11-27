@@ -20,7 +20,7 @@ import { DateTimePicker } from '@mantine/dates';
 import useSWR from 'swr';
 import dayjs from 'dayjs';
 import { dashboardRoute, surveyPeriodRoute } from '@/routes';
-import { Graduation, ResultResonse, SurveyPeriod } from '@/types';
+import { Graduation, ResultResponse, SurveyPeriod } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
 import { PageHeader, Surface } from '@/components';
 import { defaultPramsList } from '@/constants/commons';
@@ -65,7 +65,7 @@ const SurveyPeriodCreatePage = () => {
       .then((res) => res.data)
       .catch((error) => error);
 
-  const { data: dataGraduation } = useSWR<ResultResonse<Graduation[]>>(
+  const { data: dataGraduation } = useSWR<ResultResponse<Graduation[]>>(
     ['getList', graduationParams],
     handleGetListGraduation
   );

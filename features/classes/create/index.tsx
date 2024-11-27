@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import useSWR from 'swr';
 import { dashboardRoute, classRoute } from '@/routes';
-import { Class, ResultResonse, User } from '@/types';
+import { Class, ResultResponse, User } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
 import { PageHeader, Surface } from '@/components';
 import { ClassTypeSelectList, defaultPramsList, StatusList } from '@/constants/commons';
@@ -58,7 +58,7 @@ const ClassCreatePage = () => {
       .then((res) => res.data)
       .catch((error) => error);
 
-  const { data: dataUser } = useSWR<ResultResonse<User[]>>(
+  const { data: dataUser } = useSWR<ResultResponse<User[]>>(
     ['getList', userParams],
     handleGetListUser
   );

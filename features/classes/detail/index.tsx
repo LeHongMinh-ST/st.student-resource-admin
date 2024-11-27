@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { lazy, useState } from 'react';
 import useSWR from 'swr';
-import { Class, ResultResonse } from '@/types';
+import { Class, ResultResponse } from '@/types';
 import { useClassService } from '@/services/classService';
 import { classRoute, dashboardRoute } from '@/routes';
 import { HttpStatusEnum } from '@/enums';
@@ -83,7 +83,7 @@ const ClassDetailPage = () => {
     handleGetTotalStudentByClass
   );
 
-  const { data, isLoading } = useSWR<ResultResonse<Class>>(id, handleGetClassById);
+  const { data, isLoading } = useSWR<ResultResponse<Class>>(id, handleGetClassById);
 
   return (
     <ClassDetailPageStyled>

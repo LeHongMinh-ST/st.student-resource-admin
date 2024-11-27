@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import Status from '@/enums/status.enum';
-import { BaseParamsList, Major, ResultResonse } from '@/types';
+import { BaseParamsList, Major, ResultResponse } from '@/types';
 import axiosInstance from '@/utils/axios';
 
 export type MajorListParams = {
@@ -11,19 +11,19 @@ export type MajorListParams = {
 export const useMajorService = () => {
   const getList = (
     params: MajorListParams | null = null
-  ): Promise<AxiosResponse<ResultResonse<Major[]>, any>> =>
+  ): Promise<AxiosResponse<ResultResponse<Major[]>, any>> =>
     axiosInstance.get('/training-industries', { params });
 
-  const getMajor = (id: number | string): Promise<AxiosResponse<ResultResonse<Major>, any>> =>
+  const getMajor = (id: number | string): Promise<AxiosResponse<ResultResponse<Major>, any>> =>
     axiosInstance.get(`/training-industries/${id}`);
 
-  const createMajor = (major: Major): Promise<AxiosResponse<ResultResonse<Major>, any>> =>
+  const createMajor = (major: Major): Promise<AxiosResponse<ResultResponse<Major>, any>> =>
     axiosInstance.post('/training-industries', major);
 
-  const updateMajor = (major: Major): Promise<AxiosResponse<ResultResonse<Major>, any>> =>
+  const updateMajor = (major: Major): Promise<AxiosResponse<ResultResponse<Major>, any>> =>
     axiosInstance.put(`/training-industries/${major.id}`, major);
 
-  const deleteMajor = (id: number | string): Promise<AxiosResponse<ResultResonse<null>, any>> =>
+  const deleteMajor = (id: number | string): Promise<AxiosResponse<ResultResponse<null>, any>> =>
     axiosInstance.delete(`/training-industries/${id}`);
 
   return {

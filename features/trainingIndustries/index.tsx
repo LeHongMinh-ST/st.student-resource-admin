@@ -11,7 +11,7 @@ import SearchFilter from '@/components/Filters/SearchFilter';
 import { defaultPramsList } from '@/constants/commons';
 import StatusEnum from '@/enums/status.enum';
 import { dashboardRoute, trainingIndustryRoute } from '@/routes';
-import { ResultResonse, TrainingIndustry } from '@/types';
+import { ResultResponse, TrainingIndustry } from '@/types';
 import { formatDateString } from '@/utils/func/formatDateString';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import {
@@ -37,7 +37,7 @@ const TrainingIndustryPage = () => {
       .then((res) => res.data)
       .catch((error) => error);
 
-  const { data, isLoading, mutate } = useSWR<ResultResonse<TrainingIndustry[]>>(
+  const { data, isLoading, mutate } = useSWR<ResultResponse<TrainingIndustry[]>>(
     [trainingIndustryParams],
     handleGetListTrainingIndustry
   );

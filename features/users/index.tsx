@@ -11,7 +11,7 @@ import useSWR from 'swr';
 import { dashboardRoute, userRoute } from '@/routes';
 import { UserListParams, useUserService } from '@/services/userService';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
-import { ResultResonse, User } from '@/types';
+import { ResultResponse, User } from '@/types';
 import { PageHeader, CommonDataTable, DeleteModal } from '@/components';
 import { defaultPramsList } from '@/constants/commons';
 import { RoleBadge } from '../../components/Badge/RoleBadge';
@@ -34,7 +34,7 @@ const UserPage = () => {
       .then((res) => res.data)
       .catch((error) => error);
 
-  const { data, isLoading, mutate } = useSWR<ResultResonse<User[]>>(
+  const { data, isLoading, mutate } = useSWR<ResultResponse<User[]>>(
     ['getList', userParams],
     handleGetListUser
   );

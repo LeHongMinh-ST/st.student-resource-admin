@@ -14,7 +14,7 @@ import DepartmentActionMenu from '@/features/departments/components/Cells/Depart
 import StatusFilter from '@/features/departments/components/Filters/StatusFilter';
 import { dashboardRoute, departmentRoute } from '@/routes';
 import { DepartmentListParams, useDepartmentService } from '@/services/departmentService';
-import { Department, ResultResonse } from '@/types';
+import { Department, ResultResponse } from '@/types';
 import { formatDateString } from '@/utils/func/formatDateString';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 
@@ -34,7 +34,7 @@ const DepartmentPage = () => {
       .then((res) => res.data)
       .catch((error) => error);
 
-  const { data, isLoading, mutate } = useSWR<ResultResonse<Department[]>>(
+  const { data, isLoading, mutate } = useSWR<ResultResponse<Department[]>>(
     [departmentParams],
     handleGetListDepartment
   );

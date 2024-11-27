@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import axiosInstance from '@/utils/axios';
-import { BaseParamsList, ResultResonse, schoolYear } from '@/types';
+import { BaseParamsList, ResultResponse, schoolYear } from '@/types';
 
 export type SchoolYearListParams = {
   q?: string;
@@ -9,7 +9,7 @@ export type SchoolYearListParams = {
 export const useSchoolYearService = () => {
   const getList = (
     params: SchoolYearListParams | null = null
-  ): Promise<AxiosResponse<ResultResonse<schoolYear[]>, any>> =>
+  ): Promise<AxiosResponse<ResultResponse<schoolYear[]>, any>> =>
     axiosInstance.get('/school-year', { params });
   return {
     getList,

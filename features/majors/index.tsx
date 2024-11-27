@@ -10,7 +10,7 @@ import { useDisclosure } from '@mantine/hooks';
 import useSWR from 'swr';
 import { defaultPramsList } from '@/constants/commons';
 import { MajorListParams, useMajorService } from '@/services/majorService';
-import { Department, Major, ResultResonse } from '@/types';
+import { Department, Major, ResultResponse } from '@/types';
 import { CommonDataTable, DeleteModal, PageHeader, StatusBadge } from '@/components';
 import { dashboardRoute, majorRoute } from '@/routes';
 import { formatDateString } from '@/utils/func/formatDateString';
@@ -30,7 +30,7 @@ const MajorPage = () => {
       .then((res) => res.data)
       .catch((err) => err);
 
-  const { data, isLoading, mutate } = useSWR<ResultResonse<Major[]>>(
+  const { data, isLoading, mutate } = useSWR<ResultResponse<Major[]>>(
     [majorParmas],
     handleGetListMajor
   );

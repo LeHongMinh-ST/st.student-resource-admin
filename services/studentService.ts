@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import axiosInstance from '@/utils/axios';
-import { AdmissionYear, BaseParamsList, ExcelFileImport, ResultResonse, Student } from '@/types';
+import { AdmissionYear, BaseParamsList, ExcelFileImport, ResultResponse, Student } from '@/types';
 import { StudentStatus } from '@/enums';
 import StatusSurvey from '@/enums/statusSurvey.enum';
 
@@ -16,24 +16,24 @@ export type GetListStudentBySurveyParams = {
 export const useStudentService = () => {
   const getListAdmission = (
     params: AdmissionYearListParams = {} as AdmissionYearListParams
-  ): Promise<AxiosResponse<ResultResonse<AdmissionYear[]>, any>> =>
+  ): Promise<AxiosResponse<ResultResponse<AdmissionYear[]>, any>> =>
     axiosInstance.get('/admission-year', { params });
 
   const getStudentFileImportListAdmission = (
     admissionYearId: number,
     params: StudentFileImportListParams = {} as StudentFileImportListParams
-  ): Promise<AxiosResponse<ResultResonse<ExcelFileImport[]>, any>> =>
+  ): Promise<AxiosResponse<ResultResponse<ExcelFileImport[]>, any>> =>
     axiosInstance.get(`/admission-year/${admissionYearId}/student-file-imports`, { params });
 
   const getListStudent = (
     params: GetListStudentParams = {} as GetListStudentParams
-  ): Promise<AxiosResponse<ResultResonse<Student[]>, any>> =>
+  ): Promise<AxiosResponse<ResultResponse<Student[]>, any>> =>
     axiosInstance.get('/students', { params });
 
   const getListStudentBySurveyPeriod = (
     surveyPeriodId: number,
     params: GetListStudentBySurveyParams = {} as GetListStudentParams
-  ): Promise<AxiosResponse<ResultResonse<Student[]>, any>> =>
+  ): Promise<AxiosResponse<ResultResponse<Student[]>, any>> =>
     axiosInstance.get(`/students/survey-period/${surveyPeriodId}`, { params });
 
   const getTotalStudent = (
@@ -42,10 +42,10 @@ export const useStudentService = () => {
 
   const getStudentById = (
     id: string | number | undefined
-  ): Promise<AxiosResponse<ResultResonse<Student>, any>> => axiosInstance.get(`/students/${id}`);
+  ): Promise<AxiosResponse<ResultResponse<Student>, any>> => axiosInstance.get(`/students/${id}`);
 
   const downloadTemplateImportStudentAdmission = (): Promise<
-    AxiosResponse<ResultResonse<any>, any>
+    AxiosResponse<ResultResponse<any>, any>
   > => axiosInstance.get('students/import-course/download-template', { responseType: 'blob' });
 
   const importStudent = (data: FormData): Promise<AxiosResponse<void, any>> =>
