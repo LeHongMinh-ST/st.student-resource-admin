@@ -12,7 +12,7 @@ export type DashboardStatistical = {
 export const useDashboardService = () => {
   const getDashboardStatistical = (): Promise<
     AxiosResponse<ResultResponse<DashboardStatistical>>
-  > => axiosInstance.get('/dashboard');
+  > => axiosInstance.get('/dashboard/get-dashboard-statistical');
 
   return {
     getDashboardStatistical,
