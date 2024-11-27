@@ -52,7 +52,7 @@ const DashboardAdmin: React.FC<DashboardAdminProp> = (props) => {
           <StatsCard
             icon={IconSchool}
             title="Sinh viên tốt nghiệp"
-            value={dataDaashboardStatistical?.student_graduated_count ?? 0}
+            value={dataDaashboardStatistical?.student_graduaed_count ?? 0}
             isLoading={isLoadingDashboardStatistical}
             description="Tổng số sinh viên đã tốt nghiệp"
           />

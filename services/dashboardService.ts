@@ -4,7 +4,7 @@ import axiosInstance from '@/utils/axios';
 
 export type DashboardStatistical = {
   student_count: number;
-  student_graduated_count: number;
+  student_graduaed_count: number;
   student_warning_count: number;
   class_count: number;
 };
