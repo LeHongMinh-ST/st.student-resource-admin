@@ -273,9 +273,7 @@ const SurveyPeriodDetailPage = () => {
                     <Grid.Col span={12}>
                       <Divider size="xs" my={30} />
                       <Stack gap={4}>
-                        {data?.data && (
-                          <StudentListByServeyPeriod surveyPeriodId={Number(data.data.id)} />
-                        )}
+                        <StudentListByServeyPeriod surveyPeriodId={Number(id)} />
                       </Stack>
                     </Grid.Col>
                   </Grid>

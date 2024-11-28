@@ -38,7 +38,7 @@ export const useSurveyPeriodService = () => {
     id: number | string,
     options?: {
       is_all_mail_student?: boolean;
-      list_student_mail?: string[];
+      student_ids?: number[];
     }
   ): Promise<AxiosResponse<ResultResponse<null>, any>> =>
     axiosInstance.post(`/survey-periods/${id}/send-mail`, options);
