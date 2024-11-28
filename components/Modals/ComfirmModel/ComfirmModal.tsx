@@ -9,6 +9,7 @@ type ComfirmModalProps = {
   isOpen: boolean;
   onClose: () => void;
   onComfirm: () => Promise<any>;
+  description?: string;
 };
 
 export default function ComfirmModal({
@@ -16,6 +17,7 @@ export default function ComfirmModal({
   isOpen,
   onClose,
   onComfirm,
+  description,
 }: ComfirmModalProps) {
   const [fetching, setFetching] = useState<boolean>(false);
 
@@ -26,7 +28,7 @@ export default function ComfirmModal({
         await onComfirm();
         notifications.show({
           title: 'Thành công!',
-          message: 'Gửi bản ghi thành công!',
+          message: 'Gửi mail thành công!',
           icon: <IconCheck />,
           color: 'green.8',
           autoClose: 5000,
@@ -61,8 +63,8 @@ export default function ComfirmModal({
           <IconInfoCircle color="blue" size={32} />
           <div>
             <Text fw={600}>
-              Bạn có chăc chắn muốn gửi phiếu khảo sát đến những sinh viên đã tốt nghiệp có trong
-              đợt khảo sát này?
+              {description ??
+                'Bạn có chăc chắn muốn gửi phiếu khảo sát đến những sinh viên đã tốt nghiệp có trong đợt khảo sát này?'}
             </Text>
             <Text fw={300} size="sm">
               Phiếu khảo sát sẽ được gửi qua phương tiện email!

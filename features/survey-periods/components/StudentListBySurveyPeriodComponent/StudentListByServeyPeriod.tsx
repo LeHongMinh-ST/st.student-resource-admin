@@ -1,9 +1,9 @@
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import styled from '@emotion/styled';
-import { Paper, Text } from '@mantine/core';
+import { Paper, Text, Button } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { DataTableProps } from 'mantine-datatable';
-import { IconAlertTriangle } from '@tabler/icons-react';
+import { IconAlertTriangle, IconMail } from '@tabler/icons-react';
 import useSWR from 'swr';
 import { useDisclosure } from '@mantine/hooks';
 import { defaultPramsList } from '@/constants/commons';
@@ -22,6 +22,9 @@ import ListStudentServeyActionMenu from '../Cells/ListStudentSurveyActionMenu';
 import SurveyResponseModal from '../SurveyResponse/SurveyResponseModal';
 import StatusSurveyFilter from '../Filters/StatusSurveyFilter';
 import StatusSurvey from '@/enums/statusSurvey.enum';
+import CheckboxStudent from '../Cells/CheckboxStudent';
+import { useSurveyPeriodService } from '@/services/surveyPeriodService';
+import ComfirmModal from '@/components/Modals/ComfirmModel/ComfirmModal';
 
 type StudentListByServeyPeriodProps = {
   surveyPeriodId: number;
@@ -35,6 +38,7 @@ const StudentListByServeyPeriod: FC<StudentListByServeyPeriodProps> = ({ surveyP
   const [isOpen, { open: onOpen, close: onClose }] = useDisclosure(false);
 
   const { getListStudentBySurveyPeriod } = useStudentService();
+  const { sendMailSurveyPeriod } = useSurveyPeriodService();
   const handleGetListStudent = () =>
     getListStudentBySurveyPeriod(surveyPeriodId, getListStudentParams)
       .then((res) => res.data)
@@ -64,8 +68,39 @@ const StudentListByServeyPeriod: FC<StudentListByServeyPeriodProps> = ({ surveyP
     handleGetListStudent
   );
   const [selected, setSelected] = useState<Student | null>(null);
+  const [selectedSurveyId, setSelectedSurveyId] = useState<Number | null>(null);
+  const [selectedRows, setSelectedRows] = useState<number[]>([]);
+
+  const [isOpenPopupComfirm, { open: onOpenPopupComfirm, close: onClosePopupComfirm }] =
+    useDisclosure(false);
+
+  const handleSendMail = useCallback(async () => {
+    if (selectedSurveyId) {
+      await sendMailSurveyPeriod(Number(selectedSurveyId) ?? '', {
+        student_ids: selectedRows,
+      });
+      setSelectedRows([]);
+      onClosePopupComfirm();
+    }
+  }, [selectedSurveyId]);
 
   const columns: DataTableProps<Student>['columns'] = [
+    {
+      accessor: 'checkbox',
+      title: '',
+      render: (student) => (
+        <CheckboxStudent
+          student={student}
+          onCheck={(id: number) => {
+            setSelectedRows((prev) => [...prev, id]);
+          }}
+          onUnCheck={(id: number) => {
+            setSelectedRows((prev) => prev.filter((item) => item !== id));
+          }}
+          isChecked={selectedRows.includes(student?.id!)}
+        />
+      ),
+    },
     {
       accessor: 'name',
       title: 'Sinh viên',
@@ -152,6 +187,26 @@ const StudentListByServeyPeriod: FC<StudentListByServeyPeriodProps> = ({ surveyP
           setSelected(null);
         }}
       />
+      <ComfirmModal
+        entityName="phiếu khảo sát"
+        onComfirm={handleSendMail}
+        isOpen={isOpenPopupComfirm}
+        onClose={onClosePopupComfirm}
+        description={`Bạn có chắc chắn muốn gửi mail đến những sinh viên đã chọn? Số lượng sinh viên đã chọn: ${selectedRows.length}`}
+      />
+      <div>
+        <Button
+          my={10}
+          onClick={() => {
+            setSelectedSurveyId(Number(surveyPeriodId));
+            onOpenPopupComfirm();
+          }}
+          disabled={selectedRows.length === 0}
+          leftSection={<IconMail size={18} />}
+        >
+          Gửi mail
+        </Button>
+      </div>
       <StudentImportTabContentStyled>
         <Paper p="md" shadow="md" radius="md">
           <CommonDataTable
