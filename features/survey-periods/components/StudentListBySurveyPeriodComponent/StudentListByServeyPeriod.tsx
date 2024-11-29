@@ -82,7 +82,7 @@ const StudentListByServeyPeriod: FC<StudentListByServeyPeriodProps> = ({ surveyP
       setSelectedRows([]);
       onClosePopupComfirm();
     }
-  }, [selectedSurveyId]);
+  }, [selectedSurveyId, selectedRows]);
 
   const columns: DataTableProps<Student>['columns'] = [
     {
@@ -204,7 +204,7 @@ const StudentListByServeyPeriod: FC<StudentListByServeyPeriodProps> = ({ surveyP
           disabled={selectedRows.length === 0}
           leftSection={<IconMail size={18} />}
         >
-          Gửi mail
+          {`Gửi mail đến (${selectedRows.length}) sinh viên đã chọn`}
         </Button>
       </div>
       <StudentImportTabContentStyled>
