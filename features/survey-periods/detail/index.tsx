@@ -209,12 +209,6 @@ const SurveyPeriodDetailPage = () => {
                         </Menu.Item>
                       </Menu.Dropdown>
                     </Menu>
-                    {/* <Button
-                      onClick={handleDownloadTemplateFileImport}
-                      leftSection={<IconDownload size={18} />}
-                    >
-                      Dowload file báo cáo mẫu 03
-                    </Button> */}
                   </Stack>
                 </div>
               }

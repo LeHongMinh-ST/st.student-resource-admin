@@ -239,10 +239,7 @@ const SurveyPeriodUpdatePage = () => {
                               }}
                               render={({ field }) => (
                                 <DateTimePicker
-                                  disabled={
-                                    dayjs().isAfter(dayjs(data?.data.end_date)) ||
-                                    getValues('status') === Status.Disable
-                                  }
+                                  disabled={getValues('status') === Status.Disable}
                                   highlightToday
                                   withAsterisk
                                   label="Thời gian kết thúc khảo sát"
