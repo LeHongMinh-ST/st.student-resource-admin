@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { IconPlus } from '@tabler/icons-react';
+import dayjs from 'dayjs';
 import { CommonDataTable, DeleteModal, PageHeader, StatusBadge } from '@/components';
 import SearchFilter from '@/components/Filters/SearchFilter';
 import { defaultPramsList } from '@/constants/commons';
@@ -100,7 +101,9 @@ const SurveyPeriodPage = () => {
       {
         accessor: 'year',
         title: 'Năm khảo sát',
-        render: (surveyPeriod: SurveyPeriod) => <span>{surveyPeriod.year}</span>,
+        render: (surveyPeriod: SurveyPeriod) => (
+          <span>{dayjs(surveyPeriod.end_date).format('YYYY')}</span>
+        ),
         sorting: true,
         filtering: true,
       },
