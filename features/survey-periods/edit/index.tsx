@@ -252,7 +252,13 @@ const SurveyPeriodUpdatePage = () => {
                                   name={field.name}
                                   ref={field.ref}
                                   valueFormat="HH:mm DD/MM/YYYY"
-                                  minDate={startDate ? new Date(startDate) : undefined}
+                                  minDate={
+                                    startDate
+                                      ? dayjs(startDate).isAfter(dayjs())
+                                        ? new Date(startDate)
+                                        : new Date()
+                                      : undefined
+                                  }
                                   error={errors.end_date?.message}
                                 />
                               )}
