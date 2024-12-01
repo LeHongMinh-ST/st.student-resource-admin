@@ -86,7 +86,11 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
               <Text fw={600} size="sm">
                 1. Mã sinh viên
               </Text>
-              <TextInput variant="unstyled" defaultValue={formJobResponse?.code_student ?? ''} />
+              <TextInput
+                readOnly
+                variant="unstyled"
+                defaultValue={formJobResponse?.code_student ?? ''}
+              />
             </Card>
 
             <Card shadow="sm" padding="lg" mb="lg">
@@ -94,6 +98,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                 2. Họ và tên
               </Text>
               <TextInput
+                readOnly
                 variant="unstyled"
                 defaultValue={formJobResponse?.full_name ?? ''}
                 placeholder="vd: Đào Đức Anh"
@@ -105,6 +110,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                 3. Giới tính
               </Text>
               <TextInput
+                readOnly
                 variant="unstyled"
                 defaultValue={genderLabels[formJobResponse?.gender as unknown as Gender] ?? ''}
                 placeholder="vd: Đào Đức Anh"
@@ -115,6 +121,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                 4. Ngày sinh
               </Text>
               <DatePickerInput
+                readOnly
                 rightSection={
                   <IconCalendar style={{ width: '18px', height: '18px' }} stroke={1.5} />
                 }
@@ -130,6 +137,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                 5. Số căn cước công dân
               </Text>
               <TextInput
+                readOnly
                 variant="unstyled"
                 placeholder="vd: 0334********"
                 defaultValue={formJobResponse?.identification_card_number ?? ''}
@@ -139,6 +147,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                   Cập nhập số căn cước công dân (nếu số căn cước công dân hiện tại chưa đúng)
                 </Text>
                 <TextInput
+                  readOnly
                   variant="unstyled"
                   placeholder="vd: 0334********"
                   defaultValue={formJobResponse?.identification_card_number_update ?? ''}
@@ -148,6 +157,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                 Ngày cấp
               </Text>
               <DatePickerInput
+                readOnly
                 rightSection={
                   <IconCalendar style={{ width: '18px', height: '18px' }} stroke={1.5} />
                 }
@@ -164,6 +174,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                 Nơi cấp
               </Text>
               <TextInput
+                readOnly
                 variant="unstyled"
                 placeholder="vd: Khu 2 Hoàng Khương, Thanh Ba, Phú Thọ"
                 defaultValue={formJobResponse?.identification_issuance_place ?? ''}
@@ -174,6 +185,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                 6. Khoá học
               </Text>
               <TextInput
+                readOnly
                 variant="unstyled"
                 defaultValue={`K${formJobResponse?.code_student?.slice(0, 2) ?? ''}`}
                 placeholder="vd: K63"
@@ -184,6 +196,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                 7. Tên ngành đào tạo
               </Text>
               <TextInput
+                readOnly
                 variant="unstyled"
                 defaultValue={formJobResponse?.training_industry?.name ?? ''}
               />
@@ -192,13 +205,13 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
               <Text fw={600} size="sm">
                 8. Điện thoại
               </Text>
-              <TextInput defaultValue={formJobResponse?.phone_number ?? ''} />
+              <TextInput readOnly defaultValue={formJobResponse?.phone_number ?? ''} />
             </Card>
             <Card shadow="sm" padding="lg" mb="lg">
               <Text fw={600} size="sm">
                 9. Email
               </Text>
-              <TextInput variant="unstyled" defaultValue={formJobResponse?.email ?? ''} />
+              <TextInput readOnly variant="unstyled" defaultValue={formJobResponse?.email ?? ''} />
             </Card>
             <Card shadow="sm" padding="lg" mb="lg">
               <Text fw={600} size="sm">
@@ -215,6 +228,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                 11. Tên đơn vị tuyển dụng
               </Text>
               <TextInput
+                readOnly
                 defaultValue={formJobResponse?.recruit_partner_name ?? ''}
                 variant="unstyled"
                 placeholder="vd: công ty TNHH A"
@@ -225,6 +239,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                 12. Địa chỉ đơn vị
               </Text>
               <TextInput
+                readOnly
                 defaultValue={formJobResponse?.recruit_partner_address ?? ''}
                 variant="unstyled"
                 placeholder="vd: Khu 2 Hoàng Khương, Thanh Ba, Phú Thọ"
@@ -233,6 +248,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                 Địa chỉ đơn vị thuộc Tỉnh/Thành phố
               </Text>
               <TextInput
+                readOnly
                 defaultValue={formJobResponse?.city_work?.name ?? ''}
                 placeholder="Chọn tỉnh/Thành phố"
               />
@@ -242,6 +258,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                 13. Thời gian tuyển dụng
               </Text>
               <TextInput
+                readOnly
                 defaultValue={
                   formJobResponse?.recruit_partner_date
                     ? dayjs(formJobResponse?.recruit_partner_date).format('DD/MM/YYYY')
@@ -256,6 +273,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                 14. Chức vụ, vị trí việc làm
               </Text>
               <TextInput
+                readOnly
                 defaultValue={formJobResponse?.recruit_partner_position ?? ''}
                 variant="unstyled"
                 placeholder="vd: Trưởng phòng sale"
@@ -367,6 +385,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                 20. Mức lương khởi điểm của Anh/Chị (đơn vị triệu đồng/1 tháng)
               </Text>
               <TextInput
+                readOnly
                 defaultValue={formJobResponse?.starting_salary ?? ''}
                 variant="unstyled"
                 placeholder="15"
@@ -404,6 +423,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                 <Checkbox mt="lg" value="0" label="Khác"></Checkbox>
                 {formJobResponse?.job_search_method?.value?.includes('0') && (
                   <TextInput
+                    readOnly
                     mt="sm"
                     variant="unstyled"
                     value={formJobResponse.job_search_method?.content_other}
@@ -423,6 +443,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                 <Radio mt="lg" value="0" label="Khác"></Radio>
                 {formJobResponse?.recruitment_type?.value?.includes('0') && (
                   <TextInput
+                    readOnly
                     mt="sm"
                     variant="unstyled"
                     value={formJobResponse.recruitment_type?.content_other}
@@ -447,6 +468,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                 <Checkbox mt="lg" value="0" label="Khác"></Checkbox>
                 {formJobResponse?.soft_skills_required?.value?.includes('0') && (
                   <TextInput
+                    readOnly
                     mt="sm"
                     variant="unstyled"
                     value={formJobResponse?.soft_skills_required?.content_other}
@@ -472,6 +494,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                 <Checkbox mt="lg" value="0" label="Khác"></Checkbox>
                 {formJobResponse?.must_attended_courses?.value?.includes('0') && (
                   <TextInput
+                    readOnly
                     mt="sm"
                     variant="unstyled"
                     value={formJobResponse?.must_attended_courses?.content_other}
@@ -497,6 +520,7 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
                 <Checkbox mt="lg" value="0" label="Khác"></Checkbox>
                 {formJobResponse?.solutions_get_job?.value?.includes('0') && (
                   <TextInput
+                    readOnly
                     mt="sm"
                     variant="unstyled"
                     value={formJobResponse?.solutions_get_job?.content_other}
