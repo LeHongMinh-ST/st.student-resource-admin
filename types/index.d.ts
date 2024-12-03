@@ -321,3 +321,19 @@ type StudentSurveyPeriod = {
   number_mail_send?: number;
   updated_at?: string;
 };
+
+type Warning = {
+  id?: number;
+  name: string;
+  semester: string;
+  created_at?: string;
+  updated_at?: string;
+};
+
+type Quit = {
+  id?: number;
+  name: string;
+  semester: string;
+  created_at?: string;
+  updated_at?: string;
+};
