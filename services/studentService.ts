@@ -13,6 +13,10 @@ export type GetListStudentBySurveyParams = {
   status_survey?: StatusSurvey;
 } & BaseParamsList;
 
+export type ChangeStatusStudent = {
+  status: StudentStatus;
+};
+
 export const useStudentService = () => {
   const getListAdmission = (
     params: AdmissionYearListParams = {} as AdmissionYearListParams
@@ -58,6 +62,8 @@ export const useStudentService = () => {
   const downloadImportErrorRecord = (id?: number): Promise<AxiosResponse<any, any>> =>
     axiosInstance.get(`students/import-course/${id}/download-error`, { responseType: 'blob' });
 
+  const changeStatusStudent = (id: string | number, data: ChangeStatusStudent) =>
+    axiosInstance.put(`students/${id}/change-status`, data);
   return {
     getStudentById,
     getListAdmission,
@@ -68,5 +74,6 @@ export const useStudentService = () => {
     downloadImportErrorRecord,
     getTotalStudent,
     getListStudentBySurveyPeriod,
+    changeStatusStudent,
   };
 };

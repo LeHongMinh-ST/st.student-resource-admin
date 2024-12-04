@@ -10,7 +10,7 @@ const ClassStudent: FC<ClassStudentProps> = ({ studentId }) => {
   const { data, isLoading } = useSWR([], getClassesByStudentId);
   console.log(data, isLoading, studentId);
 
-  return <>Test</>;
+  return <>Đang cập nhật...</>;
 };
 
 export default ClassStudent;

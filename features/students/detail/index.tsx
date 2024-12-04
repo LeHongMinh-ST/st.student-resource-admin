@@ -31,7 +31,7 @@ const StudentDetailPage = () => {
   const { query, back } = useRouter();
   const { id } = query;
   const handleGetStudentById = () => getStudentById(Number(id)).then((res) => res.data);
-  const { data, isLoading } = useSWR<ResultResponse<Student>>([id], handleGetStudentById);
+  const { data, isLoading, mutate } = useSWR<ResultResponse<Student>>([id], handleGetStudentById);
   const [activeTab, setActiveTab] = useState<ActiveTabType | null>('general');
   const iconStyle = { width: rem(24), height: rem(24) };
 
@@ -56,7 +56,7 @@ const StudentDetailPage = () => {
           </Skeleton>
           <Grid>
             <Grid.Col span={{ base: 12, sm: 4, md: 4, lg: 3 }}>
-              <StudentThumbnail student={data?.data} />
+              <StudentThumbnail mutateStudent={mutate} student={data?.data} />
             </Grid.Col>
             <Grid.Col span={{ base: 12, sm: 8, md: 8, lg: 9 }}>
               <Paper p="md" shadow="md" radius="md">

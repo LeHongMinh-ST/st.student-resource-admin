@@ -1,3 +1,3 @@
-const GeneralInfoStudent = () => <>Test</>;
+const GeneralInfoStudent = () => <>Đang cập nhật</>;
 
 export default GeneralInfoStudent;
