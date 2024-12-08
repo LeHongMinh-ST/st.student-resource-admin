@@ -99,17 +99,19 @@ const SurveyPeriodActionMenu: React.FC<SurveyPeriodActionMenuProps> = ({
             Gửi biểu mẫu khảo sát qua mail
           </Menu.Item>
         )}
-      <Menu.Item
-        fw={600}
-        fz="sm"
-        color="blue"
-        variant="filled"
-        component={Link}
-        leftSection={<IconEdit size={16} />}
-        href={surveyPeriodRoute.update(surveyPeriod?.id)}
-      >
-        Chỉnh sửa
-      </Menu.Item>
+      {surveyPeriod?.status !== Status.Disable && (
+        <Menu.Item
+          fw={600}
+          fz="sm"
+          color="blue"
+          variant="filled"
+          component={Link}
+          leftSection={<IconEdit size={16} />}
+          href={surveyPeriodRoute.update(surveyPeriod?.id)}
+        >
+          Chỉnh sửa
+        </Menu.Item>
+      )}
       {(dayjs().isBefore(dayjs(surveyPeriod?.start_date)) ||
         true ||
         surveyPeriod.status === Status.Disable) && (

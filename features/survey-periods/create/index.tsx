@@ -4,8 +4,9 @@ import {
   Container,
   Fieldset,
   Grid,
-  Paper,
+  LoadingOverlay,
   MultiSelect,
+  Paper,
   SimpleGrid,
   Stack,
   Textarea,
@@ -16,9 +17,10 @@ import { IconAlertTriangle, IconCheck, IconDeviceFloppy, IconLogout } from '@tab
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Controller, useForm } from 'react-hook-form';
-import { DateTimePicker } from '@mantine/dates';
+import { DateTimePicker, YearPickerInput } from '@mantine/dates';
 import useSWR from 'swr';
 import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 import { dashboardRoute, surveyPeriodRoute } from '@/routes';
 import { Graduation, ResultResponse, SurveyPeriod } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
@@ -29,7 +31,7 @@ import HttpStatus from '@/enums/http-status.enum';
 import { useSurveyPeriodService } from '@/services/surveyPeriodService';
 import Status from '@/enums/status.enum';
 import '@mantine/dates/styles.css';
-import { useGraduationService } from '@/services/graduationService';
+import { GraduationListParams, useGraduationService } from '@/services/graduationService';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 
 const SurveyPeriodCreatePage = () => {
@@ -37,8 +39,8 @@ const SurveyPeriodCreatePage = () => {
     control,
     register,
     handleSubmit,
-    setValue,
     watch,
+    setValue,
     formState: { errors, isSubmitting },
     setError,
   } = useForm<SurveyPeriod>({
@@ -53,33 +55,52 @@ const SurveyPeriodCreatePage = () => {
 
   const { push } = useRouter();
 
-  const graduationParams = {
+  const graduationParams: GraduationListParams = {
     ...defaultPramsList,
     limit: 100,
     facultyId: authUser?.faculty_id ?? undefined,
     is_graduation_doesnt_have_survey_period: 1,
   };
 
-  const handleGetListGraduation = () =>
+  const [startDate, endDate, year] = watch(['start_date', 'end_date', 'year']);
+
+  const handleGetListGraduation = (graduationParams: GraduationListParams) =>
     getList(graduationParams)
       .then((res) => res.data)
       .catch((error) => error);
 
-  const { data: dataGraduation } = useSWR<ResultResponse<Graduation[]>>(
-    ['getList', graduationParams],
-    handleGetListGraduation
-  );
+  const { data: dataGraduation, isLoading: isLoadingDataGraduation } = useSWR<
+    ResultResponse<Graduation[]>
+  >(year ? [year] : null, async () => {
+    const yearFormat = dayjs(year).format('YYYY');
+    return handleGetListGraduation({
+      ...graduationParams,
+      year: yearFormat,
+      page: undefined,
+    });
+  });
 
-  const dataOptionGraduation = dataGraduation?.data?.map((item: Graduation) => ({
-    label: `${item.name}`,
-    value: `${item.id}`,
-  }));
+  const [dataOptionGraduation, setDataOptionGraduation] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (dataGraduation?.data) {
+      setDataOptionGraduation(
+        dataGraduation?.data?.map((item: Graduation) => ({
+          label: `${item.name}`,
+          value: `${item.id}`,
+        }))
+      );
+
+      setValue('graduation_ceremony_ids', []);
+    }
+  }, [dataGraduation]);
 
   const onSubmit = async (data: SurveyPeriod) => {
     if (!isSubmitting) {
       try {
         data.start_date = dayjs(data.start_date).format('YYYY-MM-DD HH:mm');
         data.end_date = dayjs(data.end_date).format('YYYY-MM-DD HH:mm');
+        data.year = Number(dayjs(data.year).format('YYYY'));
         const res = await createSurveyPeriod(data);
         if (res) {
           notifications.show({
@@ -112,8 +133,6 @@ const SurveyPeriodCreatePage = () => {
       }
     }
   };
-
-  const [startDate, endDate] = watch(['start_date', 'end_date']);
 
   return (
     <SurveyPeriodCreatePageStyled>
@@ -215,6 +234,27 @@ const SurveyPeriodCreatePage = () => {
                         </SimpleGrid>
                         <SimpleGrid cols={{ base: 1 }}>
                           <Controller
+                            name="year"
+                            control={control}
+                            rules={{
+                              required: ERROR_MESSAGES.surveyPeriod.end_date.required,
+                            }}
+                            render={({ field }) => (
+                              <YearPickerInput
+                                label="Năm tốt nghiệp"
+                                placeholder="Chọn năm tốt nghiệp"
+                                value={field.value ? new Date(field.value) : null}
+                                onChange={(date) => {
+                                  field.onChange(date);
+                                }}
+                                maxDate={new Date()}
+                              />
+                            )}
+                          />
+                        </SimpleGrid>
+                        <SimpleGrid cols={{ base: 1 }} style={{ position: 'relative' }}>
+                          <LoadingOverlay visible={isLoadingDataGraduation} />
+                          <Controller
                             name="graduation_ceremony_ids"
                             control={control}
                             rules={{
@@ -223,6 +263,8 @@ const SurveyPeriodCreatePage = () => {
                             }}
                             render={({ field }) => (
                               <MultiSelect
+                                value={field.value?.map(String)}
+                                disabled={!year}
                                 label="Các đợt xét tốt nghiệp"
                                 placeholder="Chọn đợt xét tốt nghiệp"
                                 data={
@@ -240,8 +282,6 @@ const SurveyPeriodCreatePage = () => {
                                 clearable
                                 onChange={(value) => {
                                   field.onChange(value);
-                                  // @ts-ignore
-                                  setValue('graduation_ceremony_ids', value);
                                 }}
                                 error={errors.graduation_ceremony_ids?.message}
                               />

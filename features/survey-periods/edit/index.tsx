@@ -14,19 +14,20 @@ import {
   Textarea,
   MultiSelect,
   Select,
+  LoadingOverlay,
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { IconAlertTriangle, IconCheck, IconDeviceFloppy, IconLogout } from '@tabler/icons-react';
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import '@mantine/dates/styles.css';
-import { DateTimePicker } from '@mantine/dates';
+import { DateTimePicker, YearPickerInput } from '@mantine/dates';
 import dayjs from 'dayjs';
 import { dashboardRoute, surveyPeriodRoute } from '@/routes';
-import { useGraduationService } from '@/services/graduationService';
+import { GraduationListParams, useGraduationService } from '@/services/graduationService';
 import { Graduation, ResultResponse, SurveyPeriod } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
 import { PageHeader, Surface } from '@/components';
@@ -61,7 +62,7 @@ const SurveyPeriodUpdatePage = () => {
   const handleGetSurveyPeriod = () => getSurveyPeriod(Number(id)).then((res) => res.data);
 
   const { data, isLoading } = useSWR([id], handleGetSurveyPeriod);
-  const [startDate, endDate] = watch(['start_date', 'end_date']);
+  const [startDate, endDate, year] = watch(['start_date', 'end_date', 'year']);
 
   useEffect(() => {
     if (data) {
@@ -128,26 +129,46 @@ const SurveyPeriodUpdatePage = () => {
     ...defaultPramsList,
     limit: 100,
     facultyId: authUser?.faculty_id ?? undefined,
-    is_graduation_doesnt_have_survey_period: 1,
+    // is_graduation_doesnt_have_survey_period: 1,
   };
 
-  const handleGetListUser = () =>
+  const handleGetListGraduation = (graduationParams: GraduationListParams) =>
     getList(graduationParams)
-      .then((res: { data: any }) => res.data)
-      .catch((error: any) => error);
+      .then((res) => res.data)
+      .catch((error) => error);
 
-  const { data: dataGraduation } = useSWR<ResultResponse<Graduation[]>>(
-    ['getList', graduationParams],
-    handleGetListUser
-  );
+  const { data: dataGraduation, isLoading: isLoadingDataGraduation } = useSWR<
+    ResultResponse<Graduation[]>
+  >(year && data ? [year] : null, async () => {
+    const yearFormat = dayjs(year).format('YYYY');
+    return handleGetListGraduation({
+      ...graduationParams,
+      year: yearFormat,
+      page: undefined,
+      with_id_survey_period: Number(id),
+    });
+  });
 
-  const dataOptionGraduation = [
-    ...(dataGraduation?.data || []),
-    ...(data?.data.graduation_ceremonies || []),
-  ].map((item: Graduation) => ({
-    label: `${item.name}`,
-    value: `${item.id}`,
-  }));
+  const [dataOptionGraduation, setDataOptionGraduation] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (dataGraduation?.data) {
+      setDataOptionGraduation(
+        dataGraduation?.data?.map((item: Graduation) => ({
+          label: `${item.name}`,
+          value: `${item.id}`,
+        }))
+      );
+
+      const yearSelected = isDate(year) ? dayjs(year).format('YYYY') : year;
+      if (yearSelected !== data?.data.year) {
+        setValue('graduation_ceremony_ids', []);
+      } else {
+        setValue('graduation_ceremony_ids', data.data.graduation_ceremony_ids);
+        trigger('graduation_ceremony_ids');
+      }
+    }
+  }, [dataGraduation]);
 
   const isDate = (date: any): boolean => date instanceof Date && !Number.isNaN(date.valueOf());
 
@@ -266,6 +287,28 @@ const SurveyPeriodUpdatePage = () => {
                           </SimpleGrid>
                           <SimpleGrid cols={{ base: 1 }}>
                             <Controller
+                              name="year"
+                              control={control}
+                              rules={{
+                                required: ERROR_MESSAGES.surveyPeriod.end_date.required,
+                              }}
+                              render={({ field }) => (
+                                <YearPickerInput
+                                  disabled={getValues('status') === Status.Disable}
+                                  label="Năm tốt nghiệp"
+                                  placeholder="Chọn năm tốt nghiệp"
+                                  value={field.value ? new Date(field.value) : null}
+                                  onChange={(date) => {
+                                    field.onChange(date);
+                                  }}
+                                  maxDate={new Date()}
+                                />
+                              )}
+                            />
+                          </SimpleGrid>
+                          <SimpleGrid cols={{ base: 1 }} style={{ position: 'relative' }}>
+                            <LoadingOverlay visible={isLoadingDataGraduation} />
+                            <Controller
                               name="graduation_ceremony_ids"
                               control={control}
                               rules={{
@@ -308,7 +351,7 @@ const SurveyPeriodUpdatePage = () => {
                 <Grid.Col span={{ base: 12, md: 4 }} h="100%">
                   <Surface component={Paper} p="md" shadow="md" radius="md" h="100%">
                     <Stack justify="space-between" gap={16} h="100%">
-                      <Fieldset legend="Vai trò">
+                      <Fieldset legend="Trạng thái">
                         <Stack>
                           <Skeleton visible={isLoading}>
                             <Select
@@ -335,7 +378,6 @@ const SurveyPeriodUpdatePage = () => {
               <Surface mt="lg">
                 <Skeleton width="5%" visible={isLoading}>
                   <Button
-                    display={getValues('status') === Status.Disable ? 'none' : 'block'}
                     loading={isSubmitting}
                     onClick={handleSubmit(onSubmit)}
                     leftSection={<IconDeviceFloppy size={18} />}
