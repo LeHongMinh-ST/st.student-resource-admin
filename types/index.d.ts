@@ -301,7 +301,7 @@ type SurveyPeriod = {
   total_student_responses?: number;
   total_student?: number;
   status: StatusEnum;
-  year: string;
+  year: number;
   type: string;
   start_date?: string;
   end_date?: string;

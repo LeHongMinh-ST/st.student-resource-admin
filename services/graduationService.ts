@@ -4,6 +4,10 @@ import { BaseParamsList, ResultResponse, Graduation, Student } from '@/types';
 
 export type GraduationListParams = {
   q?: string;
+  year?: string;
+  facultyId?: number;
+  is_graduation_doesnt_have_survey_period?: number;
+  with_id_survey_period?: number;
 } & BaseParamsList;
 
 export const useGraduationService = () => {
