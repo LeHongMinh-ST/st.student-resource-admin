@@ -10,9 +10,9 @@ interface StudentStatusFilterProps {
 
 const StudentStatusFilter: React.FC<StudentStatusFilterProps> = ({ value, onChange }) => (
   <Select
-    label="Vai trò"
+    label="Trạng thái"
     clearable
-    placeholder="Chọn vai trò"
+    placeholder="Chọn trạng thái"
     data={StudentStatusSelectList}
     value={value}
     onChange={(selectedValue) => onChange(selectedValue as StudentStatus)}

@@ -110,7 +110,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-WS-243.22562.112" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-PS-243.22562.164" />
+        <option value="bundled-php-predefined-a98d8de5180a-7980c7aaca61-com.jetbrains.php.sharedIndexes-PS-243.22562.164" />
       </set>
     </attachedChunks>
   </component>
@@ -159,6 +160,7 @@
       <workItem from="1731686242215" duration="5364000" />
       <workItem from="1732782509855" duration="466000" />
       <workItem from="1733553540076" duration="20206000" />
+      <workItem from="1733969176313" duration="167000" />
     </task>
     <servers />
   </component>
