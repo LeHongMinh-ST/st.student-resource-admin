@@ -39,6 +39,7 @@ export const ClassTypeSelectList: SelectList<ClassType>[] = [
 export const StudentStatusSelectList: SelectList<StudentStatus>[] = [
   { value: StudentStatus.CurrentlyStudying, label: studentStatusLabels.currently_studying },
   { value: StudentStatus.Graduated, label: studentStatusLabels.graduated },
+  { value: StudentStatus.ToDropOut, label: studentStatusLabels.to_drop_out },
   { value: StudentStatus.TemporarilySuspended, label: studentStatusLabels.temporarily_suspended },
   { value: StudentStatus.Expelled, label: studentStatusLabels.expelled },
   { value: StudentStatus.Deferred, label: studentStatusLabels.deferred },
