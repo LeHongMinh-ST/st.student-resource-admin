@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="a19e1239-6d18-4fbf-8d8a-01a0fa85d8c4" name="Changes" comment="feat: add detail student">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/survey-periods/components/Cells/SurveyPeriodActionMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/survey-periods/components/Cells/SurveyPeriodActionMenu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/survey-periods/create/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/survey-periods/create/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/survey-periods/edit/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/survey-periods/edit/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/graduationService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/graduationService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Badge/StatusStudentBadge/StatusStudentBadge.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Badge/StatusStudentBadge/StatusStudentBadge.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants/labels.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/labels.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/enums/studentStatus.enum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/enums/studentStatus.enum.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +87,7 @@
     "npm.dev.executor": "Run",
     "prettierjs.PrettierConfiguration.Package": "/var/www/st.student-resource-admin/node_modules/prettier",
     "settings.editor.selected.configurable": "preferences.keymap",
-    "ts.external.directory.path": "/Users/chiendam/Dev/Projects/st.student-resource-admin/node_modules/typescript/lib",
+    "ts.external.directory.path": "/var/www/st.student-resource-admin/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>

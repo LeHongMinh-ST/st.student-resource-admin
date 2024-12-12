@@ -54,6 +54,7 @@ export const studentRoleLabels: Record<StudentRole, string> = {
 export const studentStatusLabels: Record<StudentStatus, string> = {
   [StudentStatus.CurrentlyStudying]: 'Đang học',
   [StudentStatus.Graduated]: 'Đã tốt nghiệp',
+  [StudentStatus.ToDropOut]: 'Xin thôi học',
   [StudentStatus.TemporarilySuspended]: 'Tạm dừng học',
   [StudentStatus.Expelled]: 'Đã bị đuổi học',
   [StudentStatus.Deferred]: 'Bảo lưu',

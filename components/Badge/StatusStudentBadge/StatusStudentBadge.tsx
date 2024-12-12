@@ -19,6 +19,8 @@ const StatusStudentBadge: React.FC<StatusStudentBadgeProps> = ({ status }) => {
         return { color: 'yellow', label: studentStatusLabels[StudentStatus.TemporarilySuspended] };
       case StudentStatus.Expelled:
         return { color: 'red', label: studentStatusLabels[StudentStatus.Expelled] };
+      case StudentStatus.ToDropOut:
+        return { color: 'red', label: studentStatusLabels[StudentStatus.ToDropOut] };
       case StudentStatus.Deferred:
         return { color: 'orange', label: studentStatusLabels[StudentStatus.Deferred] };
       case StudentStatus.TransferStudy:
