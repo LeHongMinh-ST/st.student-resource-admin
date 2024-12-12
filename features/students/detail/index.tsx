@@ -35,6 +35,7 @@ const StudentDetailPage = () => {
   const [activeTab, setActiveTab] = useState<ActiveTabType | null>('general');
   const iconStyle = { width: rem(24), height: rem(24) };
 
+  console.log(data);
   return (
     <StudentDetailPageStyled>
       <Container fluid>
@@ -84,7 +85,7 @@ const StudentDetailPage = () => {
 
                   <Suspense fallback={<LoadingOverlay visible />}>
                     <Tabs.Panel value="general">
-                      {activeTab === 'general' && <GeneralInfoStudent />}
+                      {activeTab === 'general' && <GeneralInfoStudent studentData={data?.data} />}
                     </Tabs.Panel>
                     <Tabs.Panel value="class">
                       {activeTab === 'class' && <ClassStudent studentId={data?.data?.id} />}

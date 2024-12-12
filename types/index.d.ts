@@ -124,7 +124,7 @@ type Student = {
   admission_year?: AdmissionYear;
   faculty?: Faculty;
   status: StudentStatus;
-  family: Family[];
+  families: Family[];
   info?: StudentInfo;
   currentClass: GeneralClass;
   current_survey_period?: StudentSurveyPeriod;
