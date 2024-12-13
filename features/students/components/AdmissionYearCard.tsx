@@ -19,10 +19,7 @@ const AdmissionYearCard = ({ admissionYear, onSelect }: AdmissionYearCardProps) 
         <Group align="center" mt="md" mb="xs">
           <Box>
             <Text fw={500} size="lg">
-              Số lượng sinh viên:
-            </Text>
-            <Text fw={500} size="lg">
-              Đầu khóa: {admissionYear.student_count ? admissionYear.student_count : 0}
+              Nhập học: {admissionYear.student_count ? admissionYear.student_count : 0}
             </Text>
             <Text fw={500} size="lg">
               Hiện tại:{' '}
