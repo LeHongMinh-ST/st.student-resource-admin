@@ -58,7 +58,8 @@ type AdmissionYear = {
   id?: number;
   admission_year: string;
   school_year: string;
-  student_count: number | string;
+  student_count: number;
+  currently_studying_count: number;
   created_at?: string;
   updated_at?: string;
 };

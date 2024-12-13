@@ -1,5 +1,4 @@
-import { Card, Group, Text } from '@mantine/core';
-import { IconUser } from '@tabler/icons-react';
+import { Box, Card, Group, Text } from '@mantine/core';
 import { AdmissionYear } from '@/types';
 import AdmissionYearItem from './AdmissionYearItem';
 
@@ -18,10 +17,18 @@ const AdmissionYearCard = ({ admissionYear, onSelect }: AdmissionYearCardProps) 
       <Group align="center" justify="space-between">
         <AdmissionYearItem admissionYear={admissionYear} />
         <Group align="center" mt="md" mb="xs">
-          <IconUser size={24} />
-          <Text fw={500} size="lg">
-            Sinh viên: {admissionYear.student_count ? admissionYear.student_count : 0}
-          </Text>
+          <Box>
+            <Text fw={500} size="lg">
+              Số lượng sinh viên:
+            </Text>
+            <Text fw={500} size="lg">
+              Đầu khóa: {admissionYear.student_count ? admissionYear.student_count : 0}
+            </Text>
+            <Text fw={500} size="lg">
+              Hiện tại:{' '}
+              {admissionYear.currently_studying_count ? admissionYear.currently_studying_count : 0}
+            </Text>
+          </Box>
         </Group>
       </Group>
     </Card>
