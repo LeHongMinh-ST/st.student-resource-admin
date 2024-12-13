@@ -15,7 +15,7 @@ const LabelText = styled.span`
 `;
 
 const GeneralInfoStudent = ({ studentData }: GeneralInfoStudentProps) => {
-  if (!studentData) return <>Đang cập nhật</>;
+  if (!studentData) return <>Đang cập nhật...</>;
 
   const { faculty, info, families, currentClass } = studentData;
 

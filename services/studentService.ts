@@ -1,6 +1,13 @@
 import { AxiosResponse } from 'axios';
 import axiosInstance from '@/utils/axios';
-import { AdmissionYear, BaseParamsList, ExcelFileImport, ResultResponse, Student } from '@/types';
+import {
+  AdmissionYear,
+  BaseParamsList,
+  ExcelFileImport,
+  GeneralClass,
+  ResultResponse,
+  Student,
+} from '@/types';
 import { StudentStatus } from '@/enums';
 import StatusSurvey from '@/enums/statusSurvey.enum';
 
@@ -48,6 +55,11 @@ export const useStudentService = () => {
     id: string | number | undefined
   ): Promise<AxiosResponse<ResultResponse<Student>, any>> => axiosInstance.get(`/students/${id}`);
 
+  const getStudentClassesById = (
+    id: string | number | undefined
+  ): Promise<AxiosResponse<ResultResponse<GeneralClass[]>, any>> =>
+    axiosInstance.get(`/students/${id}/classes`);
+
   const downloadTemplateImportStudentAdmission = (): Promise<
     AxiosResponse<ResultResponse<any>, any>
   > => axiosInstance.get('students/import-course/download-template', { responseType: 'blob' });
@@ -75,5 +87,6 @@ export const useStudentService = () => {
     getTotalStudent,
     getListStudentBySurveyPeriod,
     changeStatusStudent,
+    getStudentClassesById,
   };
 };
