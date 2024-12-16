@@ -14,7 +14,7 @@ import {
   Tabs,
   Text,
 } from '@mantine/core';
-import { IconInfoCircle, IconLogout, IconBook, IconBackpack } from '@tabler/icons-react';
+import { IconInfoCircle, IconLogout, IconBook } from '@tabler/icons-react';
 import { PageHeader } from '@/components';
 import { dashboardRoute, studentRoute } from '@/routes';
 import { useStudentService } from '@/services/studentService';
@@ -73,14 +73,14 @@ const StudentDetailPage = () => {
                         Lớp học
                       </Text>
                     </Tabs.Tab>
-                    <Tabs.Tab
-                      value="learning_outcome"
-                      leftSection={<IconBackpack style={iconStyle} />}
-                    >
-                      <Text fw={500} size="md">
-                        Điểm
-                      </Text>
-                    </Tabs.Tab>
+                    {/* <Tabs.Tab */}
+                    {/*   value="learning_outcome" */}
+                    {/*   leftSection={<IconBackpack style={iconStyle} />} */}
+                    {/* > */}
+                    {/*   <Text fw={500} size="md"> */}
+                    {/*     Điểm */}
+                    {/*   </Text> */}
+                    {/* </Tabs.Tab> */}
                   </Tabs.List>
 
                   <Suspense fallback={<LoadingOverlay visible />}>
@@ -90,9 +90,9 @@ const StudentDetailPage = () => {
                     <Tabs.Panel value="class">
                       {activeTab === 'class' && <ClassStudent studentId={data?.data?.id} />}
                     </Tabs.Panel>
-                    <Tabs.Panel value="learning_outcome">
-                      {activeTab === 'learning_outcome' && <GeneralInfoStudent />}
-                    </Tabs.Panel>
+                    {/* <Tabs.Panel value="learning_outcome"> */}
+                    {/*   {activeTab === 'learning_outcome' && <GeneralInfoStudent />} */}
+                    {/* </Tabs.Panel> */}
                   </Suspense>
                 </Tabs>
               </Paper>
