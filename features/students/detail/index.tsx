@@ -14,7 +14,7 @@ import {
   Tabs,
   Text,
 } from '@mantine/core';
-import { IconInfoCircle, IconLogout, IconBook } from '@tabler/icons-react';
+import { IconInfoCircle, IconLogout } from '@tabler/icons-react';
 import { PageHeader } from '@/components';
 import { dashboardRoute, studentRoute } from '@/routes';
 import { useStudentService } from '@/services/studentService';
@@ -22,7 +22,7 @@ import StudentThumbnail from '@/features/students/detail/components/InfoStudent/
 import { ResultResponse, Student } from '@/types';
 
 const GeneralInfoStudent = lazy(() => import('./components/InfoStudent/GeneralInfoStudent'));
-const ClassStudent = lazy(() => import('./components/InfoStudent/ClassStudent'));
+// const ClassStudent = lazy(() => import('./components/InfoStudent/ClassStudent'));
 
 type ActiveTabType = 'general' | 'class' | 'learning_outcome';
 
@@ -68,11 +68,11 @@ const StudentDetailPage = () => {
                         Thông tin chung
                       </Text>
                     </Tabs.Tab>
-                    <Tabs.Tab value="class" leftSection={<IconBook style={iconStyle} />}>
-                      <Text fw={500} size="md">
-                        Lớp học
-                      </Text>
-                    </Tabs.Tab>
+                    {/* <Tabs.Tab value="class" leftSection={<IconBook style={iconStyle} />}> */}
+                    {/*   <Text fw={500} size="md"> */}
+                    {/*     Lớp học */}
+                    {/*   </Text> */}
+                    {/* </Tabs.Tab> */}
                     {/* <Tabs.Tab */}
                     {/*   value="learning_outcome" */}
                     {/*   leftSection={<IconBackpack style={iconStyle} />} */}
@@ -87,9 +87,9 @@ const StudentDetailPage = () => {
                     <Tabs.Panel value="general">
                       {activeTab === 'general' && <GeneralInfoStudent studentData={data?.data} />}
                     </Tabs.Panel>
-                    <Tabs.Panel value="class">
-                      {activeTab === 'class' && <ClassStudent studentId={data?.data?.id} />}
-                    </Tabs.Panel>
+                    {/* <Tabs.Panel value="class"> */}
+                    {/*   {activeTab === 'class' && <ClassStudent studentId={data?.data?.id} />} */}
+                    {/* </Tabs.Panel> */}
                     {/* <Tabs.Panel value="learning_outcome"> */}
                     {/*   {activeTab === 'learning_outcome' && <GeneralInfoStudent />} */}
                     {/* </Tabs.Panel> */}
