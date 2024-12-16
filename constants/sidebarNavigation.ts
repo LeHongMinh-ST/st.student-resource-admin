@@ -5,13 +5,9 @@ import {
   IconBookmark,
   IconBuilding,
   IconDashboard,
-  IconListNumbers,
   IconListDetails,
   IconUserEdit,
   IconUsers,
-  IconChartDots,
-  IconChartBar,
-  IconSettings,
   IconBellRinging2,
   IconUser,
   IconMessageQuestion,
@@ -46,22 +42,22 @@ export const sidebarNavigationAdmin: SidebarNavigationProps[] = [
     title: 'Khảo sát',
     links: [
       { label: 'Khảo sát viêc làm', icon: IconListDetails, link: '/survey-periods' },
-      { label: 'Đánh giá rèn luyện', icon: IconListNumbers, link: '/form-point' },
+      // { label: 'Đánh giá rèn luyện', icon: IconListNumbers, link: '/form-point' },
     ],
   },
-  {
-    title: 'Báo cáo - thống kê',
-    links: [
-      { label: 'Tình hình việc làm', icon: IconChartDots, link: '/statistics-job' },
-      { label: 'Báo cáo tổng hợp', icon: IconChartBar, link: '/statistics' },
-    ],
-  },
+  // {
+  //   title: 'Báo cáo - thống kê',
+  //   links: [
+  //     { label: 'Tình hình việc làm', icon: IconChartDots, link: '/statistics-job' },
+  //     { label: 'Báo cáo tổng hợp', icon: IconChartBar, link: '/statistics' },
+  //   ],
+  // },
   {
     title: 'Hệ thống',
     links: [
       { label: 'Tài khoản', icon: IconUser, link: userRoute.list },
-      { label: 'Thông báo', icon: IconBellRinging2, link: '/notification' },
-      { label: 'Cài đặt', icon: IconSettings, link: '/settings' },
+      // { label: 'Thông báo', icon: IconBellRinging2, link: '/notification' },
+      // { label: 'Cài đặt', icon: IconSettings, link: '/settings' },
     ],
   },
 ];
@@ -104,8 +100,6 @@ export const sidebarNavigationTeacher: SidebarNavigationProps[] = [
     title: 'Sinh viên',
     links: [
       { label: 'Danh sách sinh viên', icon: IconUsers, link: studentRoute.listCourse },
-      { label: 'Cảnh báo', icon: IconAlertTriangle, link: '/students-absent' },
-      { label: 'Buộc thôi học', icon: IconBan, link: '/students-leave' },
       { label: 'Xác nhận thông tin', icon: IconUserEdit, link: '/students-request' },
       { label: 'Phản ánh', icon: IconMessageQuestion, link: '/students-report' },
     ],
