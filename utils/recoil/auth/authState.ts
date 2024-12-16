@@ -92,14 +92,14 @@ export const useAuthStore = () => {
   };
 
   const logout = (ctx = null) => {
+    nookies.destroy(ctx, 'accessTokenAdmin');
+    nookies.destroy(ctx, 'refreshTokenAdmin');
     setState({
       authUser: null,
       isRemember: false,
       expiresIn: 0,
       refreshTokenTimeout: 0,
     });
-    nookies.destroy(ctx, 'accessTokenAdmin');
-    nookies.destroy(ctx, 'refreshTokenAdmin');
     stopRefreshTokenTimer();
   };
 

@@ -35,7 +35,6 @@ const StudentDetailPage = () => {
   const [activeTab, setActiveTab] = useState<ActiveTabType | null>('general');
   const iconStyle = { width: rem(24), height: rem(24) };
 
-  console.log('data', data);
   return (
     <StudentDetailPageStyled>
       <Container fluid>
