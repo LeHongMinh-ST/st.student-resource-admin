@@ -77,11 +77,11 @@ const GeneralInfoStudent = ({ studentData }: GeneralInfoStudentProps) => {
         <ListItem>
           <LabelText>Khoa:</LabelText> {faculty?.name || 'Không có'}
         </ListItem>
+        {/* <ListItem> */}
+        {/*   <LabelText>Lớp hiện tại:</LabelText> {currentClass?.name || 'Không có'} */}
+        {/* </ListItem> */}
         <ListItem>
-          <LabelText>Lớp hiện tại:</LabelText> {currentClass?.name || 'Không có'}
-        </ListItem>
-        <ListItem>
-          <LabelText>Mã lớp:</LabelText> {currentClass?.code || 'Không có'}
+          <LabelText>Lớp hiện tại:</LabelText> {currentClass?.code || 'Không có'}
         </ListItem>
       </List>
 
