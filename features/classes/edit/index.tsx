@@ -180,7 +180,7 @@ const ClassUpdatePage = () => {
                         <Skeleton visible={isLoading}>
                           <Select
                             label="Giảng viên chủ nhiệm"
-                            placeholder="Chọn giáo viên"
+                            placeholder="Chọn giảng viên"
                             data={dataOptionUser}
                             onKeyUp={(e) => {
                               // @ts-ignore
@@ -193,6 +193,25 @@ const ClassUpdatePage = () => {
                               // @ts-ignore
                               setValue('teacher_id', value);
                               trigger('teacher_id');
+                            }}
+                          />
+                        </Skeleton>
+                        <Skeleton visible={isLoading}>
+                          <Select
+                            label="Giảng viên phụ trách"
+                            placeholder="Chọn giảng viên"
+                            data={dataOptionUser}
+                            onKeyUp={(e) => {
+                              // @ts-ignore
+                              handleInputSearchChange(e.target?.value ?? '');
+                            }}
+                            clearable
+                            searchable
+                            value={`${getValues('sub_teacher_id')}`}
+                            onChange={(value) => {
+                              // @ts-ignore
+                              setValue('sub_teacher_id', value);
+                              trigger('sub_teacher_id');
                             }}
                           />
                         </Skeleton>

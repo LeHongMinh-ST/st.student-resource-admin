@@ -6,13 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a19e1239-6d18-4fbf-8d8a-01a0fa85d8c4" name="Changes" comment="feat: add detail student">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/classes/components/Cells/ClassActionMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/classes/components/Cells/ClassActionMenu.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/features/classes/create/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/classes/create/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/classes/detail/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/classes/detail/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/features/classes/edit/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/classes/edit/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/classes/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/classes/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/classService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/classService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/index.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,7 +172,7 @@
       <workItem from="1734405494694" duration="232000" />
       <workItem from="1734406070623" duration="398000" />
       <workItem from="1734407450321" duration="617000" />
-      <workItem from="1734408560731" duration="1852000" />
+      <workItem from="1734408560731" duration="2397000" />
     </task>
     <servers />
   </component>

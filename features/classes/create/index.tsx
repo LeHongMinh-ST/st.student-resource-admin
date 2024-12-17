@@ -158,7 +158,7 @@ const ClassCreatePage = () => {
                         {/*<SelectSearch />*/}
                         <Select
                           label="Giảng viên chủ nhiệm"
-                          placeholder="Chọn giáo viên"
+                          placeholder="Chọn giảng viên"
                           data={dataOptionUser}
                           searchable
                           clearable
