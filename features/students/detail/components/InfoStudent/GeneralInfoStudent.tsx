@@ -1,9 +1,14 @@
 import { Box, Divider, Grid, Group, List, ListItem, Title } from '@mantine/core';
 import { IconUser, IconBook, IconUsers } from '@tabler/icons-react';
 import styled from '@emotion/styled';
-import { genderLabels, socialPolicyObjectLabels, trainingTypeLabels } from '@/constants/labels';
+import {
+  familyRelationshipLabels,
+  genderLabels,
+  socialPolicyObjectLabels,
+  trainingTypeLabels,
+} from '@/constants/labels';
 import { Student } from '@/types';
-import { Gender } from '@/enums';
+import { FamilyRelationship, Gender } from '@/enums';
 
 type GeneralInfoStudentProps = {
   studentData?: Student;
@@ -94,7 +99,9 @@ const GeneralInfoStudent = ({ studentData }: GeneralInfoStudentProps) => {
       <List spacing="xs" mt="sm">
         {families.map((family, index) => (
           <ListItem key={index}>
-            <LabelText>{family.relationship === 'father' ? 'Cha' : 'Mẹ'}:</LabelText>{' '}
+            <LabelText>
+              {familyRelationshipLabels[family.relationship as FamilyRelationship]}:
+            </LabelText>{' '}
             {family.full_name} (SĐT: {family.phone || 'Không có'})
           </ListItem>
         ))}

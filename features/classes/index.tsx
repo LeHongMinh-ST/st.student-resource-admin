@@ -158,9 +158,7 @@ const ClassPage = () => {
               columns={columns}
               records={data?.data}
               fetching={isLoading}
-              onPageChange={(page: number) =>
-                setClassParams((params) => ({ ...params, current_page: page }))
-              }
+              onPageChange={(page: number) => setClassParams((params) => ({ ...params, page }))}
               onRecordsPerPageChange={(perPage: number) =>
                 setClassParams((params) => ({ ...params, limit: perPage }))
               }

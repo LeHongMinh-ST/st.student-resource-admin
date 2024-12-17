@@ -1,9 +1,18 @@
-import { ClassType, RoleEnum, StudentStatus } from '@/enums';
+import {
+  ClassType,
+  FamilyRelationship,
+  Gender,
+  RoleEnum,
+  SocialPolicyObject,
+  StudentStatus,
+  TrainingType,
+} from '@/enums';
 import Role from '@/enums/role.enum';
 import Status from '@/enums/status.enum';
 import { BaseParamsList, MetaResponse, SelectList } from '@/types';
 import {
   classTypeLabels,
+  familyRelationshipLabels,
   roleLabels,
   statusLabels,
   statusSurveyLabels,
@@ -59,6 +68,36 @@ export const StatusSurveyList: SelectList<StatusSurvey>[] = [
 export const StatusListActive: SelectList<Status>[] = [
   { value: Status.Enable, label: statusSurveyPeriodLabels.enable },
   { value: Status.Disable, label: statusSurveyPeriodLabels.disable },
+];
+
+export const GenderList: SelectList<Gender>[] = [
+  { value: Gender.Male, label: 'Nam' },
+  { value: Gender.Female, label: 'Nữ' },
+  { value: Gender.Unspecified, label: 'Khác' },
+];
+
+export const TrainingTypeList: SelectList<TrainingType>[] = [
+  { value: TrainingType.FormalUniversity, label: 'Đại học chính quy' },
+  { value: TrainingType.College, label: 'Cao đẳng' },
+];
+
+export const SocialPolicyObjectList: SelectList<SocialPolicyObject>[] = [
+  { value: SocialPolicyObject.None, label: 'Không' },
+  { value: SocialPolicyObject.SonOfWounded, label: 'Con thương binh liệt sĩ' },
+  { value: SocialPolicyObject.DisabledPerson, label: 'Người khuyết tật' },
+  { value: SocialPolicyObject.EspeciallyDifficult, label: 'Đối tượng đặc biệt khó khăn' },
+  {
+    value: SocialPolicyObject.EthnicMinorityPeopleInTheHighlands,
+    label: 'Dân tộc thiểu số ở vùng cao',
+  },
+];
+
+export const FamilyRelationshipList: SelectList<FamilyRelationship>[] = [
+  { value: FamilyRelationship.Father, label: familyRelationshipLabels.father },
+  { value: FamilyRelationship.Mother, label: familyRelationshipLabels.mother },
+  { value: FamilyRelationship.Siblings, label: familyRelationshipLabels.siblings },
+  { value: FamilyRelationship.Grandparent, label: familyRelationshipLabels.grandparent },
+  { value: FamilyRelationship.Other, label: familyRelationshipLabels.other },
 ];
 
 //

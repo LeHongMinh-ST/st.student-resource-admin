@@ -65,6 +65,9 @@ export const familyRelationshipLabels: Record<FamilyRelationship, string> = {
   [FamilyRelationship.Father]: 'Bố',
   [FamilyRelationship.Mother]: 'Mẹ',
   [FamilyRelationship.Siblings]: 'Anh/Chị/Em',
+
+  [FamilyRelationship.Grandparent]: 'Ông/Bà',
+  [FamilyRelationship.Other]: 'Khác',
 };
 
 export const genderLabels: Record<Gender, string> = {

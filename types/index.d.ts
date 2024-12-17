@@ -127,7 +127,7 @@ type Student = {
   admission_year?: AdmissionYear;
   faculty?: Faculty;
   status: StudentStatus;
-  families: Family[];
+  families: family[];
   info?: StudentInfo;
   currentClass: GeneralClass;
   current_survey_period?: StudentSurveyPeriod;
@@ -247,6 +247,7 @@ type GeneralClass = {
   faculty_id?: number;
   major_id?: number;
   teacher_id?: number;
+  sub_teacher_id?: number;
   teacher?: User;
   sub_teacher?: User;
   faculty?: Faculty;

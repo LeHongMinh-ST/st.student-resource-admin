@@ -57,4 +57,5 @@ export const graduationRoute = {
 export const studentRoute = {
   listCourse: `${ADMIN_PREFIX}/students`,
   show: (id: string | number | undefined) => (id ? `${ADMIN_PREFIX}/students/${id}` : ''),
+  update: (id: string | number | undefined) => (id ? `${ADMIN_PREFIX}/students/${id}/edit` : ''),
 };

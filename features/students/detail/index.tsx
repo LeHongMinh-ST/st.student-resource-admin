@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import useSWR from 'swr';
-import { lazy, Suspense, useState } from 'react';
+import { Suspense, useState } from 'react';
 import {
+  Box,
   Button,
   Container,
   Grid,
@@ -14,14 +16,15 @@ import {
   Tabs,
   Text,
 } from '@mantine/core';
-import { IconInfoCircle, IconLogout } from '@tabler/icons-react';
+import { IconEdit, IconInfoCircle, IconLogout } from '@tabler/icons-react';
 import { PageHeader } from '@/components';
 import { dashboardRoute, studentRoute } from '@/routes';
 import { useStudentService } from '@/services/studentService';
 import StudentThumbnail from '@/features/students/detail/components/InfoStudent/StudentThumbnail';
 import { ResultResponse, Student } from '@/types';
+import GeneralInfoStudent from './components/InfoStudent/GeneralInfoStudent';
 
-const GeneralInfoStudent = lazy(() => import('./components/InfoStudent/GeneralInfoStudent'));
+// const GeneralInfoStudent = lazy(() => import('./components/InfoStudent/GeneralInfoStudent'));
 // const ClassStudent = lazy(() => import('./components/InfoStudent/ClassStudent'));
 
 type ActiveTabType = 'general' | 'class' | 'learning_outcome';
@@ -48,9 +51,22 @@ const StudentDetailPage = () => {
                 { title: 'Thông tin', href: null },
               ]}
               withActions={
-                <Button onClick={() => back()} leftSection={<IconLogout size={18} />}>
-                  Quay lại
-                </Button>
+                <div className="flex">
+                  <Stack gap={4}>
+                    <Box style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <Button
+                        component={Link as any}
+                        href={studentRoute.update(data?.data?.id)}
+                        leftSection={<IconEdit size={18} />}
+                      >
+                        Chỉnh sửa
+                      </Button>
+                      <Button onClick={() => back()} leftSection={<IconLogout size={18} />}>
+                        Quay lại
+                      </Button>
+                    </Box>
+                  </Stack>
+                </div>
               }
             />
           </Skeleton>

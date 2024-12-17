@@ -8,7 +8,7 @@ import {
   ResultResponse,
   Student,
 } from '@/types';
-import { StudentStatus } from '@/enums';
+import { Gender, SocialPolicyObject, StudentStatus, TrainingType } from '@/enums';
 import StatusSurvey from '@/enums/statusSurvey.enum';
 
 export type AdmissionYearListParams = {} & BaseParamsList;
@@ -22,6 +22,28 @@ export type GetListStudentBySurveyParams = {
 
 export type ChangeStatusStudent = {
   status: StudentStatus;
+};
+
+export type UpdateStudentRequestData = {
+  last_name?: string;
+  first_name?: string;
+  code?: string;
+  gender?: Gender;
+  thumbnail?: File | null;
+  person_email?: string;
+  permanent_residence?: string;
+  dob?: string; // Format: d-m-Y
+  pob?: string;
+  countryside?: string;
+  address?: string;
+  training_type?: TrainingType;
+  phone?: string;
+  nationality?: string;
+  citizen_identification?: string;
+  ethnic?: string;
+  religion?: string;
+  social_policy_object?: SocialPolicyObject;
+  note?: string;
 };
 
 export const useStudentService = () => {
@@ -54,6 +76,12 @@ export const useStudentService = () => {
   const getStudentById = (
     id: string | number | undefined
   ): Promise<AxiosResponse<ResultResponse<Student>, any>> => axiosInstance.get(`/students/${id}`);
+
+  const updateStudent = (
+    data: Student,
+    id: number
+  ): Promise<AxiosResponse<ResultResponse<Student>, any>> =>
+    axiosInstance.post(`/students/${id}`, data);
 
   const getStudentClassesById = (
     id: string | number | undefined
@@ -88,5 +116,6 @@ export const useStudentService = () => {
     getListStudentBySurveyPeriod,
     changeStatusStudent,
     getStudentClassesById,
+    updateStudent,
   };
 };
