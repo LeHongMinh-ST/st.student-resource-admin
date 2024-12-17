@@ -6,10 +6,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { lazy, useState } from 'react';
 import useSWR from 'swr';
-import { Class, ResultResponse } from '@/types';
+import { GeneralClass, ResultResponse } from '@/types';
 import { useClassService } from '@/services/classService';
 import { classRoute, dashboardRoute } from '@/routes';
-import { HttpStatusEnum } from '@/enums';
+import { ClassType, HttpStatusEnum } from '@/enums';
 import { PageHeader } from '@/components';
 import { GetListStudentParams, useStudentService } from '@/services/studentService';
 import { classTypeLabels } from '@/constants/labels';
@@ -83,7 +83,7 @@ const ClassDetailPage = () => {
     handleGetTotalStudentByClass
   );
 
-  const { data, isLoading } = useSWR<ResultResponse<Class>>(id, handleGetClassById);
+  const { data, isLoading } = useSWR<ResultResponse<GeneralClass>>(id, handleGetClassById);
 
   return (
     <ClassDetailPageStyled>
@@ -91,7 +91,7 @@ const ClassDetailPage = () => {
         <Stack>
           <Skeleton visible={isLoading}>
             <PageHeader
-              title={`Lớp ${data?.data?.type ? classTypeLabels[data.data.type] : 'Chưa cập nhật'} - ${data?.data?.name ?? ''} - ${data?.data?.code ?? ''}`}
+              title={`Lớp ${classTypeLabels[data?.data?.type as ClassType] ?? ''} - ${data?.data?.name ?? ''} - ${data?.data?.code ?? ''}`}
               breadcrumbItems={[
                 { title: 'Bảng điều khiển', href: dashboardRoute.dashboard },
                 { title: 'Danh sách lớp', href: classRoute.list },
@@ -125,13 +125,25 @@ const ClassDetailPage = () => {
                     <Stack gap={4} ta="left">
                       <Text size="md" fw={400}>
                         {data?.data?.type &&
-                        classTypeLabels[data.data.type] === classTypeLabels.major
-                          ? 'Giáo viên môn học:'
-                          : 'Giáo viên chủ nhiệm:'}
+                        classTypeLabels[data.data.type as ClassType] === classTypeLabels.subject
+                          ? 'Giảng viên môn học:'
+                          : 'Giảng viên chủ nhiệm:'}
                       </Text>
                       <Text size="lg" fw={500}>
                         {data?.data?.teacher?.first_name
                           ? `${data?.data?.teacher?.first_name} ${data?.data?.teacher?.last_name}`
+                          : 'Chưa cập nhật'}
+                      </Text>
+                    </Stack>
+                  </Grid.Col>
+                  <Grid.Col span={3}>
+                    <Stack gap={4} ta="left">
+                      <Text size="md" fw={400}>
+                        Giảng viên phụ trách:
+                      </Text>
+                      <Text size="lg" fw={500}>
+                        {data?.data?.sub_teacher?.first_name
+                          ? `${data?.data?.sub_teacher?.first_name} ${data?.data?.teacher?.last_name}`
                           : 'Chưa cập nhật'}
                       </Text>
                     </Stack>

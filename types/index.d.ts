@@ -5,7 +5,6 @@ import {
   SocialPolicyObject,
   StatusEnum,
   StatusFileImport,
-  StudentRole,
   StudentStatus,
   TrainingType,
 } from '@/enums';
@@ -100,19 +99,22 @@ type Faculty = {
   name: string;
   code: string;
 };
-
-type GeneralClass = {
-  id?: number;
-  name: string;
-  code: string;
-  faculty?: Faculty;
-  teacher?: User;
-  type: string;
-  status: StatusEnum;
-  student_role: StudentRole;
-  created_at?: string;
-  updated_at?: string;
-};
+//
+// type GeneralClass = {
+//   id?: number;
+//   name: string;
+//   code: string;
+//   faculty?: Faculty;
+//   teacher?: User;
+//   sub_teacher?: User;
+//   type: string;
+//   status: StatusEnum;
+//   student_role: StudentRole;
+//   teacher_id?: number;
+//   sub_teacher_id?: number
+//   created_at?: string;
+//   updated_at?: string;
+// };
 
 type Student = {
   id?: number;
@@ -234,7 +236,7 @@ type TrainingIndustry = {
   faculty?: Faculty;
 };
 
-type Class = {
+type GeneralClass = {
   id?: number;
   name: string;
   code: string;
@@ -246,6 +248,7 @@ type Class = {
   major_id?: number;
   teacher_id?: number;
   teacher?: User;
+  sub_teacher?: User;
   faculty?: Faculty;
   officer?: {
     student_president?: Student;

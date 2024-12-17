@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import useSWR from 'swr';
 import { dashboardRoute, classRoute } from '@/routes';
-import { Class, ResultResponse, User } from '@/types';
+import { GeneralClass, ResultResponse, User } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
 import { PageHeader, Surface } from '@/components';
 import { ClassTypeSelectList, defaultPramsList, StatusList } from '@/constants/commons';
@@ -32,7 +32,7 @@ const ClassCreatePage = () => {
     setValue,
     formState: { errors, isSubmitting },
     setError,
-  } = useForm<Class>({
+  } = useForm<GeneralClass>({
     defaultValues: {
       status: Status.Enable,
       type: ClassType.Basic,
@@ -69,7 +69,7 @@ const ClassCreatePage = () => {
     value: `${item.id}`,
   }));
 
-  const onSubmit = async (data: Class) => {
+  const onSubmit = async (data: GeneralClass) => {
     if (data.teacher_id) {
       data.teacher_id = Number(data.teacher_id);
     }
@@ -157,7 +157,7 @@ const ClassCreatePage = () => {
                         />
                         {/*<SelectSearch />*/}
                         <Select
-                          label="Giáo viên chủ nhiệm"
+                          label="Giảng viên chủ nhiệm"
                           placeholder="Chọn giáo viên"
                           data={dataOptionUser}
                           searchable

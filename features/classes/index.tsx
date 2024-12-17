@@ -16,7 +16,7 @@ import TeacherNameCellTable from '@/features/classes/components/Cells/TeacherNam
 import StatusFilter from '@/features/departments/components/Filters/StatusFilter';
 import { classRoute, dashboardRoute } from '@/routes';
 import { ClassListParams, useClassService } from '@/services/classService';
-import { Class, ResultResponse } from '@/types';
+import { GeneralClass, ResultResponse } from '@/types';
 import { formatDateString } from '@/utils/func/formatDateString';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 
@@ -29,7 +29,7 @@ const ClassPage = () => {
   const { push } = useRouter();
   const { authUser } = useAuthStore();
   const [isOpen, { open: onOpen, close: onClose }] = useDisclosure(false);
-  const [selected, setSelected] = useState<Class | null>(null);
+  const [selected, setSelected] = useState<GeneralClass | null>(null);
 
   const handleGetListClass = () =>
     classService
@@ -43,12 +43,12 @@ const ClassPage = () => {
     handleGetListClass
   );
 
-  const columns: DataTableProps<Class>['columns'] = useMemo(
+  const columns: DataTableProps<GeneralClass>['columns'] = useMemo(
     () => [
       {
         accessor: 'code',
         title: 'Mã lớp',
-        render: (generalClass: Class) => (
+        render: (generalClass: GeneralClass) => (
           <Text
             style={{ cursor: 'pointer' }}
             fw={500}
@@ -77,14 +77,16 @@ const ClassPage = () => {
       {
         accessor: 'name',
         title: 'Tên lớp',
-        render: (generalClass: Class) => <Text>{generalClass.name}</Text>,
+        render: (generalClass: GeneralClass) => <Text>{generalClass.name}</Text>,
         sorting: true,
         filtering: true,
       },
       {
         accessor: 'teacher_name',
         title: 'Giảng viên chủ nhiệm',
-        render: (generalClass: Class) => <TeacherNameCellTable user={generalClass?.teacher} />,
+        render: (generalClass: GeneralClass) => (
+          <TeacherNameCellTable user={generalClass?.teacher} />
+        ),
         sorting: true,
         filtering: true,
       },
@@ -97,7 +99,7 @@ const ClassPage = () => {
             onChange={(value) => setClassParams({ ...classParams, status: value as StatusEnum })}
           />
         ),
-        render: (generalClass: Class) => <StatusBadge status={generalClass.status} />,
+        render: (generalClass: GeneralClass) => <StatusBadge status={generalClass.status} />,
         sorting: true,
         filtering: !!classParams.status,
       },
@@ -105,7 +107,7 @@ const ClassPage = () => {
         accessor: 'created_at',
         title: 'Ngày tạo',
         sortable: true,
-        render: (generalClass: Class) => (
+        render: (generalClass: GeneralClass) => (
           <Text fz="sm">{formatDateString(generalClass?.created_at, 'HH:MM dd/mm/yyyy')}</Text>
         ),
       },
@@ -113,7 +115,7 @@ const ClassPage = () => {
         accessor: 'id',
         title: 'Hành động',
         width: 100,
-        render: (generalClass: Class) => (
+        render: (generalClass: GeneralClass) => (
           <ClassActionMenu generalClass={generalClass} onOpen={onOpen} setSelected={setSelected} />
         ),
       },

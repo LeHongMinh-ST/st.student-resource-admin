@@ -3,14 +3,14 @@ import { IconDotsVertical, IconEdit, IconEye, IconTrash } from '@tabler/icons-re
 import Link from 'next/link';
 import React from 'react';
 import { classRoute } from '@/routes';
-import { Class } from '@/types';
+import { GeneralClass } from '@/types';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import Role from '@/enums/role.enum';
 
 interface ClassActionMenuProps {
-  generalClass: Class;
+  generalClass: GeneralClass;
   onOpen: () => void;
-  setSelected: (generalClass: Class) => void;
+  setSelected: (generalClass: GeneralClass) => void;
 }
 
 const ClassActionMenu: React.FC<ClassActionMenuProps> = ({ generalClass, onOpen, setSelected }) => {
