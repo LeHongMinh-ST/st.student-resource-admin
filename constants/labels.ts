@@ -38,9 +38,9 @@ export const statusFileImportLabels: Record<StatusFileImport, string> = {
 };
 
 export const roleLabels: Record<RoleEnum, string> = {
-  [RoleEnum.Admin]: 'Quản trị viên',
+  [RoleEnum.Admin]: 'Ban chủ nhiệm',
   [RoleEnum.Teacher]: 'Giảng viên',
-  [RoleEnum.Office]: 'Cán bộ khoa',
+  [RoleEnum.Office]: 'Trợ lý khoa',
 };
 
 export const studentRoleLabels: Record<StudentRole, string> = {

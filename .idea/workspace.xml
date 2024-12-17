@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a19e1239-6d18-4fbf-8d8a-01a0fa85d8c4" name="Changes" comment="feat: add detail student">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/students/detail/components/InfoStudent/ClassStudent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/detail/components/InfoStudent/ClassStudent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/students/detail/components/InfoStudent/GeneralInfoStudent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/detail/components/InfoStudent/GeneralInfoStudent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/students/detail/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/detail/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/studentService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/studentService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants/labels.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/labels.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +113,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-WS-243.22562.112" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-PS-243.22562.164" />
+        <option value="bundled-php-predefined-a98d8de5180a-7980c7aaca61-com.jetbrains.php.sharedIndexes-PS-243.22562.164" />
       </set>
     </attachedChunks>
   </component>
@@ -170,6 +168,9 @@
       <workItem from="1733970932905" duration="168000" />
       <workItem from="1734053893443" duration="437000" />
       <workItem from="1734054821097" duration="3422000" />
+      <workItem from="1734405494694" duration="232000" />
+      <workItem from="1734406070623" duration="398000" />
+      <workItem from="1734407450321" duration="118000" />
     </task>
     <servers />
   </component>
