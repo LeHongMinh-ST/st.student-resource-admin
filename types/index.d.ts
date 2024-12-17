@@ -196,22 +196,22 @@ type Family = {
 };
 
 type StudentInfo = {
-  note: string;
-  person_email: string;
-  gender: Gender;
-  permanent_residence: string;
-  dob: string;
-  pob: string;
-  countryside: string;
-  address: string;
-  training_type: TrainingType;
-  phone: string;
-  nationality: string;
-  citizen_identification: string;
-  ethnic: string;
-  religion: string;
-  thumbnail: string;
-  social_policy_object: SocialPolicyObject;
+  note?: string;
+  person_email?: string;
+  gender?: Gender;
+  permanent_residence?: string;
+  dob?: string;
+  pob?: string;
+  countryside?: string;
+  address?: string;
+  training_type?: TrainingType;
+  phone?: string;
+  nationality?: string;
+  citizen_identification?: string;
+  ethnic?: string;
+  religion?: string;
+  thumbnail?: string;
+  social_policy_object?: SocialPolicyObject;
 };
 
 type Department = {

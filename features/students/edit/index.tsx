@@ -228,6 +228,7 @@ const StudentEditPage = () => {
                           }
                           onChange={(value) => {
                             if (value) {
+                              // @ts-ignore
                               setValue('info.dob', formatDateString(value, 'mm/dd/yyyy') as String);
                             } else {
                               setValue('info.dob', '');
