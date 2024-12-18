@@ -18,7 +18,7 @@ const UserNameCellTable: FC<UserNameCellTableProps> = ({ user }) => (
     ></Avatar>
     <Stack gap={0}>
       <Text fz="sm" fw={600}>
-        {user.first_name} {user.last_name}
+        {user.last_name} {user.first_name}
       </Text>
       <Text fz="xs">{user.email}</Text>
     </Stack>
