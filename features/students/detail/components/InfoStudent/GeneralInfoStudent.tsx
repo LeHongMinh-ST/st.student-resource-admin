@@ -1,5 +1,5 @@
 import { Box, Divider, Grid, Group, List, ListItem, Title } from '@mantine/core';
-import { IconUser, IconBook, IconUsers } from '@tabler/icons-react';
+import { IconUser, IconBook, IconUsers, IconNotebook } from '@tabler/icons-react';
 import styled from '@emotion/styled';
 import {
   familyRelationshipLabels,
@@ -105,6 +105,14 @@ const GeneralInfoStudent = ({ studentData }: GeneralInfoStudentProps) => {
             {family.full_name} (SĐT: {family.phone || 'Không có'})
           </ListItem>
         ))}
+      </List>
+      <Group mt="lg" mb="md">
+        <IconNotebook size={20} />
+        <Title order={4}>Ghi chú</Title>
+      </Group>
+      <Divider />
+      <List spacing="xs" mt="sm">
+        {info?.note}
       </List>
     </Box>
   );
