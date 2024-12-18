@@ -14,6 +14,8 @@ import { PageHeader } from '@/components';
 import { GetListStudentParams, useStudentService } from '@/services/studentService';
 import { classTypeLabels } from '@/constants/labels';
 import HttpStatus from '@/enums/http-status.enum';
+import { useAuthStore } from '@/utils/recoil/auth/authState';
+import Role from '@/enums/role.enum';
 
 const StudentListByClass = lazy(
   () => import('@/features/classes/components/StudentListByClassComponent/StudentListByClass')
@@ -23,6 +25,7 @@ const ClassDetailPage = () => {
   const { getClassById } = useClassService();
   const { query, push, back } = useRouter();
   const { id } = query;
+  const { authUser } = useAuthStore();
 
   const handleGetClassById = () =>
     getClassById(Number(id))
@@ -101,13 +104,15 @@ const ClassDetailPage = () => {
                 <div className="flex">
                   <Stack gap={4}>
                     <Box style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <Button
-                        component={Link as any}
-                        href={classRoute.update(data?.data?.id)}
-                        leftSection={<IconEdit size={18} />}
-                      >
-                        Chỉnh sửa
-                      </Button>
+                      {authUser?.role === Role.Admin && (
+                        <Button
+                          component={Link as any}
+                          href={classRoute.update(data?.data?.id)}
+                          leftSection={<IconEdit size={18} />}
+                        >
+                          Chỉnh sửa
+                        </Button>
+                      )}
                       <Button onClick={() => back()} leftSection={<IconLogout size={18} />}>
                         Quay lại
                       </Button>

@@ -6,6 +6,7 @@ import { BaseParamsList, ResultResponse, GeneralClass, Student } from '@/types';
 export type ClassListParams = {
   status?: Status;
   q?: string;
+  type?: string;
 } & BaseParamsList;
 
 export const useClassService = () => {

@@ -1,10 +1,10 @@
-import { Button, Container, Paper, Stack, Text } from '@mantine/core';
+import { Button, Container, LoadingOverlay, Paper, rem, Stack, Tabs, Text } from '@mantine/core';
 import styled from '@emotion/styled';
 import { useDisclosure } from '@mantine/hooks';
-import { IconPlus } from '@tabler/icons-react';
+import { IconBook, IconNotebook, IconPlus } from '@tabler/icons-react';
 import { DataTableProps } from 'mantine-datatable';
 import Link from 'next/link';
-import { useCallback, useMemo, useState } from 'react';
+import { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import { CommonDataTable, DeleteModal, PageHeader, StatusBadge } from '@/components';
@@ -19,12 +19,17 @@ import { ClassListParams, useClassService } from '@/services/classService';
 import { GeneralClass, ResultResponse } from '@/types';
 import { formatDateString } from '@/utils/func/formatDateString';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
+import Role from '@/enums/role.enum';
 
+type ActiveTabType = 'teacher' | 'sub_teacher';
 const ClassPage = () => {
   const classService = useClassService();
   const [classParams, setClassParams] = useState<ClassListParams>({
     ...defaultPramsList,
   });
+
+  const [activeTab, setActiveTab] = useState<ActiveTabType | null>('teacher');
+  const iconStyle = { width: rem(24), height: rem(24) };
 
   const { push } = useRouter();
   const { authUser } = useAuthStore();
@@ -131,6 +136,13 @@ const ClassPage = () => {
     }
   }, [selected, classService]);
 
+  useEffect(() => {
+    setClassParams({
+      ...defaultPramsList,
+      type: activeTab as string,
+    });
+  }, [activeTab]);
+
   return (
     <ClassPageStyled>
       <DeleteModal entityName="bộ môn" onDelete={handleDelete} isOpen={isOpen} onClose={onClose} />
@@ -143,26 +155,93 @@ const ClassPage = () => {
               { title: 'Lớp học', href: null },
             ]}
             withActions={
-              <Button
-                component={Link}
-                href={classRoute.create}
-                leftSection={<IconPlus size={18} />}
-              >
-                Tạo mới
-              </Button>
+              authUser?.role === Role.Admin && (
+                <Button
+                  component={Link}
+                  href={classRoute.create}
+                  leftSection={<IconPlus size={18} />}
+                >
+                  Tạo mới
+                </Button>
+              )
             }
           />
           <Paper p="md" shadow="md" radius="md">
-            <CommonDataTable
-              meta={data?.meta}
-              columns={columns}
-              records={data?.data}
-              fetching={isLoading}
-              onPageChange={(page: number) => setClassParams((params) => ({ ...params, page }))}
-              onRecordsPerPageChange={(perPage: number) =>
-                setClassParams((params) => ({ ...params, limit: perPage }))
-              }
-            />
+            <Tabs
+              value={activeTab}
+              onChange={(value) => {
+                setActiveTab(value as ActiveTabType);
+              }}
+            >
+              <Tabs.List>
+                <Tabs.Tab value="teacher" leftSection={<IconNotebook style={iconStyle} />}>
+                  <Text fw={500} size="md">
+                    {authUser?.role === Role.Teacher ? 'Lớp phụ trách chủ nhiệm' : 'Tất cả các lớp'}
+                  </Text>
+                </Tabs.Tab>
+                {authUser?.role === Role.Teacher && (
+                  <Tabs.Tab value="sub_teacher" leftSection={<IconBook style={iconStyle} />}>
+                    <Text fw={500} size="md">
+                      Lớp cố vấn học tập
+                    </Text>
+                  </Tabs.Tab>
+                )}
+                {/* <Tabs.Tab value="class" leftSection={<IconBook style={iconStyle} />}> */}
+                {/*   <Text fw={500} size="md"> */}
+                {/*     Lớp học */}
+                {/*   </Text> */}
+                {/* </Tabs.Tab> */}
+                {/* <Tabs.Tab */}
+                {/*   value="learning_outcome" */}
+                {/*   leftSection={<IconBackpack style={iconStyle} />} */}
+                {/* > */}
+                {/*   <Text fw={500} size="md"> */}
+                {/*     Điểm */}
+                {/*   </Text> */}
+                {/* </Tabs.Tab> */}
+              </Tabs.List>
+
+              <Suspense fallback={<LoadingOverlay visible />}>
+                <Tabs.Panel value="teacher">
+                  {activeTab === 'teacher' && (
+                    <CommonDataTable
+                      meta={data?.meta}
+                      columns={columns}
+                      records={data?.data}
+                      fetching={isLoading}
+                      onPageChange={(page: number) =>
+                        setClassParams((params) => ({ ...params, page }))
+                      }
+                      onRecordsPerPageChange={(perPage: number) =>
+                        setClassParams((params) => ({ ...params, limit: perPage }))
+                      }
+                    />
+                  )}
+                </Tabs.Panel>
+                <Tabs.Panel value="sub_teacher">
+                  {activeTab === 'sub_teacher' && (
+                    <CommonDataTable
+                      meta={data?.meta}
+                      columns={columns}
+                      records={data?.data}
+                      fetching={isLoading}
+                      onPageChange={(page: number) =>
+                        setClassParams((params) => ({ ...params, page }))
+                      }
+                      onRecordsPerPageChange={(perPage: number) =>
+                        setClassParams((params) => ({ ...params, limit: perPage }))
+                      }
+                    />
+                  )}
+                </Tabs.Panel>
+                {/* <Tabs.Panel value="class"> */}
+                {/*   {activeTab === 'class' && <ClassStudent studentId={data?.data?.id} />} */}
+                {/* </Tabs.Panel> */}
+                {/* <Tabs.Panel value="learning_outcome"> */}
+                {/*   {activeTab === 'learning_outcome' && <GeneralInfoStudent />} */}
+                {/* </Tabs.Panel> */}
+              </Suspense>
+            </Tabs>
           </Paper>
         </Stack>
       </Container>

@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="a19e1239-6d18-4fbf-8d8a-01a0fa85d8c4" name="Changes" comment="feat: add detail student">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/students/detail/components/InfoStudent/GeneralInfoStudent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/detail/components/InfoStudent/GeneralInfoStudent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants/sidebarNavigation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/sidebarNavigation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/classes/detail/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/classes/detail/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/classes/edit/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/classes/edit/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/classes/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/classes/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/classService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/classService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -174,7 +178,9 @@
       <workItem from="1734408560731" duration="2397000" />
       <workItem from="1734486106676" duration="424000" />
       <workItem from="1734488985006" duration="11000" />
-      <workItem from="1734499354865" duration="287000" />
+      <workItem from="1734499354865" duration="4915000" />
+      <workItem from="1734512162636" duration="1653000" />
+      <workItem from="1734514209140" duration="497000" />
     </task>
     <servers />
   </component>

@@ -32,8 +32,8 @@ export const sidebarNavigationAdmin: SidebarNavigationProps[] = [
     links: [
       { label: 'Danh sách sinh viên', icon: IconUsers, link: studentRoute.listCourse },
       { label: 'Đợt tốt nghiệp', icon: IconSchool, link: '/students-graduation' },
-      { label: 'Cảnh báo', icon: IconAlertTriangle, link: '/students-warning' },
-      { label: 'Buộc thôi học', icon: IconBan, link: '/students-leave' },
+      { label: 'Cảnh báo', icon: IconAlertTriangle, link: '/student-warning' },
+      { label: 'Buộc thôi học', icon: IconBan, link: '/student-leave' },
       { label: 'Xác nhận thông tin', icon: IconUserEdit, link: '/students-request' },
       { label: 'Phản ánh', icon: IconMessageQuestion, link: '/students-report' },
     ],
@@ -76,8 +76,8 @@ export const sidebarNavigationOfficer: SidebarNavigationProps[] = [
     title: 'Sinh viên',
     links: [
       { label: 'Danh sách sinh viên', icon: IconUsers, link: studentRoute.listCourse },
-      { label: 'Cảnh báo', icon: IconAlertTriangle, link: '/students-warning' },
-      { label: 'Buộc thôi học', icon: IconBan, link: '/students-leave' },
+      { label: 'Cảnh báo', icon: IconAlertTriangle, link: '/student-warning' },
+      { label: 'Buộc thôi học', icon: IconBan, link: '/student-leave' },
       { label: 'Xác nhận thông tin', icon: IconUserEdit, link: '/students-request' },
       { label: 'Phản ánh', icon: IconMessageQuestion, link: '/students-report' },
     ],
@@ -99,7 +99,6 @@ export const sidebarNavigationTeacher: SidebarNavigationProps[] = [
   {
     title: 'Sinh viên',
     links: [
-      { label: 'Danh sách sinh viên', icon: IconUsers, link: studentRoute.listCourse },
       { label: 'Xác nhận thông tin', icon: IconUserEdit, link: '/students-request' },
       { label: 'Phản ánh', icon: IconMessageQuestion, link: '/students-report' },
     ],

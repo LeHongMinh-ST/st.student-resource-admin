@@ -48,7 +48,7 @@ const ClassUpdatePage = () => {
   });
 
   const { updateClass, getClass } = useClassService();
-  const { query, push, back } = useRouter();
+  const { query, back } = useRouter();
   const { id } = query;
   const { authUser } = useAuthStore();
   const handleGetClass = () => getClass(Number(id)).then((res) => res.data);
@@ -80,13 +80,13 @@ const ClassUpdatePage = () => {
     value: `${item.id}`,
   }));
 
-  const { data, error, isLoading } = useSWR([id], handleGetClass);
+  const { data, isLoading } = useSWR([id], handleGetClass);
 
-  if (error) {
-    if (error.status === HttpStatus.HTTP_NOT_FOUND) {
-      push('/404').then();
-    }
-  }
+  // if (error) {
+  //   if (error.status === HttpStatus.HTTP_NOT_FOUND) {
+  //     push('/404').then();
+  //   }
+  // }
 
   useEffect(() => {
     if (data) {
