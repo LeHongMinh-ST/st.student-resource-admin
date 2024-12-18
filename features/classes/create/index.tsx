@@ -157,7 +157,7 @@ const ClassCreatePage = () => {
                         />
                         {/*<SelectSearch />*/}
                         <Select
-                          label="Giảng viên chủ nhiệm"
+                          label="Giáo viên chủ nhiệm (GVCN)"
                           placeholder="Chọn giảng viên"
                           data={dataOptionUser}
                           searchable

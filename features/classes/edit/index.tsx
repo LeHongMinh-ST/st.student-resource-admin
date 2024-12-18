@@ -179,7 +179,7 @@ const ClassUpdatePage = () => {
                         </Skeleton>
                         <Skeleton visible={isLoading}>
                           <Select
-                            label="Giảng viên chủ nhiệm"
+                            label="Giáo viên chủ nhiệm (GVCN)"
                             placeholder="Chọn giảng viên"
                             data={dataOptionUser}
                             onKeyUp={(e) => {
@@ -198,7 +198,7 @@ const ClassUpdatePage = () => {
                         </Skeleton>
                         <Skeleton visible={isLoading}>
                           <Select
-                            label="Giảng viên phụ trách"
+                            label="Cố vấn học tập (CVHT)"
                             placeholder="Chọn giảng viên"
                             data={dataOptionUser}
                             onKeyUp={(e) => {

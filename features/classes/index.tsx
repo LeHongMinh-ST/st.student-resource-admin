@@ -83,7 +83,7 @@ const ClassPage = () => {
       },
       {
         accessor: 'teacher_name',
-        title: 'Giảng viên chủ nhiệm',
+        title: 'Giáo viên chủ nhiệm (GVCN)',
         render: (generalClass: GeneralClass) => (
           <TeacherNameCellTable user={generalClass?.teacher} />
         ),

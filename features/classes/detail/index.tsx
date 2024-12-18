@@ -127,7 +127,7 @@ const ClassDetailPage = () => {
                         {data?.data?.type &&
                         classTypeLabels[data.data.type as ClassType] === classTypeLabels.subject
                           ? 'Giảng viên môn học:'
-                          : 'Giảng viên chủ nhiệm:'}
+                          : 'Giáo viên chủ nhiệm (GVCN):'}
                       </Text>
                       <Text size="lg" fw={500}>
                         {data?.data?.teacher?.first_name
@@ -139,7 +139,7 @@ const ClassDetailPage = () => {
                   <Grid.Col span={3}>
                     <Stack gap={4} ta="left">
                       <Text size="md" fw={400}>
-                        Giảng viên phụ trách:
+                        Cố vấn học tập (CVHT):
                       </Text>
                       <Text size="lg" fw={500}>
                         {data?.data?.sub_teacher?.first_name
@@ -159,7 +159,7 @@ const ClassDetailPage = () => {
                     <Stack gap={4} ta="left">
                       <ClassDetailContainerInfo>
                         <Text size="md" fw={400}>
-                          Lớp truưởng:
+                          Lớp trưởng:
                         </Text>
                         <Text size="lg" fw={500}>
                           {data?.data?.officer?.student_president?.full_name ?? 'Chưa có'}

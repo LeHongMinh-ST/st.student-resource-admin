@@ -187,9 +187,7 @@ const StudentEditPage = () => {
 
                         <TextInput
                           label="Email cá nhân"
-                          {...register('info.person_email', {
-                            required: ERROR_MESSAGES.student.email.required,
-                          })}
+                          {...register('info.person_email')}
                           error={errors.info?.person_email?.message}
                         />
                         <TextInput
