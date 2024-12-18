@@ -197,7 +197,7 @@ const StudentEditPage = () => {
                         />
 
                         <TextInput
-                          label="Số CMND"
+                          label="Số CMND/CCCD"
                           {...register('info.citizen_identification')}
                           error={errors.info?.citizen_identification?.message}
                         />
@@ -215,6 +215,7 @@ const StudentEditPage = () => {
                           rightSection={
                             <IconCalendar style={{ width: '18px', height: '18px' }} stroke={1.5} />
                           }
+                          label="Ngày sinh"
                           placeholder="Chọn ngày sinh"
                           locale="vi"
                           valueFormat="DD/MM/YYYY"

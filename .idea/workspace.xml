@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a19e1239-6d18-4fbf-8d8a-01a0fa85d8c4" name="Changes" comment="feat: add detail student">
-      <change beforePath="$PROJECT_DIR$/features/students/edit/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/edit/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
