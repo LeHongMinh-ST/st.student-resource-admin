@@ -52,7 +52,7 @@ const ClassPage = () => {
     () => [
       {
         accessor: 'code',
-        title: 'Mã lớp',
+        title: 'Lớp',
         render: (generalClass: GeneralClass) => (
           <Text
             style={{ cursor: 'pointer' }}
