@@ -69,13 +69,10 @@ const ClassUpdatePage = () => {
       .then((res) => res.data)
       .catch((error) => error);
 
-  const { data: dataUser } = useSWR<ResultResponse<User[]>>(
-    ['getList', userParams],
-    handleGetListUser
-  );
+  const { data: dataUser } = useSWR<User[]>(['getList', userParams], handleGetListUser);
 
-  const dataOptionUser: SelectList<string>[] = dataUser?.data
-    ? dataUser?.data?.map(
+  const dataOptionUser: SelectList<string>[] = dataUser
+    ? dataUser?.map(
         (item: User) =>
           ({
             label: `${item.last_name} ${item.first_name} `,
@@ -95,25 +92,25 @@ const ClassUpdatePage = () => {
   useEffect(() => {
     if (data) {
       const dataClass = data?.data;
-      const currentTeacher = dataOptionUser.find(
-        (item) => item.value === String(dataClass?.teacher_id)
-      );
-      if (currentTeacher) {
-        dataOptionUser.push({
-          label: `${dataClass?.teacher?.last_name} ${dataClass?.teacher?.first_name} `,
-          value: `${dataClass?.teacher?.id}`,
-        });
-      }
-
-      const currentSubTeacher = dataOptionUser.find(
-        (item) => item.value === String(dataClass?.sub_teacher_id)
-      );
-      if (currentSubTeacher) {
-        dataOptionUser.push({
-          label: `${dataClass?.sub_teacher?.last_name} ${dataClass?.sub_teacher?.first_name} `,
-          value: `${dataClass?.sub_teacher?.id}`,
-        });
-      }
+      // const currentTeacher = dataOptionUser.find(
+      //   (item) => item.value === String(dataClass?.teacher_id)
+      // );
+      // if (currentTeacher) {
+      //   dataOptionUser.push({
+      //     label: `${dataClass?.teacher?.last_name} ${dataClass?.teacher?.first_name} `,
+      //     value: `${dataClass?.teacher?.id}`,
+      //   });
+      // }
+      //
+      // const currentSubTeacher = dataOptionUser.find(
+      //   (item) => item.value === String(dataClass?.sub_teacher_id)
+      // );
+      // if (currentSubTeacher) {
+      //   dataOptionUser.push({
+      //     label: `${dataClass?.sub_teacher?.last_name} ${dataClass?.sub_teacher?.first_name} `,
+      //     value: `${dataClass?.sub_teacher?.id}`,
+      //   });
+      // }
       reset(dataClass);
     }
   }, [data]);
