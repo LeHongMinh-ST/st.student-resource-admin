@@ -75,13 +75,15 @@ const ClassUpdatePage = () => {
     handleGetListUser
   );
 
-  const dataOptionUser: SelectList<string>[] = dataUser?.data?.map(
-    (item: User) =>
-      ({
-        label: `${item.last_name} ${item.first_name} `,
-        value: `${item.id}`,
-      }) as SelectList<string>
-  );
+  const dataOptionUser: SelectList<string>[] = dataUser?.data
+    ? dataUser?.data?.map(
+        (item: User) =>
+          ({
+            label: `${item.last_name} ${item.first_name} `,
+            value: `${item.id}`,
+          }) as SelectList<string>
+      )
+    : [];
 
   const { data, isLoading } = useSWR<ResultResponse<GeneralClass>>([id], handleGetClass);
 
