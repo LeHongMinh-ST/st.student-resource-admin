@@ -91,8 +91,6 @@ const ClassUpdatePage = () => {
   useEffect(() => {
     if (data) {
       const dataClass = data?.data;
-      dataClass.teacher_id = String(dataClass.teacher_id);
-      dataClass.sub_teacher_id = String(dataClass.sub_teacher_id);
       reset(dataClass);
     }
   }, [data]);
@@ -191,6 +189,7 @@ const ClassUpdatePage = () => {
                             }}
                             clearable
                             searchable
+                            defaultValue={String(data?.data.teacher_id)}
                             value={`${getValues('teacher_id')}`}
                             onChange={(value) => {
                               // @ts-ignore
@@ -208,6 +207,7 @@ const ClassUpdatePage = () => {
                               // @ts-ignore
                               handleInputSearchChange(e.target?.value ?? '');
                             }}
+                            defaultValue={String(data?.data.sub_teacher_id)}
                             clearable
                             searchable
                             value={`${getValues('sub_teacher_id')}`}
