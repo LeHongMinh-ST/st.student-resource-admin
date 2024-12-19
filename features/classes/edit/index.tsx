@@ -97,22 +97,22 @@ const ClassUpdatePage = () => {
     if (data) {
       const dataClass = data?.data;
       const currentTeacher = dataOptionUser.find(
-        (item) => item.value === String(dataClass.teacher_id)
+        (item) => item.value === String(dataClass?.teacher_id)
       );
       if (currentTeacher) {
         dataOptionUser.push({
-          label: `${dataClass.teacher.last_name} ${dataClass.teacher.first_name} `,
-          value: `${dataClass.teacher.id}`,
+          label: `${dataClass?.teacher?.last_name} ${dataClass?.teacher?.first_name} `,
+          value: `${dataClass?.teacher?.id}`,
         });
       }
 
       const currentSubTeacher = dataOptionUser.find(
-        (item) => item.value === String(dataClass.sub_teacher_id)
+        (item) => item.value === String(dataClass?.sub_teacher_id)
       );
       if (currentSubTeacher) {
         dataOptionUser.push({
-          label: `${dataClass.sub_teacher.last_name} ${dataClass.sub_teacher.first_name} `,
-          value: `${dataClass.sub_teacher.id}`,
+          label: `${dataClass?.sub_teacher?.last_name} ${dataClass?.sub_teacher?.first_name} `,
+          value: `${dataClass?.sub_teacher?.id}`,
         });
       }
       reset(dataClass);
