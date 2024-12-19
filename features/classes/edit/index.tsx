@@ -20,7 +20,7 @@ import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { classRoute, dashboardRoute } from '@/routes';
 import { useClassService } from '@/services/classService';
-import { GeneralClass, ResultResponse, User } from '@/types';
+import { GeneralClass, ResultResponse, SelectList, User } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
 import { PageHeader, Surface } from '@/components';
 import { ClassTypeSelectList, defaultPramsList, StatusList } from '@/constants/commons';
@@ -75,10 +75,13 @@ const ClassUpdatePage = () => {
     handleGetListUser
   );
 
-  const dataOptionUser = dataUser?.data?.map((item: User) => ({
-    label: `${item.last_name} ${item.first_name} `,
-    value: `${item.id}`,
-  }));
+  const dataOptionUser: SelectList<string>[] = dataUser?.data?.map(
+    (item: User) =>
+      ({
+        label: `${item.last_name} ${item.first_name} `,
+        value: `${item.id}`,
+      }) as SelectList<string>
+  );
 
   const { data, isLoading } = useSWR<ResultResponse<GeneralClass>>([id], handleGetClass);
 
@@ -91,6 +94,25 @@ const ClassUpdatePage = () => {
   useEffect(() => {
     if (data) {
       const dataClass = data?.data;
+      const currentTeacher = dataOptionUser.find(
+        (item) => item.value === String(dataClass.teacher_id)
+      );
+      if (currentTeacher) {
+        dataOptionUser.push({
+          label: `${dataClass.teacher.last_name} ${dataClass.teacher.first_name} `,
+          value: `${dataClass.teacher.id}`,
+        });
+      }
+
+      const currentSubTeacher = dataOptionUser.find(
+        (item) => item.value === String(dataClass.sub_teacher_id)
+      );
+      if (currentSubTeacher) {
+        dataOptionUser.push({
+          label: `${dataClass.sub_teacher.last_name} ${dataClass.sub_teacher.first_name} `,
+          value: `${dataClass.sub_teacher.id}`,
+        });
+      }
       reset(dataClass);
     }
   }, [data]);
