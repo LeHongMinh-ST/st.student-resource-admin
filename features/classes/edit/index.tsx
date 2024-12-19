@@ -76,11 +76,11 @@ const ClassUpdatePage = () => {
   );
 
   const dataOptionUser = dataUser?.data?.map((item: User) => ({
-    label: `${item.first_name} ${item.last_name}`,
+    label: `${item.last_name} ${item.first_name} `,
     value: `${item.id}`,
   }));
 
-  const { data, isLoading } = useSWR([id], handleGetClass);
+  const { data, isLoading } = useSWR<ResultResponse<GeneralClass>>([id], handleGetClass);
 
   // if (error) {
   //   if (error.status === HttpStatus.HTTP_NOT_FOUND) {
@@ -90,7 +90,10 @@ const ClassUpdatePage = () => {
 
   useEffect(() => {
     if (data) {
-      reset(data.data);
+      const dataClass = data?.data;
+      dataClass.teacher_id = String(dataClass.teacher_id);
+      dataClass.sub_teacher_id = String(dataClass.sub_teacher_id);
+      reset(dataClass);
     }
   }, [data]);
 

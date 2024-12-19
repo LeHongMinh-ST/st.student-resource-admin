@@ -23,6 +23,8 @@ import { useStudentService } from '@/services/studentService';
 import StudentThumbnail from '@/features/students/detail/components/InfoStudent/StudentThumbnail';
 import { ResultResponse, Student } from '@/types';
 import GeneralInfoStudent from './components/InfoStudent/GeneralInfoStudent';
+import Role from '@/enums/role.enum';
+import { useAuthStore } from '@/utils/recoil/auth/authState';
 
 // const GeneralInfoStudent = lazy(() => import('./components/InfoStudent/GeneralInfoStudent'));
 // const ClassStudent = lazy(() => import('./components/InfoStudent/ClassStudent'));
@@ -37,6 +39,7 @@ const StudentDetailPage = () => {
   const { data, isLoading, mutate } = useSWR<ResultResponse<Student>>([id], handleGetStudentById);
   const [activeTab, setActiveTab] = useState<ActiveTabType | null>('general');
   const iconStyle = { width: rem(24), height: rem(24) };
+  const { authUser } = useAuthStore();
 
   return (
     <StudentDetailPageStyled>
@@ -54,13 +57,16 @@ const StudentDetailPage = () => {
                 <div className="flex">
                   <Stack gap={4}>
                     <Box style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <Button
-                        component={Link as any}
-                        href={studentRoute.update(data?.data?.id)}
-                        leftSection={<IconEdit size={18} />}
-                      >
-                        Chỉnh sửa
-                      </Button>
+                      {authUser?.role === Role.Admin && (
+                        <Button
+                          component={Link as any}
+                          href={studentRoute.update(data?.data?.id)}
+                          leftSection={<IconEdit size={18} />}
+                        >
+                          Chỉnh sửa
+                        </Button>
+                      )}
+
                       <Button onClick={() => back()} leftSection={<IconLogout size={18} />}>
                         Quay lại
                       </Button>

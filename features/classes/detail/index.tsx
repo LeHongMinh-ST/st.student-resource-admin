@@ -94,7 +94,7 @@ const ClassDetailPage = () => {
         <Stack>
           <Skeleton visible={isLoading}>
             <PageHeader
-              title={`Lớp ${classTypeLabels[data?.data?.type as ClassType] ?? ''} - ${data?.data?.name ?? ''} - ${data?.data?.code ?? ''}`}
+              title={`Lớp ${classTypeLabels[data?.data?.type as ClassType] ?? ''} - ${data?.data?.code ?? ''} - ${data?.data?.name ?? ''} `}
               breadcrumbItems={[
                 { title: 'Bảng điều khiển', href: dashboardRoute.dashboard },
                 { title: 'Danh sách lớp', href: classRoute.list },
@@ -131,12 +131,12 @@ const ClassDetailPage = () => {
                       <Text size="md" fw={400}>
                         {data?.data?.type &&
                         classTypeLabels[data.data.type as ClassType] === classTypeLabels.subject
-                          ? 'Giảng viên môn học:'
-                          : 'Giáo viên chủ nhiệm (GVCN):'}
+                          ? 'Giáo viên môn học:'
+                          : 'Giáo viên chủ nhiệm:'}
                       </Text>
                       <Text size="lg" fw={500}>
                         {data?.data?.teacher?.first_name
-                          ? `${data?.data?.teacher?.first_name} ${data?.data?.teacher?.last_name}`
+                          ? `${data?.data?.teacher?.last_name} ${data?.data?.teacher?.first_name} `
                           : 'Chưa cập nhật'}
                       </Text>
                     </Stack>
@@ -144,11 +144,11 @@ const ClassDetailPage = () => {
                   <Grid.Col span={3}>
                     <Stack gap={4} ta="left">
                       <Text size="md" fw={400}>
-                        Cố vấn học tập (CVHT):
+                        Cố vấn học tập:
                       </Text>
                       <Text size="lg" fw={500}>
                         {data?.data?.sub_teacher?.first_name
-                          ? `${data?.data?.sub_teacher?.first_name} ${data?.data?.teacher?.last_name}`
+                          ? `${data?.data?.teacher?.last_name} ${data?.data?.sub_teacher?.first_name} `
                           : 'Chưa cập nhật'}
                       </Text>
                     </Stack>

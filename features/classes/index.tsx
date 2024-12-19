@@ -80,17 +80,19 @@ const ClassPage = () => {
         filtering: !!classParams.q,
       },
       {
-        accessor: 'name',
-        title: 'Tên lớp',
-        render: (generalClass: GeneralClass) => <Text>{generalClass.name}</Text>,
+        accessor: 'teacher_name',
+        title: 'Giáo viên chủ nhiệm ',
+        render: (generalClass: GeneralClass) => (
+          <TeacherNameCellTable user={generalClass?.teacher} />
+        ),
         sorting: true,
         filtering: true,
       },
       {
         accessor: 'teacher_name',
-        title: 'Giáo viên chủ nhiệm (GVCN)',
+        title: 'Cố vấn học tập ',
         render: (generalClass: GeneralClass) => (
-          <TeacherNameCellTable user={generalClass?.teacher} />
+          <TeacherNameCellTable user={generalClass?.sub_teacher} />
         ),
         sorting: true,
         filtering: true,
