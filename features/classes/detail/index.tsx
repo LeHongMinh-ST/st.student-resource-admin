@@ -148,7 +148,7 @@ const ClassDetailPage = () => {
                       </Text>
                       <Text size="lg" fw={500}>
                         {data?.data?.sub_teacher?.first_name
-                          ? `${data?.data?.teacher?.last_name} ${data?.data?.sub_teacher?.first_name} `
+                          ? `${data?.data?.sub_teacher?.last_name} ${data?.data?.sub_teacher?.first_name} `
                           : 'Chưa cập nhật'}
                       </Text>
                     </Stack>
