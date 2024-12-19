@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a19e1239-6d18-4fbf-8d8a-01a0fa85d8c4" name="Changes" comment="feat: add detail student">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/classes/detail/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/classes/detail/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/classes/edit/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/classes/edit/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,7 +182,8 @@
       <workItem from="1734574160826" duration="403000" />
       <workItem from="1734574676753" duration="1558000" />
       <workItem from="1734576283209" duration="867000" />
-      <workItem from="1734579997859" duration="32000" />
+      <workItem from="1734579997859" duration="104000" />
+      <workItem from="1734580597862" duration="133000" />
     </task>
     <servers />
   </component>

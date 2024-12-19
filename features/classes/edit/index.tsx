@@ -23,7 +23,7 @@ import { useClassService } from '@/services/classService';
 import { GeneralClass, ResultResponse, SelectList, User } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
 import { PageHeader, Surface } from '@/components';
-import { ClassTypeSelectList, defaultPramsList, StatusList } from '@/constants/commons';
+import { ClassTypeSelectList, StatusList } from '@/constants/commons';
 import { ERROR_MESSAGES } from '@/constants/errorMessages';
 import HttpStatus from '@/enums/http-status.enum';
 import Status from '@/enums/status.enum';
@@ -56,7 +56,6 @@ const ClassUpdatePage = () => {
   const { getList } = useUserService();
 
   const [userParams, setUserParams] = useState<UserListParams>({
-    ...defaultPramsList,
     facultyId: authUser?.faculty_id ?? undefined,
   });
 
