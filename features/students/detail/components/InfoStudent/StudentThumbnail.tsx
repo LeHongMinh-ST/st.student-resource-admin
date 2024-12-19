@@ -8,6 +8,8 @@ import { StatusStudentBadge } from '@/components';
 import { StudentStatusSelectList } from '@/constants/commons';
 import { ChangeStatusStudent, useStudentService } from '@/services/studentService';
 import { StudentStatus } from '@/enums';
+import { useAuthStore } from '@/utils/recoil/auth/authState';
+import Role from '@/enums/role.enum';
 
 type StudentThumbnailProp = {
   className?: string;
@@ -36,6 +38,7 @@ const StudentThumbnail: FC<StudentThumbnailProp> = ({ className, student, mutate
       });
     });
   };
+  const { authUser } = useAuthStore();
   return (
     <StudentThumbnailStyled className={className}>
       <Paper p="md" shadow="md" radius="md">
@@ -65,7 +68,7 @@ const StudentThumbnail: FC<StudentThumbnailProp> = ({ className, student, mutate
           </div>
           <div className="student-info-item">
             <IconUserStar />
-            {editStatusMode ? (
+            {editStatusMode && authUser?.role === Role.Admin ? (
               <>
                 <Select
                   placeholder="Chọn trạng thái"
@@ -78,7 +81,9 @@ const StudentThumbnail: FC<StudentThumbnailProp> = ({ className, student, mutate
             ) : (
               <>
                 <StatusStudentBadge status={student?.status ?? null} />
-                <IconEdit className="cursor-pointer" onClick={() => setEditStatusMode(true)} />
+                {authUser?.role === Role.Admin && (
+                  <IconEdit className="cursor-pointer" onClick={() => setEditStatusMode(true)} />
+                )}
               </>
             )}
           </div>
