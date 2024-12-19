@@ -246,8 +246,8 @@ type GeneralClass = {
   updated_at?: string;
   faculty_id?: number;
   major_id?: number;
-  teacher_id?: number;
-  sub_teacher_id?: number;
+  teacher_id?: number | string;
+  sub_teacher_id?: number | string;
   teacher?: User;
   sub_teacher?: User;
   faculty?: Faculty;
