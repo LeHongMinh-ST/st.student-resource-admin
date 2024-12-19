@@ -40,6 +40,17 @@ const StudentDetailPage = () => {
   const [activeTab, setActiveTab] = useState<ActiveTabType | null>('general');
   const iconStyle = { width: rem(24), height: rem(24) };
   const { authUser } = useAuthStore();
+  const breadcrumbItems =
+    authUser?.role === Role.Admin
+      ? [
+          { title: 'Bảng điều khiển', href: dashboardRoute.dashboard },
+          { title: 'Danh sách sinh viên', href: studentRoute.listCourse },
+          { title: 'Thông tin', href: null },
+        ]
+      : [
+          { title: 'Bảng điều khiển', href: dashboardRoute.dashboard },
+          { title: 'Thông tin', href: null },
+        ];
 
   return (
     <StudentDetailPageStyled>
@@ -48,11 +59,7 @@ const StudentDetailPage = () => {
           <Skeleton visible={isLoading}>
             <PageHeader
               title="Sinh Viên - Thông tin sinh viên"
-              breadcrumbItems={[
-                { title: 'Bảng điều khiển', href: dashboardRoute.dashboard },
-                { title: 'Danh sách sinh viên', href: studentRoute.listCourse },
-                { title: 'Thông tin', href: null },
-              ]}
+              breadcrumbItems={breadcrumbItems}
               withActions={
                 <div className="flex">
                   <Stack gap={4}>
