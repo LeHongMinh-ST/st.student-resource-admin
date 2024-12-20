@@ -225,7 +225,7 @@ const ClassDetailPage = () => {
                                 Đã tốt nghiệp
                               </Text>
                               <Text size="lg" fw={500}>
-                                {dataStatistical.graduated ?? 0} Sinh viên
+                                {dataStatistical?.graduated ?? 0} Sinh viên
                               </Text>
                             </ClassDetailContainerInfo>
                           </Stack>
