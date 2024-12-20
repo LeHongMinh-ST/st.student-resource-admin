@@ -29,6 +29,11 @@ export const useClassService = () => {
     id: string | number | undefined
   ): Promise<AxiosResponse<ResultResponse<Student>, any>> => axiosInstance.get(`/classes/${id}`);
 
+  const getStudentStatisticalById = (
+    id: string | number | undefined
+  ): Promise<AxiosResponse<ResultResponse<Student>, any>> =>
+    axiosInstance.get(`/classes/${id}/student-statistical`);
+
   const updateClass = (
     generalClass: GeneralClass
   ): Promise<AxiosResponse<ResultResponse<GeneralClass>, any>> =>
@@ -44,5 +49,6 @@ export const useClassService = () => {
     updateClass,
     deleteClass,
     getClassById,
+    getStudentStatisticalById,
   };
 };

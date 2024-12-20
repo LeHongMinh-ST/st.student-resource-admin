@@ -4,14 +4,13 @@ import { notifications } from '@mantine/notifications';
 import { IconAlertTriangle, IconLogout, IconEdit } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { lazy, useState } from 'react';
+import { lazy } from 'react';
 import useSWR from 'swr';
 import { GeneralClass, ResultResponse } from '@/types';
 import { useClassService } from '@/services/classService';
 import { classRoute, dashboardRoute } from '@/routes';
 import { ClassType, HttpStatusEnum } from '@/enums';
 import { PageHeader } from '@/components';
-import { GetListStudentParams, useStudentService } from '@/services/studentService';
 import { classTypeLabels } from '@/constants/labels';
 import HttpStatus from '@/enums/http-status.enum';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
@@ -22,7 +21,7 @@ const StudentListByClass = lazy(
 );
 
 const ClassDetailPage = () => {
-  const { getClassById } = useClassService();
+  const { getStudentStatisticalById, getClassById } = useClassService();
   const { query, push, back } = useRouter();
   const { id } = query;
   const { authUser } = useAuthStore();
@@ -52,38 +51,9 @@ const ClassDetailPage = () => {
         }
         return error;
       });
-  const [getListStudentParams] = useState<GetListStudentParams>({
-    class_id: Number(id),
-  } as GetListStudentParams);
 
-  const { getTotalStudent } = useStudentService();
-  const handleGetTotalStudentByClass = () =>
-    getTotalStudent(getListStudentParams)
-      .then((res) => res.data)
-      .catch((error) => {
-        if (error?.status === HttpStatusEnum.HTTP_FORBIDDEN) {
-          notifications.show({
-            title: 'Cảnh báo!',
-            message: 'Bạn không có quyền truy cập!',
-            icon: <IconAlertTriangle />,
-            color: 'red',
-            autoClose: 5000,
-          });
-        } else {
-          notifications.show({
-            title: 'Lỗi',
-            message: 'Có lỗi sảy ra vui lòng thử lại sau !',
-            icon: <IconAlertTriangle />,
-            color: 'red',
-            autoClose: 5000,
-          });
-        }
-        return error;
-      });
-
-  const { data: dataTotalStudent } = useSWR<any>(
-    ['getTotalStudent', getListStudentParams],
-    handleGetTotalStudentByClass
+  const { data: dataStatistical } = useSWR<any>(['getDataStudentStatistical', id], () =>
+    getStudentStatisticalById(Number(id)).then((res) => res.data)
   );
 
   const { data, isLoading } = useSWR<ResultResponse<GeneralClass>>(id, handleGetClassById);
@@ -141,7 +111,14 @@ const ClassDetailPage = () => {
                       </Text>
                     </Stack>
                   </Grid.Col>
-                  <Grid.Col span={3}>
+                  <Grid.Col
+                    span={3}
+                    style={{
+                      root: {
+                        border: 1,
+                      },
+                    }}
+                  >
                     <Stack gap={4} ta="left">
                       <Text size="md" fw={400}>
                         Cố vấn học tập:
@@ -203,10 +180,81 @@ const ClassDetailPage = () => {
                     <Stack gap={4}>
                       <Text size="lg" ta="left">
                         <span>Danh sách sinh viên lớp: </span>
-                        <ClassInfoTotalStudent>
-                          {data?.data?.code ?? ''} ({dataTotalStudent?.total} sinh viên)
-                        </ClassInfoTotalStudent>
+                        <ClassInfoTotalStudent>{data?.data?.code ?? ''} </ClassInfoTotalStudent>
                       </Text>
+
+                      <Grid>
+                        <Grid.Col span={3}>
+                          <Stack gap={4} ta="left">
+                            <Text size="md" fw={400}>
+                              Tổng sinh viên
+                            </Text>
+                            <Text size="lg" fw={500}>
+                              {dataStatistical?.total ?? 0} Sinh viên
+                            </Text>
+                          </Stack>
+                        </Grid.Col>
+                        <Grid.Col
+                          span={3}
+                          style={{
+                            root: {
+                              border: 1,
+                            },
+                          }}
+                        >
+                          <Stack gap={4} ta="left">
+                            <Text size="md" fw={400}>
+                              Đang theo học
+                            </Text>
+                            <Text size="lg" fw={500}>
+                              {dataStatistical?.study ?? 0} Sinh viên
+                            </Text>
+                          </Stack>
+                        </Grid.Col>
+                        <Grid.Col
+                          span={3}
+                          style={{
+                            root: {
+                              border: 1,
+                            },
+                          }}
+                        >
+                          <Stack gap={4} ta="left">
+                            <ClassDetailContainerInfo>
+                              <Text size="md" fw={400}>
+                                Đã tốt nghiệp
+                              </Text>
+                              <Text size="lg" fw={500}>
+                                {dataStatistical.graduated ?? 0} Sinh viên
+                              </Text>
+                            </ClassDetailContainerInfo>
+                          </Stack>
+                        </Grid.Col>
+                        <Grid.Col
+                          span={3}
+                          style={{
+                            root: {
+                              border: 1,
+                            },
+                          }}
+                        >
+                          <Stack gap={4} ta="left">
+                            <ClassDetailContainerInfo>
+                              <Text size="md" fw={400}>
+                                Xin thôi học - Bị đuổi
+                              </Text>
+                              <Text size="lg" fw={500}>
+                                {dataStatistical?.to_drop_out ?? 0} Sinh viên
+                              </Text>
+                            </ClassDetailContainerInfo>
+                          </Stack>
+                        </Grid.Col>
+                        <Grid.Col span={3}>
+                          <Stack gap={4} ta="left">
+                            <ClassDetailContainerInfo></ClassDetailContainerInfo>
+                          </Stack>
+                        </Grid.Col>
+                      </Grid>
                       <StudentListByClass classId={Number(id)} />
                     </Stack>
                   </Grid.Col>
