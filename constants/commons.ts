@@ -18,6 +18,7 @@ import {
   statusSurveyLabels,
   statusSurveyPeriodLabels,
   studentStatusLabels,
+  trainingTypeLabels,
 } from './labels';
 import StatusSurvey from '@/enums/statusSurvey.enum';
 
@@ -77,8 +78,10 @@ export const GenderList: SelectList<Gender>[] = [
 ];
 
 export const TrainingTypeList: SelectList<TrainingType>[] = [
-  { value: TrainingType.FormalUniversity, label: 'Đại học chính quy' },
-  { value: TrainingType.College, label: 'Cao đẳng' },
+  { value: TrainingType.FormalUniversity, label: trainingTypeLabels.formal_university },
+  { value: TrainingType.College, label: trainingTypeLabels.college },
+
+  { value: TrainingType.StudyAndWork, label: trainingTypeLabels.study_and_work },
 ];
 
 export const SocialPolicyObjectList: SelectList<SocialPolicyObject>[] = [

@@ -79,6 +79,7 @@ export const genderLabels: Record<Gender, string> = {
 export const trainingTypeLabels: Record<TrainingType, string> = {
   [TrainingType.FormalUniversity]: 'Đại học chính quy',
   [TrainingType.College]: 'Cao đẳng',
+  [TrainingType.StudyAndWork]: 'Vừa học vừa làm',
 };
 
 export const socialPolicyObjectLabels: Record<SocialPolicyObject, string> = {
