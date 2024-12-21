@@ -184,10 +184,10 @@ const ClassDetailPage = () => {
                       </Text>
 
                       <Grid>
-                        <Grid.Col span={3}>
+                        <Grid.Col span={2}>
                           <Stack gap={4} ta="left">
                             <Text size="md" fw={400}>
-                              Tổng sinh viên
+                              Số lượng ban đầu
                             </Text>
                             <Text size="lg" fw={500}>
                               {dataStatistical?.total ?? 0} Sinh viên
@@ -195,7 +195,7 @@ const ClassDetailPage = () => {
                           </Stack>
                         </Grid.Col>
                         <Grid.Col
-                          span={3}
+                          span={2}
                           style={{
                             root: {
                               border: 1,
@@ -204,7 +204,7 @@ const ClassDetailPage = () => {
                         >
                           <Stack gap={4} ta="left">
                             <Text size="md" fw={400}>
-                              Đang theo học
+                              Đang học
                             </Text>
                             <Text size="lg" fw={500}>
                               {dataStatistical?.study ?? 0} Sinh viên
@@ -212,7 +212,7 @@ const ClassDetailPage = () => {
                           </Stack>
                         </Grid.Col>
                         <Grid.Col
-                          span={3}
+                          span={2}
                           style={{
                             root: {
                               border: 1,
@@ -231,7 +231,7 @@ const ClassDetailPage = () => {
                           </Stack>
                         </Grid.Col>
                         <Grid.Col
-                          span={3}
+                          span={2}
                           style={{
                             root: {
                               border: 1,
@@ -241,7 +241,45 @@ const ClassDetailPage = () => {
                           <Stack gap={4} ta="left">
                             <ClassDetailContainerInfo>
                               <Text size="md" fw={400}>
-                                Xin thôi học - Bị đuổi
+                                Bảo lưu
+                              </Text>
+                              <Text size="lg" fw={500}>
+                                {dataStatistical?.deferred ?? 0} Sinh viên
+                              </Text>
+                            </ClassDetailContainerInfo>
+                          </Stack>
+                        </Grid.Col>
+                        <Grid.Col
+                          span={2}
+                          style={{
+                            root: {
+                              border: 1,
+                            },
+                          }}
+                        >
+                          <Stack gap={4} ta="left">
+                            <ClassDetailContainerInfo>
+                              <Text size="md" fw={400}>
+                                Chuyển ngành đào tạo
+                              </Text>
+                              <Text size="lg" fw={500}>
+                                {dataStatistical?.tranfer_study ?? 0} Sinh viên
+                              </Text>
+                            </ClassDetailContainerInfo>
+                          </Stack>
+                        </Grid.Col>
+                        <Grid.Col
+                          span={2}
+                          style={{
+                            root: {
+                              border: 1,
+                            },
+                          }}
+                        >
+                          <Stack gap={4} ta="left">
+                            <ClassDetailContainerInfo>
+                              <Text size="md" fw={400}>
+                                Thôi học
                               </Text>
                               <Text size="lg" fw={500}>
                                 {dataStatistical?.to_drop_out ?? 0} Sinh viên

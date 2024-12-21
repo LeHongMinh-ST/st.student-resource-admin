@@ -58,7 +58,7 @@ export const studentStatusLabels: Record<StudentStatus, string> = {
   [StudentStatus.TemporarilySuspended]: 'Tạm dừng học',
   [StudentStatus.Expelled]: 'Đã bị đuổi học',
   [StudentStatus.Deferred]: 'Bảo lưu',
-  [StudentStatus.TransferStudy]: 'Chuyển nghành học',
+  [StudentStatus.TransferStudy]: 'Chuyển ngành học',
 };
 
 export const familyRelationshipLabels: Record<FamilyRelationship, string> = {
