@@ -184,10 +184,17 @@ const ClassDetailPage = () => {
                       </Text>
 
                       <Grid>
-                        <Grid.Col span={2}>
+                        <Grid.Col
+                          span={2}
+                          style={{
+                            root: {
+                              border: 1,
+                            },
+                          }}
+                        >
                           <Stack gap={4} ta="left">
                             <Text size="md" fw={400}>
-                              Số lượng ban đầu
+                              Sĩ số ban đầu
                             </Text>
                             <Text size="lg" fw={500}>
                               {dataStatistical?.total ?? 0} Sinh viên
@@ -245,25 +252,6 @@ const ClassDetailPage = () => {
                               </Text>
                               <Text size="lg" fw={500}>
                                 {dataStatistical?.deferred ?? 0} Sinh viên
-                              </Text>
-                            </ClassDetailContainerInfo>
-                          </Stack>
-                        </Grid.Col>
-                        <Grid.Col
-                          span={2}
-                          style={{
-                            root: {
-                              border: 1,
-                            },
-                          }}
-                        >
-                          <Stack gap={4} ta="left">
-                            <ClassDetailContainerInfo>
-                              <Text size="md" fw={400}>
-                                Chuyển ngành đào tạo
-                              </Text>
-                              <Text size="lg" fw={500}>
-                                {dataStatistical?.tranfer_study ?? 0} Sinh viên
                               </Text>
                             </ClassDetailContainerInfo>
                           </Stack>
