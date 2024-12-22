@@ -54,6 +54,23 @@ export const graduationRoute = {
     id ? `${ADMIN_PREFIX}/students-graduation/${id}/edit` : '',
 };
 
+export const warningRoute = {
+  list: `${ADMIN_PREFIX}/student-warning`,
+  create: `${ADMIN_PREFIX}/student-warning/create`,
+  show: (id: string | number | undefined) => (id ? `${ADMIN_PREFIX}/student-warning/${id}` : ''),
+  update: (id: string | number | undefined) =>
+    id ? `${ADMIN_PREFIX}/student-warning/${id}/edit` : '',
+};
+
+export const quitSchoolRoute = {
+  list: `${ADMIN_PREFIX}/students-quit-school`,
+  create: `${ADMIN_PREFIX}/students-quit-school/create`,
+  show: (id: string | number | undefined) =>
+    id ? `${ADMIN_PREFIX}/students-quit-school/${id}` : '',
+  update: (id: string | number | undefined) =>
+    id ? `${ADMIN_PREFIX}/students-quit-school/${id}/edit` : '',
+};
+
 export const studentRoute = {
   listCourse: `${ADMIN_PREFIX}/students`,
   show: (id: string | number | undefined) => (id ? `${ADMIN_PREFIX}/students/${id}` : ''),

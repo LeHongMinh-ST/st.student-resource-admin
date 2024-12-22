@@ -330,7 +330,10 @@ type StudentSurveyPeriod = {
 type Warning = {
   id?: number;
   name: string;
-  semester: string;
+  semester_id: number | string;
+  student_count?: number;
+  school_year?: string;
+  semester: Semester;
   created_at?: string;
   updated_at?: string;
 };
@@ -341,4 +344,17 @@ type Quit = {
   semester: string;
   created_at?: string;
   updated_at?: string;
+};
+
+type Semester = {
+  id?: number;
+  semester: number;
+  school_year_id: number;
+  school_year: SchoolYear;
+};
+
+type SchoolYear = {
+  id?: number;
+  start_year: string;
+  end_year: string;
 };
