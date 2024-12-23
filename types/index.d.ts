@@ -10,6 +10,7 @@ import {
 } from '@/enums';
 import Role from '@/enums/role.enum';
 import ClassType from '@/enums/classType.enum';
+import { WarningStatus } from '@/enums/warningStatus';
 
 declare module '*.svg' {
   const content: React.FC<React.SVGProps<SVGElement>>;
@@ -135,6 +136,7 @@ type Student = {
   school_year: string;
   created_at?: string;
   updated_at?: string;
+  warning_status?: WarningStatus;
 };
 
 export type IOptionCheckbox = {

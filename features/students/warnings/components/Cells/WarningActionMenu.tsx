@@ -2,7 +2,7 @@ import { Button, Menu } from '@mantine/core';
 import { IconDotsVertical, IconEdit, IconEye, IconTrash } from '@tabler/icons-react';
 import Link from 'next/link';
 import React from 'react';
-import { graduationRoute } from '@/routes';
+import { warningRoute } from '@/routes';
 import { Warning } from '@/types';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import Role from '@/enums/role.enum';
@@ -32,7 +32,7 @@ const WarningActionMenu: React.FC<WarningActionMenuProps> = ({ warning, onOpen, 
           variant="filled"
           component={Link}
           leftSection={<IconEye size={16} />}
-          href={graduationRoute.show(warning?.id)}
+          href={warningRoute.show(warning?.id)}
         >
           Xem chi tiết
         </Menu.Item>
@@ -45,7 +45,7 @@ const WarningActionMenu: React.FC<WarningActionMenuProps> = ({ warning, onOpen, 
               variant="filled"
               component={Link}
               leftSection={<IconEdit size={16} />}
-              href={graduationRoute.update(warning?.id)}
+              href={warningRoute.update(warning?.id)}
             >
               Chỉnh sửa
             </Menu.Item>

@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import axiosInstance from '@/utils/axios';
-import { BaseParamsList, ResultResponse, Semester, Warning } from '@/types';
+import { BaseParamsList, ResultResponse, Semester, Student, Warning } from '@/types';
 import { GraduationListParams } from '@/services/graduationService';
 
 export type WarningListParams = {
@@ -41,6 +41,12 @@ export const useWarningStudentService = () => {
   const getSemesters = (): Promise<AxiosResponse<Semester[], any>> =>
     axiosInstance.get('/semesters');
 
+  const getListStudent = (
+    id: number | string,
+    params: WarningListParams
+  ): Promise<AxiosResponse<ResultResponse<Student[]>, any>> =>
+    axiosInstance.get(`/warning/${id}/students`, { params });
+
   return {
     getListWarningStudent,
     createWarningStudent,
@@ -49,5 +55,6 @@ export const useWarningStudentService = () => {
     importExcelFileWarningStudent,
     getWarningStudentById,
     getSemesters,
+    getListStudent,
   };
 };

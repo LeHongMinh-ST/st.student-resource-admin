@@ -11,6 +11,7 @@ import {
 import SocialPolicyObject from '@/enums/socialPolicyObject.enum';
 import StatusSurvey from '@/enums/statusSurvey.enum';
 import TrainingType from '@/enums/trainingType.enum';
+import { WarningStatus } from '@/enums/warningStatus';
 
 export const statusLabels: Record<StatusEnum, string> = {
   [StatusEnum.Enable]: 'Hoạt động',
@@ -94,4 +95,10 @@ export const classTypeLabels: Record<ClassType, string> = {
   [ClassType.Basic]: 'Chung',
   [ClassType.Major]: 'Chuyên ngành',
   [ClassType.Subject]: 'Môn học',
+};
+
+export const warningStatusLabel: Record<WarningStatus, string> = {
+  [WarningStatus.NoWarning]: 'Không có cảnh báo',
+  [WarningStatus.UnderObservation]: 'Cảnh báo lần 1',
+  [WarningStatus.AtRisk]: 'Cảnh báo lần 2',
 };

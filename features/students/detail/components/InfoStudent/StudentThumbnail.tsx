@@ -1,7 +1,15 @@
 import styled from '@emotion/styled';
-import { FC, useState } from 'react';
-import { IconCheck, IconEdit, IconId, IconMail, IconUserStar, IconX } from '@tabler/icons-react';
-import { Box, Paper, Select, Text } from '@mantine/core';
+import React, { FC, useState } from 'react';
+import {
+  IconAlertTriangle,
+  IconCheck,
+  IconEdit,
+  IconId,
+  IconMail,
+  IconUserStar,
+  IconX,
+} from '@tabler/icons-react';
+import { Badge, Box, Paper, Select, Text, rem } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { Student } from '@/types';
 import { StatusStudentBadge } from '@/components';
@@ -10,6 +18,8 @@ import { ChangeStatusStudent, useStudentService } from '@/services/studentServic
 import { StudentStatus } from '@/enums';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import Role from '@/enums/role.enum';
+import { warningStatusLabel } from '@/constants/labels';
+import { WarningStatus } from '@/enums/warningStatus';
 
 type StudentThumbnailProp = {
   className?: string;
@@ -46,6 +56,7 @@ const StudentThumbnail: FC<StudentThumbnailProp> = ({ className, student, mutate
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={student?.info?.thumbnail ?? ''} alt={student?.code} />
         </div>
+
         <div className="student-info">
           <Box mt={10}>
             <Text className="mt-2" fw={700} size="xl">
@@ -87,6 +98,19 @@ const StudentThumbnail: FC<StudentThumbnailProp> = ({ className, student, mutate
               </>
             )}
           </div>
+          <div>
+            {!!student?.warning_status && student?.warning_status !== WarningStatus.NoWarning && (
+              <Badge
+                leftSection={<IconAlertTriangle style={{ width: rem(12), height: rem(12) }} />}
+                color="orange"
+                variant="filled"
+                size="sm"
+                radius="sm"
+              >
+                {warningStatusLabel[student?.warning_status]}
+              </Badge>
+            )}
+          </div>
         </div>
       </Paper>
     </StudentThumbnailStyled>
@@ -110,6 +134,7 @@ const StudentThumbnailStyled = styled.div`
 
   .student-info-list {
     padding: 10px 20px;
+
     .student-info-item {
       margin-bottom: 5px;
       display: flex;
@@ -117,6 +142,7 @@ const StudentThumbnailStyled = styled.div`
       gap: 5px;
     }
   }
+
   .cursor-pointer {
     cursor: pointer;
   }

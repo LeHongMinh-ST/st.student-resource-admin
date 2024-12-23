@@ -5,17 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a19e1239-6d18-4fbf-8d8a-01a0fa85d8c4" name="Changes" comment="feat: add detail student">
-      <change afterPath="$PROJECT_DIR$/features/students/warnings/components/Cells/WarningActionMenu.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/features/students/warnings/create/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/student-warning/[id]/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/student-warning/create/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/WarningStudentService.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enums/warningStatus.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/students/warnings/detail/components/StudentWarningContent/StudentImportTabComponent/Cells/ExcelFileImportActionMenu.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/students/warnings/detail/components/StudentWarningContent/StudentImportTabComponent/ListExcelFileImport.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/students/warnings/detail/components/StudentWarningContent/StudentImportTabComponent/StudentDropzoneImport.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/students/warnings/detail/components/StudentWarningContent/StudentImportTabContent.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/students/warnings/detail/components/StudentWarningContent/StudentListTabComponent/Cells/StudentNameCellTable.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/students/warnings/detail/components/StudentWarningContent/StudentListTabContent.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/students/warnings/detail/components/StudentWarningContent/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/students/warnings/detail/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/students/warnings/edit/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/student-warning/[id]/edit/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/constants/errorMessages.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/errorMessages.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/classes/detail/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/classes/detail/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/students/warnings/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/warnings/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants/labels.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/labels.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentListTabComponent/Cells/StudentNameCellTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/components/StudentAdmissionContent/StudentListTabComponent/Cells/StudentNameCellTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/students/detail/components/InfoStudent/StudentThumbnail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/detail/components/InfoStudent/StudentThumbnail.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/students/warnings/components/Cells/WarningActionMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/features/students/warnings/components/Cells/WarningActionMenu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/student-warning/[id]/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/student-warning/[id]/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/WarningStudentService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/WarningStudentService.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/types/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/axios/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/axios/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,8 +37,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -80,7 +89,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/opt/homebrew/var/www/st-team/st.student-resource-admin/features/students/warnings/components/Cells",
+    "last_opened_file_path": "/opt/homebrew/var/www/st-team/st.student-resource-admin/features/students/warnings/components",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.stylelint": "true",
@@ -100,11 +109,14 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/features/students/warnings/components" />
+      <recent name="$PROJECT_DIR$/features/students/warnings/edit" />
+      <recent name="$PROJECT_DIR$/pages/student-warning/[id]/edit" />
       <recent name="$PROJECT_DIR$/features/students/warnings/components/Cells" />
       <recent name="$PROJECT_DIR$/features/trainingIndustries/components/Cells" />
-      <recent name="$PROJECT_DIR$/services" />
-      <recent name="$PROJECT_DIR$/features" />
-      <recent name="$PROJECT_DIR$/pages/students-graduation" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/features/students/warnings/detail/components" />
     </key>
   </component>
   <component name="RunManager">
@@ -194,7 +206,7 @@
       <workItem from="1734579997859" duration="104000" />
       <workItem from="1734580597862" duration="907000" />
       <workItem from="1734598853876" duration="114000" />
-      <workItem from="1734861626141" duration="11637000" />
+      <workItem from="1734861626141" duration="23411000" />
     </task>
     <servers />
   </component>

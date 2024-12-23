@@ -1,33 +1,20 @@
-import { useWarningStudentService } from '@/services/WarningStudentService';
-import { Warning } from '@/types';
+import WarningDetailPage from '@/features/students/warnings/detail';
 
 type Props = {
   id: any;
-  warning: Warning;
 };
 
-export default function Page({ id, warning }: Props) {
-  console.log(warning, id);
-  return <div>hello</div>;
+export default function Page({ id }: Props) {
+  return <WarningDetailPage id={id} />;
 }
 
 export const getServerSideProps = async (context: { params: any }) => {
   const { params } = context;
   const { id } = params;
 
-  const { getWarningStudentById } = useWarningStudentService();
-  try {
-    const response = await getWarningStudentById(id);
-    const warning = response?.data ?? {};
-    return {
-      props: {
-        id,
-        warning,
-      },
-    };
-  } catch (e) {
-    return {
-      notFound: true,
-    };
-  }
+  return {
+    props: {
+      id,
+    },
+  };
 };
