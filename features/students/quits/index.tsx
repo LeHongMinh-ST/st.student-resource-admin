@@ -8,49 +8,49 @@ import { useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { DataTableProps } from 'mantine-datatable';
 import { CommonDataTable, DeleteModal, PageHeader } from '@/components';
-import { dashboardRoute, warningRoute } from '@/routes';
-import { useWarningStudentService, WarningListParams } from '@/services/WarningStudentService';
+import { dashboardRoute, quitRoute } from '@/routes';
+import { useQuitStudentService, QuitListParams } from '@/services/QuitStudentService';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import { defaultPramsList } from '@/constants/commons';
-import { Warning, ResultResponse } from '@/types';
+import { Quit, ResultResponse } from '@/types';
 import { formatDateString } from '@/utils/func/formatDateString';
-import WarningActionMenu from '@/features/students/warnings/components/Cells/WarningActionMenu';
+import QuitActionMenu from '@/features/students/quits/components/Cells/QuitActionMenu';
 
-const StudentWarningPage = () => {
-  const warningStudentService = useWarningStudentService();
-  const [warningParams, setWarningParams] = useState<WarningListParams>({
+const StudentQuitPage = () => {
+  const quitStudentService = useQuitStudentService();
+  const [quitParams, setQuitParams] = useState<QuitListParams>({
     ...defaultPramsList,
   });
   const { push } = useRouter();
   const { authUser } = useAuthStore();
   const [isOpen, { open: onOpen, close: onClose }] = useDisclosure(false);
-  const [selected, setSelected] = useState<Warning | null>(null);
+  const [selected, setSelected] = useState<Quit | null>(null);
 
-  const { data, isLoading, mutate } = useSWR<ResultResponse<Warning[]>>([warningParams], () =>
-    warningStudentService.getListWarningStudent(warningParams).then((res) => res.data)
+  const { data, isLoading, mutate } = useSWR<ResultResponse<Quit[]>>([quitParams], () =>
+    quitStudentService.getListQuitStudent(quitParams).then((res) => res.data)
   );
 
   const handleDelete = useCallback(async () => {
     if (selected) {
-      await warningStudentService.deleteWarningStudent(selected?.id ?? '');
+      await quitStudentService.deleteQuitStudent(selected?.id ?? '');
       await mutate();
       onClose();
     }
-  }, [selected, warningStudentService]);
+  }, [selected, quitStudentService]);
 
-  const columns: DataTableProps<Warning>['columns'] = useMemo(
+  const columns: DataTableProps<Quit>['columns'] = useMemo(
     () => [
       {
         accessor: 'name',
-        title: 'Đợt cảnh báo',
-        render: (warning: Warning) => (
+        title: 'Đợt thôi học',
+        render: (quit: Quit) => (
           <Tooltip
             multiline
             w={500}
             withArrow
             position="bottom"
             transitionProps={{ duration: 200 }}
-            label={warning.name}
+            label={quit.name}
           >
             <Text
               style={{
@@ -62,31 +62,24 @@ const StudentWarningPage = () => {
               }}
               fw={500}
               c="blue"
-              onClick={() => push(warningRoute.show(warning.id))}
+              onClick={() => push(quitRoute.show(quit.id))}
             >
-              {warning.name}
+              {quit.name}
             </Text>
           </Tooltip>
         ),
       },
       {
         accessor: 'year',
-        title: 'Kỳ',
-        render: (warning: Warning) => <Text>{`${warning?.semester?.semester}`}</Text>,
-        sorting: true,
-        filtering: true,
-      },
-      {
-        accessor: 'year',
-        title: 'Năm học',
-        render: (warning: Warning) => <Text>{`${warning?.school_year}`}</Text>,
+        title: 'Năm tốt nghiệp',
+        render: (quit: Quit) => <Text>{`${quit.year}`}</Text>,
         sorting: true,
         filtering: true,
       },
       {
         accessor: 'student_count',
         title: 'Tổng số sinh viên',
-        render: (warning: Warning) => <Text>{warning?.student_count}</Text>,
+        render: (quit: Quit) => <Text>{quit?.student_count}</Text>,
         sorting: true,
         filtering: true,
       },
@@ -94,26 +87,26 @@ const StudentWarningPage = () => {
         accessor: 'created_at',
         title: 'Ngày tạo',
         sortable: true,
-        render: (warning: Warning) => (
-          <Text fz="sm">{formatDateString(warning?.created_at, 'HH:MM dd/mm/yyyy')}</Text>
+        render: (quit: Quit) => (
+          <Text fz="sm">{formatDateString(quit?.created_at, 'HH:MM dd/mm/yyyy')}</Text>
         ),
       },
       {
         accessor: 'id',
         title: 'Hành động',
         width: 100,
-        render: (warning: Warning) => (
-          <WarningActionMenu warning={warning} onOpen={onOpen} setSelected={setSelected} />
+        render: (quit: Quit) => (
+          <QuitActionMenu quit={quit} onOpen={onOpen} setSelected={setSelected} />
         ),
       },
     ],
-    [authUser?.id, onOpen, setWarningParams, warningParams.q]
+    [authUser?.id, onOpen, setQuitParams, quitParams.q]
   );
 
   return (
-    <StudentWarningPageStyled>
+    <StudentQuitPageStyled>
       <DeleteModal
-        entityName="đợt cảnh báo sinh viên"
+        entityName="đợt thôi học sinh viên"
         onDelete={handleDelete}
         isOpen={isOpen}
         onClose={onClose}
@@ -121,17 +114,13 @@ const StudentWarningPage = () => {
       <Container fluid>
         <Stack gap="lg">
           <PageHeader
-            title="Cảnh báo sinh viên - Danh sách"
+            title="Thôi học sinh viên - Danh sách"
             breadcrumbItems={[
               { title: 'Bảng điều khiển', href: dashboardRoute.dashboard },
-              { title: 'Cảnh báo sinh viên', href: null },
+              { title: 'Thôi học sinh viên', href: null },
             ]}
             withActions={
-              <Button
-                component={Link}
-                href={warningRoute.create}
-                leftSection={<IconPlus size={18} />}
-              >
+              <Button component={Link} href={quitRoute.create} leftSection={<IconPlus size={18} />}>
                 Tạo mới
               </Button>
             }
@@ -143,19 +132,19 @@ const StudentWarningPage = () => {
               records={data?.data}
               fetching={isLoading}
               onPageChange={(page: number) =>
-                setWarningParams((params) => ({ ...params, current_page: page }))
+                setQuitParams((params) => ({ ...params, current_page: page }))
               }
               onRecordsPerPageChange={(perPage: number) =>
-                setWarningParams((params) => ({ ...params, limit: perPage }))
+                setQuitParams((params) => ({ ...params, limit: perPage }))
               }
             />
           </Paper>
         </Stack>
       </Container>
-    </StudentWarningPageStyled>
+    </StudentQuitPageStyled>
   );
 };
 
-const StudentWarningPageStyled = styled.div``;
+const StudentQuitPageStyled = styled.div``;
 
-export default StudentWarningPage;
+export default StudentQuitPage;

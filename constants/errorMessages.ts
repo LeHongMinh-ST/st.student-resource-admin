@@ -163,4 +163,18 @@ export const ERROR_MESSAGES = {
       required: 'Vui lòng nhập tên',
     },
   },
+  quit: {
+    name: {
+      required: 'Vui lòng nhập tiêu đề',
+    },
+    certification: {
+      required: 'Vui lòng nhập số quyết định tốt nghiệp',
+    },
+    certification_date: {
+      required: 'Vui lòng nhập ngày quyết định tốt nghiệp',
+    },
+    year: {
+      required: 'Vui lòng chọn năm học',
+    },
+  },
 };

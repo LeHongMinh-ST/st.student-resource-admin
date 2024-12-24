@@ -62,6 +62,14 @@ export const warningRoute = {
     id ? `${ADMIN_PREFIX}/student-warning/${id}/edit` : '',
 };
 
+export const quitRoute = {
+  list: `${ADMIN_PREFIX}/student-leave`,
+  create: `${ADMIN_PREFIX}/student-leave/create`,
+  show: (id: string | number | undefined) => (id ? `${ADMIN_PREFIX}/student-leave/${id}` : ''),
+  update: (id: string | number | undefined) =>
+    id ? `${ADMIN_PREFIX}/student-leave/${id}/edit` : '',
+};
+
 export const quitSchoolRoute = {
   list: `${ADMIN_PREFIX}/students-quit-school`,
   create: `${ADMIN_PREFIX}/students-quit-school/create`,

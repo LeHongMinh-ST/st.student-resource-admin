@@ -353,7 +353,12 @@ type Warning = {
 type Quit = {
   id?: number;
   name: string;
-  semester: string;
+  certification: string;
+  certification_date: string;
+  faculty_id?: number;
+  faculty?: Faculty;
+  year: any;
+  student_count?: number;
   created_at?: string;
   updated_at?: string;
 };
