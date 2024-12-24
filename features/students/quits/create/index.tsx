@@ -16,6 +16,7 @@ import { IconAlertTriangle, IconCheck, IconDeviceFloppy, IconLogout } from '@tab
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Controller, useForm } from 'react-hook-form';
+import { DatePickerInput, YearPickerInput } from '@mantine/dates';
 import { PageHeader, Surface } from '@/components';
 import { ERROR_MESSAGES } from '@/constants/errorMessages';
 import HttpStatus from '@/enums/http-status.enum';
@@ -24,7 +25,6 @@ import { Quit, SelectList } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
 import '@mantine/dates/styles.css';
 import { useQuitStudentService } from '@/services/QuitStudentService';
-import { DatePickerInput, YearPickerInput } from '@mantine/dates';
 import { StudentStatus } from "@/enums";
 import { studentStatusLabels } from "@/constants/labels";
 
