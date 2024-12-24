@@ -1,7 +1,10 @@
-import { FC } from 'react';
-import { Avatar, Stack, Text } from '@mantine/core';
+import React, { FC } from 'react';
+import { Avatar, Badge, rem, Stack, Text } from '@mantine/core';
+import { IconAlertTriangle } from '@tabler/icons-react';
 import { Student } from '@/types';
 import { theme } from '@/theme';
+import { WarningStatus } from '@/enums/warningStatus';
+import { warningStatusLabel } from '@/constants/labels';
 
 type StudentNameCellTableProps = {
   student: Student;
@@ -20,6 +23,17 @@ const StudentNameCellTable: FC<StudentNameCellTableProps> = ({ student }) => (
     <Stack gap={0}>
       <Text fz="sm" fw={600}>
         {student.last_name} {student.first_name}
+        {!!student?.warning_status && student?.warning_status !== WarningStatus.NoWarning && (
+          <Badge
+            leftSection={<IconAlertTriangle style={{ width: rem(12), height: rem(12) }} />}
+            color="orange"
+            variant="filled"
+            size="sm"
+            radius="sm"
+          >
+            {warningStatusLabel[student?.warning_status]}
+          </Badge>
+        )}
       </Text>
       <Text fz="xs">{student.email}</Text>
     </Stack>

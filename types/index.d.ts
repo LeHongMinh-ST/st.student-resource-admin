@@ -10,6 +10,7 @@ import {
 } from '@/enums';
 import Role from '@/enums/role.enum';
 import ClassType from '@/enums/classType.enum';
+import { WarningStatus } from '@/enums/warningStatus';
 
 declare module '*.svg' {
   const content: React.FC<React.SVGProps<SVGElement>>;
@@ -145,6 +146,7 @@ type Student = {
   school_year: string;
   created_at?: string;
   updated_at?: string;
+  warning_status?: WarningStatus;
 };
 
 export type IOptionCheckbox = {
@@ -340,7 +342,10 @@ type StudentSurveyPeriod = {
 type Warning = {
   id?: number;
   name: string;
-  semester: string;
+  semester_id: number | string;
+  student_count?: number;
+  school_year?: string;
+  semester: Semester;
   created_at?: string;
   updated_at?: string;
 };
@@ -351,4 +356,17 @@ type Quit = {
   semester: string;
   created_at?: string;
   updated_at?: string;
+};
+
+type Semester = {
+  id?: number;
+  semester: number;
+  school_year_id: number;
+  school_year: SchoolYear;
+};
+
+type SchoolYear = {
+  id?: number;
+  start_year: string;
+  end_year: string;
 };

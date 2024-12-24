@@ -158,4 +158,9 @@ export const ERROR_MESSAGES = {
       required: 'Vui lòng chọn đợt tốt nghiệp muốn khảo sát',
     },
   },
+  warning: {
+    name: {
+      required: 'Vui lòng nhập tên',
+    },
+  },
 };

@@ -267,7 +267,7 @@ const ClassDetailPage = () => {
                           <Stack gap={4} ta="left">
                             <ClassDetailContainerInfo>
                               <Text size="md" fw={400}>
-                                Thôi học
+                                Đã nghỉ học
                               </Text>
                               <Text size="lg" fw={500}>
                                 {dataStatistical?.to_drop_out ?? 0} Sinh viên
