@@ -10,7 +10,6 @@ axiosInstance.interceptors.request.use(
   (config) => {
     const cookies = parseCookies(); // Retrieves cookies on the client side
     const accessTokenAdmin = cookies?.accessTokenAdmin;
-    console.log(accessTokenAdmin);
     // If token is present, add it to request's Authorization Header
     if (accessTokenAdmin && config?.headers) {
       config.headers.Authorization = `Bearer ${accessTokenAdmin}`;
