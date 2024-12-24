@@ -15,7 +15,7 @@ import {
 import { notifications } from '@mantine/notifications';
 import { IconAlertTriangle, IconCheck, IconDeviceFloppy, IconLogout } from '@tabler/icons-react';
 import Link from 'next/link';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
@@ -23,17 +23,16 @@ import { PageHeader, Surface } from '@/components';
 import { ERROR_MESSAGES } from '@/constants/errorMessages';
 import HttpStatus from '@/enums/http-status.enum';
 import { dashboardRoute, warningRoute } from '@/routes';
-import { Semester, Warning } from '@/types';
+import { SelectList, Semester, Warning } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
 import '@mantine/dates/styles.css';
 import { useWarningStudentService } from '@/services/WarningStudentService';
 
 type Props = {
-  semesters: Semester[];
   id: number;
 };
 
-const WarningEditPage: FC<Props> = ({ semesters, id }) => {
+const WarningEditPage: FC<Props> = ({ id }) => {
   const {
     register,
     trigger,
@@ -47,14 +46,25 @@ const WarningEditPage: FC<Props> = ({ semesters, id }) => {
     defaultValues: {},
   });
 
-  const semesterList: { label: string; value: string }[] | undefined = semesters
-    ? semesters?.map((semester) => ({
-        value: String(semester.id),
-        label: `Học kỳ ${semester.semester} - Năm học ${semester.school_year.start_year} - ${semester.school_year.end_year}`,
-      }))
-    : [];
+  const { getSemesters, updateWarningStudent, getWarningStudentById } = useWarningStudentService();
 
-  const { updateWarningStudent, getWarningStudentById } = useWarningStudentService();
+  const { data: semesters } = useSWR<Semester[]>('getSemester', () =>
+    getSemesters().then((res) => res.data)
+  );
+
+  const semesterList: SelectList<string>[] | undefined = useMemo(
+    () =>
+      semesters
+        ? semesters?.map(
+            (semester): SelectList<string> => ({
+              value: String(semester.id),
+              label: `Học kỳ ${semester.semester} - Năm học ${semester.school_year.start_year} - ${semester.school_year.end_year}`,
+            })
+          )
+        : [],
+
+    [semesters]
+  );
 
   const { data } = useSWR<Warning>([id], () =>
     getWarningStudentById(id).then((res) => res?.data?.data)

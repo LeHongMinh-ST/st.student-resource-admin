@@ -1,6 +1,7 @@
 'use client';
 
 import styled from '@emotion/styled';
+import useSWR from 'swr';
 import {
   Button,
   Container,
@@ -12,26 +13,22 @@ import {
   Stack,
   TextInput,
 } from '@mantine/core';
+import { useMemo } from 'react';
 import { notifications } from '@mantine/notifications';
 import { IconAlertTriangle, IconCheck, IconDeviceFloppy, IconLogout } from '@tabler/icons-react';
 import Link from 'next/link';
-import { FC } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { PageHeader, Surface } from '@/components';
 import { ERROR_MESSAGES } from '@/constants/errorMessages';
 import HttpStatus from '@/enums/http-status.enum';
 import { dashboardRoute, warningRoute } from '@/routes';
-import { Semester, Warning } from '@/types';
+import { SelectList, Semester, Warning } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
 import '@mantine/dates/styles.css';
 import { useWarningStudentService } from '@/services/WarningStudentService';
 
-type Props = {
-  semesters: Semester[];
-};
-
-const WarningCreatePage: FC<Props> = ({ semesters }) => {
+const WarningCreatePage = () => {
   const {
     register,
     trigger,
@@ -44,16 +41,27 @@ const WarningCreatePage: FC<Props> = ({ semesters }) => {
     defaultValues: {},
   });
 
-  const semesterList: { label: string; value: string }[] | undefined = semesters
-    ? semesters?.map((semester) => ({
-        value: String(semester.id),
-        label: `Học kỳ ${semester.semester} - Năm học ${semester.school_year.start_year} - ${semester.school_year.end_year}`,
-      }))
-    : [];
-
-  const { createWarningStudent } = useWarningStudentService();
+  const { createWarningStudent, getSemesters } = useWarningStudentService();
 
   const { push } = useRouter();
+
+  const { data: semesters } = useSWR<Semester[]>('getSemester', () =>
+    getSemesters().then((res) => res.data)
+  );
+
+  const semesterList: SelectList<string>[] | undefined = useMemo(
+    () =>
+      semesters
+        ? semesters?.map(
+            (semester): SelectList<string> => ({
+              value: String(semester.id),
+              label: `Học kỳ ${semester.semester} - Năm học ${semester.school_year.start_year} - ${semester.school_year.end_year}`,
+            })
+          )
+        : [],
+
+    [semesters]
+  );
 
   const onSubmit = async (data: Warning) => {
     if (!isSubmitting) {
