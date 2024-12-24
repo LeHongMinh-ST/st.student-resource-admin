@@ -12,16 +12,25 @@ import {
   useMantineTheme,
   Box,
 } from '@mantine/core';
-import { IconPower } from '@tabler/icons-react';
-import { ReactNode } from 'react';
+import { IconAlertTriangle, IconPower } from '@tabler/icons-react';
+import { ReactNode, useEffect } from 'react';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Pusher from 'pusher-js';
+import useSWR from 'swr';
+import { notifications } from '@mantine/notifications';
 import { UserProfileButton, Navigation } from '@/components';
 import classes from '@/layouts/main-layout.module.scss';
-import { User } from '@/types';
+import { ResultResponse, User, ZipExportFile } from '@/types';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import useAuthCheck from '@/hooks/useAuthCheck';
+import DialogDownload from '@/components/Dialog';
+import {
+  useSetZipExportFileProps,
+  useZipExportFileProps,
+} from '@/utils/recoil/fileExport/FileExportState';
+import { useSurveyPeriodService } from '@/services/surveyPeriodService';
 
 type MainLayoutProps = {
   className?: string;
@@ -45,9 +54,75 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, className }) => {
     router.push('/login');
   };
 
+  const auth = useAuthStore();
+
+  const { getFileZipSurveyResponse, downloadFileZipSurveyResponse } = useSurveyPeriodService();
+  const zipExportFile = useZipExportFileProps();
+  const setZipExportFile = useSetZipExportFileProps();
+
+  const fetchZipSurveyResponse = async (): Promise<ResultResponse<ZipExportFile>> => {
+    try {
+      const res = await getFileZipSurveyResponse(Number(zipExportFile?.id));
+      return res.data;
+    } catch (error) {
+      setZipExportFile(null);
+      throw error;
+    }
+  };
+
+  const { data, mutate } = useSWR<ResultResponse<ZipExportFile>>(
+    zipExportFile?.id ? [zipExportFile] : null,
+    fetchZipSurveyResponse
+  );
+
+  useEffect(() => {
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY ?? '', {
+      cluster: 'ap1',
+    });
+
+    const channel = pusher.subscribe(`export-survey-response-channel.${auth.authUser?.id}`);
+    channel.bind('export-survey-response-event', () => {
+      mutate().then();
+    });
+  }, []);
+
+  const handleDownloadZipFileResponse = async (id: string | number): Promise<void> => {
+    try {
+      const res = await downloadFileZipSurveyResponse(id);
+      const url: string = window.URL.createObjectURL(new Blob([(res as any)?.data]));
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `response_survey_${id}.zip`);
+      document.body.appendChild(link);
+      link.click();
+
+      // Clean up after download
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      // clear popup after 1s
+      setTimeout(() => {
+        setZipExportFile(null);
+      }, 2000);
+    } catch (error) {
+      notifications.show({
+        title: 'Lỗi!',
+        message: 'Có lỗi xảy ra vui lòng thử lại sau!',
+        icon: <IconAlertTriangle />,
+        color: 'red',
+        autoClose: 5000,
+      });
+    }
+  };
+
   return (
     authorized && (
       <div id="main-layout" className={className}>
+        <DialogDownload
+          handlerAction={handleDownloadZipFileResponse}
+          zipFileDownload={data?.data ?? undefined}
+        />
         <AppShell
           layout="alt"
           header={{ height: 60 }}

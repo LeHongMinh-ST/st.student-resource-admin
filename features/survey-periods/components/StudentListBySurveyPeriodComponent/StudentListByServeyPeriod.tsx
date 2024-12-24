@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { Paper, Text, Button } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { DataTableProps } from 'mantine-datatable';
-import { IconAlertTriangle, IconMail } from '@tabler/icons-react';
+import { IconAlertTriangle, IconFileExport, IconMail } from '@tabler/icons-react';
 import useSWR from 'swr';
 import { useDisclosure } from '@mantine/hooks';
 import { defaultPramsList } from '@/constants/commons';
@@ -25,6 +25,10 @@ import StatusSurvey from '@/enums/statusSurvey.enum';
 import CheckboxStudent from '../Cells/CheckboxStudent';
 import { useSurveyPeriodService } from '@/services/surveyPeriodService';
 import ComfirmModal from '@/components/Modals/ComfirmModel/ComfirmModal';
+import {
+  useSetZipExportFileProps,
+  useZipExportFileProps,
+} from '@/utils/recoil/fileExport/FileExportState';
 
 type StudentListByServeyPeriodProps = {
   surveyPeriodId: number;
@@ -36,9 +40,39 @@ const StudentListByServeyPeriod: FC<StudentListByServeyPeriodProps> = ({ surveyP
   } as GetListStudentBySurveyParams);
 
   const [isOpen, { open: onOpen, close: onClose }] = useDisclosure(false);
+  const setZipExportFile = useSetZipExportFileProps();
+  const { sendMailSurveyPeriod, createFileZipSurveyResponse } = useSurveyPeriodService();
+
+  const handleCreateZipFileSurveyResponse = () =>
+    createFileZipSurveyResponse(Number(surveyPeriodId), {
+      is_all_student: true,
+    })
+      .then((res) => {
+        // console.log(res.data.data)
+        setZipExportFile(res.data.data);
+      })
+      .catch((error) => {
+        if (error?.status === HttpStatusEnum.HTTP_FORBIDDEN) {
+          notifications.show({
+            title: 'Cảnh báo!',
+            message: 'Bạn không có quyền truy cập!',
+            icon: <IconAlertTriangle />,
+            color: 'red',
+            autoClose: 5000,
+          });
+        } else {
+          notifications.show({
+            title: 'Lỗi',
+            message: 'Có lỗi sảy ra vui lòng thử lại sau !',
+            icon: <IconAlertTriangle />,
+            color: 'red',
+            autoClose: 5000,
+          });
+        }
+        return error;
+      });
 
   const { getListStudentBySurveyPeriod } = useStudentService();
-  const { sendMailSurveyPeriod } = useSurveyPeriodService();
   const handleGetListStudent = () =>
     getListStudentBySurveyPeriod(surveyPeriodId, getListStudentParams)
       .then((res) => res.data)
@@ -70,6 +104,7 @@ const StudentListByServeyPeriod: FC<StudentListByServeyPeriodProps> = ({ surveyP
   const [selected, setSelected] = useState<Student | null>(null);
   const [selectedSurveyId, setSelectedSurveyId] = useState<Number | null>(null);
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
+  const zipExportFile = useZipExportFileProps();
 
   const [isOpenPopupComfirm, { open: onOpenPopupComfirm, close: onClosePopupComfirm }] =
     useDisclosure(false);
@@ -205,6 +240,16 @@ const StudentListByServeyPeriod: FC<StudentListByServeyPeriodProps> = ({ surveyP
           leftSection={<IconMail size={18} />}
         >
           {`Gửi mail đến (${selectedRows.length}) sinh viên đã chọn`}
+        </Button>
+        <Button
+          my={10}
+          ml={20}
+          disabled={!!zipExportFile}
+          onClick={handleCreateZipFileSurveyResponse}
+          // disabled={selectedRows.length === 0}
+          leftSection={<IconFileExport size={18} />}
+        >
+          Xuất kết quả khảo sát
         </Button>
       </div>
       <StudentImportTabContentStyled>

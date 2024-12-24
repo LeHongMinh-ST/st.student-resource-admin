@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import axiosInstance from '@/utils/axios';
 import Status from '@/enums/status.enum';
-import { BaseParamsList, ResultResponse, SurveyPeriod } from '@/types';
+import { BaseParamsList, ResultResponse, SurveyPeriod, ZipExportFile } from '@/types';
 
 export type SurveyPeriodListParams = {
   status?: Status;
@@ -43,12 +43,36 @@ export const useSurveyPeriodService = () => {
   ): Promise<AxiosResponse<ResultResponse<null>, any>> =>
     axiosInstance.post(`/survey-periods/${id}/send-mail`, options);
 
+  const createFileZipSurveyResponse = (
+    id: number | string,
+    options?: {
+      is_all_student?: boolean;
+      student_ids?: number[];
+    }
+  ): Promise<AxiosResponse<ResultResponse<ZipExportFile>, any>> =>
+    axiosInstance.post(`/survey-periods/${id}/create-response-survey-zip-file`, options);
+
+  const getFileZipSurveyResponse = (
+    id: number | string
+  ): Promise<AxiosResponse<ResultResponse<ZipExportFile>, any>> =>
+    axiosInstance.get(`/survey-periods/zip-file/${id}`);
+
+  const downloadFileZipSurveyResponse = (
+    id: number | string
+  ): Promise<AxiosResponse<ResultResponse<ZipExportFile>, any>> =>
+    axiosInstance.get(`/survey-periods/${id}/download-zip-file`, {
+      responseType: 'blob',
+    });
+
   return {
+    getFileZipSurveyResponse,
     getList,
     getSurveyPeriod,
     createSurveyPeriod,
     updateSurveyPeriod,
     deleteSurveyPeriod,
     sendMailSurveyPeriod,
+    createFileZipSurveyResponse,
+    downloadFileZipSurveyResponse,
   };
 };

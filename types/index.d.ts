@@ -63,6 +63,16 @@ type AdmissionYear = {
   updated_at?: string;
 };
 
+type ZipExportFile = {
+  id?: number;
+  name: string;
+  file_total: number;
+  process_total: number;
+  status: StatusFileImport;
+  survey_period_id: number;
+  survey_period?: SurveyPeriod;
+};
+
 type ExcelFileImport = {
   id?: number;
   name: string;
