@@ -4,7 +4,7 @@ import { IconAlertTriangle } from '@tabler/icons-react';
 import { Student } from '@/types';
 import { theme } from '@/theme';
 import { WarningStatus } from '@/enums/warningStatus';
-import { warningStatusLabel } from '@/constants/labels';
+import { warningStatusColor, warningStatusLabel } from '@/constants/labels';
 
 type StudentNameCellTableProps = {
   student: Student;
@@ -26,7 +26,7 @@ const StudentNameCellTable: FC<StudentNameCellTableProps> = ({ student }) => (
         {!!student?.warning_status && student?.warning_status !== WarningStatus.NoWarning && (
           <Badge
             leftSection={<IconAlertTriangle style={{ width: rem(12), height: rem(12) }} />}
-            color="orange"
+            color={warningStatusColor[student?.warning_status]}
             variant="filled"
             size="sm"
             radius="sm"

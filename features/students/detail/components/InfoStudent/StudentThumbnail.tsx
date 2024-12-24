@@ -18,7 +18,7 @@ import { ChangeStatusStudent, useStudentService } from '@/services/studentServic
 import { StudentStatus } from '@/enums';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import Role from '@/enums/role.enum';
-import { warningStatusLabel } from '@/constants/labels';
+import { warningStatusColor, warningStatusLabel } from '@/constants/labels';
 import { WarningStatus } from '@/enums/warningStatus';
 
 type StudentThumbnailProp = {
@@ -102,7 +102,7 @@ const StudentThumbnail: FC<StudentThumbnailProp> = ({ className, student, mutate
             {!!student?.warning_status && student?.warning_status !== WarningStatus.NoWarning && (
               <Badge
                 leftSection={<IconAlertTriangle style={{ width: rem(12), height: rem(12) }} />}
-                color="orange"
+                color={warningStatusColor[student?.warning_status]}
                 variant="filled"
                 size="sm"
                 radius="sm"

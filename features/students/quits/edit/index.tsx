@@ -6,7 +6,7 @@ import {
   Container,
   Fieldset,
   Grid,
-  Paper,
+  Paper, Select,
   SimpleGrid,
   Stack,
   TextInput,
@@ -22,11 +22,13 @@ import { PageHeader, Surface } from '@/components';
 import { ERROR_MESSAGES } from '@/constants/errorMessages';
 import HttpStatus from '@/enums/http-status.enum';
 import { dashboardRoute, quitRoute } from '@/routes';
-import { Semester, Quit } from '@/types';
+import { Semester, Quit, SelectList } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
 import '@mantine/dates/styles.css';
 import { useQuitStudentService } from '@/services/QuitStudentService';
 import { DatePickerInput, YearPickerInput } from '@mantine/dates';
+import { StudentStatus } from "@/enums";
+import { studentStatusLabels } from "@/constants/labels";
 
 type Props = {
   id: number;
@@ -38,17 +40,16 @@ const QuitEditPage: FC<Props> = ({ id }) => {
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
+    setValue,
+    getValues,
+    trigger,
     setError,
-    reset,
+    reset
   } = useForm<Quit>({
     defaultValues: {},
   });
 
-  const { getSemesters, updateQuitStudent, getQuitStudentById } = useQuitStudentService();
-
-  const { data: semesters } = useSWR<Semester[]>('getSemester', () =>
-    getSemesters().then((res) => res.data)
-  );
+  const { updateQuitStudent, getQuitStudentById } = useQuitStudentService();
 
   const { data } = useSWR<Quit>([id], () => getQuitStudentById(id).then((res) => res?.data?.data));
 
@@ -59,7 +60,10 @@ const QuitEditPage: FC<Props> = ({ id }) => {
       // trigger('semester_id');
     }
   }, [data]);
-
+  const typeList: SelectList<string>[] = [
+    { value: StudentStatus.Expelled, label: studentStatusLabels.expelled },
+    { value: StudentStatus.ToDropOut, label: studentStatusLabels.to_drop_out },
+  ]
   const { push } = useRouter();
 
   const onSubmit = async (data: Quit) => {
@@ -189,6 +193,25 @@ const QuitEditPage: FC<Props> = ({ id }) => {
                             )}
                           />
                         </SimpleGrid>
+                        <SimpleGrid cols={{ base: 1, md: 2 }}>
+                          <Select
+                            withAsterisk
+                            label="Loại"
+                            placeholder="Chọn"
+                            disabled
+                            data={typeList}
+                            value={String(getValues('type'))}
+                            onChange={(value) => {
+                              if (value) {
+                                // @ts-ignore
+                                setValue('type', value);
+                                trigger('type');
+                              }
+                            }}
+                          />
+
+                        </SimpleGrid>
+
                       </Stack>
                     </Fieldset>
                   </Stack>

@@ -19,7 +19,7 @@ const StudentNameCellTable: FC<StudentNameCellTableProps> = ({ student }) => (
     ></Avatar>
     <Stack gap={0}>
       <Text fz="sm" fw={600}>
-        {student.first_name} {student.last_name}
+        {student.last_name} {student.first_name}
       </Text>
       <Text fz="xs">{student.email}</Text>
     </Stack>

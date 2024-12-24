@@ -4,7 +4,7 @@ import { Paper, Text } from '@mantine/core';
 import useSWR from 'swr';
 import Pusher from 'pusher-js';
 import { CommonDataTable, StatusFileImportBadge } from '@/components';
-import { ExcelFileImport, Warning, ResultResponse } from '@/types';
+import { ExcelFileImport, Quit, ResultResponse } from '@/types';
 import { defaultPramsList } from '@/constants/commons';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import {
@@ -12,18 +12,18 @@ import {
   useExcelImportFileService,
 } from '@/services/ExcelImportFileService';
 import { ExcelFileImportType } from '@/enums';
-import ExcelFileImportActionMenu from '@/features/students/warnings/detail/components/StudentWarningContent/StudentImportTabComponent/Cells/ExcelFileImportActionMenu';
+import ExcelFileImportActionMenu from '@/features/students/quits/detail/components/StudentQuitContent/StudentImportTabComponent/Cells/ExcelFileImportActionMenu';
 
 type ListExcelFileImportProps = {
-  warning?: Warning;
+  quit?: Quit;
   isReloadList?: boolean;
 };
 
-const ListExcelFileImport: FC<ListExcelFileImportProps> = ({ isReloadList = false, warning }) => {
+const ListExcelFileImport: FC<ListExcelFileImportProps> = ({ isReloadList = false, quit }) => {
   const [excelFileImportsParams, setExcelFileImportPrams] =
     useState<GetListFileExcelImportByEntityIdParams>({
-      type: ExcelFileImportType.Warning,
-      entity_id: warning?.id ?? 0,
+      type: ExcelFileImportType.Quit,
+      entity_id: quit?.id ?? 0,
       ...defaultPramsList,
     });
   const { getListFileImportByEntityId } = useExcelImportFileService();
@@ -32,7 +32,7 @@ const ListExcelFileImport: FC<ListExcelFileImportProps> = ({ isReloadList = fals
     getListFileImportByEntityId(excelFileImportsParams).then((res) => res.data);
 
   const { data, isLoading, mutate } = useSWR<ResultResponse<ExcelFileImport[]>>(
-    [warning, excelFileImportsParams, isReloadList],
+    [quit, excelFileImportsParams, isReloadList],
     handleGetListExcelFileImport
   );
   const auth = useAuthStore();
@@ -42,8 +42,8 @@ const ListExcelFileImport: FC<ListExcelFileImportProps> = ({ isReloadList = fals
       cluster: 'ap1',
     });
 
-    const channel = pusher.subscribe(`import-student-warning-channel.${auth.authUser?.id}`);
-    channel.bind('import-student-warning-event', () => {
+    const channel = pusher.subscribe(`import-student-quit-channel.${auth.authUser?.id}`);
+    channel.bind('import-student-quit-event', () => {
       mutate().then();
     });
   }, []);

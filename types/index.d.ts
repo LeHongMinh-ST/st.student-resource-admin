@@ -358,6 +358,11 @@ type Quit = {
   faculty_id?: number;
   faculty?: Faculty;
   year: any;
+  type:
+    | StudentStatus.ToDropOut
+    | StudentStatus.Expelled
+    | StudentStatus.Deferred
+    | StudentStatus.TransferStudy;
   student_count?: number;
   created_at?: string;
   updated_at?: string;

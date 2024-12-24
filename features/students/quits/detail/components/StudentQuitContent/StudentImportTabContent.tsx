@@ -1,18 +1,18 @@
 import { FC, useState, useCallback } from 'react';
 import { IconAlertTriangle, IconCheck } from '@tabler/icons-react';
 import { notifications } from '@mantine/notifications';
-import { Warning } from '@/types';
 import ListExcelFileImport from './StudentImportTabComponent/ListExcelFileImport';
 import StudentDropzoneImport from './StudentImportTabComponent/StudentDropzoneImport';
 import { useStudentService } from '@/services/studentService';
 import { useExcelImportFileService } from '@/services/ExcelImportFileService';
 import { ExcelFileImportType } from '@/enums';
+import { Quit } from "@/types";
 
 type StudentImportTabContentProps = {
-  warning?: Warning;
+  quit?: Quit;
 };
 
-const StudentImportTabContent: FC<StudentImportTabContentProps> = ({ warning }) => {
+const StudentImportTabContent: FC<StudentImportTabContentProps> = ({ quit }) => {
   const [fileValue, setFileValue] = useState<File | null>(null);
   const [isImporting, setIsImporting] = useState<boolean>(false);
   const [isReloadList, setIsReloadList] = useState<boolean>(false);
@@ -28,8 +28,8 @@ const StudentImportTabContent: FC<StudentImportTabContentProps> = ({ warning }) 
       setIsImporting(true);
       const formData = new FormData();
       formData.append('file', fileValue!);
-      formData.append('type', ExcelFileImportType.Warning);
-      formData.append('entity_id', (warning?.id ?? '').toString());
+      formData.append('type', ExcelFileImportType.Quit);
+      formData.append('entity_id', (quit?.id ?? '').toString());
 
       await importFile(formData);
 
@@ -52,7 +52,7 @@ const StudentImportTabContent: FC<StudentImportTabContentProps> = ({ warning }) 
       });
     }
     setIsImporting(false);
-  }, [fileValue, warning, studentService, clearFileValue]);
+  }, [fileValue, quit, studentService, clearFileValue]);
 
   return (
     <div>
@@ -63,7 +63,7 @@ const StudentImportTabContent: FC<StudentImportTabContentProps> = ({ warning }) 
         onUpload={handleUploadFile}
       />
       <div className="list-import">
-        <ListExcelFileImport warning={warning} isReloadList={isReloadList} />
+        <ListExcelFileImport quit={quit} isReloadList={isReloadList} />
       </div>
     </div>
   );

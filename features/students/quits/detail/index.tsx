@@ -14,6 +14,7 @@ import HttpStatus from '@/enums/http-status.enum';
 import { useQuitStudentService } from '@/services/QuitStudentService';
 import StudentQuit from '@/features/students/quits/detail/components/StudentQuitContent';
 import { formatDateString } from '@/utils/func/formatDateString';
+import { studentStatusLabels } from '@/constants/labels';
 
 type QuitDetailPageProp = {
   id: number;
@@ -60,7 +61,7 @@ const QuitDetailPage: FC<QuitDetailPageProp> = ({ id }) => {
               title={`Đợt tốt nghiệp - Thông tin - #${data?.id}`}
               breadcrumbItems={[
                 { title: 'Bảng điều khiển', href: dashboardRoute.dashboard },
-                { title: 'Đợt tốt nghiệp', href: quitRoute.list },
+                { title: 'Thôi học sinh viên', href: quitRoute.list },
                 { title: 'Thông tin', href: null },
               ]}
               withActions={
@@ -82,7 +83,7 @@ const QuitDetailPage: FC<QuitDetailPageProp> = ({ id }) => {
             <Grid.Col span={{ base: 12, sm: 12, md: 12, lg: 12 }}>
               <Paper p="md" shadow="md" radius="md">
                 <Grid>
-                  <Grid.Col span={6}>
+                  <Grid.Col span={4}>
                     <Stack gap={3} ta="left">
                       <Text size="md" fw={400}>
                         Tiêu đề:
@@ -92,7 +93,17 @@ const QuitDetailPage: FC<QuitDetailPageProp> = ({ id }) => {
                       </Text>
                     </Stack>
                   </Grid.Col>
-                  <Grid.Col span={6} style={{ borderLeft: '1px solid #ccc', paddingLeft: 20 }}>
+                  <Grid.Col span={4} style={{ borderLeft: '1px solid #ccc', paddingLeft: 20 }}>
+                    <Stack gap={3} ta="left">
+                      <Text size="md" fw={400}>
+                        Loại:
+                      </Text>
+                      <Text size="lg" fw={500}>
+                        {data?.type ? studentStatusLabels[data?.type] : ''}
+                      </Text>
+                    </Stack>
+                  </Grid.Col>
+                  <Grid.Col span={4} style={{ borderLeft: '1px solid #ccc', paddingLeft: 20 }}>
                     <Stack gap={3} ta="left">
                       <Text size="md" fw={400}>
                         Số quyết định buộc thôi học:

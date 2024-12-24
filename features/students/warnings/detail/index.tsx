@@ -19,6 +19,7 @@ type WarningDetailPageProp = {
 };
 
 const WarningDetailPage: FC<WarningDetailPageProp> = ({ id }) => {
+
   const { getWarningStudentById } = useWarningStudentService();
   const { push } = useRouter();
 
@@ -56,10 +57,10 @@ const WarningDetailPage: FC<WarningDetailPageProp> = ({ id }) => {
         <Stack>
           <Skeleton visible={isLoading}>
             <PageHeader
-              title={`Đợt tốt nghiệp - Thông tin - #${data?.id}`}
+              title={`Cảnh báo sinh viên - Thông tin - #${data?.id}`}
               breadcrumbItems={[
                 { title: 'Bảng điều khiển', href: dashboardRoute.dashboard },
-                { title: 'Đợt tốt nghiệp', href: warningRoute.list },
+                { title: 'Cảnh báo sinh viên', href: warningRoute.list },
                 { title: 'Thông tin', href: null },
               ]}
               withActions={

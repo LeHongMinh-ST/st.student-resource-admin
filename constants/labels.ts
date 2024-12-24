@@ -57,7 +57,7 @@ export const studentStatusLabels: Record<StudentStatus, string> = {
   [StudentStatus.Graduated]: 'Đã tốt nghiệp',
   [StudentStatus.ToDropOut]: 'Xin thôi học',
   [StudentStatus.TemporarilySuspended]: 'Tạm dừng học',
-  [StudentStatus.Expelled]: 'Đã bị đuổi học',
+  [StudentStatus.Expelled]: 'Buộc thôi học',
   [StudentStatus.Deferred]: 'Bảo lưu',
   [StudentStatus.TransferStudy]: 'Chuyển ngành học',
 };
@@ -101,4 +101,10 @@ export const warningStatusLabel: Record<WarningStatus, string> = {
   [WarningStatus.NoWarning]: 'Không có cảnh báo',
   [WarningStatus.UnderObservation]: 'Cảnh báo lần 1',
   [WarningStatus.AtRisk]: 'Cảnh báo lần 2',
+};
+
+export const warningStatusColor: Record<WarningStatus, string> = {
+  [WarningStatus.NoWarning]: 'orange',
+  [WarningStatus.UnderObservation]: 'orange',
+  [WarningStatus.AtRisk]: 'danger',
 };

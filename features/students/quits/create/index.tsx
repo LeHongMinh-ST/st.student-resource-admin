@@ -6,7 +6,7 @@ import {
   Container,
   Fieldset,
   Grid,
-  Paper,
+  Paper, Select,
   SimpleGrid,
   Stack,
   TextInput,
@@ -20,11 +20,13 @@ import { PageHeader, Surface } from '@/components';
 import { ERROR_MESSAGES } from '@/constants/errorMessages';
 import HttpStatus from '@/enums/http-status.enum';
 import { dashboardRoute, quitRoute } from '@/routes';
-import { Quit } from '@/types';
+import { Quit, SelectList } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
 import '@mantine/dates/styles.css';
 import { useQuitStudentService } from '@/services/QuitStudentService';
 import { DatePickerInput, YearPickerInput } from '@mantine/dates';
+import { StudentStatus } from "@/enums";
+import { studentStatusLabels } from "@/constants/labels";
 
 const QuitCreatePage = () => {
   const {
@@ -32,14 +34,26 @@ const QuitCreatePage = () => {
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
+    setValue,
+    getValues,
+    trigger,
     setError,
   } = useForm<Quit>({
-    defaultValues: {},
+    defaultValues: {
+      type: StudentStatus.Expelled
+    },
   });
 
   const { createQuitStudent } = useQuitStudentService();
 
   const { push } = useRouter();
+
+  const typeList: SelectList<string>[] = [
+    { value: StudentStatus.Expelled, label: studentStatusLabels.expelled },
+    { value: StudentStatus.ToDropOut, label: studentStatusLabels.to_drop_out },
+    { value: StudentStatus.Deferred, label: studentStatusLabels.deferred },
+    { value: StudentStatus.TransferStudy, label: studentStatusLabels.transfer_study },
+  ]
 
   const onSubmit = async (data: Quit) => {
     if (!isSubmitting) {
@@ -142,7 +156,7 @@ const QuitCreatePage = () => {
                         <SimpleGrid cols={{ base: 1, md: 2 }}>
                           <TextInput
                             withAsterisk
-                            label="Số quyết định buộc thôi học"
+                            label="Số quyết định"
                             {...register('certification', {
                               required: ERROR_MESSAGES.graduation.certification.required,
                             })}
@@ -170,6 +184,24 @@ const QuitCreatePage = () => {
                             )}
                           />
                         </SimpleGrid>
+                        <SimpleGrid cols={{ base: 1, md: 2 }}>
+                          <Select
+                            withAsterisk
+                            label="Loại"
+                            placeholder="Chọn"
+                            data={typeList}
+                            value={String(getValues('type'))}
+                            onChange={(value) => {
+                              if (value) {
+                                // @ts-ignore
+                                setValue('type', value);
+                                trigger('type');
+                              }
+                            }}
+                          />
+
+                        </SimpleGrid>
+
                       </Stack>
                     </Fieldset>
                   </Stack>

@@ -53,7 +53,7 @@ const StudentListTabContent: FC<StudentListTabContentProps> = ({ quit }) => {
       });
 
   const { data, isLoading } = useSWR<ResultResponse<Student[]>>(
-    ['getListStudent', getListStudentParams],
+    ['getListStudent', getListStudentParams, quit],
     handleGetListStudent
   );
 

@@ -42,7 +42,7 @@ const StudentQuitPage = () => {
     () => [
       {
         accessor: 'name',
-        title: 'Đợt thôi học',
+        title: 'Tiêu đề',
         render: (quit: Quit) => (
           <Tooltip
             multiline
