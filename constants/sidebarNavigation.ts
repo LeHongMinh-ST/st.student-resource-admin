@@ -33,7 +33,7 @@ export const sidebarNavigationAdmin: SidebarNavigationProps[] = [
       { label: 'Danh sách sinh viên', icon: IconUsers, link: studentRoute.listCourse },
       { label: 'Đợt tốt nghiệp', icon: IconSchool, link: '/students-graduation' },
       { label: 'Cảnh báo', icon: IconAlertTriangle, link: '/student-warning' },
-      { label: 'Buộc thôi học', icon: IconBan, link: '/student-leave' },
+      { label: 'Nghỉ học', icon: IconBan, link: '/student-leave' },
       { label: 'Xác nhận thông tin', icon: IconUserEdit, link: '/students-request' },
       { label: 'Phản ánh', icon: IconMessageQuestion, link: '/students-report' },
     ],
@@ -44,8 +44,8 @@ export const sidebarNavigationAdmin: SidebarNavigationProps[] = [
       { label: 'Khảo sát viêc làm', icon: IconListDetails, link: '/survey-periods' },
       // { label: 'Đánh giá rèn luyện', icon: IconListNumbers, link: '/form-point' },
     ],
+    // {
   },
-  // {
   //   title: 'Báo cáo - thống kê',
   //   links: [
   //     { label: 'Tình hình việc làm', icon: IconChartDots, link: '/statistics-job' },
@@ -77,7 +77,7 @@ export const sidebarNavigationOfficer: SidebarNavigationProps[] = [
     links: [
       { label: 'Danh sách sinh viên', icon: IconUsers, link: studentRoute.listCourse },
       { label: 'Cảnh báo', icon: IconAlertTriangle, link: '/student-warning' },
-      { label: 'Buộc thôi học', icon: IconBan, link: '/student-leave' },
+      { label: 'Nghỉ học', icon: IconBan, link: '/student-leave' },
       { label: 'Xác nhận thông tin', icon: IconUserEdit, link: '/students-request' },
       { label: 'Phản ánh', icon: IconMessageQuestion, link: '/students-report' },
     ],

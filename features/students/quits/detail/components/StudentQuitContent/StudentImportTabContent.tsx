@@ -6,7 +6,7 @@ import StudentDropzoneImport from './StudentImportTabComponent/StudentDropzoneIm
 import { useStudentService } from '@/services/studentService';
 import { useExcelImportFileService } from '@/services/ExcelImportFileService';
 import { ExcelFileImportType } from '@/enums';
-import { Quit } from "@/types";
+import { Quit } from '@/types';
 
 type StudentImportTabContentProps = {
   quit?: Quit;

@@ -58,7 +58,7 @@ const StudentEditPage = () => {
   } = useForm<Student>();
 
   const { updateStudent, getStudentById } = useStudentService();
-  const { query, push, back } = useRouter();
+  const { query, push } = useRouter();
   const { id } = query;
 
   const handleGetStudent = () => getStudentById(Number(id)).then((res) => res.data);
@@ -139,7 +139,10 @@ const StudentEditPage = () => {
                 { title: 'Chỉnh sửa', href: null },
               ]}
               withActions={
-                <Button onClick={() => back()} leftSection={<IconLogout size={18} />}>
+                <Button
+                  onClick={() => push(studentRoute.show(Number(id)))}
+                  leftSection={<IconLogout size={18} />}
+                >
                   Quay lại
                 </Button>
               }

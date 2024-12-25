@@ -6,7 +6,8 @@ import {
   Container,
   Fieldset,
   Grid,
-  Paper, Select,
+  Paper,
+  Select,
   SimpleGrid,
   Stack,
   TextInput,
@@ -25,8 +26,8 @@ import { Quit, SelectList } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
 import '@mantine/dates/styles.css';
 import { useQuitStudentService } from '@/services/QuitStudentService';
-import { StudentStatus } from "@/enums";
-import { studentStatusLabels } from "@/constants/labels";
+import { StudentStatus } from '@/enums';
+import { studentStatusLabels } from '@/constants/labels';
 
 const QuitCreatePage = () => {
   const {
@@ -40,7 +41,7 @@ const QuitCreatePage = () => {
     setError,
   } = useForm<Quit>({
     defaultValues: {
-      type: StudentStatus.Expelled
+      type: StudentStatus.Expelled,
     },
   });
 
@@ -51,9 +52,7 @@ const QuitCreatePage = () => {
   const typeList: SelectList<string>[] = [
     { value: StudentStatus.Expelled, label: studentStatusLabels.expelled },
     { value: StudentStatus.ToDropOut, label: studentStatusLabels.to_drop_out },
-    { value: StudentStatus.Deferred, label: studentStatusLabels.deferred },
-    { value: StudentStatus.TransferStudy, label: studentStatusLabels.transfer_study },
-  ]
+  ];
 
   const onSubmit = async (data: Quit) => {
     if (!isSubmitting) {
@@ -134,57 +133,6 @@ const QuitCreatePage = () => {
                             error={errors.name?.message}
                           />
 
-                          <Controller
-                            name="year"
-                            control={control}
-                            rules={{ required: ERROR_MESSAGES.quit.year.required }}
-                            render={({ field }) => (
-                              <YearPickerInput
-                                withAsterisk
-                                label="Năm"
-                                value={field.value ? new Date(field.value) : null}
-                                onChange={(date) => field.onChange(date)}
-                                onBlur={field.onBlur}
-                                name={field.name}
-                                ref={field.ref}
-                                error={errors.certification_date?.message}
-                              />
-                            )}
-                          />
-                        </SimpleGrid>
-
-                        <SimpleGrid cols={{ base: 1, md: 2 }}>
-                          <TextInput
-                            withAsterisk
-                            label="Số quyết định"
-                            {...register('certification', {
-                              required: ERROR_MESSAGES.graduation.certification.required,
-                            })}
-                            error={errors.certification?.message}
-                          />
-                          <Controller
-                            name="certification_date"
-                            control={control}
-                            rules={{
-                              required: ERROR_MESSAGES.graduation.certification_date.required,
-                            }}
-                            render={({ field }) => (
-                              <DatePickerInput
-                                withAsterisk
-                                label="Ngày quyết định thôi học"
-                                placeholder="Chọn ngày quyết định thôi học"
-                                value={field.value ? new Date(field.value) : null}
-                                onChange={(date) => field.onChange(date)}
-                                onBlur={field.onBlur}
-                                name={field.name}
-                                ref={field.ref}
-                                valueFormat="DD/MM/YYYY"
-                                error={errors.certification_date?.message}
-                              />
-                            )}
-                          />
-                        </SimpleGrid>
-                        <SimpleGrid cols={{ base: 1, md: 2 }}>
                           <Select
                             withAsterisk
                             label="Loại"
@@ -199,9 +147,61 @@ const QuitCreatePage = () => {
                               }
                             }}
                           />
-
                         </SimpleGrid>
-
+                        {(getValues('type') as StudentStatus) === StudentStatus.Expelled && (
+                          <>
+                            <SimpleGrid cols={{ base: 1, md: 2 }}>
+                              <TextInput
+                                withAsterisk
+                                label="Số quyết định"
+                                {...register('certification', {
+                                  required: ERROR_MESSAGES.graduation.certification.required,
+                                })}
+                                error={errors.certification?.message}
+                              />
+                              <Controller
+                                name="certification_date"
+                                control={control}
+                                rules={{
+                                  required: ERROR_MESSAGES.graduation.certification_date.required,
+                                }}
+                                render={({ field }) => (
+                                  <DatePickerInput
+                                    withAsterisk
+                                    label="Ngày quyết định thôi học"
+                                    placeholder="Chọn ngày quyết định thôi học"
+                                    value={field.value ? new Date(field.value) : null}
+                                    onChange={(date) => field.onChange(date)}
+                                    onBlur={field.onBlur}
+                                    name={field.name}
+                                    ref={field.ref}
+                                    valueFormat="DD/MM/YYYY"
+                                    error={errors.certification_date?.message}
+                                  />
+                                )}
+                              />
+                            </SimpleGrid>
+                            <SimpleGrid cols={{ base: 1, md: 2 }}>
+                              <Controller
+                                name="year"
+                                control={control}
+                                rules={{ required: ERROR_MESSAGES.quit.year.required }}
+                                render={({ field }) => (
+                                  <YearPickerInput
+                                    withAsterisk
+                                    label="Năm"
+                                    value={field.value ? new Date(field.value) : null}
+                                    onChange={(date) => field.onChange(date)}
+                                    onBlur={field.onBlur}
+                                    name={field.name}
+                                    ref={field.ref}
+                                    error={errors.certification_date?.message}
+                                  />
+                                )}
+                              />
+                            </SimpleGrid>
+                          </>
+                        )}
                       </Stack>
                     </Fieldset>
                   </Stack>

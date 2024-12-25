@@ -19,7 +19,6 @@ type WarningDetailPageProp = {
 };
 
 const WarningDetailPage: FC<WarningDetailPageProp> = ({ id }) => {
-
   const { getWarningStudentById } = useWarningStudentService();
   const { push } = useRouter();
 
