@@ -49,7 +49,7 @@ const StudentDropzoneImport: FC<StudentDropzoneImportProps> = ({
   const handleDownloadTemplateFileImport = async (): Promise<void> => {
     try {
       const res = await downloadTemplateFileImport({
-        type: ExcelFileImportType.Warning,
+        type: ExcelFileImportType.Quit,
       });
       const url: string = window.URL.createObjectURL(new Blob([(res as any)?.data]));
 
