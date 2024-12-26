@@ -64,6 +64,7 @@ const QuitEditPage: FC<Props> = ({ id }) => {
   const typeList: SelectList<string>[] = [
     { value: StudentStatus.Expelled, label: studentStatusLabels.expelled },
     { value: StudentStatus.ToDropOut, label: studentStatusLabels.to_drop_out },
+    { value: StudentStatus.Deferred, label: studentStatusLabels.deferred },
   ];
   const { push } = useRouter();
 

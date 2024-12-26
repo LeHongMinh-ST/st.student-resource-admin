@@ -52,6 +52,7 @@ const QuitCreatePage = () => {
   const typeList: SelectList<string>[] = [
     { value: StudentStatus.Expelled, label: studentStatusLabels.expelled },
     { value: StudentStatus.ToDropOut, label: studentStatusLabels.to_drop_out },
+    { value: StudentStatus.Deferred, label: studentStatusLabels.deferred },
   ];
 
   const onSubmit = async (data: Quit) => {
