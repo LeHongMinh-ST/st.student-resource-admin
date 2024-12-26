@@ -8,7 +8,7 @@ import useSWR from 'swr';
 import { FC } from 'react';
 import { Quit } from '@/types';
 import { quitRoute, dashboardRoute } from '@/routes';
-import { HttpStatusEnum } from '@/enums';
+import { HttpStatusEnum, StudentStatus } from '@/enums';
 import { PageHeader } from '@/components';
 import HttpStatus from '@/enums/http-status.enum';
 import { useQuitStudentService } from '@/services/QuitStudentService';
@@ -103,17 +103,19 @@ const QuitDetailPage: FC<QuitDetailPageProp> = ({ id }) => {
                       </Text>
                     </Stack>
                   </Grid.Col>
-                  <Grid.Col span={4} style={{ borderLeft: '1px solid #ccc', paddingLeft: 20 }}>
-                    <Stack gap={3} ta="left">
-                      <Text size="md" fw={400}>
-                        Số quyết định buộc thôi học:
-                      </Text>
-                      <Text size="lg" fw={500}>
-                        Ban hành kèm theo quyết đinh số {data?.certification} ngày{' '}
-                        {formatDateString(data?.certification_date, 'dd/mm/yyyy')}
-                      </Text>
-                    </Stack>
-                  </Grid.Col>
+                  {data?.type === StudentStatus.Expelled && (
+                    <Grid.Col span={4} style={{ borderLeft: '1px solid #ccc', paddingLeft: 20 }}>
+                      <Stack gap={3} ta="left">
+                        <Text size="md" fw={400}>
+                          Số quyết định buộc thôi học:
+                        </Text>
+                        <Text size="lg" fw={500}>
+                          Ban hành kèm theo quyết đinh số {data?.certification} ngày{' '}
+                          {formatDateString(data?.certification_date, 'dd/mm/yyyy')}
+                        </Text>
+                      </Stack>
+                    </Grid.Col>
+                  )}
                 </Grid>
                 <Grid>
                   <Grid.Col span={12}>

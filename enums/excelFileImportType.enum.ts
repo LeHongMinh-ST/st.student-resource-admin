@@ -3,7 +3,7 @@ enum ExcelFileImportType {
   Graduate = 'graduate',
   Warning = 'warning',
   ADMISSION = 'ADMISSION',
-  Quit = 'Quit',
+  Quit = 'quit',
 }
 
 export default ExcelFileImportType;

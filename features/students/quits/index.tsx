@@ -70,13 +70,6 @@ const StudentQuitPage = () => {
         ),
       },
       {
-        accessor: 'year',
-        title: 'Năm tốt nghiệp',
-        render: (quit: Quit) => <Text>{`${quit.year}`}</Text>,
-        sorting: true,
-        filtering: true,
-      },
-      {
         accessor: 'student_count',
         title: 'Tổng số sinh viên',
         render: (quit: Quit) => <Text>{quit?.student_count}</Text>,
