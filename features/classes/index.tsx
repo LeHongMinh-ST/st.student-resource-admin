@@ -25,8 +25,11 @@ type ActiveTabType = 'teacher' | 'sub_teacher';
 const ClassPage = () => {
   const classService = useClassService();
   const [classParams, setClassParams] = useState<ClassListParams>({
+    status: StatusEnum.Enable,
     ...defaultPramsList,
   });
+
+  console.log(classParams);
 
   const [activeTab, setActiveTab] = useState<ActiveTabType | null>('teacher');
   const iconStyle = { width: rem(24), height: rem(24) };
@@ -139,10 +142,10 @@ const ClassPage = () => {
   }, [selected, classService]);
 
   useEffect(() => {
-    setClassParams({
-      ...defaultPramsList,
+    setClassParams((pre) => ({
+      ...pre,
       type: activeTab as string,
-    });
+    }));
   }, [activeTab]);
 
   return (
