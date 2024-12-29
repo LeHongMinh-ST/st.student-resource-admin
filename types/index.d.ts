@@ -267,6 +267,8 @@ type GeneralClass = {
     student_president?: Student;
     student_secretary?: Student;
   };
+  admission_year_id: number;
+  admission_year?: AdmissionYear;
 };
 
 type Graduation = {

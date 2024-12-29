@@ -7,6 +7,7 @@ export type ClassListParams = {
   status?: Status;
   q?: string;
   type?: string;
+  admission_year_id?: number | string;
 } & BaseParamsList;
 
 export const useClassService = () => {

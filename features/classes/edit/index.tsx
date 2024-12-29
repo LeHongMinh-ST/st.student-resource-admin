@@ -20,7 +20,7 @@ import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { classRoute, dashboardRoute } from '@/routes';
 import { useClassService } from '@/services/classService';
-import { GeneralClass, ResultResponse, SelectList, User } from '@/types';
+import { AdmissionYear, GeneralClass, ResultResponse, SelectList, User } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
 import { PageHeader, Surface } from '@/components';
 import { ClassTypeSelectList, StatusList } from '@/constants/commons';
@@ -30,6 +30,7 @@ import Status from '@/enums/status.enum';
 import { UserListParams, useUserService } from '@/services/userService';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import { useSearchFilter } from '@/hooks/useSearchFilter';
+import { useStudentService } from '@/services/studentService';
 
 const ClassUpdatePage = () => {
   const {
@@ -48,6 +49,7 @@ const ClassUpdatePage = () => {
   });
 
   const { updateClass, getClass } = useClassService();
+  const { getListAdmission } = useStudentService();
   const { query, back } = useRouter();
   const { id } = query;
   const { authUser } = useAuthStore();
@@ -59,6 +61,9 @@ const ClassUpdatePage = () => {
     facultyId: authUser?.faculty_id ?? undefined,
   });
 
+  const { data: admissions } = useSWR<AdmissionYear[]>(['getListAdmission'], () =>
+    getListAdmission().then((res) => res?.data?.data)
+  );
   const { handleInputSearchChange } = useSearchFilter(
     (value: string) => setUserParams((prev) => ({ ...prev, q: value })),
     userParams.q
@@ -76,11 +81,19 @@ const ClassUpdatePage = () => {
 
   const dataOptionUser: SelectList<string>[] = dataUser?.data
     ? dataUser?.data?.map(
-        (item: User) =>
-          ({
-            label: `${item.last_name} ${item.first_name} `,
-            value: `${item.id}`,
-          }) as SelectList<string>
+        (item: User): SelectList<string> => ({
+          label: `${item.first_name} ${item.last_name}`,
+          value: `${item.id}`,
+        })
+      )
+    : [];
+
+  const dataOptionAdmission: SelectList<string>[] = admissions
+    ? admissions?.map(
+        (item): SelectList<string> => ({
+          label: `K${item.admission_year}`,
+          value: `${item?.id}`,
+        })
       )
     : [];
 
@@ -277,6 +290,21 @@ const ClassUpdatePage = () => {
                                 // @ts-ignore
                                 setValue('status', value);
                                 trigger('status');
+                              }
+                            }}
+                          />
+                          <Select
+                            withAsterisk
+                            label="Khoá hoc"
+                            placeholder="Chọn khoá học"
+                            data={dataOptionAdmission}
+                            defaultValue={`${getValues('admission_year_id')}`}
+                            value={`${getValues('admission_year_id')}`}
+                            onChange={(value) => {
+                              if (value) {
+                                // @ts-ignore
+                                setValue('admission_year_id', value as Number);
+                                trigger('admission_year_id');
                               }
                             }}
                           />

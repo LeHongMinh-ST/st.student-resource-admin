@@ -29,7 +29,7 @@ const StudentListTabContent: FC<StudentListTabContentProps> = ({ admissionYear }
 
   const { push } = useRouter();
 
-  const { getListStudent } = useStudentService();
+  const { getStatisticalAdmissionYear, getListStudent } = useStudentService();
   const handleGetListStudent = () =>
     getListStudent(getListStudentParams)
       .then((res) => res.data)
@@ -53,6 +53,13 @@ const StudentListTabContent: FC<StudentListTabContentProps> = ({ admissionYear }
         }
         return error;
       });
+
+  const { data: studentStatistical } = useSWR([
+    ['getStatisticalAdmissionYear', admissionYear?.id],
+    () => getStatisticalAdmissionYear(Number(admissionYear?.id)).then((res) => res.data),
+  ]);
+
+  console.log(studentStatistical);
 
   const { data, isLoading } = useSWR<ResultResponse<Student[]>>(
     ['getListStudent', getListStudentParams],

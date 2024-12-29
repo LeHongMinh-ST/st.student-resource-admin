@@ -1,10 +1,20 @@
-import { Button, Container, LoadingOverlay, Paper, rem, Stack, Tabs, Text } from '@mantine/core';
+import {
+  Button,
+  Container,
+  LoadingOverlay,
+  Paper,
+  rem,
+  Select,
+  Stack,
+  Tabs,
+  Text,
+} from '@mantine/core';
 import styled from '@emotion/styled';
 import { useDisclosure } from '@mantine/hooks';
 import { IconBook, IconNotebook, IconPlus } from '@tabler/icons-react';
 import { DataTableProps } from 'mantine-datatable';
 import Link from 'next/link';
-import { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import { CommonDataTable, DeleteModal, PageHeader, StatusBadge } from '@/components';
@@ -16,10 +26,11 @@ import TeacherNameCellTable from '@/features/classes/components/Cells/TeacherNam
 import StatusFilter from '@/features/departments/components/Filters/StatusFilter';
 import { classRoute, dashboardRoute } from '@/routes';
 import { ClassListParams, useClassService } from '@/services/classService';
-import { GeneralClass, ResultResponse } from '@/types';
+import { AdmissionYear, GeneralClass, ResultResponse, SelectList } from '@/types';
 import { formatDateString } from '@/utils/func/formatDateString';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import Role from '@/enums/role.enum';
+import { useStudentService } from '@/services/studentService';
 
 type ActiveTabType = 'teacher' | 'sub_teacher';
 const ClassPage = () => {
@@ -28,8 +39,6 @@ const ClassPage = () => {
     status: StatusEnum.Enable,
     ...defaultPramsList,
   });
-
-  console.log(classParams);
 
   const [activeTab, setActiveTab] = useState<ActiveTabType | null>('teacher');
   const iconStyle = { width: rem(24), height: rem(24) };
@@ -51,87 +60,117 @@ const ClassPage = () => {
     handleGetListClass
   );
 
-  const columns: DataTableProps<GeneralClass>['columns'] = useMemo(
-    () => [
-      {
-        accessor: 'code',
-        title: 'Lớp',
-        render: (generalClass: GeneralClass) => (
-          <Text
-            style={{ cursor: 'pointer' }}
-            fw={500}
-            c="blue"
-            onClick={() => push(classRoute.show(generalClass.id))}
-          >
-            {generalClass.code}
-          </Text>
-        ),
-        sorting: true,
-        filter: (
-          <SearchFilter
-            label="Tìm kiếm'"
-            placeholder="vd: Tên lớp, mã lớp..."
-            setParams={(value) => {
-              setClassParams({
-                ...classParams,
-                q: value,
-              });
-            }}
-            searchTermValue={classParams.q}
-          />
-        ),
-        filtering: !!classParams.q,
-      },
-      {
-        accessor: 'teacher_name',
-        title: 'Giáo viên chủ nhiệm ',
-        render: (generalClass: GeneralClass) => (
-          <TeacherNameCellTable user={generalClass?.teacher} />
-        ),
-        sorting: true,
-        filtering: true,
-      },
-      {
-        accessor: 'teacher_name',
-        title: 'Cố vấn học tập ',
-        render: (generalClass: GeneralClass) => (
-          <TeacherNameCellTable user={generalClass?.sub_teacher} />
-        ),
-        sorting: true,
-        filtering: true,
-      },
-      {
-        accessor: 'status',
-        title: 'Trạng thái',
-        filter: (
-          <StatusFilter
-            value={classParams.status}
-            onChange={(value) => setClassParams({ ...classParams, status: value as StatusEnum })}
-          />
-        ),
-        render: (generalClass: GeneralClass) => <StatusBadge status={generalClass.status} />,
-        sorting: true,
-        filtering: !!classParams.status,
-      },
-      {
-        accessor: 'created_at',
-        title: 'Ngày tạo',
-        sortable: true,
-        render: (generalClass: GeneralClass) => (
-          <Text fz="sm">{formatDateString(generalClass?.created_at, 'HH:MM dd/mm/yyyy')}</Text>
-        ),
-      },
-      {
-        accessor: 'id',
-        title: 'Hành động',
-        width: 100,
-        render: (generalClass: GeneralClass) => (
-          <ClassActionMenu generalClass={generalClass} onOpen={onOpen} setSelected={setSelected} />
-        ),
-      },
-    ],
-    [authUser?.id, onOpen, setClassParams, classParams.q, classParams.status]
+  const { getListAdmission } = useStudentService();
+
+  const { data: admissions } = useSWR<AdmissionYear[]>(['getListAdmission'], () =>
+    getListAdmission().then((res) => res?.data?.data)
   );
+  const dataOptionAdmission: SelectList<string>[] = admissions
+    ? admissions?.map(
+        (item): SelectList<string> => ({
+          label: `K${item.admission_year}`,
+          value: `${item?.id}`,
+        })
+      )
+    : [];
+
+  const columns: DataTableProps<GeneralClass>['columns'] = [
+    {
+      accessor: 'code',
+      title: 'Lớp',
+      render: (generalClass: GeneralClass) => (
+        <Text
+          style={{ cursor: 'pointer' }}
+          fw={500}
+          c="blue"
+          onClick={() => push(classRoute.show(generalClass.id))}
+        >
+          {generalClass.code}
+        </Text>
+      ),
+      filter: (
+        <SearchFilter
+          label="Tìm kiếm'"
+          placeholder="vd: Tên lớp, mã lớp..."
+          setParams={(value) => {
+            setClassParams({
+              ...classParams,
+              q: value,
+            });
+          }}
+          searchTermValue={classParams.q}
+        />
+      ),
+      filtering: !!classParams.q,
+    },
+    {
+      accessor: 'teacher_name',
+      title: 'Giáo viên chủ nhiệm ',
+      render: (generalClass: GeneralClass) => <TeacherNameCellTable user={generalClass?.teacher} />,
+      filtering: true,
+    },
+    {
+      accessor: 'teacher_name',
+      title: 'Cố vấn học tập ',
+      render: (generalClass: GeneralClass) => (
+        <TeacherNameCellTable user={generalClass?.sub_teacher} />
+      ),
+      filtering: true,
+    },
+
+    {
+      accessor: 'admission_years',
+      title: 'Khoá',
+      filter: () => (
+        <Select
+          label="Khoá hoc"
+          placeholder="Chọn khoá học"
+          data={dataOptionAdmission}
+          value={`${classParams.admission_year_id}`}
+          onChange={(value) => {
+            if (value) {
+              setClassParams((pre) => ({
+                ...pre,
+                admission_year_id: String(value),
+              }));
+            }
+          }}
+        />
+      ),
+      render: (generalClass: GeneralClass) => (
+        <Text>Khoá {generalClass.admission_year?.admission_year}</Text>
+      ),
+      filtering: true,
+    },
+    {
+      accessor: 'status',
+      title: 'Trạng thái',
+      filter: (
+        <StatusFilter
+          value={classParams.status}
+          onChange={(value) => setClassParams({ ...classParams, status: value as StatusEnum })}
+        />
+      ),
+      render: (generalClass: GeneralClass) => <StatusBadge status={generalClass.status} />,
+      filtering: !!classParams.status,
+    },
+    {
+      accessor: 'created_at',
+      title: 'Ngày tạo',
+      sortable: true,
+      render: (generalClass: GeneralClass) => (
+        <Text fz="sm">{formatDateString(generalClass?.created_at, 'HH:MM dd/mm/yyyy')}</Text>
+      ),
+    },
+    {
+      accessor: 'id',
+      title: 'Hành động',
+      width: 100,
+      render: (generalClass: GeneralClass) => (
+        <ClassActionMenu generalClass={generalClass} onOpen={onOpen} setSelected={setSelected} />
+      ),
+    },
+  ];
 
   const handleDelete = useCallback(async () => {
     if (selected) {

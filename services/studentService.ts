@@ -58,6 +58,9 @@ export const useStudentService = () => {
   ): Promise<AxiosResponse<ResultResponse<ExcelFileImport[]>, any>> =>
     axiosInstance.get(`/admission-year/${admissionYearId}/student-file-imports`, { params });
 
+  const getStatisticalAdmissionYear = (id: number | string): Promise<AxiosResponse<any, any>> =>
+    axiosInstance.get(`/admission-year/${id}/student-statistical`);
+
   const getListStudent = (
     params: GetListStudentParams = {} as GetListStudentParams
   ): Promise<AxiosResponse<ResultResponse<Student[]>, any>> =>
@@ -104,6 +107,7 @@ export const useStudentService = () => {
 
   const changeStatusStudent = (id: string | number, data: ChangeStatusStudent) =>
     axiosInstance.put(`students/${id}/change-status`, data);
+
   return {
     getStudentById,
     getListAdmission,
@@ -117,5 +121,6 @@ export const useStudentService = () => {
     changeStatusStudent,
     getStudentClassesById,
     updateStudent,
+    getStatisticalAdmissionYear,
   };
 };

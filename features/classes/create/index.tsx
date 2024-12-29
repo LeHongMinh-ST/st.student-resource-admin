@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import useSWR from 'swr';
 import { dashboardRoute, classRoute } from '@/routes';
-import { GeneralClass, ResultResponse, User } from '@/types';
+import { AdmissionYear, GeneralClass, ResultResponse, SelectList, User } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
 import { PageHeader, Surface } from '@/components';
 import { ClassTypeSelectList, defaultPramsList, StatusList } from '@/constants/commons';
@@ -22,6 +22,7 @@ import { UserListParams, useUserService } from '@/services/userService';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import { ClassType } from '@/enums';
 import { useSearchFilter } from '@/hooks/useSearchFilter';
+import { useStudentService } from '@/services/studentService';
 
 const ClassCreatePage = () => {
   const {
@@ -40,6 +41,7 @@ const ClassCreatePage = () => {
   });
 
   const { createClass } = useClassService();
+  const { getListAdmission } = useStudentService();
   const { getList } = useUserService();
   const { authUser } = useAuthStore();
 
@@ -53,6 +55,10 @@ const ClassCreatePage = () => {
     userParams.q
   );
 
+  const { data: admissions } = useSWR<AdmissionYear[]>(['getListAdmission'], () =>
+    getListAdmission().then((res) => res?.data?.data)
+  );
+
   const handleGetListUser = () =>
     getList(userParams)
       .then((res) => res.data)
@@ -64,10 +70,23 @@ const ClassCreatePage = () => {
   );
   const { push } = useRouter();
 
-  const dataOptionUser = dataUser?.data?.map((item: User) => ({
-    label: `${item.first_name} ${item.last_name}`,
-    value: `${item.id}`,
-  }));
+  const dataOptionUser: SelectList<string>[] = dataUser?.data
+    ? dataUser?.data?.map(
+        (item: User): SelectList<string> => ({
+          label: `${item.first_name} ${item.last_name}`,
+          value: `${item.id}`,
+        })
+      )
+    : [];
+
+  const dataOptionAdmission: SelectList<string>[] = admissions
+    ? admissions?.map(
+        (item): SelectList<string> => ({
+          label: `K${item.admission_year}`,
+          value: `${item?.id}`,
+        })
+      )
+    : [];
 
   const onSubmit = async (data: GeneralClass) => {
     if (data.teacher_id) {
@@ -172,6 +191,24 @@ const ClassCreatePage = () => {
                             trigger('teacher_id');
                           }}
                         />
+
+                        <Select
+                          label="Cố vấn học tập (CVHT)"
+                          placeholder="Chọn giảng viên"
+                          data={dataOptionUser}
+                          onKeyUp={(e) => {
+                            // @ts-ignore
+                            handleInputSearchChange(e.target?.value ?? '');
+                          }}
+                          clearable
+                          searchable
+                          value={`${getValues('sub_teacher_id')}`}
+                          onChange={(value) => {
+                            // @ts-ignore
+                            setValue('sub_teacher_id', value);
+                            trigger('sub_teacher_id');
+                          }}
+                        />
                       </Stack>
                     </Fieldset>
                   </Stack>
@@ -187,11 +224,11 @@ const ClassCreatePage = () => {
                           label="Loại lớp"
                           placeholder="Chọn loại lớp"
                           data={ClassTypeSelectList}
-                          value={getValues('type')}
+                          value={`${getValues('type')}`}
                           onChange={(value) => {
                             if (value) {
                               // @ts-ignore
-                              setValue('type', value);
+                              setValue('type', value as ClassType);
                               trigger('type');
                             }
                           }}
@@ -201,12 +238,27 @@ const ClassCreatePage = () => {
                           label="Trạng thái"
                           placeholder="Chọn trạng thái"
                           data={StatusList}
-                          value={getValues('status')}
+                          value={`${getValues('status')}`}
                           onChange={(value) => {
                             if (value) {
                               // @ts-ignore
-                              setValue('status', value);
+                              setValue('status', value as Status);
                               trigger('status');
+                            }
+                          }}
+                        />
+
+                        <Select
+                          withAsterisk
+                          label="Khoá hoc"
+                          placeholder="Chọn khoá học"
+                          data={dataOptionAdmission}
+                          value={`${getValues('admission_year_id')}`}
+                          onChange={(value) => {
+                            if (value) {
+                              // @ts-ignore
+                              setValue('admission_year_id', value as Number);
+                              trigger('admission_year_id');
                             }
                           }}
                         />
