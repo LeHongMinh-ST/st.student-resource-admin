@@ -29,33 +29,32 @@ const StudentListByClass: FC<StudentListByClassProps> = ({ classId }) => {
   const { push } = useRouter();
 
   const { getListStudent } = useStudentService();
-  const handleGetListStudent = () =>
-    getListStudent(getListStudentParams)
-      .then((res) => res.data)
-      .catch((error) => {
-        if (error?.status === HttpStatusEnum.HTTP_FORBIDDEN) {
-          notifications.show({
-            title: 'Cảnh báo!',
-            message: 'Bạn không có quyền truy cập!',
-            icon: <IconAlertTriangle />,
-            color: 'red',
-            autoClose: 5000,
-          });
-        } else {
-          notifications.show({
-            title: 'Lỗi',
-            message: 'Có lỗi sảy ra vui lòng thử lại sau !',
-            icon: <IconAlertTriangle />,
-            color: 'red',
-            autoClose: 5000,
-          });
-        }
-        return error;
-      });
 
   const { data, isLoading } = useSWR<ResultResponse<Student[]>>(
     ['getListStudent', getListStudentParams],
-    handleGetListStudent
+    () =>
+      getListStudent(getListStudentParams)
+        .then((res) => res.data)
+        .catch((error) => {
+          if (error?.status === HttpStatusEnum.HTTP_FORBIDDEN) {
+            notifications.show({
+              title: 'Cảnh báo!',
+              message: 'Bạn không có quyền truy cập!',
+              icon: <IconAlertTriangle />,
+              color: 'red',
+              autoClose: 5000,
+            });
+          } else {
+            notifications.show({
+              title: 'Lỗi',
+              message: 'Có lỗi sảy ra vui lòng thử lại sau !',
+              icon: <IconAlertTriangle />,
+              color: 'red',
+              autoClose: 5000,
+            });
+          }
+          return error;
+        })
   );
 
   const columns: DataTableProps<Student>['columns'] = [

@@ -40,7 +40,7 @@ const ClassDetailPage = () => {
         <Stack>
           <Skeleton visible={isLoading}>
             <PageHeader
-              title={`Lớp ${classTypeLabels[data?.data?.type as ClassType] ?? ''} - ${data?.data?.code ?? ''} - ${data?.data?.name ?? ''} `}
+              title={`Lớp ${classTypeLabels[data?.data?.type as ClassType] ?? ''} - ${data?.data?.code ?? ''} - ${data?.data?.name ?? ''} - Khoá ${data?.data?.admission_year?.admission_year}`}
               breadcrumbItems={[
                 { title: 'Bảng điều khiển', href: dashboardRoute.dashboard },
                 { title: 'Danh sách lớp', href: classRoute.list },

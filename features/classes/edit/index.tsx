@@ -20,7 +20,7 @@ import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { classRoute, dashboardRoute } from '@/routes';
 import { useClassService } from '@/services/classService';
-import { AdmissionYear, GeneralClass, ResultResponse, SelectList, User } from '@/types';
+import { AdmissionYear, GeneralClass, ResultResponse, SelectList, Student, User } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
 import { PageHeader, Surface } from '@/components';
 import { ClassTypeSelectList, StatusList } from '@/constants/commons';
@@ -30,7 +30,7 @@ import Status from '@/enums/status.enum';
 import { UserListParams, useUserService } from '@/services/userService';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import { useSearchFilter } from '@/hooks/useSearchFilter';
-import { useStudentService } from '@/services/studentService';
+import { GetListStudentParams, useStudentService } from '@/services/studentService';
 
 const ClassUpdatePage = () => {
   const {
@@ -47,13 +47,16 @@ const ClassUpdatePage = () => {
       status: Status.Enable,
     },
   });
-
+  const { getListStudent } = useStudentService();
   const { updateClass, getClass } = useClassService();
   const { getListAdmission } = useStudentService();
   const { query, back } = useRouter();
   const { id } = query;
   const { authUser } = useAuthStore();
-  const handleGetClass = () => getClass(Number(id)).then((res) => res.data);
+
+  const listStudentParams = {
+    class_id: Number(id),
+  } as GetListStudentParams;
 
   const { getList } = useUserService();
 
@@ -69,20 +72,33 @@ const ClassUpdatePage = () => {
     userParams.q
   );
 
-  const handleGetListUser = () =>
+  const { data: dataStudent } = useSWR<Student[]>(['getListStudent', listStudentParams, id], () =>
+    getListStudent(listStudentParams).then((res) => res?.data?.data)
+  );
+
+  const { data: dataUser } = useSWR<ResultResponse<User[]>>(['getList', userParams], () =>
     getList(userParams)
       .then((res) => res.data)
-      .catch((error) => error);
-
-  const { data: dataUser } = useSWR<ResultResponse<User[]>>(
-    ['getList', userParams],
-    handleGetListUser
+      .catch((error) => error)
   );
+
+  const { data, isLoading } = useSWR<ResultResponse<GeneralClass>>([id], () =>
+    getClass(Number(id)).then((res) => res.data)
+  );
+
+  const dataStudentOption: SelectList<string>[] = dataStudent
+    ? dataStudent?.map(
+        (item: Student): SelectList<string> => ({
+          label: `${item.last_name} ${item.first_name}`,
+          value: `${item.id}`,
+        })
+      )
+    : [];
 
   const dataOptionUser: SelectList<string>[] = dataUser?.data
     ? dataUser?.data?.map(
         (item: User): SelectList<string> => ({
-          label: `${item.first_name} ${item.last_name}`,
+          label: `${item.last_name} ${item.first_name}`,
           value: `${item.id}`,
         })
       )
@@ -96,14 +112,6 @@ const ClassUpdatePage = () => {
         })
       )
     : [];
-
-  const { data, isLoading } = useSWR<ResultResponse<GeneralClass>>([id], handleGetClass);
-
-  // if (error) {
-  //   if (error.status === HttpStatus.HTTP_NOT_FOUND) {
-  //     push('/404').then();
-  //   }
-  // }
 
   useEffect(() => {
     if (data) {
@@ -254,6 +262,44 @@ const ClassUpdatePage = () => {
                             }}
                           />
                         </Skeleton>
+
+                        <Grid>
+                          <Grid.Col span={{ base: 12, md: 6 }}>
+                            <Skeleton visible={isLoading}>
+                              <Select
+                                label="Lớp trưởng"
+                                placeholder="Chọn sinh viên"
+                                data={dataStudentOption}
+                                defaultValue={String(data?.data.sub_teacher_id)}
+                                clearable
+                                value={`${getValues('officer.student_president.id')}`}
+                                onChange={(value) => {
+                                  // @ts-ignore
+                                  setValue('officer.student_president.id', value as Number);
+                                  trigger('officer.student_president.id');
+                                }}
+                              />
+                            </Skeleton>
+                          </Grid.Col>
+
+                          <Grid.Col span={{ base: 12, md: 6 }}>
+                            <Skeleton visible={isLoading}>
+                              <Select
+                                label="Bí thư"
+                                placeholder="Chọn sinh viên"
+                                data={dataStudentOption}
+                                defaultValue={String(data?.data.sub_teacher_id)}
+                                clearable
+                                value={`${getValues('officer.student_secretary.id')}`}
+                                onChange={(value) => {
+                                  // @ts-ignore
+                                  setValue('officer.student_secretary.id', value as Number);
+                                  trigger('officer.student_secretary.id');
+                                }}
+                              />
+                            </Skeleton>
+                          </Grid.Col>
+                        </Grid>
                       </Stack>
                     </Fieldset>
                   </Stack>
