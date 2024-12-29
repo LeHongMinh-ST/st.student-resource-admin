@@ -254,7 +254,7 @@ const StudentListByServeyPeriod: FC<StudentListByServeyPeriodProps> = ({
           // disabled={selectedRows.length === 0}
           leftSection={<IconFileExport size={18} />}
         >
-          Xuất kết quả khảo sát
+          Lưu phiếu khảo sát
         </Button>
       </div>
       <StudentImportTabContentStyled>
