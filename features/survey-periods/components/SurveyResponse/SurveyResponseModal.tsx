@@ -1,21 +1,28 @@
-import { Modal, Text, Card, Checkbox, TextInput, Radio, AspectRatio } from '@mantine/core';
+import { Modal, Text, Card, Checkbox, TextInput, Radio, AspectRatio, Image } from '@mantine/core';
 import styled from '@emotion/styled';
 import { DatePickerInput } from '@mantine/dates';
 import { IconCalendar } from '@tabler/icons-react';
 import dayjs from 'dayjs';
-import { FormJobSurvey } from '@/types';
+import { FormJobSurvey, SurveyPeriod } from '@/types';
 import { LIST_OPTION_QUESTION_FORM } from '@/constants/form';
 import { genderLabels } from '@/constants/labels';
 import { Gender } from '@/enums';
 import '@mantine/dates/styles.css';
+import { formatDateString } from '@/utils/func/formatDateString';
 
 type SurveyResponseModalProps = {
   formJobResponse: FormJobSurvey;
+  surveyPeriod: SurveyPeriod;
   isOpen: boolean;
   onClose: () => void;
 };
 
-const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyResponseModalProps) => {
+const SurveyResponseModal = ({
+  formJobResponse,
+  surveyPeriod,
+  isOpen,
+  onClose,
+}: SurveyResponseModalProps) => {
   const JobSurveyPageStyled = styled.div`
     background: #e3edfd;
     padding: 20px 20px 20px 20px;
@@ -35,6 +42,36 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
         .mantine-TextInput-root {
           max-width: 400px;
           width: 100%;
+        }
+      }
+
+      .wrap-header {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 20px 50px 20px;
+
+        .wrap-logo-header {
+          display: flex;
+          align-items: center;
+          width: 40%;
+          position: relative;
+
+          .wrap-logo {
+            padding-left: 20px;
+            width: 65%;
+            height: fit-content;
+            position: absolute;
+          }
+        }
+
+        .wrap-info-header {
+          width: 60%;
+          text-align: center;
+
+          .wrap-title {
+            display: flex;
+            flex-direction: column;
+          }
         }
       }
 
@@ -77,6 +114,37 @@ const SurveyResponseModal = ({ formJobResponse, isOpen, onClose }: SurveyRespons
       <JobSurveyPageStyled>
         <AspectRatio mx="auto" pos="relative">
           <div className="form-wrap">
+            <Card shadow="sm" padding="lg" mb="lg">
+              <div className="wrap-header">
+                <div className="wrap-logo-header">
+                  <Image src="/images/logo-vnua.png" alt="logo" className="wrap-logo" />
+                </div>
+                <div className="wrap-info-header">
+                  <div className="wrap-title">
+                    <Text size="lg">BỘ NÔNG NGHIỆP</Text>
+                    <Text size="lg">VÀ PHÁT TRIỂN NÔNG THÔN</Text>
+                    <Text fw={600} size="lg">
+                      HỌC VIỆN NÔNG NGHIỆP VIỆT NAM
+                    </Text>
+                    <Text fw={500} size="lg">
+                      Thị trấn Trâu Quỳ, huyện Gia Lâm, thành phố Hà Nội Điện thoại: 024.62617586 -
+                      Fax: 024.62617586
+                    </Text>
+                  </div>
+                </div>
+              </div>
+              <Text fw={700} size="xl" ta="center">
+                {surveyPeriod?.title}
+              </Text>
+              <Text size="sm" my={10}>
+                {surveyPeriod?.description}
+              </Text>
+              <Text mt="xs" size="sm">
+                Thời gian khảo sát từ ngày{' '}
+                <b>{formatDateString(surveyPeriod?.start_date, 'dd/mm/yyyy')}</b> đến ngày{' '}
+                <b>{formatDateString(surveyPeriod?.end_date, 'dd/mm/yyyy')}</b>
+              </Text>
+            </Card>
             <Card shadow="sm" padding="lg" mb="lg">
               <Text fw={600} size="lg">
                 Phần I: Thông tin cá nhân

@@ -7,7 +7,7 @@ import { IconAlertTriangle, IconFileExport, IconMail } from '@tabler/icons-react
 import useSWR from 'swr';
 import { useDisclosure } from '@mantine/hooks';
 import { defaultPramsList } from '@/constants/commons';
-import { FormJobSurvey, ResultResponse, Student } from '@/types';
+import { FormJobSurvey, ResultResponse, Student, SurveyPeriod } from '@/types';
 import {
   GetListStudentBySurveyParams,
   GetListStudentParams,
@@ -32,9 +32,13 @@ import {
 
 type StudentListByServeyPeriodProps = {
   surveyPeriodId: number;
+  surveyPeriod: SurveyPeriod;
 };
 
-const StudentListByServeyPeriod: FC<StudentListByServeyPeriodProps> = ({ surveyPeriodId }) => {
+const StudentListByServeyPeriod: FC<StudentListByServeyPeriodProps> = ({
+  surveyPeriodId,
+  surveyPeriod,
+}) => {
   const [getListStudentParams, setGetListStudentParams] = useState<GetListStudentBySurveyParams>({
     ...defaultPramsList,
   } as GetListStudentBySurveyParams);
@@ -216,6 +220,7 @@ const StudentListByServeyPeriod: FC<StudentListByServeyPeriodProps> = ({ surveyP
     <>
       <SurveyResponseModal
         formJobResponse={selected?.current_employment_response ?? ({} as FormJobSurvey)}
+        surveyPeriod={surveyPeriod}
         isOpen={isOpen}
         onClose={() => {
           onClose();
