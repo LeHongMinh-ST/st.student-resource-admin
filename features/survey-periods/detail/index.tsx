@@ -264,12 +264,17 @@ const SurveyPeriodDetailPage = () => {
                     </Grid.Col>
                   </Grid>
                   <Grid>
-                    <Grid.Col span={12}>
-                      <Divider size="xs" my={30} />
-                      <Stack gap={4}>
-                        <StudentListByServeyPeriod surveyPeriodId={Number(id)} />
-                      </Stack>
-                    </Grid.Col>
+                    {data?.data && (
+                      <Grid.Col span={12}>
+                        <Divider size="xs" my={30} />
+                        <Stack gap={4}>
+                          <StudentListByServeyPeriod
+                            surveyPeriodId={Number(id)}
+                            surveyPeriod={data?.data}
+                          />
+                        </Stack>
+                      </Grid.Col>
+                    )}
                   </Grid>
                 </Paper>
               </Skeleton>
