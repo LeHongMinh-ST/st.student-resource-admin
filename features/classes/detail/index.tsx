@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { Box, Button, Container, Divider, Grid, Paper, Skeleton, Stack, Text } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
-import { IconAlertTriangle, IconLogout, IconEdit } from '@tabler/icons-react';
+import { IconLogout, IconEdit } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { lazy } from 'react';
@@ -9,10 +8,9 @@ import useSWR from 'swr';
 import { GeneralClass, ResultResponse } from '@/types';
 import { useClassService } from '@/services/classService';
 import { classRoute, dashboardRoute } from '@/routes';
-import { ClassType, HttpStatusEnum } from '@/enums';
+import { ClassType } from '@/enums';
 import { PageHeader } from '@/components';
 import { classTypeLabels } from '@/constants/labels';
-import HttpStatus from '@/enums/http-status.enum';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import Role from '@/enums/role.enum';
 
@@ -22,41 +20,19 @@ const StudentListByClass = lazy(
 
 const ClassDetailPage = () => {
   const { getStudentStatisticalById, getClassById } = useClassService();
-  const { query, push, back } = useRouter();
+  const { query, back } = useRouter();
   const { id } = query;
   const { authUser } = useAuthStore();
-
-  const handleGetClassById = () =>
-    getClassById(Number(id))
-      .then((res) => res.data)
-      .catch((error) => {
-        if (error.status === HttpStatus.HTTP_NOT_FOUND) {
-          push('/404').then();
-        } else if (error?.status === HttpStatusEnum.HTTP_FORBIDDEN) {
-          notifications.show({
-            title: 'Cảnh báo!',
-            message: 'Bạn không có quyền truy cập!',
-            icon: <IconAlertTriangle />,
-            color: 'red',
-            autoClose: 5000,
-          });
-        } else {
-          notifications.show({
-            title: 'Lỗi',
-            message: 'Có lỗi sảy ra vui lòng thử lại sau !',
-            icon: <IconAlertTriangle />,
-            color: 'red',
-            autoClose: 5000,
-          });
-        }
-        return error;
-      });
 
   const { data: dataStatistical } = useSWR<any>(['getDataStudentStatistical', id], () =>
     getStudentStatisticalById(Number(id)).then((res) => res.data)
   );
 
-  const { data, isLoading } = useSWR<ResultResponse<GeneralClass>>(id, handleGetClassById);
+  const { data, isLoading } = useSWR<ResultResponse<GeneralClass>>(['getClassById', id], () =>
+    getClassById(Number(id))
+      .then((res) => res.data)
+      .catch((error) => error)
+  );
 
   return (
     <ClassDetailPageStyled>
