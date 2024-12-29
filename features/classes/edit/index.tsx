@@ -143,6 +143,7 @@ const ClassUpdatePage = () => {
     if (data.teacher_id) {
       data.teacher_id = Number(data.teacher_id);
     }
+
     if (!isSubmitting) {
       try {
         const res = await updateClass(data);
@@ -270,7 +271,7 @@ const ClassUpdatePage = () => {
                                 label="Lớp trưởng"
                                 placeholder="Chọn sinh viên"
                                 data={dataStudentOption}
-                                defaultValue={String(data?.data.sub_teacher_id)}
+                                defaultValue={String(data?.data.officer?.student_president?.id)}
                                 clearable
                                 value={`${getValues('officer.student_president.id')}`}
                                 onChange={(value) => {
@@ -288,7 +289,7 @@ const ClassUpdatePage = () => {
                                 label="Bí thư"
                                 placeholder="Chọn sinh viên"
                                 data={dataStudentOption}
-                                defaultValue={String(data?.data.sub_teacher_id)}
+                                defaultValue={String(data?.data.officer?.student_secretary?.id)}
                                 clearable
                                 value={`${getValues('officer.student_secretary.id')}`}
                                 onChange={(value) => {
