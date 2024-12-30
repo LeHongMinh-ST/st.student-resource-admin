@@ -14,7 +14,7 @@ import {
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { IconAlertTriangle, IconCheck, IconDeviceFloppy, IconLogout } from '@tabler/icons-react';
-import { ClassType, useEffect } from 'react';
+import { ClassType, FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
@@ -28,10 +28,13 @@ import { ERROR_MESSAGES } from '@/constants/errorMessages';
 import HttpStatus from '@/enums/http-status.enum';
 import Status from '@/enums/status.enum';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
-import { useSearchFilter } from '@/hooks/useSearchFilter';
 import { useStudentOptions, useUserOptions, useAdmissionOptions } from '@/hooks/useGetSelectOption';
 
-const ClassUpdatePage = () => {
+type Prop = {
+  id: Number;
+};
+
+const ClassUpdatePage: FC<Prop> = ({ id }) => {
   const {
     register,
     trigger,
@@ -47,22 +50,18 @@ const ClassUpdatePage = () => {
     },
   });
   const { updateClass, getClass } = useClassService();
-  const { query, back } = useRouter();
-  const { id } = query;
+  const { back } = useRouter();
   const { authUser } = useAuthStore();
 
   const { data, isLoading } = useSWR<ResultResponse<GeneralClass>>([id], () =>
     getClass(Number(id)).then((res) => res.data)
   );
 
-  const { studentOptions } = useStudentOptions(Number(id));
-  const { userOptions, setSearchQuery, userParams } = useUserOptions(Number(authUser?.faculty_id));
-  const { admissionOptions } = useAdmissionOptions();
-
-  const { handleInputSearchChange } = useSearchFilter(
-    (value: string) => setSearchQuery(value),
-    userParams.q
+  const { studentOptions, setSearchQuery: setSearchQueryStudent } = useStudentOptions(Number(id));
+  const { userOptions, setSearchQuery: setSearchQueryUser } = useUserOptions(
+    Number(authUser?.faculty_id)
   );
+  const { admissionOptions } = useAdmissionOptions();
 
   useEffect(() => {
     if (data) {
@@ -181,7 +180,7 @@ const ClassUpdatePage = () => {
                             data={userOptions}
                             onKeyUp={(e) => {
                               // @ts-ignore
-                              handleInputSearchChange(e.target?.value ?? '');
+                              setSearchQueryUser(e.target?.value ?? '');
                             }}
                             clearable
                             searchable
@@ -201,7 +200,7 @@ const ClassUpdatePage = () => {
                             data={userOptions}
                             onKeyUp={(e) => {
                               // @ts-ignore
-                              handleInputSearchChange(e.target?.value ?? '');
+                              setSearchQueryUser(e.target?.value ?? '');
                             }}
                             defaultValue={String(data?.data.sub_teacher_id)}
                             clearable
@@ -223,7 +222,12 @@ const ClassUpdatePage = () => {
                                 placeholder="Chọn sinh viên"
                                 data={studentOptions}
                                 defaultValue={String(data?.data.officer?.student_president?.id)}
+                                onKeyUp={(e) => {
+                                  // @ts-ignore
+                                  setSearchQueryStudent(e.target?.value ?? '');
+                                }}
                                 clearable
+                                searchable
                                 value={`${getValues('officer.student_president.id')}`}
                                 onChange={(value) => {
                                   // @ts-ignore
@@ -241,6 +245,11 @@ const ClassUpdatePage = () => {
                                 placeholder="Chọn sinh viên"
                                 data={studentOptions}
                                 defaultValue={String(data?.data.officer?.student_secretary?.id)}
+                                onKeyUp={(e) => {
+                                  // @ts-ignore
+                                  setSearchQueryStudent(e.target?.value ?? '');
+                                }}
+                                searchable
                                 clearable
                                 value={`${getValues('officer.student_secretary.id')}`}
                                 onChange={(value) => {
@@ -282,7 +291,7 @@ const ClassUpdatePage = () => {
                             label="Trạng thái"
                             placeholder="Chọn trạng thái"
                             data={StatusList}
-                            value={getValues('status')}
+                            value={`${getValues('status')}`}
                             onChange={(value) => {
                               if (value) {
                                 // @ts-ignore

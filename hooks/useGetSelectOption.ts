@@ -5,13 +5,18 @@ import useSWR from 'swr';
 import { GetListStudentParams, useStudentService } from '@/services/studentService';
 import { UserListParams, useUserService } from '@/services/userService';
 import { AdmissionYear, ResultResponse, SelectList, Student, User } from '@/types';
+import { useSearchFilter } from './useSearchFilter';
 
 export const useStudentOptions = (classId: number | undefined) => {
   const { getListStudent } = useStudentService();
 
+  const [studentParams, setStudentParams] = useState<GetListStudentParams>({
+    class_id: classId,
+  } as GetListStudentParams);
+
   const { data: dataStudent } = useSWR<Student[]>(
     classId ? ['getListStudent', classId] : null,
-    () => getListStudent({ class_id: classId } as GetListStudentParams).then((res) => res.data.data)
+    () => getListStudent(studentParams).then((res) => res.data.data)
   );
 
   const studentOptions: SelectList<string>[] =
@@ -20,7 +25,17 @@ export const useStudentOptions = (classId: number | undefined) => {
       value: `${student.id}`,
     })) || [];
 
-  return { studentOptions, isLoading: !dataStudent && classId !== undefined };
+  const { handleInputSearchChange: setSearchQuery } = useSearchFilter(
+    (value: string) => setStudentParams((pre) => ({ ...pre, q: value })),
+    studentParams.q
+  );
+
+  return {
+    studentOptions,
+    isLoading: !dataStudent && classId !== undefined,
+    studentParams,
+    setSearchQuery,
+  };
 };
 
 export const useUserOptions = (facultyId: number | undefined) => {
@@ -39,7 +54,10 @@ export const useUserOptions = (facultyId: number | undefined) => {
       value: `${user.id}`,
     })) || [];
 
-  const setSearchQuery = (query: string) => setUserParams((prev) => ({ ...prev, q: query }));
+  const { handleInputSearchChange: setSearchQuery } = useSearchFilter(
+    (value: string) => setUserParams((pre) => ({ ...pre, q: value })),
+    userParams.q
+  );
 
   return { userOptions, isLoading: !dataUser, setSearchQuery, userParams };
 };

@@ -3,7 +3,7 @@ import { Box, Button, Container, Divider, Grid, Paper, Skeleton, Stack, Text } f
 import { IconLogout, IconEdit } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { lazy } from 'react';
+import { FC, lazy } from 'react';
 import useSWR from 'swr';
 import { GeneralClass, ResultResponse } from '@/types';
 import { useClassService } from '@/services/classService';
@@ -14,14 +14,17 @@ import { classTypeLabels } from '@/constants/labels';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import Role from '@/enums/role.enum';
 
+type Props = {
+  id: Number;
+};
+
 const StudentListByClass = lazy(
   () => import('@/features/classes/components/StudentListByClassComponent/StudentListByClass')
 );
 
-const ClassDetailPage = () => {
+const ClassDetailPage: FC<Props> = ({ id }) => {
   const { getStudentStatisticalById, getClassById } = useClassService();
-  const { query, back } = useRouter();
-  const { id } = query;
+  const { back } = useRouter();
   const { authUser } = useAuthStore();
 
   const { data: dataStatistical } = useSWR<any>(['getDataStudentStatistical', id], () =>
@@ -40,7 +43,7 @@ const ClassDetailPage = () => {
         <Stack>
           <Skeleton visible={isLoading}>
             <PageHeader
-              title={`Lớp ${classTypeLabels[data?.data?.type as ClassType] ?? ''} - ${data?.data?.code ?? ''} - ${data?.data?.name ?? ''} - Khoá ${data?.data?.admission_year?.admission_year}`}
+              title={`Lớp ${classTypeLabels[data?.data?.type as ClassType] ?? ''} - ${data?.data?.code ?? ''} - Khoá ${data?.data?.admission_year?.admission_year}`}
               breadcrumbItems={[
                 { title: 'Bảng điều khiển', href: dashboardRoute.dashboard },
                 { title: 'Danh sách lớp', href: classRoute.list },

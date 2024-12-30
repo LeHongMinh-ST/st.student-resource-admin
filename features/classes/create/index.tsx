@@ -18,7 +18,6 @@ import { useClassService } from '@/services/classService';
 import Status from '@/enums/status.enum';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import { ClassType } from '@/enums';
-import { useSearchFilter } from '@/hooks/useSearchFilter';
 import { useUserOptions, useAdmissionOptions } from '@/hooks/useGetSelectOption';
 
 const ClassCreatePage = () => {
@@ -40,13 +39,10 @@ const ClassCreatePage = () => {
   const { createClass } = useClassService();
   const { authUser } = useAuthStore();
   const { push } = useRouter();
-  const { userOptions, setSearchQuery, userParams } = useUserOptions(Number(authUser?.faculty_id));
-  const { admissionOptions } = useAdmissionOptions();
-
-  const { handleInputSearchChange } = useSearchFilter(
-    (value: string) => setSearchQuery(value),
-    userParams.q
+  const { userOptions, setSearchQuery: setSearchQueryUser } = useUserOptions(
+    Number(authUser?.faculty_id)
   );
+  const { admissionOptions } = useAdmissionOptions();
 
   const onSubmit = async (data: GeneralClass) => {
     if (data.teacher_id) {
@@ -143,7 +139,7 @@ const ClassCreatePage = () => {
                           clearable
                           onKeyUp={(e) => {
                             // @ts-ignore
-                            handleInputSearchChange(e.target?.value ?? '');
+                            setSearchQueryUser(e.target?.value ?? '');
                           }}
                           onChange={(value) => {
                             // @ts-ignore
@@ -158,7 +154,7 @@ const ClassCreatePage = () => {
                           data={userOptions}
                           onKeyUp={(e) => {
                             // @ts-ignore
-                            handleInputSearchChange(e.target?.value ?? '');
+                            setSearchQueryUser(e.target?.value ?? '');
                           }}
                           clearable
                           searchable
