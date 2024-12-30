@@ -14,7 +14,7 @@ import CardList from '@/features/dashboard/components/CardList';
 import { User } from '@/types';
 import StatsCard from '@/features/dashboard/components/StatsCard';
 import { DashboardStatistical, useDashboardService } from '@/services/dashboardService';
-import { classRoute, graduationRoute, quitRoute, studentRoute } from '@/routes';
+import { classRoute, graduationRoute, studentRoute, warningRoute } from '@/routes';
 
 type DashboardAdminProp = {
   user: User;
@@ -65,7 +65,7 @@ const DashboardAdmin: React.FC<DashboardAdminProp> = (props) => {
             value={dataDaashboardStatistical?.student_warning_count ?? 0}
             isLoading={isLoadingDashboardStatistical}
             description="Sinh viên thuộc diện cảnh cáo"
-            link={quitRoute.list}
+            link={warningRoute.list}
           />
           <StatsCard
             icon={IconBook}

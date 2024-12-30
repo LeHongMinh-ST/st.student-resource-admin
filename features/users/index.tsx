@@ -128,9 +128,7 @@ const UserPage = () => {
               columns={columns}
               records={data?.data}
               fetching={isLoading}
-              onPageChange={(page: number) =>
-                setUserParams((params) => ({ ...params, current_page: page }))
-              }
+              onPageChange={(page: number) => setUserParams((params) => ({ ...params, page }))}
               onRecordsPerPageChange={(perPage: number) =>
                 setUserParams((params) => ({ ...params, limit: perPage }))
               }

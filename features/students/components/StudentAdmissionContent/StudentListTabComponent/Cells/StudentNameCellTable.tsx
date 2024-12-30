@@ -26,12 +26,12 @@ const StudentNameCellTable: FC<StudentNameCellTableProps> = ({ student }) => (
         {!!student?.warning_status && student?.warning_status !== WarningStatus.NoWarning && (
           <Badge
             leftSection={<IconAlertTriangle style={{ width: rem(12), height: rem(12) }} />}
-            color={warningStatusColor[student?.warning_status]}
+            color={warningStatusColor[student?.warning_status as WarningStatus]}
             variant="filled"
             size="sm"
             radius="sm"
           >
-            {warningStatusLabel[student?.warning_status]}
+            {warningStatusLabel[student?.warning_status as WarningStatus]}
           </Badge>
         )}
       </Text>
