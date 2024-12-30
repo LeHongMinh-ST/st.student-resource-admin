@@ -14,6 +14,17 @@ export const useSetIsShowProgres = () => {
   return useCallback(setState, [setState]);
 };
 
+export const IsCancelExportFileState = atom<boolean>({
+  key: 'isCancelExportFileState',
+  default: false,
+});
+
+export const useIsCancelExportFile = () => useRecoilValue(IsCancelExportFileState);
+export const useSetIsCancelExportFile = () => {
+  const setState = useSetRecoilState(IsCancelExportFileState);
+  return useCallback(setState, [setState]);
+};
+
 export const ZipExportFileState = atom<ZipExportFile | null>({
   key: 'ZipExportFileState',
   default: null,
