@@ -8,7 +8,6 @@ import {
   IconListDetails,
   IconUserEdit,
   IconUsers,
-  IconBellRinging2,
   IconUser,
   IconMessageQuestion,
   IconSchool,
@@ -82,10 +81,10 @@ export const sidebarNavigationOfficer: SidebarNavigationProps[] = [
       { label: 'Phản ánh', icon: IconMessageQuestion, link: '/students-report' },
     ],
   },
-  {
-    title: 'Hệ thống',
-    links: [{ label: 'Thông báo', icon: IconBellRinging2, link: '/notification' }],
-  },
+  // {
+  //   title: 'Hệ thống',
+  //   links: [{ label: 'Thông báo', icon: IconBellRinging2, link: '/notification' }],
+  // },
 ];
 
 export const sidebarNavigationTeacher: SidebarNavigationProps[] = [

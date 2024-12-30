@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import useSWR from 'swr';
-import { Suspense, useState } from 'react';
+import { FC, Suspense, useState } from 'react';
 import {
   Box,
   Button,
@@ -25,18 +25,35 @@ import { ResultResponse, Student } from '@/types';
 import GeneralInfoStudent from './components/InfoStudent/GeneralInfoStudent';
 import Role from '@/enums/role.enum';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
+import HttpStatus from '@/enums/http-status.enum';
 
 // const GeneralInfoStudent = lazy(() => import('./components/InfoStudent/GeneralInfoStudent'));
 // const ClassStudent = lazy(() => import('./components/InfoStudent/ClassStudent'));
 
 type ActiveTabType = 'general' | 'class' | 'learning_outcome';
 
-const StudentDetailPage = () => {
-  const { getStudentById } = useStudentService();
-  const { query, back } = useRouter();
-  const { id } = query;
-  const handleGetStudentById = () => getStudentById(Number(id)).then((res) => res.data);
-  const { data, isLoading, mutate } = useSWR<ResultResponse<Student>>([id], handleGetStudentById);
+type Props = {
+  id: Number;
+};
+const { getStudentById } = useStudentService();
+const StudentDetailPage: FC<Props> = ({ id }) => {
+  const { push, back } = useRouter();
+  const { data, isLoading, mutate, error } = useSWR<ResultResponse<Student>>([id], () =>
+    getStudentById(Number(id))
+      .then((res) => res.data)
+      .catch((error) => error)
+  );
+
+  if (error) {
+    if (error?.status === HttpStatus.HTTP_FORBIDDEN) {
+      push('/403');
+    }
+
+    if (error?.status === HttpStatus.HTTP_NOT_FOUND) {
+      push('/404');
+    }
+  }
+
   const [activeTab, setActiveTab] = useState<ActiveTabType | null>('general');
   const iconStyle = { width: rem(24), height: rem(24) };
   const { authUser } = useAuthStore();
