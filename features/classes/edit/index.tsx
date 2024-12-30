@@ -14,23 +14,22 @@ import {
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { IconAlertTriangle, IconCheck, IconDeviceFloppy, IconLogout } from '@tabler/icons-react';
-import { useEffect, useState } from 'react';
+import { ClassType, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { classRoute, dashboardRoute } from '@/routes';
 import { useClassService } from '@/services/classService';
-import { AdmissionYear, GeneralClass, ResultResponse, SelectList, Student, User } from '@/types';
+import { GeneralClass, ResultResponse } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
 import { PageHeader, Surface } from '@/components';
 import { ClassTypeSelectList, StatusList } from '@/constants/commons';
 import { ERROR_MESSAGES } from '@/constants/errorMessages';
 import HttpStatus from '@/enums/http-status.enum';
 import Status from '@/enums/status.enum';
-import { UserListParams, useUserService } from '@/services/userService';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import { useSearchFilter } from '@/hooks/useSearchFilter';
-import { GetListStudentParams, useStudentService } from '@/services/studentService';
+import { useStudentOptions, useUserOptions, useAdmissionOptions } from '@/hooks/useGetSelectOption';
 
 const ClassUpdatePage = () => {
   const {
@@ -47,90 +46,42 @@ const ClassUpdatePage = () => {
       status: Status.Enable,
     },
   });
-  const { getListStudent } = useStudentService();
   const { updateClass, getClass } = useClassService();
-  const { getListAdmission } = useStudentService();
   const { query, back } = useRouter();
   const { id } = query;
   const { authUser } = useAuthStore();
-
-  const listStudentParams = {
-    class_id: Number(id),
-  } as GetListStudentParams;
-
-  const { getList } = useUserService();
-
-  const [userParams, setUserParams] = useState<UserListParams>({
-    facultyId: authUser?.faculty_id ?? undefined,
-  });
-
-  const { data: admissions } = useSWR<AdmissionYear[]>(['getListAdmission'], () =>
-    getListAdmission().then((res) => res?.data?.data)
-  );
-  const { handleInputSearchChange } = useSearchFilter(
-    (value: string) => setUserParams((prev) => ({ ...prev, q: value })),
-    userParams.q
-  );
-
-  const { data: dataStudent } = useSWR<Student[]>(['getListStudent', listStudentParams, id], () =>
-    getListStudent(listStudentParams).then((res) => res?.data?.data)
-  );
-
-  const { data: dataUser } = useSWR<ResultResponse<User[]>>(['getList', userParams], () =>
-    getList(userParams)
-      .then((res) => res.data)
-      .catch((error) => error)
-  );
 
   const { data, isLoading } = useSWR<ResultResponse<GeneralClass>>([id], () =>
     getClass(Number(id)).then((res) => res.data)
   );
 
-  const dataStudentOption: SelectList<string>[] = dataStudent
-    ? dataStudent?.map(
-        (item: Student): SelectList<string> => ({
-          label: `${item.last_name} ${item.first_name}`,
-          value: `${item.id}`,
-        })
-      )
-    : [];
+  const { studentOptions } = useStudentOptions(Number(id));
+  const { userOptions, setSearchQuery, userParams } = useUserOptions(Number(authUser?.faculty_id));
+  const { admissionOptions } = useAdmissionOptions();
 
-  const dataOptionUser: SelectList<string>[] = dataUser?.data
-    ? dataUser?.data?.map(
-        (item: User): SelectList<string> => ({
-          label: `${item.last_name} ${item.first_name}`,
-          value: `${item.id}`,
-        })
-      )
-    : [];
-
-  const dataOptionAdmission: SelectList<string>[] = admissions
-    ? admissions?.map(
-        (item): SelectList<string> => ({
-          label: `K${item.admission_year}`,
-          value: `${item?.id}`,
-        })
-      )
-    : [];
+  const { handleInputSearchChange } = useSearchFilter(
+    (value: string) => setSearchQuery(value),
+    userParams.q
+  );
 
   useEffect(() => {
     if (data) {
       const dataClass = data?.data;
-      const currentTeacher = dataOptionUser.find(
+      const currentTeacher = userOptions.find(
         (item) => item.value === String(dataClass?.teacher_id)
       );
       if (currentTeacher) {
-        dataOptionUser.push({
+        userOptions.push({
           label: `${dataClass?.teacher?.last_name} ${dataClass?.teacher?.first_name} `,
           value: `${dataClass?.teacher?.id}`,
         });
       }
 
-      const currentSubTeacher = dataOptionUser.find(
+      const currentSubTeacher = userOptions.find(
         (item) => item.value === String(dataClass?.sub_teacher_id)
       );
       if (currentSubTeacher) {
-        dataOptionUser.push({
+        userOptions.push({
           label: `${dataClass?.sub_teacher?.last_name} ${dataClass?.sub_teacher?.first_name} `,
           value: `${dataClass?.sub_teacher?.id}`,
         });
@@ -227,7 +178,7 @@ const ClassUpdatePage = () => {
                           <Select
                             label="Giáo viên chủ nhiệm (GVCN)"
                             placeholder="Chọn giảng viên"
-                            data={dataOptionUser}
+                            data={userOptions}
                             onKeyUp={(e) => {
                               // @ts-ignore
                               handleInputSearchChange(e.target?.value ?? '');
@@ -247,7 +198,7 @@ const ClassUpdatePage = () => {
                           <Select
                             label="Cố vấn học tập (CVHT)"
                             placeholder="Chọn giảng viên"
-                            data={dataOptionUser}
+                            data={userOptions}
                             onKeyUp={(e) => {
                               // @ts-ignore
                               handleInputSearchChange(e.target?.value ?? '');
@@ -270,7 +221,7 @@ const ClassUpdatePage = () => {
                               <Select
                                 label="Lớp trưởng"
                                 placeholder="Chọn sinh viên"
-                                data={dataStudentOption}
+                                data={studentOptions}
                                 defaultValue={String(data?.data.officer?.student_president?.id)}
                                 clearable
                                 value={`${getValues('officer.student_president.id')}`}
@@ -288,7 +239,7 @@ const ClassUpdatePage = () => {
                               <Select
                                 label="Bí thư"
                                 placeholder="Chọn sinh viên"
-                                data={dataStudentOption}
+                                data={studentOptions}
                                 defaultValue={String(data?.data.officer?.student_secretary?.id)}
                                 clearable
                                 value={`${getValues('officer.student_secretary.id')}`}
@@ -317,11 +268,11 @@ const ClassUpdatePage = () => {
                             label="Loại lớp"
                             placeholder="Chọn loại lớp"
                             data={ClassTypeSelectList}
-                            value={getValues('type')}
+                            value={`${getValues('type')}`}
                             onChange={(value) => {
                               if (value) {
                                 // @ts-ignore
-                                setValue('type', value);
+                                setValue('type', value as ClassType);
                                 trigger('type');
                               }
                             }}
@@ -344,7 +295,7 @@ const ClassUpdatePage = () => {
                             withAsterisk
                             label="Khoá hoc"
                             placeholder="Chọn khoá học"
-                            data={dataOptionAdmission}
+                            data={admissionOptions}
                             defaultValue={`${getValues('admission_year_id')}`}
                             value={`${getValues('admission_year_id')}`}
                             onChange={(value) => {

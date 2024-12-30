@@ -7,22 +7,19 @@ import { IconAlertTriangle, IconCheck, IconDeviceFloppy, IconLogout } from '@tab
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
-import useSWR from 'swr';
 import { dashboardRoute, classRoute } from '@/routes';
-import { AdmissionYear, GeneralClass, ResultResponse, SelectList, User } from '@/types';
+import { GeneralClass } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
 import { PageHeader, Surface } from '@/components';
-import { ClassTypeSelectList, defaultPramsList, StatusList } from '@/constants/commons';
+import { ClassTypeSelectList, StatusList } from '@/constants/commons';
 import { ERROR_MESSAGES } from '@/constants/errorMessages';
 import HttpStatus from '@/enums/http-status.enum';
 import { useClassService } from '@/services/classService';
 import Status from '@/enums/status.enum';
-import { UserListParams, useUserService } from '@/services/userService';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import { ClassType } from '@/enums';
 import { useSearchFilter } from '@/hooks/useSearchFilter';
-import { useStudentService } from '@/services/studentService';
+import { useUserOptions, useAdmissionOptions } from '@/hooks/useGetSelectOption';
 
 const ClassCreatePage = () => {
   const {
@@ -41,52 +38,15 @@ const ClassCreatePage = () => {
   });
 
   const { createClass } = useClassService();
-  const { getListAdmission } = useStudentService();
-  const { getList } = useUserService();
   const { authUser } = useAuthStore();
+  const { push } = useRouter();
+  const { userOptions, setSearchQuery, userParams } = useUserOptions(Number(authUser?.faculty_id));
+  const { admissionOptions } = useAdmissionOptions();
 
-  // @ts-ignore
-  const [userParams, setUserParams] = useState<UserListParams>({
-    ...defaultPramsList,
-    facultyId: authUser?.faculty_id ?? undefined,
-  });
   const { handleInputSearchChange } = useSearchFilter(
-    (value: string) => setUserParams((prev) => ({ ...prev, q: value })),
+    (value: string) => setSearchQuery(value),
     userParams.q
   );
-
-  const { data: admissions } = useSWR<AdmissionYear[]>(['getListAdmission'], () =>
-    getListAdmission().then((res) => res?.data?.data)
-  );
-
-  const handleGetListUser = () =>
-    getList(userParams)
-      .then((res) => res.data)
-      .catch((error) => error);
-
-  const { data: dataUser } = useSWR<ResultResponse<User[]>>(
-    ['getList', userParams],
-    handleGetListUser
-  );
-  const { push } = useRouter();
-
-  const dataOptionUser: SelectList<string>[] = dataUser?.data
-    ? dataUser?.data?.map(
-        (item: User): SelectList<string> => ({
-          label: `${item.first_name} ${item.last_name}`,
-          value: `${item.id}`,
-        })
-      )
-    : [];
-
-  const dataOptionAdmission: SelectList<string>[] = admissions
-    ? admissions?.map(
-        (item): SelectList<string> => ({
-          label: `K${item.admission_year}`,
-          value: `${item?.id}`,
-        })
-      )
-    : [];
 
   const onSubmit = async (data: GeneralClass) => {
     if (data.teacher_id) {
@@ -178,7 +138,7 @@ const ClassCreatePage = () => {
                         <Select
                           label="Giáo viên chủ nhiệm (GVCN)"
                           placeholder="Chọn giảng viên"
-                          data={dataOptionUser}
+                          data={userOptions}
                           searchable
                           clearable
                           onKeyUp={(e) => {
@@ -195,7 +155,7 @@ const ClassCreatePage = () => {
                         <Select
                           label="Cố vấn học tập (CVHT)"
                           placeholder="Chọn giảng viên"
-                          data={dataOptionUser}
+                          data={userOptions}
                           onKeyUp={(e) => {
                             // @ts-ignore
                             handleInputSearchChange(e.target?.value ?? '');
@@ -252,7 +212,7 @@ const ClassCreatePage = () => {
                           withAsterisk
                           label="Khoá hoc"
                           placeholder="Chọn khoá học"
-                          data={dataOptionAdmission}
+                          data={admissionOptions}
                           value={`${getValues('admission_year_id')}`}
                           onChange={(value) => {
                             if (value) {
