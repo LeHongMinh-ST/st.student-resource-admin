@@ -8,8 +8,11 @@ const getUserRole = (): Role | null => {
   return authUser?.role as Role;
 };
 
-export function withAuth(WrappedComponent: React.FC, allowedRoles: Role[]) {
-  const AuthenticatedComponent: React.FC = (props) => {
+export function withAuth<T extends object>(
+  WrappedComponent: React.ComponentType<T>,
+  allowedRoles: Role[]
+): React.ComponentType<T> {
+  const AuthenticatedComponent: React.FC<T> = (props) => {
     const router = useRouter();
     const userRole = getUserRole();
 
@@ -23,6 +26,7 @@ export function withAuth(WrappedComponent: React.FC, allowedRoles: Role[]) {
       return null;
     }
 
+    //@ts-ignore
     return <WrappedComponent {...props} />;
   };
 

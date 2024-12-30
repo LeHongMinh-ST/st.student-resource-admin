@@ -24,7 +24,7 @@ import {
   IconPlus,
   IconTrash,
 } from '@tabler/icons-react';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
@@ -45,7 +45,11 @@ import {
 import { FamilyRelationship, Gender, SocialPolicyObject, TrainingType } from '@/enums';
 import { formatDateString } from '@/utils/func/formatDateString';
 
-const StudentEditPage = () => {
+type Props = {
+  id: any;
+};
+
+const StudentEditPage: FC<Props> = ({ id }) => {
   const {
     register,
     trigger,
@@ -58,12 +62,23 @@ const StudentEditPage = () => {
   } = useForm<Student>();
 
   const { updateStudent, getStudentById } = useStudentService();
-  const { query, push } = useRouter();
-  const { id } = query;
+  const { push } = useRouter();
 
-  const handleGetStudent = () => getStudentById(Number(id)).then((res) => res.data);
+  const { data, isLoading, error } = useSWR<ResultResponse<Student>>([id], () =>
+    getStudentById(Number(id))
+      .then((res) => res.data)
+      .catch((error) => error)
+  );
 
-  const { data, isLoading } = useSWR<ResultResponse<Student>>([id], handleGetStudent);
+  if (error) {
+    if (error?.status === HttpStatus.HTTP_FORBIDDEN) {
+      push('/403');
+    }
+
+    if (error?.status === HttpStatus.HTTP_NOT_FOUND) {
+      push('/404');
+    }
+  }
 
   useEffect(() => {
     if (data) {
