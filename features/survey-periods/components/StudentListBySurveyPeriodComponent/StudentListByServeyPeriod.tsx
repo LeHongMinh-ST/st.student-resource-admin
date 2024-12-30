@@ -26,6 +26,7 @@ import CheckboxStudent from '../Cells/CheckboxStudent';
 import { useSurveyPeriodService } from '@/services/surveyPeriodService';
 import ComfirmModal from '@/components/Modals/ComfirmModel/ComfirmModal';
 import {
+  useSetIsShowProgres,
   useSetZipExportFileProps,
   useZipExportFileProps,
 } from '@/utils/recoil/fileExport/FileExportState';
@@ -45,6 +46,7 @@ const StudentListByServeyPeriod: FC<StudentListByServeyPeriodProps> = ({
 
   const [isOpen, { open: onOpen, close: onClose }] = useDisclosure(false);
   const setZipExportFile = useSetZipExportFileProps();
+  const setIsShowProgres = useSetIsShowProgres();
   const { sendMailSurveyPeriod, createFileZipSurveyResponse } = useSurveyPeriodService();
 
   const handleCreateZipFileSurveyResponse = () =>
@@ -54,6 +56,7 @@ const StudentListByServeyPeriod: FC<StudentListByServeyPeriodProps> = ({
       .then((res) => {
         // console.log(res.data.data)
         setZipExportFile(res.data.data);
+        setIsShowProgres(true);
       })
       .catch((error) => {
         if (error?.status === HttpStatusEnum.HTTP_FORBIDDEN) {
