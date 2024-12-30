@@ -14,6 +14,7 @@ import CardList from '@/features/dashboard/components/CardList';
 import { User } from '@/types';
 import StatsCard from '@/features/dashboard/components/StatsCard';
 import { DashboardStatistical, useDashboardService } from '@/services/dashboardService';
+import { classRoute, graduationRoute, quitRoute, studentRoute } from '@/routes';
 
 type DashboardAdminProp = {
   user: User;
@@ -48,6 +49,7 @@ const DashboardAdmin: React.FC<DashboardAdminProp> = (props) => {
             value={dataDaashboardStatistical?.student_count ?? 0}
             isLoading={isLoadingDashboardStatistical}
             description="Tổng số sinh viên đang theo học"
+            link={studentRoute.listCourse}
           />
           <StatsCard
             icon={IconSchool}
@@ -55,6 +57,7 @@ const DashboardAdmin: React.FC<DashboardAdminProp> = (props) => {
             value={dataDaashboardStatistical?.student_graduaed_count ?? 0}
             isLoading={isLoadingDashboardStatistical}
             description="Tổng số sinh viên đã tốt nghiệp"
+            link={graduationRoute.list}
           />
           <StatsCard
             icon={IconAlertTriangle}
@@ -62,6 +65,7 @@ const DashboardAdmin: React.FC<DashboardAdminProp> = (props) => {
             value={dataDaashboardStatistical?.student_warning_count ?? 0}
             isLoading={isLoadingDashboardStatistical}
             description="Sinh viên thuộc diện cảnh cáo"
+            link={quitRoute.list}
           />
           <StatsCard
             icon={IconBook}
@@ -69,6 +73,7 @@ const DashboardAdmin: React.FC<DashboardAdminProp> = (props) => {
             value={dataDaashboardStatistical?.class_count ?? 0}
             isLoading={isLoadingDashboardStatistical}
             description="Tổng số lớp học đang hoạt động"
+            link={classRoute.list}
           />
         </SimpleGrid>
       </Box>
