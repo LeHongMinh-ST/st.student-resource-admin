@@ -7,6 +7,7 @@ import { useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { IconPlus } from '@tabler/icons-react';
 import dayjs from 'dayjs';
+import { useRouter } from 'next/router';
 import { CommonDataTable, DeleteModal, PageHeader, StatusBadge } from '@/components';
 import SearchFilter from '@/components/Filters/SearchFilter';
 import { defaultPramsList } from '@/constants/commons';
@@ -76,12 +77,30 @@ const SurveyPeriodPage = () => {
     document.body.removeChild(textArea);
   };
 
+  const { push } = useRouter();
+
   const columns: DataTableProps<SurveyPeriod>['columns'] = useMemo(
     () => [
       {
         accessor: 'title',
         title: 'Tên đợt khảo sát',
-        render: (surveyPeriod: SurveyPeriod) => <span>{surveyPeriod.title}</span>,
+        render: (surveyPeriod: SurveyPeriod) => (
+          <Text
+            style={{
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              width: '800px',
+            }}
+            fw={500}
+            c="blue"
+            onClick={() => push(surveyPeriodRoute.show(surveyPeriod.id))}
+          >
+            {surveyPeriod.title}
+          </Text>
+        ),
+
         sorting: true,
         filter: (
           <SearchFilter
