@@ -106,5 +106,5 @@ export const warningStatusLabel: Record<WarningStatus, string> = {
 export const warningStatusColor: Record<WarningStatus, string> = {
   [WarningStatus.NoWarning]: 'orange',
   [WarningStatus.UnderObservation]: 'orange',
-  [WarningStatus.AtRisk]: 'danger',
+  [WarningStatus.AtRisk]: 'red',
 };
