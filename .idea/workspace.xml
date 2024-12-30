@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a19e1239-6d18-4fbf-8d8a-01a0fa85d8c4" name="Changes" comment="feat: add detail student">
+    <list default="true" id="a19e1239-6d18-4fbf-8d8a-01a0fa85d8c4" name="Changes" comment="feat: update dialog download">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -55,7 +55,7 @@
       </RecentBranches>
     </option>
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="$PROJECT_DIR$/../../../../Cellar/php@7.3/7.3.33_4/bin/php" />
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/opt/homebrew/Cellar/php/8.3.9/bin/php" />
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 5
@@ -69,7 +69,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "feat__update__dialog__download",
     "last_opened_file_path": "/opt/homebrew/var/www/st-team/st.student-resource-admin/features/students/warnings/components",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
@@ -115,8 +115,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PS-241.18034.69" />
-        <option value="bundled-php-predefined-ba97393d7c68-48a1a656d44e-com.jetbrains.php.sharedIndexes-PS-241.18034.69" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-PS-243.21565.202" />
+        <option value="bundled-php-predefined-a98d8de5180a-5fbe0c30323e-com.jetbrains.php.sharedIndexes-PS-243.21565.202" />
       </set>
     </attachedChunks>
   </component>
@@ -188,7 +188,17 @@
       <workItem from="1734580597862" duration="907000" />
       <workItem from="1734598853876" duration="114000" />
       <workItem from="1734861626141" duration="30314000" />
+      <workItem from="1735570243350" duration="911000" />
     </task>
+    <task id="LOCAL-00001" summary="feat: update dialog download">
+      <option name="closed" value="true" />
+      <created>1735570296321</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1735570296321</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,7 +219,8 @@
     <MESSAGE value="feat: add pusher" />
     <MESSAGE value="feat: add detail student" />
     <MESSAGE value="feat: add detail student" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add detail student" />
+    <MESSAGE value="feat: update dialog download" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: update dialog download" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

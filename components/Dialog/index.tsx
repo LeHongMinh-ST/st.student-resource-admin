@@ -2,10 +2,11 @@ import { ActionIcon, Dialog, Text } from '@mantine/core';
 import styled from '@emotion/styled';
 import { IconMaximize, IconMinus, IconX } from '@tabler/icons-react';
 import { useCallback } from 'react';
-import { useDisclosure } from '@mantine/hooks';
 import { StatusFileImportBadge } from '@/components';
 import {
+  useIsCancelExportFile,
   useIsShowProgres,
+  useSetIsCancelExportFile,
   useSetIsShowProgres,
   useSetZipExportFileProps,
 } from '@/utils/recoil/fileExport/FileExportState';
@@ -20,7 +21,9 @@ type DialogProps = {
 const DialogDownload = ({ zipFileDownload, handlerAction }: DialogProps) => {
   const setZipExportFile = useSetZipExportFileProps();
   const isShowProgress = useIsShowProgres();
+  const isCancelExportFile = useIsCancelExportFile();
   const setIsShowProgress = useSetIsShowProgres();
+  const setIsCancelExportFile = useSetIsCancelExportFile();
 
   if (zipFileDownload && zipFileDownload?.status === 'completed' && zipFileDownload?.id) {
     handlerAction(zipFileDownload?.id);
@@ -29,9 +32,16 @@ const DialogDownload = ({ zipFileDownload, handlerAction }: DialogProps) => {
   const handleDelete = useCallback(async () => {
     setZipExportFile(null);
     setIsShowProgress(false);
+    setIsCancelExportFile(false);
   }, []);
 
-  const [isOpen, { open: onOpen, close: onClose }] = useDisclosure(isShowProgress ?? false);
+  const onClose = () => {
+    setIsCancelExportFile(false);
+  };
+
+  const onOpen = () => {
+    setIsCancelExportFile(true);
+  };
 
   return (
     <>
@@ -42,7 +52,7 @@ const DialogDownload = ({ zipFileDownload, handlerAction }: DialogProps) => {
           content="Bạn có chắc chắn muốn huỷ quá trình lưu khảo sát này không?"
           btnTextSubmit="Huỷ"
           onDelete={handleDelete}
-          isOpen={isOpen}
+          isOpen={isCancelExportFile}
           onClose={onClose}
         />
         <Dialog
