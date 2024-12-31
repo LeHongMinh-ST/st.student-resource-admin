@@ -3,23 +3,23 @@ import { Button, Image, Text } from '@mantine/core';
 import { useRouter } from 'next/router';
 import { IconHome } from '@tabler/icons-react';
 
-const NotFoundPage = () => {
+const ForbiddenPage = () => {
   const { push } = useRouter();
 
   return (
-    <NotFoundPageStyled>
+    <ForbiddenPageStyled>
       <div className="not-found-image-wrapper">
         <Image src="/images/403.png" alt="403" className="not-found-image" />
       </div>
-      <Text>Bạn không có quyền truy cập chức năng này!</Text>
+      <Text mb="10px">Bạn không có quyền truy cập chức năng này!</Text>
       <Button leftSection={<IconHome />} onClick={() => push('/')}>
-        Quay lại
+        Quay lại trang chủ
       </Button>
-    </NotFoundPageStyled>
+    </ForbiddenPageStyled>
   );
 };
 
-const NotFoundPageStyled = styled.div`
+const ForbiddenPageStyled = styled.div`
   background-color: #ffffff;
   text-align: center;
   height: 100vh;
@@ -33,4 +33,4 @@ const NotFoundPageStyled = styled.div`
   }
 `;
 
-export default NotFoundPage;
+export default ForbiddenPage;

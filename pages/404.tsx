@@ -17,7 +17,7 @@ const NotFoundPage = () => {
         <Image src="/images/404.png" alt="404" className="not-found-image" />
       </div>
       <Button leftSection={<IconHome />} onClick={() => push('/')}>
-        Quay lại
+        Quay lại trang chủ
       </Button>
     </NotFoundPageStyled>
   );
