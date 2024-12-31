@@ -17,7 +17,7 @@ export function withAuth<T extends object>(
     const userRole = getUserRole();
 
     useEffect(() => {
-      if (!userRole || !allowedRoles.includes(userRole)) {
+      if (!!userRole && !allowedRoles.includes(userRole)) {
         router.push('/403');
       }
     }, [userRole]);
