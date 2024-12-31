@@ -20,9 +20,7 @@ type DashboardAdminProp = {
   user: User;
 };
 
-const DashboardAdmin: React.FC<DashboardAdminProp> = (props) => {
-  const { user } = props;
-
+const DashboardAdmin: React.FC<DashboardAdminProp> = () => {
   const { getDashboardStatistical } = useDashboardService();
 
   const handleGetDashboardStatistical = () =>
@@ -33,8 +31,6 @@ const DashboardAdmin: React.FC<DashboardAdminProp> = (props) => {
   const { data: dataDaashboardStatistical, isLoading: isLoadingDashboardStatistical } =
     useSWR<DashboardStatistical>(['getDashboardStatistical'], handleGetDashboardStatistical);
 
-  // eslint-disable-next-line no-console
-  console.log(user);
   return (
     <>
       <Box>
