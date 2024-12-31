@@ -31,13 +31,6 @@ export const useWarningStudentService = () => {
     id: number | string
   ): Promise<AxiosResponse<ResultResponse<Warning>, any>> => axiosInstance.get(`/warning/${id}`);
 
-  const importExcelFileWarningStudent = (data: FormData): Promise<AxiosResponse<void, any>> =>
-    axiosInstance.post('/warning/import-student', data, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-
   const getSemesters = (): Promise<AxiosResponse<Semester[], any>> =>
     axiosInstance.get('/semesters');
 
@@ -52,7 +45,6 @@ export const useWarningStudentService = () => {
     createWarningStudent,
     updateWarningStudent,
     deleteWarningStudent,
-    importExcelFileWarningStudent,
     getWarningStudentById,
     getSemesters,
     getListStudent,
