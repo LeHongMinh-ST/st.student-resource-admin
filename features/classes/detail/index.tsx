@@ -13,7 +13,6 @@ import { PageHeader } from '@/components';
 import { classTypeLabels } from '@/constants/labels';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import Role from '@/enums/role.enum';
-import HttpStatus from '@/enums/http-status.enum';
 
 type Props = {
   id: Number;
@@ -25,30 +24,18 @@ const StudentListByClass = lazy(
 
 const ClassDetailPage: FC<Props> = ({ id }) => {
   const { getStudentStatisticalById, getClassById } = useClassService();
-  const { push, back } = useRouter();
+  const { back } = useRouter();
   const { authUser } = useAuthStore();
 
   const { data: dataStatistical } = useSWR<any>(['getDataStudentStatistical', id], () =>
     getStudentStatisticalById(Number(id)).then((res) => res.data)
   );
 
-  const { data, isLoading, error } = useSWR<ResultResponse<GeneralClass>>(
-    ['getClassById', id],
-    () =>
-      getClassById(Number(id))
-        .then((res) => res.data)
-        .catch((error) => error)
+  const { data, isLoading } = useSWR<ResultResponse<GeneralClass>>(['getClassById', id], () =>
+    getClassById(Number(id))
+      .then((res) => res.data)
+      .catch((error) => error)
   );
-
-  if (error) {
-    if (error?.status === HttpStatus.HTTP_FORBIDDEN) {
-      push('/403');
-    }
-
-    if (error?.status === HttpStatus.HTTP_NOT_FOUND) {
-      push('/404');
-    }
-  }
 
   return (
     <ClassDetailPageStyled>

@@ -64,21 +64,11 @@ const StudentEditPage: FC<Props> = ({ id }) => {
   const { updateStudent, getStudentById } = useStudentService();
   const { push } = useRouter();
 
-  const { data, isLoading, error } = useSWR<ResultResponse<Student>>([id], () =>
+  const { data, isLoading } = useSWR<ResultResponse<Student>>([id], () =>
     getStudentById(Number(id))
       .then((res) => res.data)
       .catch((error) => error)
   );
-
-  if (error) {
-    if (error?.status === HttpStatus.HTTP_FORBIDDEN) {
-      push('/403');
-    }
-
-    if (error?.status === HttpStatus.HTTP_NOT_FOUND) {
-      push('/404');
-    }
-  }
 
   useEffect(() => {
     if (data) {

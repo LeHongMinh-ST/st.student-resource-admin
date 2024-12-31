@@ -50,24 +50,14 @@ const ClassUpdatePage: FC<Prop> = ({ id }) => {
     },
   });
   const { updateClass, getClass } = useClassService();
-  const { push, back } = useRouter();
+  const { back } = useRouter();
   const { authUser } = useAuthStore();
 
-  const { data, isLoading, error } = useSWR<ResultResponse<GeneralClass>>([id], () =>
+  const { data, isLoading } = useSWR<ResultResponse<GeneralClass>>([id], () =>
     getClass(Number(id))
       .then((res) => res.data)
       .catch((error) => error)
   );
-
-  if (error) {
-    if (error?.status === HttpStatus.HTTP_FORBIDDEN) {
-      push('/403');
-    }
-
-    if (error?.status === HttpStatus.HTTP_NOT_FOUND) {
-      push('/404');
-    }
-  }
 
   const { studentOptions, setSearchQuery: setSearchQueryStudent } = useStudentOptions(Number(id));
   const { userOptions, setSearchQuery: setSearchQueryUser } = useUserOptions(

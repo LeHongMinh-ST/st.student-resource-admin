@@ -25,7 +25,6 @@ import { ResultResponse, Student } from '@/types';
 import GeneralInfoStudent from './components/InfoStudent/GeneralInfoStudent';
 import Role from '@/enums/role.enum';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
-import HttpStatus from '@/enums/http-status.enum';
 
 // const GeneralInfoStudent = lazy(() => import('./components/InfoStudent/GeneralInfoStudent'));
 // const ClassStudent = lazy(() => import('./components/InfoStudent/ClassStudent'));
@@ -37,22 +36,12 @@ type Props = {
 };
 const { getStudentById } = useStudentService();
 const StudentDetailPage: FC<Props> = ({ id }) => {
-  const { push, back } = useRouter();
-  const { data, isLoading, mutate, error } = useSWR<ResultResponse<Student>>([id], () =>
+  const { back } = useRouter();
+  const { data, isLoading, mutate } = useSWR<ResultResponse<Student>>([id], () =>
     getStudentById(Number(id))
       .then((res) => res.data)
       .catch((error) => error)
   );
-
-  if (error) {
-    if (error?.status === HttpStatus.HTTP_FORBIDDEN) {
-      push('/403');
-    }
-
-    if (error?.status === HttpStatus.HTTP_NOT_FOUND) {
-      push('/404');
-    }
-  }
 
   const [activeTab, setActiveTab] = useState<ActiveTabType | null>('general');
   const iconStyle = { width: rem(24), height: rem(24) };
