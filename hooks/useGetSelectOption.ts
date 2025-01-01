@@ -21,7 +21,7 @@ export const useStudentOptions = (classId: number | undefined) => {
 
   const studentOptions: SelectList<string>[] =
     dataStudent?.map((student) => ({
-      label: `${student.last_name} ${student.first_name}`,
+      label: `${student.code} - ${student.last_name} ${student.first_name}`,
       value: `${student.id}`,
     })) || [];
 
