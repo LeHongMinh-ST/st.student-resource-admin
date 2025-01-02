@@ -99,14 +99,16 @@ const ClassDetailPage: FC<Props> = ({ id }) => {
                     }}
                   >
                     <Stack gap={4} ta="left">
-                      <Text size="md" fw={400}>
-                        Cố vấn học tập:
-                      </Text>
-                      <Text size="lg" fw={500}>
-                        {data?.data?.sub_teacher?.first_name
-                          ? `${data?.data?.sub_teacher?.last_name} ${data?.data?.sub_teacher?.first_name} `
-                          : 'Chưa cập nhật'}
-                      </Text>
+                      <ClassDetailContainerInfo>
+                        <Text size="md" fw={400}>
+                          Cố vấn học tập:
+                        </Text>
+                        <Text size="lg" fw={500}>
+                          {data?.data?.sub_teacher?.first_name
+                            ? `${data?.data?.sub_teacher?.last_name} ${data?.data?.sub_teacher?.first_name} `
+                            : 'Chưa cập nhật'}
+                        </Text>
+                      </ClassDetailContainerInfo>
                     </Stack>
                   </Grid.Col>
                   <Grid.Col
@@ -188,13 +190,15 @@ const ClassDetailPage: FC<Props> = ({ id }) => {
                             },
                           }}
                         >
-                          <Stack gap={4} ta="left">
-                            <Text size="md" fw={400}>
-                              Đang học
-                            </Text>
-                            <Text size="lg" fw={500}>
-                              {dataStatistical?.study ?? 0} Sinh viên
-                            </Text>
+                          <Stack gap={3} ta="left">
+                            <ClassDetailContainerInfo>
+                              <Text size="md" fw={400}>
+                                Đang học
+                              </Text>
+                              <Text size="lg" fw={500}>
+                                {dataStatistical?.study ?? 0} Sinh viên
+                              </Text>
+                            </ClassDetailContainerInfo>
                           </Stack>
                         </Grid.Col>
                         <Grid.Col
@@ -205,7 +209,7 @@ const ClassDetailPage: FC<Props> = ({ id }) => {
                             },
                           }}
                         >
-                          <Stack gap={4} ta="left">
+                          <Stack gap={3} ta="left">
                             <ClassDetailContainerInfo>
                               <Text size="md" fw={400}>
                                 Đã tốt nghiệp
@@ -250,6 +254,25 @@ const ClassDetailPage: FC<Props> = ({ id }) => {
                               </Text>
                               <Text size="lg" fw={500}>
                                 {dataStatistical?.to_drop_out ?? 0} Sinh viên
+                              </Text>
+                            </ClassDetailContainerInfo>
+                          </Stack>
+                        </Grid.Col>
+                        <Grid.Col
+                          span={2}
+                          style={{
+                            root: {
+                              border: 1,
+                            },
+                          }}
+                        >
+                          <Stack gap={4} ta="left">
+                            <ClassDetailContainerInfo>
+                              <Text size="md" fw={400}>
+                                Đang cảnh báo
+                              </Text>
+                              <Text size="lg" fw={500}>
+                                {dataStatistical?.warning ?? 0} Sinh viên
                               </Text>
                             </ClassDetailContainerInfo>
                           </Stack>
