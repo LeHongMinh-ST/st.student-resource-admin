@@ -4,7 +4,7 @@ import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
 import { AdmissionYear } from '@/types';
 
 const admissionYearClassState = atom<AdmissionYear | null>({
-  key: 'admissionYearState',
+  key: 'admissionYearClassState',
   default: null,
 });
 
