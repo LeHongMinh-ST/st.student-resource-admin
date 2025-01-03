@@ -110,7 +110,7 @@ const ClassUpdatePage: FC<Prop> = ({ id }) => {
       sub_teacher_id: typeof data.sub_teacher_id === 'number' ? data.sub_teacher_id : undefined,
       teacher_id: typeof data.teacher_id === 'number' ? data.teacher_id : undefined,
       type: data.type,
-      training_industry_id: data.training_industry_id as number,
+      training_industry_id: data?.training_industry_id as number,
       status: data.status,
     };
 
