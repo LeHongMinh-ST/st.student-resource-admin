@@ -233,13 +233,13 @@ const TabClassAdmin = () => {
           {trainingIndustries?.map((item: TrainingIndustry) => (
             <Tabs.Tab value={`${item?.id}`} leftSection={<IconNotebook style={iconStyle} />}>
               <Text fw={500} size="md">
-                Chuyên ngành {item?.name} ({item?.general_classes_count} lớp)
+                Ngành {item?.name} ({item?.general_classes_count} lớp)
               </Text>
             </Tabs.Tab>
           ))}
           <Tabs.Tab value="major_none" leftSection={<IconBook style={iconStyle} />}>
             <Text fw={500} size="md">
-              Chưa phân loại chuyên ngành ({statisticalClass?.class_major_none_total ?? 0} lớp)
+              Lớp chưa phân loại ({statisticalClass?.class_major_none_total ?? 0} lớp)
             </Text>
           </Tabs.Tab>
         </Tabs.List>
