@@ -1,7 +1,7 @@
 import { Button, LoadingOverlay, rem, Tabs, Text } from '@mantine/core';
 import styled from '@emotion/styled';
 import { useDisclosure } from '@mantine/hooks';
-import { IconNotebook, IconPlus } from '@tabler/icons-react';
+import { IconBook, IconBook2, IconNotebook, IconPlus } from '@tabler/icons-react';
 import Link from 'next/link';
 import { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
@@ -23,7 +23,7 @@ import { useAdmissionYearClassProps } from '@/utils/recoil/classess/AdmissionYea
 import { useTrainingIndustryService } from '@/services/trainingIndustryService';
 import { ClassType } from '@/enums';
 
-type ActiveTabType = 'all' | ClassType.Basic | string;
+type ActiveTabType = 'all' | ClassType.Basic | string | 'major_none';
 const TabClassAdmin = () => {
   const admissionYearSelected = useAdmissionYearClassProps();
   const classService = useClassService();
@@ -178,6 +178,13 @@ const TabClassAdmin = () => {
         type_class: undefined,
         training_industry_id: undefined,
       }));
+    } else if (activeTab === 'major_none') {
+      setClassParams((pre) => ({
+        ...pre,
+        type: undefined,
+        type_class: ClassType.Major,
+        training_industry_id: undefined,
+      }));
     } else if (activeTab === ClassType.Basic) {
       setClassParams((pre) => ({
         ...pre,
@@ -218,7 +225,7 @@ const TabClassAdmin = () => {
               Tất cả các lớp ({statisticalClass?.class_total ?? 0} lớp)
             </Text>
           </Tabs.Tab>
-          <Tabs.Tab value={ClassType.Basic} leftSection={<IconNotebook style={iconStyle} />}>
+          <Tabs.Tab value={ClassType.Basic} leftSection={<IconBook2 style={iconStyle} />}>
             <Text fw={500} size="md">
               Lớp chung ({statisticalClass?.class_basic_total ?? 0} lớp)
             </Text>
@@ -230,6 +237,11 @@ const TabClassAdmin = () => {
               </Text>
             </Tabs.Tab>
           ))}
+          <Tabs.Tab value="major_none" leftSection={<IconBook style={iconStyle} />}>
+            <Text fw={500} size="md">
+              Chưa phân loại chuyên ngành ({statisticalClass?.class_major_none_total ?? 0} lớp)
+            </Text>
+          </Tabs.Tab>
         </Tabs.List>
 
         <Suspense fallback={<LoadingOverlay visible />}>
@@ -243,6 +255,9 @@ const TabClassAdmin = () => {
               {activeTab === `${item?.id}` && renderDataTable()}
             </Tabs.Panel>
           ))}
+          <Tabs.Panel value="major_none">
+            {activeTab === 'major_none' && renderDataTable()}
+          </Tabs.Panel>
         </Suspense>
       </Tabs>
     </ClassListStyled>
