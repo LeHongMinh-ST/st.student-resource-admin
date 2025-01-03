@@ -2,13 +2,30 @@ import { AxiosResponse } from 'axios';
 import axiosInstance from '@/utils/axios';
 import Status from '@/enums/status.enum';
 import { BaseParamsList, ResultResponse, GeneralClass, Student } from '@/types';
+import { ClassType } from '@/enums';
 
 export type ClassListParams = {
   status?: Status;
   q?: string;
   type?: string;
   admission_year_id?: number | string;
+  training_industry_id?: number | string;
+  type_class?: ClassType;
 } & BaseParamsList;
+
+export type GeneralClassUpdate = {
+  id: number;
+  name: string;
+  officer: {
+    student_president?: Student;
+    student_secretary?: Student;
+  };
+  sub_teacher_id?: number;
+  teacher_id?: number;
+  type: ClassType;
+  training_industry_id?: number;
+  status: Status;
+};
 
 export const useClassService = () => {
   const getList = (
@@ -36,12 +53,17 @@ export const useClassService = () => {
     axiosInstance.get(`/classes/${id}/student-statistical`);
 
   const updateClass = (
-    generalClass: GeneralClass
+    generalClass: GeneralClassUpdate
   ): Promise<AxiosResponse<ResultResponse<GeneralClass>, any>> =>
-    axiosInstance.patch(`/classes/${generalClass.id}`, generalClass);
+    axiosInstance.put(`/classes/${generalClass.id}`, generalClass);
 
   const deleteClass = (id: number | string): Promise<AxiosResponse<ResultResponse<null>, any>> =>
     axiosInstance.delete(`/classes/${id}`);
+
+  const getStatisticalClassAdmissionYear = (
+    id: number | string
+  ): Promise<AxiosResponse<any, any>> =>
+    axiosInstance.get(`/admission-year/${id}/class-statistical`);
 
   return {
     getList,
@@ -51,5 +73,6 @@ export const useClassService = () => {
     deleteClass,
     getClassById,
     getStudentStatisticalById,
+    getStatisticalClassAdmissionYear,
   };
 };

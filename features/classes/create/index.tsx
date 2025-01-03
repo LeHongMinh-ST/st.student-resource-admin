@@ -18,7 +18,11 @@ import { useClassService } from '@/services/classService';
 import Status from '@/enums/status.enum';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
 import { ClassType } from '@/enums';
-import { useUserOptions, useAdmissionOptions } from '@/hooks/useGetSelectOption';
+import {
+  useUserOptions,
+  useAdmissionOptions,
+  useTrainingIndustryOptions,
+} from '@/hooks/useGetSelectOption';
 
 const ClassCreatePage = () => {
   const {
@@ -43,6 +47,8 @@ const ClassCreatePage = () => {
     Number(authUser?.faculty_id)
   );
   const { admissionOptions } = useAdmissionOptions();
+
+  const { trainingIndustryOptions } = useTrainingIndustryOptions();
 
   const onSubmit = async (data: GeneralClass) => {
     if (data.teacher_id) {
@@ -189,6 +195,22 @@ const ClassCreatePage = () => {
                             }
                           }}
                         />
+                        {getValues('type') === ClassType.Major && (
+                          <Select
+                            label="Chuyên ngành"
+                            placeholder="Chọn chuyên ngành"
+                            data={trainingIndustryOptions}
+                            defaultValue={`${getValues('training_industry_id')}`}
+                            value={`${getValues('training_industry_id')}`}
+                            onChange={(value) => {
+                              if (value) {
+                                // @ts-ignore
+                                setValue('training_industry_id', value as Number);
+                                trigger('training_industry_id');
+                              }
+                            }}
+                          />
+                        )}
                         <Select
                           withAsterisk
                           label="Trạng thái"

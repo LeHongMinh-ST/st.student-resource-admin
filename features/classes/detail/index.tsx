@@ -75,7 +75,7 @@ const ClassDetailPage: FC<Props> = ({ id }) => {
             <Grid.Col span={{ base: 12, sm: 12, md: 12, lg: 12 }}>
               <Paper p="md" shadow="md" radius="md">
                 <Grid>
-                  <Grid.Col span={3}>
+                  <Grid.Col span={2}>
                     <Stack gap={4} ta="left">
                       <Text size="md" fw={400}>
                         {data?.data?.type &&
@@ -91,7 +91,7 @@ const ClassDetailPage: FC<Props> = ({ id }) => {
                     </Stack>
                   </Grid.Col>
                   <Grid.Col
-                    span={3}
+                    span={2}
                     style={{
                       root: {
                         border: 1,
@@ -112,7 +112,7 @@ const ClassDetailPage: FC<Props> = ({ id }) => {
                     </Stack>
                   </Grid.Col>
                   <Grid.Col
-                    span={3}
+                    span={2}
                     style={{
                       root: {
                         border: 1,
@@ -131,7 +131,7 @@ const ClassDetailPage: FC<Props> = ({ id }) => {
                     </Stack>
                   </Grid.Col>
                   <Grid.Col
-                    span={3}
+                    span={2}
                     style={{
                       root: {
                         border: 1,
@@ -149,11 +149,27 @@ const ClassDetailPage: FC<Props> = ({ id }) => {
                       </ClassDetailContainerInfo>
                     </Stack>
                   </Grid.Col>
-                  <Grid.Col span={3}>
-                    <Stack gap={4} ta="left">
-                      <ClassDetailContainerInfo></ClassDetailContainerInfo>
-                    </Stack>
-                  </Grid.Col>
+                  {(data?.data.type as ClassType) === ClassType.Major && (
+                    <Grid.Col
+                      span={2}
+                      style={{
+                        root: {
+                          border: 1,
+                        },
+                      }}
+                    >
+                      <Stack gap={4} ta="left">
+                        <ClassDetailContainerInfo>
+                          <Text size="md" fw={400}>
+                            Chuyên ngành
+                          </Text>
+                          <Text size="lg" fw={500}>
+                            {data?.data?.training_industry?.name}
+                          </Text>
+                        </ClassDetailContainerInfo>
+                      </Stack>
+                    </Grid.Col>
+                  )}
                 </Grid>
                 <Grid>
                   <Grid.Col span={12}>
@@ -269,17 +285,12 @@ const ClassDetailPage: FC<Props> = ({ id }) => {
                           <Stack gap={4} ta="left">
                             <ClassDetailContainerInfo>
                               <Text size="md" fw={400}>
-                                Đang cảnh báo
+                                Cảnh báo
                               </Text>
                               <Text size="lg" fw={500}>
                                 {dataStatistical?.warning ?? 0} Sinh viên
                               </Text>
                             </ClassDetailContainerInfo>
-                          </Stack>
-                        </Grid.Col>
-                        <Grid.Col span={3}>
-                          <Stack gap={4} ta="left">
-                            <ClassDetailContainerInfo></ClassDetailContainerInfo>
                           </Stack>
                         </Grid.Col>
                       </Grid>

@@ -34,11 +34,17 @@ export const useTrainingIndustryService = () => {
   ): Promise<AxiosResponse<ResultResponse<null>, any>> =>
     axiosInstance.delete(`/training-industries/${id}`);
 
+  const getTrainingIndustryClassByAdmissionYear = (
+    admissionYearId: number | string
+  ): Promise<AxiosResponse<TrainingIndustry[], any>> =>
+    axiosInstance.get(`admission-year/${admissionYearId}/training-industry-class`);
+
   return {
     getList,
     getTrainingIndustry,
     createTrainingIndustry,
     updateTrainingIndustry,
     deleteTrainingIndustry,
+    getTrainingIndustryClassByAdmissionYear,
   };
 };

@@ -14,12 +14,12 @@ import {
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { IconAlertTriangle, IconCheck, IconDeviceFloppy, IconLogout } from '@tabler/icons-react';
-import { ClassType, FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { classRoute, dashboardRoute } from '@/routes';
-import { useClassService } from '@/services/classService';
+import { GeneralClassUpdate, useClassService } from '@/services/classService';
 import { GeneralClass, ResultResponse } from '@/types';
 import { setFormErrors } from '@/utils/func/formError';
 import { PageHeader, Surface } from '@/components';
@@ -28,7 +28,13 @@ import { ERROR_MESSAGES } from '@/constants/errorMessages';
 import HttpStatus from '@/enums/http-status.enum';
 import Status from '@/enums/status.enum';
 import { useAuthStore } from '@/utils/recoil/auth/authState';
-import { useStudentOptions, useUserOptions, useAdmissionOptions } from '@/hooks/useGetSelectOption';
+import {
+  useStudentOptions,
+  useUserOptions,
+  useAdmissionOptions,
+  useTrainingIndustryOptions,
+} from '@/hooks/useGetSelectOption';
+import { ClassType } from '@/enums';
 
 type Prop = {
   id: Number;
@@ -64,6 +70,7 @@ const ClassUpdatePage: FC<Prop> = ({ id }) => {
     Number(authUser?.faculty_id)
   );
   const { admissionOptions } = useAdmissionOptions();
+  const { trainingIndustryOptions } = useTrainingIndustryOptions();
 
   useEffect(() => {
     if (data) {
@@ -96,9 +103,20 @@ const ClassUpdatePage: FC<Prop> = ({ id }) => {
       data.teacher_id = Number(data.teacher_id);
     }
 
+    const dataUpdate: GeneralClassUpdate = {
+      id: data.id ?? 0,
+      name: data.name,
+      officer: data.officer ?? {},
+      sub_teacher_id: typeof data.sub_teacher_id === 'number' ? data.sub_teacher_id : undefined,
+      teacher_id: typeof data.teacher_id === 'number' ? data.teacher_id : undefined,
+      type: data.type,
+      training_industry_id: data.training_industry_id as number,
+      status: data.status,
+    };
+
     if (!isSubmitting) {
       try {
-        const res = await updateClass(data);
+        const res = await updateClass(dataUpdate);
         if (res) {
           notifications.show({
             title: 'Thành công!',
@@ -116,8 +134,7 @@ const ClassUpdatePage: FC<Prop> = ({ id }) => {
             // @ts-ignore
             setFormErrors(errors, setError);
           }
-        }
-        if (e?.status === HttpStatus.HTTP_INTERNAL_SERVER_ERROR) {
+        } else {
           notifications.show({
             title: 'Thất bại!',
             message: 'Có lỗi xảy ra! Vui lòng thử lại sau',
@@ -288,6 +305,22 @@ const ClassUpdatePage: FC<Prop> = ({ id }) => {
                               }
                             }}
                           />
+                          {getValues('type') === ClassType.Major && (
+                            <Select
+                              label="Chuyên ngành"
+                              placeholder="Chọn chuyên ngành"
+                              data={trainingIndustryOptions}
+                              defaultValue={`${data?.data.training_industry_id}`}
+                              value={`${getValues('training_industry_id')}`}
+                              onChange={(value) => {
+                                if (value) {
+                                  // @ts-ignore
+                                  setValue('training_industry_id', value as Number);
+                                  trigger('training_industry_id');
+                                }
+                              }}
+                            />
+                          )}
                           <Select
                             withAsterisk
                             label="Trạng thái"
@@ -306,16 +339,10 @@ const ClassUpdatePage: FC<Prop> = ({ id }) => {
                             withAsterisk
                             label="Khoá hoc"
                             placeholder="Chọn khoá học"
+                            disabled
                             data={admissionOptions}
                             defaultValue={`${getValues('admission_year_id')}`}
                             value={`${getValues('admission_year_id')}`}
-                            onChange={(value) => {
-                              if (value) {
-                                // @ts-ignore
-                                setValue('admission_year_id', value as Number);
-                                trigger('admission_year_id');
-                              }
-                            }}
                           />
                         </Skeleton>
                       </Stack>

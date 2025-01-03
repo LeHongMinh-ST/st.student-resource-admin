@@ -4,8 +4,16 @@ import { useState } from 'react';
 import useSWR from 'swr';
 import { GetListStudentParams, useStudentService } from '@/services/studentService';
 import { UserListParams, useUserService } from '@/services/userService';
-import { AdmissionYear, ResultResponse, SelectList, Student, User } from '@/types';
+import {
+  AdmissionYear,
+  ResultResponse,
+  SelectList,
+  Student,
+  TrainingIndustry,
+  User,
+} from '@/types';
 import { useSearchFilter } from './useSearchFilter';
+import { useTrainingIndustryService } from '@/services/trainingIndustryService';
 
 export const useStudentOptions = (classId: number | undefined) => {
   const { getListStudent } = useStudentService();
@@ -50,7 +58,7 @@ export const useUserOptions = (facultyId: number | undefined) => {
 
   const userOptions: SelectList<string>[] =
     dataUser?.data?.map((user) => ({
-      label: `${user.last_name} ${user.first_name}`,
+      label: `${user.last_name} ${user.first_name} - ${user.email}`,
       value: `${user.id}`,
     })) || [];
 
@@ -76,4 +84,25 @@ export const useAdmissionOptions = () => {
     })) || [];
 
   return { admissionOptions, isLoading: !admissions };
+};
+
+export const useTrainingIndustryOptions = () => {
+  const { getList } = useTrainingIndustryService();
+
+  const { data: trainingIndustries, error } = useSWR<TrainingIndustry[]>(
+    ['getListTrainingIndustry'],
+    () => getList().then((res) => res.data.data)
+  );
+
+  const trainingIndustryOptions: SelectList<string>[] =
+    trainingIndustries?.map((industry) => ({
+      label: industry.name,
+      value: `${industry.id}`,
+    })) || [];
+
+  return {
+    trainingIndustryOptions,
+    isLoading: !trainingIndustries && !error,
+    error,
+  };
 };
