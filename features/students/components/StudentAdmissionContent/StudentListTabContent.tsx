@@ -1,15 +1,13 @@
 import { FC, useState } from 'react';
 import styled from '@emotion/styled';
 import { Paper, Text } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
 import { DataTableProps } from 'mantine-datatable';
-import { IconAlertTriangle } from '@tabler/icons-react';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import { defaultPramsList } from '@/constants/commons';
 import { AdmissionYear, ResultResponse, Student } from '@/types';
 import { GetListStudentParams, useStudentService } from '@/services/studentService';
-import { HttpStatusEnum, StudentStatus } from '@/enums';
+import { StudentStatus } from '@/enums';
 import { CommonDataTable, StatusStudentBadge } from '@/components';
 import StudentNameCellTable from './StudentListTabComponent/Cells/StudentNameCellTable';
 import { formatDateString } from '@/utils/func/formatDateString';
@@ -30,41 +28,20 @@ const StudentListTabContent: FC<StudentListTabContentProps> = ({ admissionYear }
   const { push } = useRouter();
 
   const { getStatisticalAdmissionYear, getListStudent } = useStudentService();
-  const handleGetListStudent = () =>
-    getListStudent(getListStudentParams)
-      .then((res) => res.data)
-      .catch((error) => {
-        if (error?.status === HttpStatusEnum.HTTP_FORBIDDEN) {
-          notifications.show({
-            title: 'Cảnh báo!',
-            message: 'Bạn không có quyền truy cập!',
-            icon: <IconAlertTriangle />,
-            color: 'red',
-            autoClose: 5000,
-          });
-        } else {
-          notifications.show({
-            title: 'Lỗi',
-            message: 'Có lỗi sảy ra vui lòng thử lại sau !',
-            icon: <IconAlertTriangle />,
-            color: 'red',
-            autoClose: 5000,
-          });
-        }
-        return error;
-      });
-
-  const { data: studentStatistical } = useSWR([
-    ['getStatisticalAdmissionYear', admissionYear?.id],
-    () => getStatisticalAdmissionYear(Number(admissionYear?.id)).then((res) => res.data),
-  ]);
-
-  console.log(studentStatistical);
 
   const { data, isLoading } = useSWR<ResultResponse<Student[]>>(
     ['getListStudent', getListStudentParams],
-    handleGetListStudent
+    () =>
+      getListStudent(getListStudentParams)
+        .then((res) => res.data)
+        .catch((error) => error)
   );
+
+  const { data: studentStatistical } = useSWR<any>([
+    ['getStatisticalAdmissionYear'],
+    () => getStatisticalAdmissionYear(Number(admissionYear?.id)).then((res) => res.data),
+  ]);
+  console.log(studentStatistical);
 
   const columns: DataTableProps<Student>['columns'] = [
     {

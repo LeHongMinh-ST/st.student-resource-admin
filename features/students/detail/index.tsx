@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import useSWR from 'swr';
-import { Suspense, useState } from 'react';
+import { FC, Suspense, useState } from 'react';
 import {
   Box,
   Button,
@@ -31,12 +31,18 @@ import { useAuthStore } from '@/utils/recoil/auth/authState';
 
 type ActiveTabType = 'general' | 'class' | 'learning_outcome';
 
-const StudentDetailPage = () => {
-  const { getStudentById } = useStudentService();
-  const { query, back } = useRouter();
-  const { id } = query;
-  const handleGetStudentById = () => getStudentById(Number(id)).then((res) => res.data);
-  const { data, isLoading, mutate } = useSWR<ResultResponse<Student>>([id], handleGetStudentById);
+type Props = {
+  id: Number;
+};
+const { getStudentById } = useStudentService();
+const StudentDetailPage: FC<Props> = ({ id }) => {
+  const { back } = useRouter();
+  const { data, isLoading, mutate } = useSWR<ResultResponse<Student>>([id], () =>
+    getStudentById(Number(id))
+      .then((res) => res.data)
+      .catch((error) => error)
+  );
+
   const [activeTab, setActiveTab] = useState<ActiveTabType | null>('general');
   const iconStyle = { width: rem(24), height: rem(24) };
   const { authUser } = useAuthStore();

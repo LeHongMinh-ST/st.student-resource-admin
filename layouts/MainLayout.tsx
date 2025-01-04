@@ -12,6 +12,7 @@ import {
   useMantineTheme,
   Box,
 } from '@mantine/core';
+import { SWRConfig } from 'swr';
 import { IconPower } from '@tabler/icons-react';
 import { ReactNode } from 'react';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
@@ -24,6 +25,7 @@ import { useAuthStore } from '@/utils/recoil/auth/authState';
 import useAuthCheck from '@/hooks/useAuthCheck';
 import DialogDownload from '@/components/Dialog';
 import { useZipExportHandler } from '@/hooks/useZipExportHandler';
+import HttpStatus from '@/enums/http-status.enum';
 
 type MainLayoutProps = {
   className?: string;
@@ -115,7 +117,21 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, className }) => {
           </AppShell.Navbar>
           <AppShell.Main>
             <Box py="lg" px="md" className={classes.main}>
-              {children}
+              <SWRConfig
+                value={{
+                  onError: (error) => {
+                    if (error.status === HttpStatus.HTTP_FORBIDDEN) {
+                      router.push('/403');
+                    }
+
+                    if (error.status === HttpStatus.HTTP_NOT_FOUND) {
+                      router.push('/404');
+                    }
+                  },
+                }}
+              >
+                {children}
+              </SWRConfig>
             </Box>
           </AppShell.Main>
           <AppShell.Footer p="md">

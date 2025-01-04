@@ -24,7 +24,7 @@ import {
   IconPlus,
   IconTrash,
 } from '@tabler/icons-react';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
@@ -45,7 +45,11 @@ import {
 import { FamilyRelationship, Gender, SocialPolicyObject, TrainingType } from '@/enums';
 import { formatDateString } from '@/utils/func/formatDateString';
 
-const StudentEditPage = () => {
+type Props = {
+  id: any;
+};
+
+const StudentEditPage: FC<Props> = ({ id }) => {
   const {
     register,
     trigger,
@@ -58,12 +62,13 @@ const StudentEditPage = () => {
   } = useForm<Student>();
 
   const { updateStudent, getStudentById } = useStudentService();
-  const { query, push } = useRouter();
-  const { id } = query;
+  const { push } = useRouter();
 
-  const handleGetStudent = () => getStudentById(Number(id)).then((res) => res.data);
-
-  const { data, isLoading } = useSWR<ResultResponse<Student>>([id], handleGetStudent);
+  const { data, isLoading } = useSWR<ResultResponse<Student>>([id], () =>
+    getStudentById(Number(id))
+      .then((res) => res.data)
+      .catch((error) => error)
+  );
 
   useEffect(() => {
     if (data) {
@@ -324,30 +329,43 @@ const StudentEditPage = () => {
                         {familyMembers?.map((familyMember: Family, index: number) => (
                           <div key={index}>
                             {index > 0 && <Divider style={{ marginBottom: '1rem' }} />}
-                            <Select
-                              label={`Người thân ${index + 1}`}
-                              data={FamilyRelationshipList}
-                              value={getValues(`families.${index}.relationship`)}
-                              onChange={(value) => {
-                                setValue(
-                                  `families.${index}.relationship`,
-                                  (value as FamilyRelationship) || FamilyRelationship.Other
-                                );
-                                trigger(`families.${index}.relationship`);
-                              }}
-                              error={errors.info?.gender?.message}
-                            />
-                            <TextInput
-                              label="Tên"
-                              {...register(`families.${index}.full_name`, {
-                                required: ERROR_MESSAGES.family.full_name.required,
-                              })}
-                            />
-                            <TextInput
-                              label="Số điện thoại"
-                              {...register(`families.${index}.phone`)}
-                            />
-                            <TextInput label="Nghề nghiệp" {...register(`families.${index}.job`)} />
+                            <Grid>
+                              <Grid.Col span={3}>
+                                <Select
+                                  label={`Người thân ${index + 1}`}
+                                  data={FamilyRelationshipList}
+                                  value={getValues(`families.${index}.relationship`)}
+                                  onChange={(value) => {
+                                    setValue(
+                                      `families.${index}.relationship`,
+                                      (value as FamilyRelationship) || FamilyRelationship.Other
+                                    );
+                                    trigger(`families.${index}.relationship`);
+                                  }}
+                                  error={errors.info?.gender?.message}
+                                />
+                              </Grid.Col>
+                              <Grid.Col span={3}>
+                                <TextInput
+                                  label="Tên"
+                                  {...register(`families.${index}.full_name`, {
+                                    required: ERROR_MESSAGES.family.full_name.required,
+                                  })}
+                                />
+                              </Grid.Col>
+                              <Grid.Col span={3}>
+                                <TextInput
+                                  label="Số điện thoại"
+                                  {...register(`families.${index}.phone`)}
+                                />
+                              </Grid.Col>
+                              <Grid.Col span={3}>
+                                <TextInput
+                                  label="Nghề nghiệp"
+                                  {...register(`families.${index}.job`)}
+                                />
+                              </Grid.Col>
+                            </Grid>
                             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                               <Button
                                 onClick={() => handleRemoveFamilyMember(index)}
@@ -363,9 +381,15 @@ const StudentEditPage = () => {
                             <div style={{ marginBottom: '1rem' }} />
                           </div>
                         ))}
-                        <Button onClick={handleAddFamilyMember} leftSection={<IconPlus />}>
-                          Thêm mới
-                        </Button>
+                        <div style={{ textAlign: 'right' }}>
+                          <Button
+                            style={{ maxWidth: '200px' }}
+                            onClick={handleAddFamilyMember}
+                            leftSection={<IconPlus />}
+                          >
+                            Thêm mới
+                          </Button>
+                        </div>
                       </Stack>
                     </Fieldset>
                   </Surface>

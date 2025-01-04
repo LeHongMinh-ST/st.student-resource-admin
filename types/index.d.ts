@@ -59,6 +59,7 @@ type AdmissionYear = {
   admission_year: string;
   school_year: string;
   student_count: number;
+  classes_count: number;
   currently_studying_count: number;
   created_at?: string;
   updated_at?: string;
@@ -241,6 +242,7 @@ type TrainingIndustry = {
   id?: number;
   name: string;
   code: string;
+  general_classes_count: number;
   status: StatusEnum;
   created_at?: string;
   updated_at?: string;
@@ -257,7 +259,8 @@ type GeneralClass = {
   created_at?: string;
   updated_at?: string;
   faculty_id?: number;
-  major_id?: number;
+  training_industry_id?: number;
+  training_industry?: TrainingIndustry;
   teacher_id?: number | string;
   sub_teacher_id?: number | string;
   teacher?: User;
@@ -269,6 +272,7 @@ type GeneralClass = {
   };
   admission_year_id: number;
   admission_year?: AdmissionYear;
+  students_count: number;
 };
 
 type Graduation = {

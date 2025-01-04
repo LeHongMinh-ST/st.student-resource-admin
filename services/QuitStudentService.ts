@@ -28,13 +28,6 @@ export const useQuitStudentService = () => {
     id: number | string
   ): Promise<AxiosResponse<ResultResponse<Quit>, any>> => axiosInstance.get(`/quit/${id}`);
 
-  const importExcelFileQuitStudent = (data: FormData): Promise<AxiosResponse<void, any>> =>
-    axiosInstance.post('/quit/import-student', data, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-
   const getSemesters = (): Promise<AxiosResponse<Semester[], any>> =>
     axiosInstance.get('/semesters');
 
@@ -49,7 +42,6 @@ export const useQuitStudentService = () => {
     createQuitStudent,
     updateQuitStudent,
     deleteQuitStudent,
-    importExcelFileQuitStudent,
     getQuitStudentById,
     getSemesters,
     getListStudent,
