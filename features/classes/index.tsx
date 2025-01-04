@@ -51,21 +51,19 @@ const ClassPage = () => {
           />
           <Paper p="md" shadow="md" radius="md">
             {authUser?.role === Role.Teacher && <ClassList />}
-            {authUser?.role === Role.Admin && (
-              <>
-                {admissionYearSelected ? (
-                  <ClassList />
-                ) : (
-                  <AdmissionYearList
-                    admissionYears={admissions || []}
-                    onSelect={(admissionYear: AdmissionYear) =>
-                      setAdmissionYearSelected(admissionYear)
-                    }
-                    fetching={isLoading}
-                  />
-                )}
-              </>
-            )}
+
+            {authUser?.role === Role.Admin &&
+              (admissionYearSelected ? (
+                <ClassList />
+              ) : (
+                <AdmissionYearList
+                  admissionYears={admissions || []}
+                  onSelect={(admissionYear: AdmissionYear) =>
+                    setAdmissionYearSelected(admissionYear)
+                  }
+                  fetching={isLoading}
+                />
+              ))}
           </Paper>
         </Stack>
       </Container>
