@@ -386,3 +386,5 @@ type SchoolYear = {
   start_year: string;
   end_year: string;
 };
+
+type UpdateRequest = {};

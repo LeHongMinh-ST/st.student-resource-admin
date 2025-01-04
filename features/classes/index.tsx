@@ -13,6 +13,8 @@ import {
 } from '@/utils/recoil/classess/AdmissionYearClassState';
 import AdmissionYearList from './components/Admission/AdmissionYearList';
 import AdmissionYearItem from './components/Admission/AdmissionYearItem';
+import { useAuthStore } from '@/utils/recoil/auth/authState';
+import Role from '@/enums/role.enum';
 
 const ClassPage = () => {
   const admissionYearSelected = useAdmissionYearClassProps();
@@ -23,6 +25,7 @@ const ClassPage = () => {
     getListAdmission().then((res) => res?.data?.data)
   );
 
+  const { authUser } = useAuthStore();
   return (
     <ClassPageStyled>
       <Container fluid>
@@ -47,14 +50,21 @@ const ClassPage = () => {
             }
           />
           <Paper p="md" shadow="md" radius="md">
-            {admissionYearSelected ? (
-              <ClassList />
-            ) : (
-              <AdmissionYearList
-                admissionYears={admissions || []}
-                onSelect={(admissionYear: AdmissionYear) => setAdmissionYearSelected(admissionYear)}
-                fetching={isLoading}
-              />
+            {authUser?.role === Role.Teacher && <ClassList />}
+            {authUser?.role === Role.Admin && (
+              <>
+                {admissionYearSelected ? (
+                  <ClassList />
+                ) : (
+                  <AdmissionYearList
+                    admissionYears={admissions || []}
+                    onSelect={(admissionYear: AdmissionYear) =>
+                      setAdmissionYearSelected(admissionYear)
+                    }
+                    fetching={isLoading}
+                  />
+                )}
+              </>
             )}
           </Paper>
         </Stack>
