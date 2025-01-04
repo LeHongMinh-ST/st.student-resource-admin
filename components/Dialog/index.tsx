@@ -1,12 +1,14 @@
 import { ActionIcon, Dialog, Text } from '@mantine/core';
 import styled from '@emotion/styled';
 import { IconMaximize, IconMinus, IconX } from '@tabler/icons-react';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { StatusFileImportBadge } from '@/components';
 import {
   useIsCancelExportFile,
+  useIsProcessDownload,
   useIsShowProgres,
   useSetIsCancelExportFile,
+  useSetIsProcessDownload,
   useSetIsShowProgres,
   useSetZipExportFileProps,
 } from '@/utils/recoil/fileExport/FileExportState';
@@ -22,17 +24,28 @@ const DialogDownload = ({ zipFileDownload, handlerAction }: DialogProps) => {
   const setZipExportFile = useSetZipExportFileProps();
   const isShowProgress = useIsShowProgres();
   const isCancelExportFile = useIsCancelExportFile();
+  const isProcessDownload = useIsProcessDownload();
+  const setIsProcessDownload = useSetIsProcessDownload();
   const setIsShowProgress = useSetIsShowProgres();
   const setIsCancelExportFile = useSetIsCancelExportFile();
 
-  if (zipFileDownload && zipFileDownload?.status === 'completed' && zipFileDownload?.id) {
-    handlerAction(zipFileDownload?.id);
-  }
+  useEffect(() => {
+    if (
+      zipFileDownload &&
+      zipFileDownload?.status === 'completed' &&
+      zipFileDownload?.id &&
+      !isProcessDownload
+    ) {
+      setIsProcessDownload(true);
+      handlerAction(zipFileDownload?.id);
+    }
+  }, []);
 
   const handleDelete = useCallback(async () => {
     setZipExportFile(null);
     setIsShowProgress(false);
     setIsCancelExportFile(false);
+    setIsProcessDownload(false);
   }, []);
 
   const onClose = () => {
@@ -117,7 +130,12 @@ const DialogDownload = ({ zipFileDownload, handlerAction }: DialogProps) => {
                   color="red"
                   aria-label=" action icon"
                   onClick={() => {
-                    onOpen();
+                    if (!isProcessDownload) {
+                      onOpen();
+                    } else {
+                      setZipExportFile(null);
+                      setIsProcessDownload(false);
+                    }
                   }}
                 >
                   <IconX />

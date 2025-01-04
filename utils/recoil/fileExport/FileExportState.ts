@@ -14,6 +14,17 @@ export const useSetIsShowProgres = () => {
   return useCallback(setState, [setState]);
 };
 
+export const IsProcessDownloadState = atom<boolean>({
+  key: 'isProcessDownloadState',
+  default: false,
+});
+
+export const useIsProcessDownload = () => useRecoilValue(IsProcessDownloadState);
+export const useSetIsProcessDownload = () => {
+  const setState = useSetRecoilState(IsProcessDownloadState);
+  return useCallback(setState, [setState]);
+};
+
 export const IsCancelExportFileState = atom<boolean>({
   key: 'isCancelExportFileState',
   default: false,
