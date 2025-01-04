@@ -49,7 +49,6 @@ export const useZipExportHandler = () => {
     try {
       const res = await downloadFileZipSurveyResponse(id);
       const url: string = window.URL.createObjectURL(new Blob([(res as any)?.data]));
-
       const link = document.createElement('a');
       link.href = url;
       link.setAttribute('download', `response_survey_${id}.zip`);
@@ -59,11 +58,6 @@ export const useZipExportHandler = () => {
       // Clean up after download
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
-
-      // Clear popup after 1s
-      setTimeout(() => {
-        setZipExportFile(null);
-      }, 2000);
     } catch (error) {
       console.log(error);
 
