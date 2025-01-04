@@ -8,7 +8,7 @@ export type ClassListParams = {
   status?: Status;
   q?: string;
   type?: string;
-  admission_year_id?: number | string;
+  admission_year_id?: number | string | null;
   training_industry_id?: number | string;
   type_class?: ClassType;
 } & BaseParamsList;

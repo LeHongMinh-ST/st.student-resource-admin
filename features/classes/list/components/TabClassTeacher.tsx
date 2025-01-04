@@ -26,7 +26,7 @@ const TabClassTeacher = () => {
   const { getTrainingIndustryClassByAdmissionYear } = useTrainingIndustryService();
   const [classParams, setClassParams] = useState<ClassListParams>({
     status: StatusEnum.Enable,
-    admission_year_id: admissionYearSelected?.id,
+    admission_year_id: admissionYearSelected?.id ?? null,
     ...defaultPramsList,
   });
 
