@@ -14,19 +14,14 @@ import TeacherNameCellTable from '@/features/classes/components/Cells/TeacherNam
 import StatusFilter from '@/features/departments/components/Filters/StatusFilter';
 import { classRoute } from '@/routes';
 import { ClassListParams, useClassService } from '@/services/classService';
-import { GeneralClass, ResultResponse, TrainingIndustry } from '@/types';
+import { GeneralClass, ResultResponse } from '@/types';
 import { formatDateString } from '@/utils/func/formatDateString';
-import { useAdmissionYearClassProps } from '@/utils/recoil/classess/AdmissionYearClassState';
-import { useTrainingIndustryService } from '@/services/trainingIndustryService';
 
 type ActiveTabType = 'teacher' | 'sub_teacher';
 const TabClassTeacher = () => {
-  const admissionYearSelected = useAdmissionYearClassProps();
   const classService = useClassService();
-  const { getTrainingIndustryClassByAdmissionYear } = useTrainingIndustryService();
   const [classParams, setClassParams] = useState<ClassListParams>({
     status: StatusEnum.Enable,
-    admission_year_id: admissionYearSelected?.id ?? null,
     ...defaultPramsList,
   });
 
@@ -36,15 +31,6 @@ const TabClassTeacher = () => {
   const { push } = useRouter();
   const [isOpen, { open: onOpen, close: onClose }] = useDisclosure(false);
   const [selected, setSelected] = useState<GeneralClass | null>(null);
-
-  const { data: trainingIndustries } = useSWR<TrainingIndustry[]>(
-    ['getTrainingIndustryClassByAdmissionYear', admissionYearSelected],
-    () =>
-      getTrainingIndustryClassByAdmissionYear(Number(admissionYearSelected?.id))
-        .then((res) => res.data)
-        .catch((e) => e)
-  );
-  console.log(trainingIndustries);
 
   const { data, isLoading, mutate } = useSWR<ResultResponse<GeneralClass[]>>([classParams], () =>
     classService
