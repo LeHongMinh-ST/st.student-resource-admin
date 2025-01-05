@@ -1,5 +1,3 @@
-'use client';
-
 import styled from '@emotion/styled';
 import {
   Button,
@@ -253,6 +251,26 @@ const StudentEditPage: FC<Props> = ({ id }) => {
                           }}
                           error={errors.info?.gender?.message}
                         />
+                        <Select
+                          label="Loại hình đào tạo"
+                          data={TrainingTypeList}
+                          value={getValues('info.training_type')}
+                          onChange={(value) => {
+                            setValue('info.training_type', value as TrainingType);
+                            trigger('info.training_type');
+                          }}
+                          error={errors.info?.training_type?.message}
+                        />
+                        <Select
+                          label="Chế độ chính sách"
+                          data={SocialPolicyObjectList}
+                          value={getValues('info.social_policy_object')}
+                          onChange={(value) => {
+                            setValue('info.social_policy_object', value as SocialPolicyObject);
+                            trigger('info.social_policy_object');
+                          }}
+                          error={errors.info?.social_policy_object?.message}
+                        />
                       </Stack>
                     </Fieldset>
                   </Surface>
@@ -284,37 +302,22 @@ const StudentEditPage: FC<Props> = ({ id }) => {
                           {...register('info.countryside')}
                           error={errors.info?.countryside?.message}
                         />
-                        <Select
-                          label="Loại hình đào tạo"
-                          data={TrainingTypeList}
-                          value={getValues('info.training_type')}
-                          onChange={(value) => {
-                            setValue('info.training_type', value as TrainingType);
-                            trigger('info.training_type');
-                          }}
-                          error={errors.info?.training_type?.message}
-                        />
-                        <TextInput
-                          label="Dân tộc"
-                          {...register('info.ethnic')}
-                          error={errors.info?.ethnic?.message}
-                        />
-                        <TextInput
-                          label="Tôn giáo"
-                          {...register('info.religion')}
-                          error={errors.info?.religion?.message}
-                        />
-
-                        <Select
-                          label="Chế độ chính sách"
-                          data={SocialPolicyObjectList}
-                          value={getValues('info.social_policy_object')}
-                          onChange={(value) => {
-                            setValue('info.social_policy_object', value as SocialPolicyObject);
-                            trigger('info.social_policy_object');
-                          }}
-                          error={errors.info?.social_policy_object?.message}
-                        />
+                        <Grid>
+                          <Grid.Col span={{ base: 12, md: 6 }}>
+                            <TextInput
+                              label="Dân tộc"
+                              {...register('info.ethnic')}
+                              error={errors.info?.ethnic?.message}
+                            />
+                          </Grid.Col>
+                          <Grid.Col span={{ base: 12, md: 6 }}>
+                            <TextInput
+                              label="Tôn giáo"
+                              {...register('info.religion')}
+                              error={errors.info?.religion?.message}
+                            />
+                          </Grid.Col>
+                        </Grid>
                       </Stack>
                     </Fieldset>
                   </Surface>
