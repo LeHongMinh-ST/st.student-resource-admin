@@ -11,6 +11,8 @@ export type ClassListParams = {
   admission_year_id?: number | string | null;
   training_industry_id?: number | string;
   type_class?: ClassType;
+  teacher_id?: number | null;
+  sub_teacher_id?: number | null;
 } & BaseParamsList;
 
 export type GeneralClassUpdate = {
