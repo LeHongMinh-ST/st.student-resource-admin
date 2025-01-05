@@ -6,6 +6,7 @@ import { BaseParamsList, ResultResponse, SurveyPeriod, ZipExportFile } from '@/t
 export type SurveyPeriodListParams = {
   status?: Status;
   q?: string;
+  year?: number;
 } & BaseParamsList;
 
 export const useSurveyPeriodService = () => {

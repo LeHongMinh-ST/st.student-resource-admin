@@ -11,6 +11,7 @@ import {
   IconUser,
   IconMessageQuestion,
   IconSchool,
+  IconTable,
 } from '@tabler/icons-react';
 import { SidebarNavigationProps, User } from '@/types';
 import { dashboardRoute, studentRoute, userRoute } from '@/routes';
@@ -45,12 +46,13 @@ export const sidebarNavigationAdmin: SidebarNavigationProps[] = [
     ],
     // {
   },
-  //   title: 'Báo cáo - thống kê',
-  //   links: [
-  //     { label: 'Tình hình việc làm', icon: IconChartDots, link: '/statistics-job' },
-  //     { label: 'Báo cáo tổng hợp', icon: IconChartBar, link: '/statistics' },
-  //   ],
-  // },
+  {
+    title: 'Báo cáo - thống kê',
+    links: [
+      { label: 'Báo cáo tổng hợp', icon: IconTable, link: '/statistics-overview' },
+      // { label: 'Báo cáo tổng hợp', icon: IconChartBar, link: '/statistics' },
+    ],
+  },
   {
     title: 'Hệ thống',
     links: [

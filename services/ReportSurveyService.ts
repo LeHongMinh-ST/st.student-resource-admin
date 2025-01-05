@@ -12,6 +12,10 @@ export type DownloadFileExcelTemplateImportParams = {
   survey_id?: number;
 };
 
+export type getReportTemplateImportParams = {
+  survey_id?: number;
+};
+
 export const useReportSurveyService = () => {
   const downloadReportTemplate03 = (
     params: DownloadFileExcelTemplateImportParams
@@ -37,9 +41,27 @@ export const useReportSurveyService = () => {
       responseType: 'blob',
     });
 
+  const getReportTemplate01 = (
+    params: getReportTemplateImportParams | null = null
+  ): Promise<AxiosResponse<ResultResponse<[]>, any>> =>
+    axiosInstance.get('/reports/get-employment-survey-template-one', { params });
+
+  const getReportTemplate02 = (
+    params: getReportTemplateImportParams | null = null
+  ): Promise<AxiosResponse<ResultResponse<[]>, any>> =>
+    axiosInstance.get('/reports/get-employment-survey-template-two', { params });
+
+  const getReportTemplate03 = (
+    params: getReportTemplateImportParams | null = null
+  ): Promise<AxiosResponse<ResultResponse<[]>, any>> =>
+    axiosInstance.get('/reports/get-employment-survey-template-three', { params });
+
   return {
     downloadReportTemplate03,
     downloadReportTemplate01,
     downloadReportTemplate02,
+    getReportTemplate01,
+    getReportTemplate02,
+    getReportTemplate03,
   };
 };

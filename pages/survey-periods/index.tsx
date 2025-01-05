@@ -1,3 +1,5 @@
+import Role from '@/enums/role.enum';
 import SurveyPeriodPage from '@/features/survey-periods';
+import { withAuth } from '@/hoc/withAuth';
 
-export default SurveyPeriodPage;
+export default withAuth(SurveyPeriodPage, [Role.Admin, Role.Office]);
