@@ -22,6 +22,7 @@ import Role from '@/enums/role.enum';
 import { useAdmissionYearClassProps } from '@/utils/recoil/classess/AdmissionYearClassState';
 import { useTrainingIndustryService } from '@/services/trainingIndustryService';
 import { ClassType } from '@/enums';
+import TeacherFilter from '../../components/Filters/TeacherFilter';
 
 type ActiveTabType = 'all' | ClassType.Basic | string | 'major_none';
 const TabClassAdmin = () => {
@@ -82,10 +83,10 @@ const TabClassAdmin = () => {
             label="Tìm kiếm'"
             placeholder="vd: Tên lớp, mã lớp..."
             setParams={(value) => {
-              setClassParams({
-                ...classParams,
+              setClassParams((pre) => ({
+                ...pre,
                 q: value,
-              });
+              }));
             }}
             searchTermValue={classParams.q}
           />
@@ -98,7 +99,20 @@ const TabClassAdmin = () => {
         render: (generalClass: GeneralClass) => (
           <TeacherNameCellTable user={generalClass?.teacher} />
         ),
-        filtering: true,
+        filter: (
+          <TeacherFilter
+            label="Giáo viên chủ nhiệm"
+            placeholder="Chọn giáo viên"
+            value={classParams.teacher_id}
+            onChange={(value) => {
+              setClassParams((pre) => ({
+                ...pre,
+                teacher_id: value,
+              }));
+            }}
+          />
+        ),
+        filtering: !!classParams.teacher_id,
       },
       {
         accessor: 'teacher_name',
@@ -106,7 +120,20 @@ const TabClassAdmin = () => {
         render: (generalClass: GeneralClass) => (
           <TeacherNameCellTable user={generalClass?.sub_teacher} />
         ),
-        filtering: true,
+        filter: (
+          <TeacherFilter
+            label="Cố vấn học tập"
+            placeholder="Chọn giáo viên"
+            value={classParams.sub_teacher_id}
+            onChange={(value) => {
+              setClassParams((pre) => ({
+                ...pre,
+                sub_teacher_id: value,
+              }));
+            }}
+          />
+        ),
+        filtering: !!classParams.sub_teacher_id,
       },
       {
         accessor: 'admission_years',
@@ -145,7 +172,15 @@ const TabClassAdmin = () => {
         ),
       },
     ],
-    [classParams.status, onOpen, setSelected, activeTab]
+    [
+      classParams.status,
+      onOpen,
+      setSelected,
+      activeTab,
+      classParams.q,
+      classParams.sub_teacher_id,
+      classParams.teacher_id,
+    ]
   );
   const renderDataTable = useCallback(
     () => (
